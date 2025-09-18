@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, useNavigate } from "next/navigation";
+import { Link, useRouter } from "next/navigation";
 import {
   Avatar,
   Button,

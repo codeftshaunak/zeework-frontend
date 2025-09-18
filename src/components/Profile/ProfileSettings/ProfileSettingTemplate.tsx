@@ -6,7 +6,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import FreelancerSettings from "./FreelancerSettings/FreelancerSettings";
 import ClientSettings from "./ClientSettings/ClientSettings";
-import { useParams, useNavigate } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const ProfileSettingTemplate = () => {
   const role = useSelector((state: any) => state?.auth?.role);

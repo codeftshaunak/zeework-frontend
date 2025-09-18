@@ -14,7 +14,7 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "next/navigation";
+import { Link, useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { useState } from "react";

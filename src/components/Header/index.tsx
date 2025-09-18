@@ -14,7 +14,8 @@ import {
   DrawerContent,
   Button,
 } from "@chakra-ui/react";
-import { Link, useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import CTAButton from "../CTAButton";
 import { RiArrowDropDownLine, RiSearchLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
@@ -375,7 +376,7 @@ export const AuthHeader = ({ role }) => {
   const [cookie, setCookie] = useCookies(["activeagency"]);
   const [isSelectModal, setIsSelectModal] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
-  const { pathname } = usePathname();
+  const pathname = usePathname();
   const isMessagePage = pathname.startsWith("/message");
   const activeAgency = cookie?.activeagency;
   const selectModalRef = useRef(null);
@@ -1299,7 +1300,7 @@ const NavItem = ({
   };
 
   return (
-    <Link to={url} onClick={handleClick}>
+    <Link href={url} onClick={handleClick}>
       <div
         className={`cursor-pointer flex items-center gap-1 ${
           isActive ? "text-[var(--primarycolor)]" : "text-[#374151]"

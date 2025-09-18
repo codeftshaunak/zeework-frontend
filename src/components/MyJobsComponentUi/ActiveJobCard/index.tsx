@@ -1,5 +1,5 @@
 import { Box, Flex, Text, Image, VStack } from "@chakra-ui/react";
-import { Link, useNavigate } from "next/navigation";
+import { Link, useRouter } from "next/navigation";
 
 const ActiveJobCard = ({ job }) => {
   const { _id, job_type, contract_title, hourly_rate, budget, status } =

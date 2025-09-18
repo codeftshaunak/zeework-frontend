@@ -10,7 +10,7 @@ import {
   
   Tabs,
 } from "@chakra-ui/react";
-import { useParams, useNavigate } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toaster } from "@/lib/providers";
 import StarRatings from "react-star-ratings";
 import { FaLocationDot } from "react-icons/fa6";

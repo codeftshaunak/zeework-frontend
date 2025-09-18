@@ -1,5 +1,5 @@
 import LinkArrowIcon from "../../assets/icons/link-arrow";
-import { Link, useNavigate } from "next/navigation";
+import { Link, useRouter } from "next/navigation";
 import { Image, HStack } from "@chakra-ui/react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";

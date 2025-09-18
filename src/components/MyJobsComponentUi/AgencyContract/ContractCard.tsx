@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
-import { Link, useNavigate } from "next/navigation";
+import { Link, useRouter } from "next/navigation";
 
 const ContractCard = ({ job }) => {
   const { _id, job_type, contract_title, hourly_rate, budget, status } =
