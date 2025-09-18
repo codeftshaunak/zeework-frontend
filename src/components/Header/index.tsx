@@ -2,17 +2,12 @@
 
 import {
   Box,
-  Avatar,
   VStack,
   useDisclosure,
-  Drawer,
-  DrawerBody,
   Tabs,
-  
-  
-  
-  DrawerContent,
   Button,
+  Drawer,
+  Avatar,
 } from "@chakra-ui/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -223,16 +218,14 @@ export const Header = () => {
           </div>
 
           {/* Mobile menu for /home route */}
-          <Drawer
-            isOpen={isOpen}
-            placement={isMenuRef ? "left" : "right"}
-            onClose={onClose}
-            finalFocusRef={btnRef}
+          <Drawer.Root
+            open={isOpen}
+            placement={isMenuRef ? "start" : "end"}
+            onOpenChange={({ open }) => !open && onClose()}
             size={"full"}
-            isFullHeight={false}
           >
-            <DrawerContent DrawerContent mt={isMenuRef ? 16 : 0}>
-              <DrawerBody>
+            <Drawer.Content mt={isMenuRef ? 16 : 0}>
+              <Drawer.Body>
                 {isMenuRef ? (
                   <div className="md:block lg:hidden">
                     <div className="px-2 pt-2 pb-3 flex justify-center items-center flex-col">
@@ -334,9 +327,9 @@ export const Header = () => {
                     </div>
                   </div>
                 )}
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
+              </Drawer.Body>
+            </Drawer.Content>
+          </Drawer.Root>
 
           {/* <div className="md:hidden mt-2">
             <button
@@ -1055,16 +1048,14 @@ export const AuthHeader = ({ role }) => {
       </div>
 
       {/* Mobile nav links and searching */}
-      <Drawer
-        isOpen={isOpen}
-        placement={isMenuRef ? "left" : "right"}
-        onClose={onClose}
-        finalFocusRef={btnRef}
+      <Drawer.Root
+        open={isOpen}
+        placement={isMenuRef ? "start" : "end"}
+        onOpenChange={({ open }) => !open && onClose()}
         size={"full"}
-        isFullHeight={false}
       >
-        <DrawerContent DrawerContent mt={isMenuRef ? 16 : 0}>
-          <DrawerBody>
+        <Drawer.Content mt={isMenuRef ? 16 : 0}>
+          <Drawer.Body>
             {isMenuRef ? (
               <div>
                 <div className="grid gap-3 tracking-wide">
@@ -1265,9 +1256,9 @@ export const AuthHeader = ({ role }) => {
                 </div>
               </div>
             )}
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Root>
     </nav>
   );
 };

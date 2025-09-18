@@ -13,7 +13,7 @@ import {
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { uploadImage } from "../../helpers/APIs/userApis";
 import { profileData } from "../../redux/authSlice/profileSlice";
-import { useLocation } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../helpers/manageImages/getCroppedImg";
@@ -26,7 +26,7 @@ const ProfilePhotoNotify = () => {
   const profile = useSelector((state: any) => state.profile.profile);
   const role = useSelector((state: any) => state.auth.role);
   const [isCloseNotification, setIsCloseNotification] = useState(
-    sessionStorage.getItem("profileImgNotify")
+    typeof window !== "undefined" ? sessionStorage.getItem("profileImgNotify") : null
   );
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ const ProfilePhotoNotify = () => {
   const [isCropped, setIsCropped] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const { pathname } = usePathname();
+  const pathname = usePathname();
 
   const handleToastClose = () => {
     setIsCloseNotification("true");
