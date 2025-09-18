@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Tabs,    TabPanel } from "@chakra-ui/react";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 // import { BsChevronRight } from "react-icons/bs";
 const DataListData = [
@@ -28,8 +28,8 @@ const DataListData = [
 ];
 
 const BillingEarning = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const [userActiveTab, setUserActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
+  const [userActive setUserActiveTab] = useState(0);
   const [selectedDate, setSelectedDate] = useState(
     "Oct 01 , 2022-sep 18, 2023"
   );
@@ -51,11 +51,11 @@ const BillingEarning = () => {
             experience preferred. Share your{" "}
           </p>
         </div>
-        <Tabs variant="unstyled">
-          <TabList className="w-full">
+        <Tabs.Root variant="unstyled">
+          <Tabs.List className="w-full">
             <div className="main-tab-wrapper relative lg:mb-[30px] mb-6 w-full">
               <div className="flex space-x-[26px] relative z-10">
-                <Tab
+                <Tabs.Trigger
                   onClick={() => setActiveTab(0)}
                   type="button"
                   className={` font-medium text-lg py-3 border-b-4  ${
@@ -65,8 +65,8 @@ const BillingEarning = () => {
                   }`}
                 >
                   Billing & Earning
-                </Tab>
-                <Tab
+                </Tabs.Trigger>
+                <Tabs.Trigger
                   onClick={() => setActiveTab(1)}
                   type="button"
                   className={` font-medium text-lg py-3 border-b-4  ${
@@ -76,15 +76,15 @@ const BillingEarning = () => {
                   }`}
                 >
                   Lifetime billed
-                </Tab>
+                </Tabs.Trigger>
               </div>
               <div className="w-full h-[1px] bg-[#E0E0E0] absolute left-0 bottom-[1.5px]"></div>
             </div>
-          </TabList>
+          </Tabs.List>
           <SmoothMotion key={activeTab}>
             {" "}
-            <TabPanels>
-              <TabPanel>
+            <Tabs.Content>
+              <Tabs.Content>
                 <div className="tab-body">
                   <div className="flex lg:flex-row flex-col space-y-5 lg:space-y-0 lg:justify-between lg:items-end mb-10">
                     <div>
@@ -275,11 +275,11 @@ const BillingEarning = () => {
                       </a>
                     </div>
                   </div>
-                  <Tabs variant="unstyled">
+                  <Tabs.Root variant="unstyled">
                     <div className="w-full border rounded-[10px]  flex lg:flex-row flex-col min-h-[561px]">
-                      <TabList>
+                      <Tabs.List>
                         <div className="lg:w-[250px] w-full py-10 px-6 flex lg:flex-col lg:items-start lg:border-r lg:space-y-3 space-x-3 lg:space-x-0 flex-wrap lg:flex-nowrap">
-                          <Tab
+                          <Tabs.Trigger
                             onClick={() => setUserActiveTab(0)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 0
@@ -288,8 +288,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Anthony Media Group
-                          </Tab>
-                          <Tab
+                          </Tabs.Trigger>
+                          <Tabs.Trigger
                             onClick={() => setUserActiveTab(1)}
                             className={`hover:bg-primary hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 1
@@ -298,8 +298,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Benji Hochberg
-                          </Tab>
-                          <Tab
+                          </Tabs.Trigger>
+                          <Tabs.Trigger
                             onClick={() => setUserActiveTab(2)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 2
@@ -308,8 +308,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Eduardo Manetas
-                          </Tab>
-                          <Tab
+                          </Tabs.Trigger>
+                          <Tabs.Trigger
                             onClick={() => setUserActiveTab(3)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 3
@@ -318,8 +318,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Izhar Ali
-                          </Tab>
-                          <Tab
+                          </Tabs.Trigger>
+                          <Tabs.Trigger
                             onClick={() => setUserActiveTab(4)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 4
@@ -328,12 +328,12 @@ const BillingEarning = () => {
                             }`}
                           >
                             Majid Tahir
-                          </Tab>
+                          </Tabs.Trigger>
                         </div>
-                      </TabList>
+                      </Tabs.List>
                       <SmoothMotion key={userActiveTab}>
-                        <TabPanels>
-                          <TabPanel p={0}>
+                        <Tabs.Content>
+                          <Tabs.Content p={0}>
                             <div className="flex-1 lg:px-6 lg:py-[30px]">
                               <div className="tab-body-wrapper ">
                                 <div className="border rounded-[10px] overflow-hidden">
@@ -395,21 +395,21 @@ const BillingEarning = () => {
                                 </div>
                               </div>
                             </div>
-                          </TabPanel>
-                          <TabPanel>something</TabPanel>
-                          <TabPanel>something</TabPanel>
-                          <TabPanel>something</TabPanel>
-                          <TabPanel>something</TabPanel>
-                        </TabPanels>
+                          </Tabs.Content>
+                          <Tabs.Content>something</Tabs.Content>
+                          <Tabs.Content>something</Tabs.Content>
+                          <Tabs.Content>something</Tabs.Content>
+                          <Tabs.Content>something</Tabs.Content>
+                        </Tabs.Content>
                       </SmoothMotion>
                     </div>
-                  </Tabs>
+                  </Tabs.Root>
                 </div>
-              </TabPanel>
-              <TabPanel>Life Time</TabPanel>
-            </TabPanels>
+              </Tabs.Content>
+              <Tabs.Content>Life Time</Tabs.Content>
+            </Tabs.Content>
           </SmoothMotion>
-        </Tabs>
+        </Tabs.Root>
       </div>
     </>
   );

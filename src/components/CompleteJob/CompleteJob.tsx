@@ -3,11 +3,11 @@
 import {
   Avatar,
   Button,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
+  
   Tabs,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ const CompleteJob = () => {
   const [jobDetails, setJobDetails] = useState({});
   const [timeSheet, setTimeSheet] = useState({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
 
   const { id } = useParams();
   const router = useRouter();
@@ -72,28 +72,28 @@ const CompleteJob = () => {
           Completed Job Details
         </h2>
       </div>
-      <Tabs
+      <Tabs.Root
         position="relative"
         variant="unstyled"
         onChange={(index) => setActiveTab(index)}
       >
-        <TabList>
-          <Tab className="font-semibold text-[1.5rem]">Overview</Tab>
+        <Tabs.List>
+          <Tabs.Trigger className="font-semibold text-[1.5rem]">Overview</Tabs.Trigger>
           {jobDetails?.job_type === "hourly" && (
-            <Tab className="font-semibold text-[1.5rem] !hidden sm:!block">
+            <Tabs.Trigger className="font-semibold text-[1.5rem] !hidden sm:!block">
               Work Sheet
-            </Tab>
+            </Tabs.Trigger>
           )}
-        </TabList>
-        <TabIndicator
+        </Tabs.List>
+        <Tabs.Indicator
           mt="1.5px"
           height="2px"
           bg="var(--primarytextcolor)"
           borderRadius="1px"
         />
         <SmoothMotion key={activeTab}>
-          <TabPanels>
-            <TabPanel paddingX={0}>
+          <Tabs.Content>
+            <Tabs.Content paddingX={0}>
               {isLoading ? (
                 <InvitationSkeleton />
               ) : dataAvailable ? (
@@ -179,9 +179,9 @@ const CompleteJob = () => {
               ) : (
                 <DataNotAvailable onRefresh={getInvitationDetails} />
               )}
-            </TabPanel>
+            </Tabs.Content>
             {jobDetails?.job_type === "hourly" && (
-              <TabPanel paddingX={0}>
+              <Tabs.Content paddingX={0}>
                 {timeSheetLoading ? (
                   <HorizontalCardSkeleton className={"mt-3 sm:mt-5 lg:mt-10"} />
                 ) : timeSheet?.details ? (
@@ -196,11 +196,11 @@ const CompleteJob = () => {
                     }}
                   />
                 )}
-              </TabPanel>
+              </Tabs.Content>
             )}
-          </TabPanels>
+          </Tabs.Content>
         </SmoothMotion>
-      </Tabs>
+      </Tabs.Root>
     </div>
   );
 };

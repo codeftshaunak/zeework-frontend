@@ -1,45 +1,45 @@
 "use client";
 
 import {
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
+  
   Tabs,
 } from "@chakra-ui/react";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 import { useState } from "react";
 
 export const Hire = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
   return (
     <div className="flex flex-col gap-8 md:flex-row">
       <div className="overflow-hidden border rounded-lg basis-full bg-white">
-        <Tabs variant="unstyled" onChange={(index) => setActiveTab(index)}>
-          <TabList className="px-6 pt-4 border-b">
-            <Tab className="px-0 text-black">Offers</Tab>
-            <Tab className="px-0 text-black">Hired</Tab>
-          </TabList>
-          <TabIndicator
+        <Tabs.Root variant="unstyled" onChange={(index) => setActiveTab(index)}>
+          <Tabs.List className="px-6 pt-4 border-b">
+            <Tabs.Trigger className="px-0 text-black">Offers</Tabs.Trigger>
+            <Tabs.Trigger className="px-0 text-black">Hired</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Indicator
             height="2px"
             borderRadius="1px"
             color={"#000"}
             className=" bg-fg-brand"
           />
           <SmoothMotion key={activeTab}>
-            <TabPanels>
-              <TabPanel>
+            <Tabs.Content>
+              <Tabs.Content>
                 <div className="h-[196px] px-8 pt-8 pb-4 flex justify-center items-center ">
                   <p>You don’t have any hires yet</p>
                 </div>
-              </TabPanel>
-              <TabPanel>
+              </Tabs.Content>
+              <Tabs.Content>
                 <p>Hired!</p>
-              </TabPanel>
-            </TabPanels>
+              </Tabs.Content>
+            </Tabs.Content>
           </SmoothMotion>
-        </Tabs>
+        </Tabs.Root>
       </div>
     </div>
   );

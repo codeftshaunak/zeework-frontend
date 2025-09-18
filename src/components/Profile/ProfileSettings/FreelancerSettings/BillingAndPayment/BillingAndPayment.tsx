@@ -2,10 +2,10 @@
 
 import {
   Skeleton,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
   Tabs,
 } from "@chakra-ui/react";
 import AddPaymentDetails from "./AddPaymentDetails";
@@ -36,7 +36,7 @@ const BillingAndPayment = () => {
   return (
     <div className="border-[1px] border-[var(--bordersecondary)] rounded-lg bg-white overflow-hidden w-full">
       <Skeleton isLoaded={!isLoading} startColor="gray.50" endColor="gray.200">
-        <Tabs
+        <Tabs.Root
           position="relative"
           colorScheme="primary"
           padding={6}
@@ -45,32 +45,32 @@ const BillingAndPayment = () => {
           index={tab - 1}
           onChange={(index) => setTab(index + 1)}
         >
-          <TabList
+          <Tabs.List
             display={"flex"}
             flexDirection={{ base: "column", sm: "row" }}
           >
             {bankDetails?.payment_details && (
-              <Tab fontWeight={"semibold"}>Current Payment Details</Tab>
+              <Tabs.Trigger fontWeight={"semibold"}>Current Payment Details</Tabs.Trigger>
             )}
-            <Tab fontWeight={"semibold"}>Add Payment Method</Tab>
-          </TabList>
+            <Tabs.Trigger fontWeight={"semibold"}>Add Payment Method</Tabs.Trigger>
+          </Tabs.List>
           <SmoothMotion key={tab}>
-            <TabPanels>
+            <Tabs.Content>
               {bankDetails?.payment_details && (
-                <TabPanel padding={0}>
+                <Tabs.Content padding={0}>
                   <PaymentDetails
                     data={bankDetails}
                     setData={setBankDetails}
                     setTab={setTab}
                   />
-                </TabPanel>
+                </Tabs.Content>
               )}
-              <TabPanel padding={0}>
+              <Tabs.Content padding={0}>
                 <AddPaymentDetails setBank={setBankDetails} setTab={setTab} />
-              </TabPanel>
-            </TabPanels>
+              </Tabs.Content>
+            </Tabs.Content>
           </SmoothMotion>
-        </Tabs>
+        </Tabs.Root>
       </Skeleton>
     </div>
   );

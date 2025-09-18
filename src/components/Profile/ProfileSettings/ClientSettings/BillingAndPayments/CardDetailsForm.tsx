@@ -28,7 +28,7 @@ import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 import { useDispatch } from "react-redux";
 import { hideToast } from "../../../../../redux/toastSlice/toastSlice";
 
-export const CardDetailsForm = ({ setTab, setCard }) => {
+export const CardDetailsForm = ({ set setCard }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {

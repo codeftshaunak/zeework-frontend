@@ -8,11 +8,11 @@ import {
   Input,
   Stack,
   StackDivider,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
+  
   Tabs,
   Tooltip,
   useToast,
@@ -51,7 +51,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [isUserId, setIsUserId] = useState("");
   const [freelancerInfo, setFreelancerInfo] = useState({});
   const [searchText, setSearchText] = useState("");
-  const [activeTab, setActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
   const { socket } = useContext(SocketContext);
   const router = useRouter();
   const toast = useToast();
@@ -265,26 +265,26 @@ const InviteFreelancer = ({ appliedUsers }) => {
     <>
       <div className="flex flex-col gap-8 md:flex-row">
         <div className="overflow-hidden border rounded-lg basis-full bg-white">
-          <Tabs variant="unstyled" onChange={(index) => setActiveTab(index)}>
-            <TabList className="pt-4 border-b">
-              <Tab className="px-0 text-black">Search</Tab>
-              <Tab
+          <Tabs.Root variant="unstyled" onChange={(index) => setActiveTab(index)}>
+            <Tabs.List className="pt-4 border-b">
+              <Tabs.Trigger className="px-0 text-black">Search</Tabs.Trigger>
+              <Tabs.Trigger
                 className="px-0 text-black"
                 onClick={() => invitedFreelancer()}
               >
                 Invited freelancer
-              </Tab>
-              {/* <Tab className="px-0 text-black">My bg-green-100</Tab> */}
-            </TabList>
-            <TabIndicator
+              </Tabs.Trigger>
+              {/* <Tabs.Trigger className="px-0 text-black">My bg-green-100</Tabs.Trigger> */}
+            </Tabs.List>
+            <Tabs.Indicator
               height="2px"
               borderRadius="1px"
               color={"#000"}
               className=" bg-fg-brand"
             />
             <SmoothMotion key={activeTab}>
-              <TabPanels>
-                <TabPanel p={0}>
+              <Tabs.Content>
+                <Tabs.Content p={0}>
                   <div className="h-auto pt-5 pb-4">
                     <HStack
                       width={"100%"}
@@ -472,10 +472,10 @@ const InviteFreelancer = ({ appliedUsers }) => {
                       </div>
                     )}
                   </div>
-                </TabPanel>
-                <TabPanel p={0} bg={"#F3F4F6"}>
+                </Tabs.Content>
+                <Tabs.Content p={0} bg={"#F3F4F6"}>
                   {/* Invited freelancer */}
-                  <TabPanel p={0} bg={"#F3F4F6"}>
+                  <Tabs.Content p={0} bg={"#F3F4F6"}>
                     <div className="h-auto p-3 bg-white">
                       {loading ? (
                         <ReviewProposalSkeleton />
@@ -502,14 +502,14 @@ const InviteFreelancer = ({ appliedUsers }) => {
                         <>You haven&apos;t invited freelancer!</>
                       )}
                     </div>
-                  </TabPanel>
-                </TabPanel>
-                {/* <TabPanel>
+                  </Tabs.Content>
+                </Tabs.Content>
+                {/* <Tabs.Content>
           <p>My Hire!</p>
-        </TabPanel> */}
-              </TabPanels>
+        </Tabs.Content> */}
+              </Tabs.Content>
             </SmoothMotion>
-          </Tabs>
+          </Tabs.Root>
         </div>
         <UniversalModal
           isModal={open}

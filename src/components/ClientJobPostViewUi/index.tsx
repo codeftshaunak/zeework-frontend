@@ -134,25 +134,25 @@ export const ClientJobPostViewComponent = () => {
             </div>
           </div>
         </div>
-        {/* <Tabs onChange={(index) => setPage(index)} variant="unstyled">
-          <TabList gap={10}>
-            <Tab>View Job Post</Tab>
-            <Tab>Invite Freelancer</Tab>
+        {/* <Tabs.Root onChange={(index) => setPage(index)} variant="unstyled">
+          <Tabs.List gap={10}>
+            <Tab>View Job Post</Tabs.Trigger>
+            <Tab>Invite Freelancer</Tabs.Trigger>
             <Tab>
               Review Proposals (
               {jobDetails?.proposal_details &&
                 jobDetails.proposal_details.length}
               )
-            </Tab>
-            <Tab>Hire (0)</Tab>
-          </TabList>
-          <TabIndicator
+            </Tabs.Trigger>
+            <Tab>Hire (0)</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Indicator
             height="2px"
             borderRadius="1px"
             color={"#000"}
             className=" bg-fg-brand"
           />
-        </Tabs> */}
+        </Tabs.Root> */}
       </div>
 
       {page === 0 && <ViewJobPost />}

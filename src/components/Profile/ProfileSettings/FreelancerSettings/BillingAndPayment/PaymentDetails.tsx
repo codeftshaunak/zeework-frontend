@@ -8,7 +8,7 @@ import UniversalModal from "../../../../Modals/UniversalModal";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import { deleteBankDetails } from "../../../../../helpers/APIs/payments";
 
-const PaymentDetails = ({ data, setTab, setData }) => {
+const PaymentDetails = ({ data, set setData }) => {
   const [isHover, setIsHover] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

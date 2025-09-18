@@ -5,10 +5,10 @@ import {
   Text,
   Radio,
   Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
+  
+  
+  
+  
   Skeleton,
 } from "@chakra-ui/react";
 import { Elements } from "@stripe/react-stripe-js";
@@ -46,7 +46,7 @@ const BillingAndPayments = () => {
   return (
     <div className="border-[1px] border-[var(--bordersecondary)] rounded-lg bg-white overflow-hidden">
       <Skeleton isLoaded={!isLoading} startColor="gray.50" endColor="gray.200">
-        <Tabs
+        <Tabs.Root
           position="relative"
           colorScheme="primary"
           padding={6}
@@ -56,16 +56,16 @@ const BillingAndPayments = () => {
           onChange={(index) => setTab(index + 1)}
           height={isLoading && "200px"}
         >
-          <TabList>
+          <Tabs.List>
             {bankDetails?.card_details && (
-              <Tab fontWeight={"semibold"}>Current Card Details</Tab>
+              <Tabs.Trigger fontWeight={"semibold"}>Current Card Details</Tabs.Trigger>
             )}
-            <Tab fontWeight={"semibold"}>Add Billing Method</Tab>
-          </TabList>
+            <Tabs.Trigger fontWeight={"semibold"}>Add Billing Method</Tabs.Trigger>
+          </Tabs.List>
           <SmoothMotion key={tab}>
-            <TabPanels>
+            <Tabs.Content>
               {bankDetails?.card_details && (
-                <TabPanel padding={0}>
+                <Tabs.Content padding={0}>
                   <Box mt={5}>
                     <CurrentCard
                       data={bankDetails}
@@ -73,9 +73,9 @@ const BillingAndPayments = () => {
                       setTab={setTab}
                     />
                   </Box>
-                </TabPanel>
+                </Tabs.Content>
               )}
-              <TabPanel padding={0}>
+              <Tabs.Content padding={0}>
                 <Box mt={5}>
                   <Box marginBottom={6}>
                     <Radio size="lg" colorScheme="primary" isChecked>
@@ -98,10 +98,10 @@ const BillingAndPayments = () => {
                     </Elements>
                   </Box>
                 </Box>
-              </TabPanel>
-            </TabPanels>
+              </Tabs.Content>
+            </Tabs.Content>
           </SmoothMotion>
-        </Tabs>
+        </Tabs.Root>
       </Skeleton>
     </div>
   );

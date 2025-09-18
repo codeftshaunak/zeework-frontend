@@ -3,11 +3,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Avatar, Button, Image, Stack, Text, useToast } from "@chakra-ui/react";
 import {
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
+  
   Tabs,
 } from "@chakra-ui/react";
 import { useRouter, useParams } from "next/navigation";
@@ -53,7 +53,7 @@ const SingleContractDetails = () => {
   const [timeSheet, setTimeSheet] = useState({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
   const [feedbackModal, setFeedbackModal] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
 
   const { socket } = useContext(SocketContext);
   const {
@@ -339,28 +339,28 @@ const SingleContractDetails = () => {
         </div>
 
         <div className="">
-          <Tabs
+          <Tabs.Root
             position="relative"
             variant="unstyled"
             onChange={(index) => setActiveTab(index)}
           >
-            <TabList>
-              <Tab className="font-semibold text-[1.5rem]">Overview</Tab>
+            <Tabs.List>
+              <Tabs.Trigger className="font-semibold text-[1.5rem]">Overview</Tabs.Trigger>
               {jobDetails?.job_type === "hourly" && (
-                <Tab className="font-semibold text-[1.5rem] !hidden sm:!block">
+                <Tabs.Trigger className="font-semibold text-[1.5rem] !hidden sm:!block">
                   Work Sheet
-                </Tab>
+                </Tabs.Trigger>
               )}
-            </TabList>
-            <TabIndicator
+            </Tabs.List>
+            <Tabs.Indicator
               mt="1.5px"
               height="2px"
               bg="var(--primarytextcolor)"
               borderRadius="1px"
             />
             <SmoothMotion key={activeTab}>
-              <TabPanels>
-                <TabPanel paddingX={0}>
+              <Tabs.Content>
+                <Tabs.Content paddingX={0}>
                   {isLoading ? (
                     <InvitationSkeleton />
                   ) : dataAvailable ? (
@@ -509,9 +509,9 @@ const SingleContractDetails = () => {
                   ) : (
                     <DataNotAvailable onRefresh={handleRefresh} />
                   )}
-                </TabPanel>
+                </Tabs.Content>
                 {jobDetails?.job_type === "hourly" && (
-                  <TabPanel paddingX={0}>
+                  <Tabs.Content paddingX={0}>
                     {timeSheetLoading ? (
                       <HorizontalCardSkeleton />
                     ) : timeSheet?.details ? (
@@ -524,11 +524,11 @@ const SingleContractDetails = () => {
                         }}
                       />
                     )}
-                  </TabPanel>
+                  </Tabs.Content>
                 )}
-              </TabPanels>
+              </Tabs.Content>
             </SmoothMotion>
-          </Tabs>
+          </Tabs.Root>
         </div>
       </div>
 

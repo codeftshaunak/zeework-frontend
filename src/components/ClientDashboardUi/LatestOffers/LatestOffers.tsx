@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
+  
   Tabs,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -81,22 +81,22 @@ const LatestOffers = ({ marketplace }) => {
 
   return (
     <>
-      <Tabs
+      <Tabs.Root
         onChange={(index) => setTabIndex(index)}
         position="relative"
         variant="unstyled"
         paddingX={"16px"}
       >
         {!marketplace && (
-          <TabList className="flex flex-wrap">
-            <Tab>All</Tab>
-            <Tab>Pending</Tab>
-            <Tab>In Progress</Tab>
-            <Tab>Completed</Tab>
-          </TabList>
+          <Tabs.List className="flex flex-wrap">
+            <Tab>All</Tabs.Trigger>
+            <Tab>Pending</Tabs.Trigger>
+            <Tab>In Progress</Tabs.Trigger>
+            <Tab>Completed</Tabs.Trigger>
+          </Tabs.List>
         )}
         {!marketplace && (
-          <TabIndicator
+          <Tabs.Indicator
             mt="-1.5px"
             height="2px"
             className="sm:bg-fg-brand"
@@ -105,32 +105,32 @@ const LatestOffers = ({ marketplace }) => {
         )}
 
         <SmoothMotion key={tabIndex}>
-          <TabPanels>
-            <TabPanel>
+          <Tabs.Content>
+            <Tabs.Content>
               <GigDisplayCards
                 allOffers={latestOffer}
                 purchasesReq={purchasedGigs || []}
                 tabIndex={tabIndex}
                 isLoading={isLoading}
               />
-            </TabPanel>
-            <TabPanel>
+            </Tabs.Content>
+            <Tabs.Content>
               <GigDisplayCards
                 allOffers={pendingOrder}
                 tabIndex={tabIndex}
                 isLoading={isLoading}
               />
-            </TabPanel>
-            <TabPanel>
+            </Tabs.Content>
+            <Tabs.Content>
               <GigDisplayCards
                 allOffers={rejectedOrder}
                 tabIndex={tabIndex}
                 isLoading={isLoading}
               />
-            </TabPanel>
-          </TabPanels>
+            </Tabs.Content>
+          </Tabs.Content>
         </SmoothMotion>
-      </Tabs>
+      </Tabs.Root>
     </>
   );
 };

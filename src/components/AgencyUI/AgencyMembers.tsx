@@ -2,10 +2,10 @@
 
 import {
   HStack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
+  
+  
+  
+  
   Tabs,
   Text,
   VStack,
@@ -94,26 +94,26 @@ export const AgencyAllInvitations = () => {
   return (
     <>
       {memburs?.pendingInvitations && (
-        <Tabs marginTop={"1.5rem"} flexWrap={"wrap"} colorScheme="primary">
-          <TabList flexWrap={"wrap"}>
-            <Tab fontSize={"1.1rem"} fontWeight={"semibold"}>
+        <Tabs.Root marginTop={"1.5rem"} flexWrap={"wrap"} colorScheme="primary">
+          <Tabs.List flexWrap={"wrap"}>
+            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
               Active Members
-            </Tab>
-            <Tab fontSize={"1.1rem"} fontWeight={"semibold"}>
+            </Tabs.Trigger>
+            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
               Pending Members
-            </Tab>
-            <Tab fontSize={"1.1rem"} fontWeight={"semibold"}>
+            </Tabs.Trigger>
+            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
               Rejected Members
-            </Tab>
-          </TabList>
-          {/* <TabIndicator
+            </Tabs.Trigger>
+          </Tabs.List>
+          {/* <Tabs.Indicator
             height="2px"
             borderRadius="1px"
             color={"#000"}
             className=" bg-fg-brand"
           /> */}
-          <TabPanels marginTop={"5"}>
-            <TabPanel display={"flex"} gap={12} flexWrap={"wrap"}>
+          <Tabs.Content marginTop={"5"}>
+            <Tabs.Content display={"flex"} gap={12} flexWrap={"wrap"}>
               {acceptInvitation && acceptInvitation?.length > 0 ? (
                 acceptInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -125,8 +125,8 @@ export const AgencyAllInvitations = () => {
               ) : (
                 <h2 className="text-center text-lg">No Active Members.</h2>
               )}
-            </TabPanel>
-            <TabPanel display={"flex"} gap={5} flexWrap={"wrap"}>
+            </Tabs.Content>
+            <Tabs.Content display={"flex"} gap={5} flexWrap={"wrap"}>
               {pandingInvitation && pandingInvitation?.length > 0 ? (
                 pandingInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -140,8 +140,8 @@ export const AgencyAllInvitations = () => {
                   Pending Member Not Found
                 </h2>
               )}
-            </TabPanel>
-            <TabPanel display={"flex"} gap={5} flexWrap={"wrap"}>
+            </Tabs.Content>
+            <Tabs.Content display={"flex"} gap={5} flexWrap={"wrap"}>
               {rejectInvitation && rejectInvitation?.length > 0 ? (
                 rejectInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard details={invitation} key={index} />
@@ -149,9 +149,9 @@ export const AgencyAllInvitations = () => {
               ) : (
                 <h2 className="text-center text-lg">No Rejected Members.</h2>
               )}
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+            </Tabs.Content>
+          </Tabs.Content>
+        </Tabs.Root>
       )}
     </>
   );

@@ -8,9 +8,9 @@ import {
   Drawer,
   DrawerBody,
   Tabs,
-  TabList,
-  Tab,
-  TabIndicator,
+  
+  
+  
   DrawerContent,
   Button,
 } from "@chakra-ui/react";
@@ -279,33 +279,33 @@ export const Header = () => {
                       >
                         <FiChevronLeft className="text-3xl text-gray-600" />
                       </button>
-                      <Tabs variant="unstyled">
-                        <TabList className="border-b font-semibold">
-                          <Tab
+                      <Tabs.Root variant="unstyled">
+                        <Tabs.List className="border-b font-semibold">
+                          <Tabs.Trigger
                             className="px-0 text-black"
                             onClick={() => handelSelectedValue("talent")}
                           >
                             Talent
-                          </Tab>
-                          <Tab
+                          </Tabs.Trigger>
+                          <Tabs.Trigger
                             className="px-0 text-black"
                             onClick={() => handelSelectedValue("job")}
                           >
                             Jobs
-                          </Tab>
-                        </TabList>
-                        <TabIndicator
+                          </Tabs.Trigger>
+                        </Tabs.List>
+                        <Tabs.Indicator
                           height="2px"
                           borderRadius="1px"
                           color={"#000"}
                           className=" bg-fg-brand"
                         />
                         {/* Upgrading in future */}
-                        {/* <TabPanels>
-                          <TabPanel p={0}></TabPanel>
-                          <TabPanel p={0}></TabPanel>
-                        </TabPanels> */}
-                      </Tabs>
+                        {/* <Tabs.Content>
+                          <Tabs.Content p={0}></Tabs.Content>
+                          <Tabs.Content p={0}></Tabs.Content>
+                        </Tabs.Content> */}
+                      </Tabs.Root>
                     </div>
                     <div className="flex items-center border-[var(--bordersecondary)] border-[1px] py-2 pl-4 rounded-full justify-between w-full mt-4">
                       <div className="flex items-center gap-4">
@@ -1204,39 +1204,39 @@ export const AuthHeader = ({ role }) => {
                   <button onClick={onClose}>
                     <FiChevronLeft className="text-3xl text-gray-600" />
                   </button>
-                  <Tabs variant="unstyled">
-                    <TabList className="border-b font-semibold">
-                      <Tab
+                  <Tabs.Root variant="unstyled">
+                    <Tabs.List className="border-b font-semibold">
+                      <Tabs.Trigger
                         className="px-0 text-black"
                         onClick={() => handelSelectedValue("talent")}
                       >
                         Talent
-                      </Tab>
-                      <Tab
+                      </Tabs.Trigger>
+                      <Tabs.Trigger
                         className="px-0 text-black"
                         onClick={() => handelSelectedValue("job")}
                       >
                         Jobs
-                      </Tab>
-                      {/* <Tab
+                      </Tabs.Trigger>
+                      {/* <Tabs.Trigger
                         className="px-0 text-black"
                         onClick={() => handelSelectedValue("marketplace")}
                       >
                         Marketplace
-                      </Tab> */}
-                    </TabList>
-                    <TabIndicator
+                      </Tabs.Trigger> */}
+                    </Tabs.List>
+                    <Tabs.Indicator
                       height="2px"
                       borderRadius="1px"
                       color={"#000"}
                       className=" bg-fg-brand"
                     />
                     {/* Upgrading in future */}
-                    {/* <TabPanels>
-                            <TabPanel p={0}></TabPanel>
-                            <TabPanel p={0}></TabPanel>
-                          </TabPanels> */}
-                  </Tabs>
+                    {/* <Tabs.Content>
+                            <Tabs.Content p={0}></Tabs.Content>
+                            <Tabs.Content p={0}></Tabs.Content>
+                          </Tabs.Content> */}
+                  </Tabs.Root>
                 </div>
                 <div className="flex items-center border-[var(--bordersecondary)] border-[1px] py-2 pl-4 rounded-full justify-between w-full mt-4">
                   <div className="flex items-center gap-4">

@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import {
   Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
+  
+  
+  
+  
   Text,
-  TabIndicator,
+  
   VStack,
   StackDivider,
 } from "@chakra-ui/react";
@@ -20,7 +20,7 @@ import SingleGigSkeleton from "../Skeletons/SingleGigSkeleton";
 const GigStatus = () => {
   const [approvedGigs, setApprovedGigs] = useState([]);
   const [pendingGigs, setPendingGigs] = useState([]);
-  const [activeTab, setActiveTab] = useState(0);
+  const [active setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllGigs = async () => {
@@ -47,7 +47,7 @@ const GigStatus = () => {
   }, []);
 
   return (
-    <Tabs
+    <Tabs.Root
       variant="unstyled"
       size="md"
       width={"100%"}
@@ -55,19 +55,19 @@ const GigStatus = () => {
       position={"relative"}
       onChange={(index) => setActiveTab(index)}
     >
-      <TabList height={"3.5rem"}>
-        <Tab>Approve ({approvedGigs?.length || 0})</Tab>
-        <Tab>Under Review ({pendingGigs?.length || 0})</Tab>
-      </TabList>
-      <TabIndicator
+      <Tabs.List height={"3.5rem"}>
+        <Tab>Approve ({approvedGigs?.length || 0})</Tabs.Trigger>
+        <Tab>Under Review ({pendingGigs?.length || 0})</Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Indicator
         height="2px"
         borderRadius="1px"
         color={"#000"}
         className=" bg-fg-brand"
       />
       <SmoothMotion key={activeTab}>
-        <TabPanels width={"100%"} height={"100%"}>
-          <TabPanel width={"100%"}>
+        <Tabs.Content width={"100%"} height={"100%"}>
+          <Tabs.Content width={"100%"}>
             <VStack
               divider={<StackDivider borderColor="var(--bordersecondary)" />}
               spacing={3}
@@ -85,8 +85,8 @@ const GigStatus = () => {
                 </Text>
               )}
             </VStack>
-          </TabPanel>
-          <TabPanel>
+          </Tabs.Content>
+          <Tabs.Content>
             <VStack
               divider={<StackDivider borderColor="var(--bordersecondary)" />}
               spacing={3}
@@ -104,10 +104,10 @@ const GigStatus = () => {
                 </Text>
               )}
             </VStack>
-          </TabPanel>
-        </TabPanels>
+          </Tabs.Content>
+        </Tabs.Content>
       </SmoothMotion>
-    </Tabs>
+    </Tabs.Root>
   );
 };
 

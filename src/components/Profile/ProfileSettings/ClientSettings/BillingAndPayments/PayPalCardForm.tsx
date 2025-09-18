@@ -22,7 +22,7 @@ import { paypalCardSchema } from "../../../../../schemas/payments";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 
-export const PayPalCardForm = ({ setTab, setCard }) => {
+export const PayPalCardForm = ({ set setCard }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {

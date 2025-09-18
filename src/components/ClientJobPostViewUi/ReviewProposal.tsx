@@ -8,11 +8,11 @@ import {
   Button,
   Stack,
   Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  TabIndicator,
+  
+  
+  
+  
+  
   Avatar,
   StackDivider,
   useToast,
@@ -167,19 +167,19 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
     <>
       <Box className="flex flex-col gap-8 md:flex-row w-full">
         <Box className="overflow-hidden border rounded-lg basis-full bg-white">
-          <Tabs onChange={(index) => setTabIndex(index)} variant="unstyled">
-            <TabList className="px-6 pt-4 border-b">
-              <Tab className="px-0 text-black">All Proposals</Tab>
-              {/* <Tab>Messaged</Tab> */}
-            </TabList>
-            <TabIndicator
+          <Tabs.Root onChange={(index) => setTabIndex(index)} variant="unstyled">
+            <Tabs.List className="px-6 pt-4 border-b">
+              <Tabs.Trigger className="px-0 text-black">All Proposals</Tabs.Trigger>
+              {/* <Tab>Messaged</Tabs.Trigger> */}
+            </Tabs.List>
+            <Tabs.Indicator
               height="2px"
               borderRadius="1px"
               color={"#000"}
               className=" bg-fg-brand"
             />
-            <TabPanels width={"100%"}>
-              <TabPanel p={0} width={"100%"}>
+            <Tabs.Content width={"100%"}>
+              <Tabs.Content p={0} width={"100%"}>
                 {isProposalsLoading ? (
                   <Box padding={3}>
                     <ReviewProposalSkeleton />
@@ -413,12 +413,12 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                     <Text>There are no proposals for this job!</Text>
                   </Box>
                 )}
-              </TabPanel>
-              <TabPanel>
+              </Tabs.Content>
+              <Tabs.Content>
                 <Text>Messaged!</Text>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+              </Tabs.Content>
+            </Tabs.Content>
+          </Tabs.Root>
         </Box>
       </Box>
 
