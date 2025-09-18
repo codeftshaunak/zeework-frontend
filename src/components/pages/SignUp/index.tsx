@@ -12,7 +12,7 @@ import {
   Checkbox,
   Stack,
   useToast,
-  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CTAButton from "../../CTAButton";
@@ -410,14 +410,12 @@ export const SignUp = () => {
                     </defs>
                   </svg>
 
-                  <Radio
+                  <RadioGroup.Item
                     name="signup-option"
                     id="freelancer"
                     value="freelancer"
-                    colorScheme="primary"
-                    size="lg"
-                    isChecked={selectedOption === "client"}
-                    onChange={() => handleOptionChange("client")}
+                    checked={selectedOption === "client"}
+                    onValueChange={() => handleOptionChange("client")}
                     className="cursor-pointer"
                   />
                 </HStack>
@@ -591,15 +589,12 @@ export const SignUp = () => {
                     </defs>
                   </svg>
 
-                  <Radio
-                    type="radio"
+                  <RadioGroup.Item
                     name="signup-option"
-                    colorScheme="primary"
-                    size="lg"
                     id="client"
                     value="client"
-                    isChecked={selectedOption === "freelancer"}
-                    onChange={() => handleOptionChange("freelancer")}
+                    checked={selectedOption === "freelancer"}
+                    onValueChange={() => handleOptionChange("freelancer")}
                     className="cursor-pointer"
                   />
                 </HStack>
