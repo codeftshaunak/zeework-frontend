@@ -39,7 +39,7 @@ const createSocket = (userId, role) => {
   return newSocket;
 };
 
-const user = localStorage.getItem("zeework_user");
+const user = typeof window !== "undefined" ? localStorage.getItem("zeework_user") : null;
 let userId = null;
 let role = null;
 

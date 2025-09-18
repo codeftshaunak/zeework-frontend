@@ -8,7 +8,7 @@ import axios from "axios";
 export const socketURL = process.env.NEXT_PUBLIC_SOCKET_URL;
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const authToken = localStorage.getItem("authtoken");
+const authToken = typeof window !== "undefined" ? localStorage.getItem("authtoken") : null;
 
 export const API = axios.create({
   baseURL: BASE_URL,
@@ -20,9 +20,11 @@ export const API = axios.create({
 
 export const useApiErrorHandling = () => {
   const logoutAndRedirect = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("authtoken");
-    window.location.replace("/login");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("authtoken");
+      window.location.replace("/login");
+    }
   };
 
   const handleErrorResponse = (msg) => {
