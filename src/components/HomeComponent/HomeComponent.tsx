@@ -1,3 +1,5 @@
+"use client";
+
 import DreamsInto from "./DreamsInto/DreamsInto";
 import Faqs from "./Faqs/Faqs";
 import Findtalent from "./Findtalent/Findtalent";
