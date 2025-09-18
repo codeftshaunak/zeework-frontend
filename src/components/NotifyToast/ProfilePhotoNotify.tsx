@@ -9,9 +9,6 @@ import {
   Box,
   Button,
   Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
 } from "@chakra-ui/react";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { uploadImage } from "../../helpers/APIs/userApis";
@@ -241,23 +238,22 @@ const ProfilePhotoNotify = () => {
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center gap-1 w-full sm:w-96">
                     <TiMinus />
-                    <Slider
-                      aria-label="zoom-slider"
-                      value={zoom}
+                    <Slider.Root
+                      value={[zoom]}
                       min={1}
                       max={3}
                       step={0.1}
-                      onChange={(val) => {
-                        !isCropped && setZoom(val);
+                      onValueChange={(details) => {
+                        !isCropped && setZoom(details.value[0]);
                       }}
                     >
-                      <SliderTrack className="bg-slate-300">
-                        <SliderFilledTrack bg={"slategrey"} />
-                      </SliderTrack>
-                      <SliderThumb boxSize={6}>
+                      <Slider.Track className="bg-slate-300">
+                        <Slider.Range style={{ backgroundColor: "slategrey" }} />
+                      </Slider.Track>
+                      <Slider.Thumb index={0} className="w-6 h-6">
                         <Box className="text-slate-500" as={TiZoom} />
-                      </SliderThumb>
-                    </Slider>
+                      </Slider.Thumb>
+                    </Slider.Root>
                     <TiPlus />
                   </div>
                   <div className="flex items-center justify-center gap-x-5 flex-wrap">
