@@ -1,3 +1,5 @@
+"use client";
+
 import { useSelector } from "react-redux";
 import { ClientProfilePage } from "./ClientProfilePage";
 import AgencyProfile from "../AgencyUI/AgencyProfile";
@@ -22,7 +24,7 @@ export const customStyles = {
   },
 };
 
-export const UserProfile = () => {
+const UserProfile = () => {
   const { user_id, agency_profile } = useSelector(
     (state) => state.profile.profile
   );
@@ -46,3 +48,5 @@ export const UserProfile = () => {
     </div>
   );
 };
+
+export default UserProfile;

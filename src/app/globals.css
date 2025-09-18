@@ -114,7 +114,7 @@
 
 @layer components {
   .active-checkbox:has(input:checked) {
-    @apply bg-bg-success border-outline-active border-2;
+    @apply bg-green-200 border-green-500 border-2;
   }
 }
 
