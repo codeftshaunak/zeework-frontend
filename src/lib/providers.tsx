@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { SocketProvider } from "../contexts/SocketContext";
 import { CurrentUserProvider } from "../contexts/CurrentUser";
 import { FormStateProvider } from "../contexts/FormContext";
-import theme from "../../theme";
+import theme from "./theme";
 import store from "../redux/store";
 
 export function Providers({ children }: { children: React.ReactNode }) {
