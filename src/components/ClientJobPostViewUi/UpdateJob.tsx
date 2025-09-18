@@ -8,7 +8,7 @@ import FirstStep from "../JobCreate/FirstStep";
 import SecondStep from "../JobCreate/SecondStep";
 import FinalStep from "../JobCreate/FinalStep";
 import Preview from "../JobCreate/Preview";
-import HomeLayout from "../../Layouts/HomeLayout";
+import HomeLayout from "../../components/Layouts/HomeLayout";
 import { useNavigate, useLocation } from "next/navigation";
 import { updateJob } from "../../helpers/APIs/jobApis";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const UpdateJob = () => {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const location = useLocation();
+  const pathname = usePathname();
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 

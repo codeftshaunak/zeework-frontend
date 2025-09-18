@@ -20,7 +20,7 @@ import InvitationSkeleton from "../Skeletons/InvitationSkeleton";
 
 const ViewJobPost = () => {
   const toast = useToast();
-  const location = useLocation();
+  const pathname = usePathname();
   const router = useRouter();
   const { id } = useParams();
   const [jobDetails, setJobDetails] = useState(

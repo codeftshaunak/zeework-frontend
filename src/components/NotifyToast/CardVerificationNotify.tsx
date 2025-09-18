@@ -1,12 +1,11 @@
 import { BsInfoCircle } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { hideToast } from "../../redux/toastSlice/toastSlice";
 const CardVerificationNotify = () => {
   const role = useSelector((state: any) => state.auth.role);
-  const location = useLocation();
-  const pathname = location.pathname
+  const pathname = usePathname();
 
   const router = useRouter();
 

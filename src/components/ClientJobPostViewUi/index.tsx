@@ -12,7 +12,7 @@ import useUserActivityListener from "../../hooks/useUserActivityListener";
 
 export const ClientJobPostViewComponent = () => {
   const { id } = useParams();
-  const location = useLocation();
+  const pathname = usePathname();
   const router = useRouter();
   const [page, setPage] = useState(0);
   const jobDetails = location?.state && location?.state?.jobDetails;

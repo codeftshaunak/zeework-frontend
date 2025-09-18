@@ -26,8 +26,8 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  const location = useLocation();
-  const path = location.pathname;
+  const pathname = usePathname();
+  const path = pathname;
   const router = useRouter();
   const { id } = useParams();
 

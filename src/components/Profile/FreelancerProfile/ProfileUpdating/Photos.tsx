@@ -16,12 +16,12 @@ import Cropper from "react-easy-crop";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
 import { BiImages, BiSolidCrop } from "react-icons/bi";
-import getCroppedImg from "../../../../helpers/manageImages/getCroppedImg.ts";
-import { uploadImage } from "../../../../helpers/APIs/userApis.ts";
-import { profileData } from "../../../../redux/authSlice/profileSlice.ts";
-import BtnSpinner from "../../../Skeletons/BtnSpinner.tsx";
-import ErrorMsg from "../../../utils/Error/ErrorMsg.tsx";
-import { compressImageToWebP } from "../../../../helpers/manageImages/imageCompressed.ts";
+import getCroppedImg from "../../../../helpers/manageImages/getCroppedImg";
+import { uploadImage } from "../../../../helpers/APIs/userApis";
+import { profileData } from "../../../../redux/authSlice/profileSlice";
+import BtnSpinner from "../../../Skeletons/BtnSpinner";
+import ErrorMsg from "../../../utils/Error/ErrorMsg";
+import { compressImageToWebP } from "../../../../helpers/manageImages/imageCompressed";
 
 const Photos = ({ setIsModal }) => {
   const [isLoading, setIsLoading] = useState(false);

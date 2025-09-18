@@ -43,7 +43,7 @@ const ProfilePhotoNotify = () => {
   const [isCropped, setIsCropped] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const { pathname } = usePathname();
 
   const handleToastClose = () => {
     setIsCloseNotification("true");

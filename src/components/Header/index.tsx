@@ -376,7 +376,7 @@ export const AuthHeader = ({ role }) => {
   const [cookie, setCookie] = useCookies(["activeagency"]);
   const [isSelectModal, setIsSelectModal] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
-  const { pathname } = useLocation();
+  const { pathname } = usePathname();
   const isMessagePage = pathname.startsWith("/message");
   const activeAgency = cookie?.activeagency;
   const selectModalRef = useRef(null);
@@ -1279,10 +1279,10 @@ const NavItem = ({
   isNotification,
   additionalActiveRoutes = [],
 }) => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   const isActive = useMemo(() => {
-    const currentPath = location.pathname;
+    const currentPath = pathname;
 
     // Check if current path matches the main URL or any additional active routes
     const routesToConsiderActive = [url, ...additionalActiveRoutes];
@@ -1291,7 +1291,7 @@ const NavItem = ({
     );
 
     return isSpecificActive;
-  }, [location.pathname, url, additionalActiveRoutes]);
+  }, [pathname, url, additionalActiveRoutes]);
 
   const handleClick = () => {
     if (onClick) {

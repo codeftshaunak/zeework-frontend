@@ -18,7 +18,7 @@ import {
   useToast,
   AvatarBadge,
 } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useContext, useState } from "react";
 import UniversalModal from "../Modals/UniversalModal";
 import { getAgencyById } from "../../helpers/APIs/agencyApis";
@@ -41,7 +41,7 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
   const { profile } = useContext(CurrentUserContext);
   const [paymentModal, setPaymentModal] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
-  const location = useLocation();
+  const pathname = usePathname();
   const jobDetails = location.state && location.state.jobDetails;
   const [open, setOpen] = useState(false);
   const [msgIsOpen, setMsgIsOpen] = useState(null);

@@ -16,9 +16,9 @@ const SearchedMarketplace = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [page, setPage] = useState(1);
-  const location = useLocation();
+  const pathname = usePathname();
   const queryParams = new URLSearchParams(location.search);
-  const newUrl = `${window.location.pathname}`;
+  const newUrl = `${window.pathname}`;
   const type = queryParams.get("type");
   const category =
     type === "client_choice" || type === "random"

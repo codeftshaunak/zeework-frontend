@@ -41,7 +41,7 @@ const ClientGigDetails = () => {
   const toast = useToast();
   const videoRef = useRef(null);
   const router = useRouter();
-  const { state } = useLocation();
+  const { state } = usePathname();
   const status = state?.status || gigData?.gigInfo?.status;
   const { id } = useParams();
   const prevRef = useRef(null);

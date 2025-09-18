@@ -46,7 +46,7 @@ const MessageComp = () => {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const { id } = useParams();
-  const location = useLocation();
+  const pathname = usePathname();
   const searchParams = new URLSearchParams(location.search);
   const contract_ref = searchParams.get("contract_ref");
   const profile = useSelector((state: any) => state.profile);

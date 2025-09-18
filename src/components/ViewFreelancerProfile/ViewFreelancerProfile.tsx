@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 // import required modules
-import HomeLayout from "../../Layouts/HomeLayout";
+import HomeLayout from "../../components/Layouts/HomeLayout";
 import { FaLocationDot } from "react-icons/fa6";
 import AgencyProfileSkeleton from "../Skeletons/AgencyProfileSkeleton";
 import { useNavigate } from "next/navigation";

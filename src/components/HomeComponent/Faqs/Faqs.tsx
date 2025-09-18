@@ -4,8 +4,8 @@ import { useState } from "react";
 import {
   Accordion,
   AccordionItem,
-  AccordionButton,
-  AccordionPanel,
+  AccordionItemTrigger,
+  AccordionItemContent,
   Box,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
@@ -77,7 +77,7 @@ const Faqs = () => {
                 // isExpanded={expandedIndex === index}
               >
                 <h2>
-                  <AccordionButton
+                  <AccordionItemTrigger
                     onClick={() => toggleAccordion(index)}
                     _hover={{ bg: "none", color: "inherit" }}
                     className="hover:cursor-pointer"

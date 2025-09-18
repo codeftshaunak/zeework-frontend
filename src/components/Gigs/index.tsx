@@ -1,4 +1,4 @@
-import HomeLayout from "../../Layouts/HomeLayout";
+import HomeLayout from "../../components/Layouts/HomeLayout";
 import ManageProject from "./ManageProject";
 
 const Gig = () => {

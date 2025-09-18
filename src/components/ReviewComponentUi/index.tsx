@@ -16,7 +16,7 @@ import { BiSolidDislike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import StarRatings from "react-star-ratings";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { giveFeedback, getOptionsList } from "../../helpers/APIs/clientApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { MdCheckCircle } from "react-icons/md";
@@ -36,7 +36,7 @@ const ReviewComponent = () => {
   const { user_id } = state.profile.profile;
   const { role } = state.auth;
   const [resonOptionList, setResonOptionList] = useState([]);
-  const location = useLocation();
+  const pathname = usePathname();
   const jobDetails = location.state && location.state.jobDetails;
   const receiverDetails = location.state && location.state.receiverDetails;
   const receiver_id = receiverDetails?.user_id;

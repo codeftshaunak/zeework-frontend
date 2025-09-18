@@ -4,7 +4,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { getAllJobs, getJobs } from "../../helpers/APIs/jobApis";
 import JobCard from "./JobCard";
-import { useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Box,
   Checkbox,
@@ -275,7 +275,7 @@ export const AllJobs = () => {
 };
 
 export const SearchJobPage = ({ isFreelancer }) => {
-  const location = useLocation();
+  const pathname = usePathname();
   const searchParams = new URLSearchParams(location.search);
   const [searchTerm, setSearchTerm] = useState(
     searchParams?.get("searchTerm") || ""

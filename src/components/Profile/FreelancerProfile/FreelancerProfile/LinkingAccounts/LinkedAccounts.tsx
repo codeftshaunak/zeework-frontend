@@ -33,7 +33,7 @@ const LinkedAccounts = () => {
   const handleConnectGithub = () => {
     setIsLoading(true);
     const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
-    const profileURL = `${window.location.origin}${window.location.pathname}?p=github`;
+    const profileURL = `${window.location.origin}${window.pathname}?p=github`;
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${profileURL}&scope=user`;
     window.location.href = githubAuthUrl;
   };
@@ -42,7 +42,7 @@ const LinkedAccounts = () => {
   const handleConnectStackOverflow = () => {
     setIsStackOverflowLoading(true);
     const clientId = import.meta.env.VITE_STACKOVERFLOW_CLIENT_ID;
-    const profileURL = `${window.location.origin}${window.location.pathname}?p=stackoverflow`;
+    const profileURL = `${window.location.origin}${window.pathname}?p=stackoverflow`;
     const stackOverflowAuthUrl = `https://stackoverflow.com/oauth?client_id=${clientId}&redirect_uri=${profileURL}&scope=no_expiry`;
     window.location.href = stackOverflowAuthUrl;
   };

@@ -8,17 +8,17 @@ import { useFormState } from "../../contexts/FormContext";
 import { firstStepSchema } from "../../schemas/job-create-schema";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { getCategories, getSkills } from "../../helpers/APIs/freelancerApis.ts";
+import { getCategories, getSkills } from "../../helpers/APIs/freelancerApis";
 import Select from "react-select/creatable";
 import { MultiValue, SingleValue } from "react-select";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import QuillToolbar, {
   formats,
   modules,
-} from "../utils/QuillToolbar/QuillToolbar.tsx";
-import ErrorMsg from "../utils/Error/ErrorMsg.tsx";
+} from "../utils/QuillToolbar/QuillToolbar";
+import ErrorMsg from "../utils/Error/ErrorMsg";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { customSelectStyles } from "../utils/Select/index.ts";
+import { customSelectStyles } from "../utils/Select/index";
 
 interface SkillOption {
   value: string;

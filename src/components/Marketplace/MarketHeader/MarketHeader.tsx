@@ -23,7 +23,7 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
     } else {
       queryParams.delete("searchText");
     }
-    const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+    const newUrl = `${window.pathname}?${queryParams.toString()}`;
     router.push(newUrl);
   };
 

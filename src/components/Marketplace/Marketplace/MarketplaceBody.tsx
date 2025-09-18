@@ -16,7 +16,7 @@ const MarketplaceBody = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [page, setPage] = useState(1);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const totalPages = searchingGigs?.totalPages || 0;
 

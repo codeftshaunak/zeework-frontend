@@ -55,7 +55,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const { socket } = useContext(SocketContext);
   const router = useRouter();
   const toast = useToast();
-  const location = useLocation();
+  const pathname = usePathname();
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 

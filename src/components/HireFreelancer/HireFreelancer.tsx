@@ -6,7 +6,7 @@ import FreelancerProfile from "./FreelancerProfile";
 import JobDetails from "./JobDetails";
 import { sendHireFreelancer } from "../../helpers/APIs/clientApis";
 import { useToast, Checkbox } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { SocketContext } from "../../contexts/SocketContext";
 import { clearMessageState } from "../../redux/messageSlice/messageSlice";
@@ -21,7 +21,7 @@ import { ErrorState } from "../utils/Error/ErrorState";
 const HireFreelancerPage = () => {
   const { socket } = useContext(SocketContext);
   const { profile } = useContext(CurrentUserContext);
-  const location = useLocation();
+  const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();

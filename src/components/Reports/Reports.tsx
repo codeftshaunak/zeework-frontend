@@ -6,25 +6,25 @@
 // import TransactionHistory from './TransactionHistory';
 
 // import Status from './Status.jsx';
-import GenaralStats from "./GenaralStats.tsx";
-import Adjustment from "./Adjustment.tsx";
-import Timesheet from "./Timesheet.tsx";
+import GenaralStats from "./GenaralStats";
+import Adjustment from "./Adjustment";
+import Timesheet from "./Timesheet";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
-import { agencyReports } from "../../helpers/APIs/agencyApis.ts";
-import { freelancerReports } from "../../helpers/APIs/freelancerApis.ts";
-import EarningsOverview from "./EarningsOverview/EarningsOverview.tsx";
+import { agencyReports } from "../../helpers/APIs/agencyApis";
+import { freelancerReports } from "../../helpers/APIs/freelancerApis";
+import EarningsOverview from "./EarningsOverview/EarningsOverview";
 import {
   getAgencyAllJobs,
   getAllTimeSheet,
   getAllTimeSheetAgency,
   userAllJobs,
-} from "../../helpers/APIs/jobApis.ts";
+} from "../../helpers/APIs/jobApis";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setMyJobsData,
   setStatsData,
-} from "../../redux/pagesSlice/pagesSlice.ts";
+} from "../../redux/pagesSlice/pagesSlice";
 
 const Reports = () => {
   const [cookies] = useCookies(["activeagency"]);

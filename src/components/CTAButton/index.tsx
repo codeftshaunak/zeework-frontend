@@ -1,6 +1,31 @@
+"use client";
+
 import { Button } from "@chakra-ui/react";
 
-const CTAButton = (props) => {
+interface CTAButtonProps {
+  size?: string;
+  bg?: string;
+  fontWeight?: string | number;
+  color?: string;
+  padding?: string;
+  borderRadius?: string;
+  border?: string;
+  width?: string;
+  height?: string;
+  margin?: string;
+  textAlign?: string;
+  hoverbg?: string;
+  hoverborder?: string;
+  hovercolor?: string;
+  action?: () => void;
+  disabled?: boolean;
+  type?: string;
+  text?: string;
+  onClick?: () => void;
+  [key: string]: any;
+}
+
+const CTAButton: React.FC<CTAButtonProps> = (props) => {
   return (
     <Button
       size={props.size ? props.size : "lg"}
@@ -19,7 +44,7 @@ const CTAButton = (props) => {
         border: props.hoverborder ? props.hoverborder : "1px solid #22C55E",
         color: props.hovercolor ? props.hovercolor : "#374151",
       }}
-      onClick={props.action}
+      onClick={props.action || props.onClick}
       disabled={props.disabled}
       {...props}
       type={props.type}
