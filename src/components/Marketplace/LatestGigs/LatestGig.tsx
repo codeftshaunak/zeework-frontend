@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { getSearchGigs } from "../../../helpers/APIs/gigApis";
 import GigDisplayCards from "../../ClientDashboardUi/LatestOffers/GigDisplayCards";

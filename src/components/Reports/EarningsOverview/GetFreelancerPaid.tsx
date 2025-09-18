@@ -1,3 +1,5 @@
+"use client";
+
 import UniversalModal from "../../Modals/UniversalModal";
 import {
   Button,

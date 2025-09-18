@@ -1,3 +1,5 @@
+"use client";
+
 import { VStack, HStack, Skeleton } from "@chakra-ui/react";
 import {
   getClientContract,

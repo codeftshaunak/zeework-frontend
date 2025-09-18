@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, Box, Button, Text, useToast, VStack } from "@chakra-ui/react";
 import { MainButtonRounded } from "../Button/MainButton";
 import { useContext, useState } from "react";

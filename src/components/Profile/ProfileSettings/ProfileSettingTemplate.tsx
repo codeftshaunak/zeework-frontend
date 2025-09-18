@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import ProfileContainer from "../ProfileContainer";
 import { BsChevronRight } from "react-icons/bs";

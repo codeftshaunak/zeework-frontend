@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "next/navigation";
 import { useFormState } from "../../contexts/FormContext";

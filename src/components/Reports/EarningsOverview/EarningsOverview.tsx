@@ -1,3 +1,5 @@
+"use client";
+
 import { HStack, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useCookies } from "react-cookie";

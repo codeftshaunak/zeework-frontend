@@ -1,3 +1,5 @@
+"use client";
+
 import { Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";

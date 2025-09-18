@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import ActiveJobCard from "../ActiveJobCard";
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -1,3 +1,5 @@
+"use client";
+
 import { Input, Text, VStack } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";

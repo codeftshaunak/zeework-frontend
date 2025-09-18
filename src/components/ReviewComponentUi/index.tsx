@@ -1,3 +1,5 @@
+"use client";
+
 // End Contract By Client
 import { useEffect, useState } from "react";
 import {

@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Button, useToast, VStack } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { TbMessageCancel } from "react-icons/tb";

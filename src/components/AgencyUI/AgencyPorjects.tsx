@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";

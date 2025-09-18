@@ -1,3 +1,5 @@
+"use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
 import { Button, Tooltip } from "@chakra-ui/react";

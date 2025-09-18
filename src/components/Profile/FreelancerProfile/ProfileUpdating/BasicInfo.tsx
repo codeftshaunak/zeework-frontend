@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, useToast } from "@chakra-ui/react";
 import QuillToolbar, {
   formats,

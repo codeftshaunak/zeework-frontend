@@ -1,3 +1,5 @@
+"use client";
+
 import { useLocation, useRouter, useParams } from "next/navigation";
 import CTAButton from "../CTAButton";
 import { ReviewProposal } from "./ReviewProposal";

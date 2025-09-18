@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useState } from "react";
 import { getAllJobs, getJobs } from "../../helpers/APIs/jobApis";

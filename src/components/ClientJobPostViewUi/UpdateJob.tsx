@@ -1,3 +1,5 @@
+"use client";
+
 import { HStack, useToast, Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FormStateProvider } from "../../contexts/FormContext";

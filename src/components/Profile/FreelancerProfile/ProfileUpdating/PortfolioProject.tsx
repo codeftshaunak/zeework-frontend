@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, useToast } from "@chakra-ui/react";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";

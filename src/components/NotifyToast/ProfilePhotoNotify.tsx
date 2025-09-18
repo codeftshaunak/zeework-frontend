@@ -1,3 +1,5 @@
+"use client";
+
 import { BsInfoCircle } from "react-icons/bs";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";

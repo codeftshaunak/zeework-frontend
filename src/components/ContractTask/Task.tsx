@@ -1,3 +1,5 @@
+"use client";
+
 import { useParams } from "next/navigation";
 import { TaskDetails } from "./TaskDetails";
 import { useEffect, useState } from "react";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext, useEffect, useState, useCallback } from "react";
 import ContractTerms from "./ContractTerms";
 import FreelancerProfile from "./FreelancerProfile";

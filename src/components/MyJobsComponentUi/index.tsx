@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";
 import ActiveJobSlider from "./ActiveJobSlider";

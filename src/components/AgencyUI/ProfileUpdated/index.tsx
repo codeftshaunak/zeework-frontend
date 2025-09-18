@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";

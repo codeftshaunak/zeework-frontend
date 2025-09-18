@@ -1,3 +1,5 @@
+"use client";
+
 import { addDays, format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import {

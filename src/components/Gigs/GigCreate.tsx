@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, HStack, Text, useToast } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { createGig } from "../../helpers/APIs/freelancerApis";

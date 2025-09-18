@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
 import { HStack, VStack, Avatar, Text, useToast } from "@chakra-ui/react";

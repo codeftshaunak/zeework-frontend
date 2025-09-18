@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable react/no-unescaped-entities */
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

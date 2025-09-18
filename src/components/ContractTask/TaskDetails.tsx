@@ -1,3 +1,5 @@
+"use client";
+
 import { FaClock, FaHeadSideVirus } from "react-icons/fa6";
 import { HStack, Text, VStack, Box } from "@chakra-ui/react";
 import { MdCategory } from "react-icons/md";

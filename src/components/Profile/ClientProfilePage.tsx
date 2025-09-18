@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState, useCallback } from "react";
 import ProfileContainer from "./ProfileContainer";
 import { BsLink45Deg } from "react-icons/bs";

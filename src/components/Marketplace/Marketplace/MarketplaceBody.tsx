@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useLocation } from "next/navigation";
 import { getCategories } from "../../../helpers/APIs/freelancerApis";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "next/navigation";
 import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";

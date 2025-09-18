@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";

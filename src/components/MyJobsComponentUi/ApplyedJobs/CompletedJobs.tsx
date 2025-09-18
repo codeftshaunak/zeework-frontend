@@ -1,3 +1,5 @@
+"use client";
+
 import { VStack, Text, Button, Box, Image } from "@chakra-ui/react";
 import { useNavigate } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";

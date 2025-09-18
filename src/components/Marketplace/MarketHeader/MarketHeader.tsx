@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Box, HStack, Image, Input, VStack } from "@chakra-ui/react";
 import { BiSearchAlt } from "react-icons/bi";

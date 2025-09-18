@@ -1,3 +1,5 @@
+"use client";
+
 // import MyReports from './MyReports'
 // import ConnectionHistory from './ConnectionHistory';
 // import BillingEarning from './BillingEarning';

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Text, HStack, VStack } from "@chakra-ui/react";
 import { RiEdit2Fill } from "react-icons/ri";

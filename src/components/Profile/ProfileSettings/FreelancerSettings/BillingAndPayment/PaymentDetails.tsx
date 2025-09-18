@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, useToast } from "@chakra-ui/react";
 import { MainButtonRounded } from "../../../../Button/MainButton";
 import { MdDelete, MdHighlightOff } from "react-icons/md";

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, useToast } from "@chakra-ui/react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";

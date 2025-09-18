@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext, useEffect, useState } from "react";
 import { Avatar, Button } from "@chakra-ui/react";
 import {

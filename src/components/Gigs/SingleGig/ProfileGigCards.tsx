@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { getFreelancerGigs } from "../../../helpers/APIs/gigApis";
 import { useNavigate } from "next/navigation";

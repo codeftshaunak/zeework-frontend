@@ -1,3 +1,5 @@
+"use client";
+
 import { FaPen, FaQuestionCircle } from "react-icons/fa";
 import { IoIosAlarm } from "react-icons/io";
 import { GiPriceTag } from "react-icons/gi";

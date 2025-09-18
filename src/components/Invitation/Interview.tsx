@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useContext, useEffect, useState } from "react";
 import { Box, HStack, Text, VStack, useToast } from "@chakra-ui/react";
 import queryString from "query-string";

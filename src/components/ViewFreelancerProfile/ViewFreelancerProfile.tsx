@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";

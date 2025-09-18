@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";

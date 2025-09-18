@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { Button, Image, useToast } from "@chakra-ui/react";
 

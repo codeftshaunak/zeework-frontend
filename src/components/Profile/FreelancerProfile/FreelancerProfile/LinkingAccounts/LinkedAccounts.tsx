@@ -1,3 +1,5 @@
+"use client";
+
 import { BsPlus } from "react-icons/bs";
 import { useEffect, useState, useCallback } from "react";
 import UniversalModal from "../../../../Modals/UniversalModal";

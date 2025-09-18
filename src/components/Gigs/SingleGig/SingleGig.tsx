@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useToast, Button } from "@chakra-ui/react";
 import { IoIosMore, IoMdClose } from "react-icons/io";

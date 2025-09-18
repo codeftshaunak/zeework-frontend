@@ -1,3 +1,5 @@
+"use client";
+
 import { Link, useNavigate } from "next/navigation";
 import {
   Avatar,

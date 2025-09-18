@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import CTAButton from "../CTAButton";

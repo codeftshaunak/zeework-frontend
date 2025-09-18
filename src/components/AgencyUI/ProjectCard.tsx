@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { HStack, VStack, Box, Button, useToast } from "@chakra-ui/react";
 import {
