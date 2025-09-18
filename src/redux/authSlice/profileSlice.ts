@@ -2,6 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Function to get user profile from local storage
 const getLocalStorageUser = () => {
+    if (typeof window === "undefined") {
+        return {};
+    }
     try {
         const profileJSON = localStorage.getItem('zeework_user');
         if (profileJSON) {

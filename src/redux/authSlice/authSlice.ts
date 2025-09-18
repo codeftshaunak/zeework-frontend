@@ -2,6 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const getLocalStorageAuthData = () => {
+  if (typeof window === "undefined") {
+    return { role: "", authtoken: "" };
+  }
   const role = localStorage.getItem("role") || "";
   const authtoken = localStorage.getItem("authtoken") || "";
   return { role, authtoken };
