@@ -98,14 +98,14 @@ const Faqs = () => {
                         <FaPlus className="text-[16px]" />
                       </div>
                     )}
-                  </AccordionButton>
+                  </AccordionItemTrigger>
                 </h2>
-                <AccordionPanel
+                <AccordionItemContent
                   pb={4}
                   className="text-[16px] font-medium font-poppins max-w-[514px] !ps-0 max-[480px]:text-xs"
                 >
                   {item.content}
-                </AccordionPanel>
+                </AccordionItemContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -121,7 +121,7 @@ const Faqs = () => {
                 className="rounded-2xl px-12 py-4 max-[480px]:px-2"
               >
                 <h2>
-                  <AccordionButton
+                  <AccordionItemTrigger
                     onClick={() => toggle2ndAccordion(index)}
                     _hover={{ bg: "none", color: "inherit" }}
                     px={0}
@@ -142,14 +142,14 @@ const Faqs = () => {
                         <FaPlus className="text-[16px]" />
                       </div>
                     )}
-                  </AccordionButton>
+                  </AccordionItemTrigger>
                 </h2>
-                <AccordionPanel
+                <AccordionItemContent
                   pb={4}
                   className="text-[16px] font-medium font-poppins max-w-[514px] !ps-0 max-[480px]:text-xs"
                 >
                   {item.content}
-                </AccordionPanel>
+                </AccordionItemContent>
               </AccordionItem>
             ))}
           </Accordion>
