@@ -11,9 +11,9 @@ import {
   InputGroup,
   Checkbox,
   Stack,
-  useToast,
   RadioGroup,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import React, { useEffect, useState } from "react";
 import CTAButton from "../../CTAButton";
 import { BsFacebook, BsApple, BsEyeSlash, BsEye } from "react-icons/bs";
@@ -649,7 +649,6 @@ export const FreelancerSignUp = () => {
   } = useForm({
     resolver: yupResolver(freelancerSignUpSchema),
   });
-  const toast = useToast();
   const iconsStyle = {
     fontSize: "1.5rem",
     padding: "0.4rem",
@@ -695,24 +694,20 @@ export const FreelancerSignUp = () => {
     try {
       const { body, code, msg } = await signUp(data);
       if (code === 200) {
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setVerifyShow(true);
         setCountdown(119);
         sessionStorage.setItem("email", body.email);
         sessionStorage.setItem("userName", body.name);
       } else if (code === 403) {
-        toast({
+        toaster.create({
           title: msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
@@ -730,22 +725,18 @@ export const FreelancerSignUp = () => {
     try {
       const { code, msg } = await resendEmailVerification({ email });
       if (code === 200) {
-        toast({
+        toaster.create({
           title: msg,
           duration: 3000,
-          isClosable: true,
-          colorScheme: "green",
-          position: "top-right",
+          type: "success",
         });
         setCountdown(119);
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.message,
-        status: "error",
+        type: "error",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       console.error("Error fetching search results:", error);
     }
@@ -1008,7 +999,6 @@ export const ClientSignUp = () => {
   } = useForm({
     resolver: yupResolver(clientSignUpSchema),
   });
-  const toast = useToast();
 
   // Get Countries List
   const getVerifiedCountries = async () => {
@@ -1059,24 +1049,20 @@ export const ClientSignUp = () => {
     try {
       const response = await signUp(data);
       if (response.code === 200) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setVerifyShow(true);
         setCountdown(119);
         sessionStorage.setItem("email", response.body.email);
         sessionStorage.setItem("userName", response.body.name);
       } else if (response.code === 403) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
@@ -1090,22 +1076,18 @@ export const ClientSignUp = () => {
     try {
       const { code, msg } = await resendEmailVerification({ email });
       if (code === 200) {
-        toast({
+        toaster.create({
           title: msg,
           duration: 3000,
-          isClosable: true,
-          colorScheme: "green",
-          position: "top-right",
+          type: "success",
         });
       }
       setCountdown(119);
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.message,
-        status: "error",
+        type: "error",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       console.error("Error fetching search results:", error);
     }

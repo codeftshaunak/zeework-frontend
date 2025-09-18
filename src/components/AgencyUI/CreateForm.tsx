@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import { useContext, useEffect, useState } from "react";
@@ -8,7 +9,6 @@ import {
   Input,
   Textarea,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 import { getCategories, getCountries } from "../../helpers/APIs/freelancerApis";
 import { getSubCategory } from "../../helpers/APIs/freelancerApis";
@@ -36,7 +36,6 @@ const CreateForm = () => {
   const [subCategories, setSubCategories] = useState([]);
   const [subCLoading, setSubCLoading] = useState(false);
   const router = useRouter();
-  const toast = useToast();
 
   const getCountriesList = async () => {
     try {
@@ -109,23 +108,19 @@ const CreateForm = () => {
     try {
       const { code, msg } = await createAgency(data);
       if (code === 200) {
-        toast({
+        toaster.create({
           title: "Agency Profile Created Successfully.",
-          status: "success",
+          type: "success",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
         getUserDetails();
 
         router.push(-1);
       } else {
-        toast({
+        toaster.create({
           title: msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
       }
     } catch (error) {

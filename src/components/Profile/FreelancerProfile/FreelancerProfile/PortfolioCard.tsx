@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
-import { HStack, VStack, Box, Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { IoMdClose } from "react-icons/io";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import Select from "react-select";
@@ -56,7 +56,6 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
   const dispatch = useDispatch();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [updateLoading, setUpdateLoading] = useState(false);
-  const toast = useToast();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -142,30 +141,24 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
       const { body, code, msg } = await deleteFreelancerPortfolio(_id);
       if (code === 200) {
         dispatch(profileData({ profile: body }));
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       } else {
-        toast({
+        toaster.create({
           title: msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "Failed to delete portfolio!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
     setIsLoading(false);
@@ -220,12 +213,10 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
 
       if (code === 200) dispatch(profileData({ profile: body }));
 
-      toast({
+      toaster.create({
         title: code ? msg : message,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

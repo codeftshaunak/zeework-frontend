@@ -11,11 +11,11 @@ import {
   Flex,
   Input,
   IconButton,
-  useToast,
   Skeleton,
   Button,
   Text,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
 import { signIn } from "../../../helpers/APIs/apiRequest";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -29,7 +29,6 @@ import { HiOutlineInformationCircle } from "react-icons/hi";
 import ErrorMsg from "../../utils/Error/ErrorMsg";
 
 const Login = () => {
-  const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -68,13 +67,10 @@ const Login = () => {
 
       const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       await delay(1500);
-      toast({
+      toaster.create({
         title: response.msg,
-        status: "success",
-        variant: "custom",
+        type: "success",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       if (detailsFound || clientDetailsFound) {
         router.push(from, { replace: true });
@@ -84,23 +80,17 @@ const Login = () => {
 
       setLoading(false);
     } else if (response?.code === 403) {
-      toast({
+      toaster.create({
         title: response?.msg,
-        status: "warning",
-        // variant: 'custom',
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       setLoginBtnLoading(false);
     } else if (response?.code === 405) {
-      toast({
+      toaster.create({
         title: response?.msg,
-        status: "warning",
-        // variant: 'custom',
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       router.push("/login");
     }

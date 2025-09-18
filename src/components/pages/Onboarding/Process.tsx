@@ -11,8 +11,8 @@ import {
   Text,
   Textarea,
   VStack,
-  useToast,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import {
@@ -56,7 +56,6 @@ const getSchema = (page, role) => {
 
 const Process = () => {
   const [page, setPage] = useState(0);
-  const toast = useToast();
   const router = useRouter();
   const [userDetails, setUserDetails] = useState([]);
   const [options, setOptions] = useState([]);
@@ -87,12 +86,10 @@ const Process = () => {
     try {
       const { code, msg } = await updateFreelancerProfile(body);
 
-      toast({
+      toaster.create({
         title: msg,
-        status: code === 200 ? "success" : "warning",
+        type: code === 200 ? "success" : "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
 
       if (code === 200 && role == 1) {

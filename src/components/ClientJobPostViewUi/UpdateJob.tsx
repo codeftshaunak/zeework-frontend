@@ -1,6 +1,6 @@
 "use client";
 
-import { HStack, useToast, Box } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useEffect, useState } from "react";
 import { FormStateProvider } from "../../contexts/FormContext";
 import Steps from "../JobCreate/Steps";
@@ -16,7 +16,6 @@ import { setDashboard } from "../../redux/pagesSlice/pagesSlice";
 
 const UpdateJob = () => {
   const existJobs = useSelector((state: any) => state.pages.dashboard.jobs);
-  const toast = useToast();
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -39,12 +38,10 @@ const UpdateJob = () => {
     const { code, msg, body } = await updateJob(jobDetails?._id, formData);
 
     if (code === 200) {
-      toast({
+      toaster.create({
         title: msg,
-        status: "success",
+        type: "success",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
 
       dispatch(
@@ -57,12 +54,10 @@ const UpdateJob = () => {
         state: { jobDetails: body },
       });
     } else {
-      toast({
+      toaster.create({
         title: msg,
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
 
       router.push(-1);

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { format, formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
@@ -19,7 +19,6 @@ import JobDetailsSkeleton from "../Skeletons/JobDetailsSkeleton";
 import InvitationSkeleton from "../Skeletons/InvitationSkeleton";
 
 const ViewJobPost = () => {
-  const toast = useToast();
   const pathname = usePathname();
   const router = useRouter();
   const { id } = useParams();
@@ -60,12 +59,10 @@ const ViewJobPost = () => {
     try {
       const response = await deleteJob(_id);
       if (response)
-        toast({
+        toaster.create({
           title: "Job post deleted successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       if (response?.code === 200)
         dispatch(
@@ -74,12 +71,10 @@ const ViewJobPost = () => {
       router.push("/client-dashboard");
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "Failed to delete job post!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
     setIsModalType(null);
@@ -102,12 +97,10 @@ const ViewJobPost = () => {
   const handleCopyLink = () => {
     const jobUrl = `${window.location.origin}/find-job/${_id}`;
     navigator.clipboard.writeText(jobUrl).then(() => {
-      toast({
+      toaster.create({
         title: "Link copied to clipboard",
-        status: "success",
+        type: "success",
         duration: 2000,
-        isClosable: true,
-        position: "top-right",
       });
     });
   };

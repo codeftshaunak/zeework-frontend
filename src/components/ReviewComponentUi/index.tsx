@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 // End Contract By Client
@@ -5,7 +6,6 @@ import { useEffect, useState } from "react";
 import {
   HStack,
   VStack,
-  useToast,
   Textarea,
   Text,
   Box,
@@ -40,7 +40,6 @@ const ReviewComponent = () => {
   const jobDetails = location.state && location.state.jobDetails;
   const receiverDetails = location.state && location.state.receiverDetails;
   const receiver_id = receiverDetails?.user_id;
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const router = useRouter();
@@ -153,12 +152,10 @@ const ReviewComponent = () => {
   const handleSubmit = async () => {
     const errorMessage = validateFormData();
     if (errorMessage) {
-      toast({
+      toaster.create({
         title: errorMessage,
-        status: "info",
+        type: "info",
         duration: 3000,
-        isClosable: true,
-        position: "top-center",
       });
       return;
     }
@@ -166,34 +163,28 @@ const ReviewComponent = () => {
     try {
       const res = await giveFeedback(formData);
       if (res.code === 200) {
-        toast({
+        toaster.create({
           title: res.msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
 
         setIsModal(true);
         // router.push("/");
       } else {
-        toast({
+        toaster.create({
           title: res.msg || res.response.data.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title:
           error.data.msg || "Some issue happen please check everything again",
-        status: "error",
+        type: "error",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
     setIsLoading(false);

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Text, Image, HStack, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useRouter } from "next/navigation";
 import { endJobContract } from "../../helpers/APIs/jobApis";
 import { useState } from "react";
@@ -16,7 +16,6 @@ const ConfirmModal = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const toast = useToast();
 
   const handleEndContract = async () => {
     setIsLoading(true);
@@ -25,12 +24,10 @@ const ConfirmModal = ({
         job_id: jobDetails?.job_id,
         user_id: receiverDetails?.user_id,
       });
-      toast({
+      toaster.create({
         title: msg,
-        status: code === 200 ? "success" : "warning",
+        type: code === 200 ? "success" : "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       if (code === 200)
         router.push(`/submit-review/${job_id}`, {

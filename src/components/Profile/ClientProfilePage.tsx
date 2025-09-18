@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
@@ -12,7 +13,6 @@ import {
   SliderTrack,
   Text,
   VStack,
-  useToast,
 } from "@chakra-ui/react";
 import ReviewCard from "./FreelancerProfile/FreelancerProfile/ReviewCard";
 import { HStack, Avatar } from "@chakra-ui/react";
@@ -42,7 +42,6 @@ export const ClientProfilePage = () => {
   const profile = useSelector((state: any) => state.profile.profile);
   const [workHistory, setWorkHistory] = useState([]);
   const router = useRouter();
-  const toast = useToast();
   const role = useSelector((state: any) => state.auth.role);
   const [isModal, setIsModal] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -112,12 +111,10 @@ export const ClientProfilePage = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Zeework Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
 
@@ -235,10 +232,8 @@ export const ClientProfilePage = () => {
         <div className="w-full sm:w-[100%] flex flex-col gap-[24px] m-auto">
           <div className=" w-full flex items-center justify-between border-2 py-[20px] px-[24px] border-[var(--primarycolor)] bg-green-50 rounded-xl max-sm:flex-col max-sm:gap-4">
             <div className="flex gap-[14px] items-center">
-              <div style={{ position: "relative", padding: "10px" }}>
                 <div
                   style={{
-                    position: "absolute",
                     top: "0px",
                     left: "0px",
                     cursor: "pointer",

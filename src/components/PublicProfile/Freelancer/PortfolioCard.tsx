@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper/modules";
 import { useRef, useState } from "react";
 import { RiInformationLine } from "react-icons/ri";
-import { HStack, VStack, Box, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 
 import { BsLink45Deg } from "react-icons/bs";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
@@ -19,7 +19,6 @@ const PortfolioCard = ({ portfolio }) => {
   const [isModal, setIsModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const toast = useToast();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -31,12 +30,10 @@ const PortfolioCard = ({ portfolio }) => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Zeework Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
 

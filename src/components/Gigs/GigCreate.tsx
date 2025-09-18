@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, HStack, Text, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useCallback, useState } from "react";
 import { createGig } from "../../helpers/APIs/freelancerApis";
 import Step0 from "./Steps/Step0";
@@ -27,7 +27,6 @@ export const GigCreate = ({
   const [isModal, setIsModal] = useState(false);
   const [modalType, setIsModalType] = useState("");
   const [storedGigId, setStoredGigId] = useState("");
-  const toast = useToast();
 
   // update form data with previous data
   const updateFormData = useCallback(
@@ -131,20 +130,16 @@ export const GigCreate = ({
 
       if (code === 200) {
         await handleUpload(body._id);
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
       } else {
-        toast({
+        toaster.create({
           title: msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
       }
     } catch (error) {

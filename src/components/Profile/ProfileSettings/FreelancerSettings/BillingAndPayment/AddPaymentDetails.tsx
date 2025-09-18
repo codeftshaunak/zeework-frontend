@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, useToast, Box } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { addPaymentMethods } from "../../../../../helpers/APIs/payments";
 import {
   addBankSchema,
@@ -45,7 +45,6 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
   } = useForm({
     resolver: yupResolver(addAccountSchema(formType)),
   });
-  const toast = useToast();
   console.log(errors);
   // save payment info
   const onSubmit = async (data) => {
@@ -56,12 +55,10 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
         payment_details: data,
       });
 
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
       if (code === 200) {
         setBank({
@@ -72,12 +69,10 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
       });
     }
     setIsLoading(false);

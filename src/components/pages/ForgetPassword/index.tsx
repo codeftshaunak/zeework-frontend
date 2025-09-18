@@ -9,8 +9,8 @@ import {
   Button,
   Text,
   Box,
-  useToast,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import OnboardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
 import { useState } from "react";
 import { TbPasswordFingerprint, TbPasswordUser } from "react-icons/tb";
@@ -67,7 +67,6 @@ const ForgetPassword = () => {
   const [visiblePass, setVisiblePass] = useState({ one: false, two: false });
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const toast = useToast();
 
   const {
     register,
@@ -113,11 +112,10 @@ const ForgetPassword = () => {
   };
 
   const visibleToast = (msg, code) => {
-    toast({
+    toaster.create({
       title: msg,
-      duration: "3000",
-      status: code === 200 ? "success" : "error",
-      position: "top-right",
+      duration: 3000,
+      type: code === 200 ? "success" : "error",
     });
   };
 

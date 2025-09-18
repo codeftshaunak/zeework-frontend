@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, HStack, Input, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateFreelancer,
@@ -20,7 +20,6 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   const [isLoading, setIsLoading] = useState(false);
   const existProfile = useSelector((state: any) => state.profile.profile);
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const {
     register,
@@ -113,24 +112,20 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
       if (response.code === 200 && response.body) {
         if (response.body.education) profileDispatch(response.body);
 
-        toast({
+        toaster.create({
           title:
             type === "Add Education"
               ? "Education Added Successfully"
               : "Education Updated Successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setIsModal(false);
       } else {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
@@ -155,32 +150,26 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
         newProfile.education = existProfile.education?.filter(
           (item) => item._id !== defaultValue._id
         );
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         dispatch(profileData({ profile: newProfile }));
         setIsModal(false);
       } else {
-        toast({
+        toaster.create({
           title: msg || "Something gonna wrong!",
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "Something gonna wrong!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
 

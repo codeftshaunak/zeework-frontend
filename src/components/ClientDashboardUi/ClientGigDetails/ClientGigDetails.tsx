@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 // import required modules
-import { Avatar, Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
 import { SocketContext } from "../../../contexts/SocketContext";
@@ -38,7 +38,6 @@ const ClientGigDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const { socket } = useContext(SocketContext);
-  const toast = useToast();
   const videoRef = useRef(null);
   const router = useRouter();
   const { state } = usePathname();
@@ -147,7 +146,7 @@ const ClientGigDetails = () => {
         dispatch(clearMessageState());
       }
 
-      toast({
+      toaster.create({
         title:
           res?.msg ||
           res.response.data.msg ||
@@ -155,16 +154,12 @@ const ClientGigDetails = () => {
           "Something went wrong!",
         status: res?.code === 200 ? "success" : "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Something went wrong!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
-        isClosable: true,
       });
       console.error(error);
     }

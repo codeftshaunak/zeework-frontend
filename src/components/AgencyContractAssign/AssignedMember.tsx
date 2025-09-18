@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Box, Button, Text, useToast, VStack } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useState } from "react";
 import { MainButtonRounded } from "../Button/MainButton";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -23,7 +23,6 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
     _id,
   } = member || {};
   const router = useRouter();
-  const toast = useToast();
 
   const handleEndContract = async () => {
     setIsLoading(true);
@@ -36,12 +35,10 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
 
       if (code === 200) setJobDetails((prev) => ({ ...prev, ...body }));
 
-      toast({
+      toaster.create({
         title: msg || message,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

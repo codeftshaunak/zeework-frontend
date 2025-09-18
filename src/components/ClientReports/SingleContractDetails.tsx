@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { Avatar, Button, Image, Stack, Text, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import {
   
   
@@ -63,7 +63,6 @@ const SingleContractDetails = () => {
     setValue,
     reset,
   } = useForm();
-  const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -224,12 +223,10 @@ const SingleContractDetails = () => {
         contract_ref: jobDetails._id,
       });
 
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
       if (code === 200) {
         if (socket) {
@@ -281,12 +278,10 @@ const SingleContractDetails = () => {
         contract_ref: jobDetails._id,
       });
 
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
       if (code === 200) {
         if (socket) {

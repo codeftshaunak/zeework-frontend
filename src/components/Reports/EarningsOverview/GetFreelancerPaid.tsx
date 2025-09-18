@@ -9,8 +9,8 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  useToast,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useContext, useState } from "react";
 import Select from "react-select";
 import { useSelector } from "react-redux";
@@ -52,7 +52,6 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
       value: paymentDetails?.payment_info,
     },
   ]);
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessBody, setIsSuccessBody] = useState(!isModal && null);
 
@@ -89,12 +88,10 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
         getUserDetails(), setIsSuccessBody(body);
       }
 
-      toast({
+      toaster.create({
         title: msg || message,
-        status: code === 200 ? "success" : "warning",
+        type: code === 200 ? "success" : "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     } catch (error) {
       console.error(error);

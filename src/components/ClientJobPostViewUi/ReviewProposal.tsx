@@ -15,9 +15,9 @@ import {
   
   Avatar,
   StackDivider,
-  useToast,
   AvatarBadge,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useRouter, usePathname } from "next/navigation";
 import { useContext, useState } from "react";
 import UniversalModal from "../Modals/UniversalModal";
@@ -48,7 +48,6 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
   const [hireProfile, setHireProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { socket } = useContext(SocketContext);
-  const toast = useToast();
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -134,20 +133,16 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
         dispatch(clearMessageState());
       }
 
-      toast({
+      toaster.create({
         title: res.msg || res.response.data.msg,
-        position: "top-right",
         status: res.code === 200 ? "success" : "warning",
-        isClosable: true,
         duration: 2000,
       });
     } catch (error) {
       console.log(error);
-      toast({
+      toaster.create({
         title: error.response.data.msg,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
         duration: 2000,
       });
     }

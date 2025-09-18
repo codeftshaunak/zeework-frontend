@@ -6,10 +6,10 @@ import {
   HStack,
   Text,
   VStack,
-  useToast,
   Avatar,
   Button,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import {
   acceptAgencyInvitation,
   getInvitationOfAgency,
@@ -27,7 +27,6 @@ const AgencyDetails = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isReject, setIsReject] = useState(false);
   const currentUrl = window.location.href;
-  const toast = useToast();
   const { invite_id } = queryString.parseUrl(currentUrl).query;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -68,33 +67,29 @@ const AgencyDetails = () => {
       });
 
       if (res.code === 200) {
-        toast({
+        toaster.create({
           title: "You’ve successfully accepted the invitation",
-          duration: "3000",
-          status: "success",
-          position: "top-right",
+          duration: 3000,
+          type: "success",
         });
         router.push("/");
       } else {
-        toast({
+        toaster.create({
           title:
             res.message ||
             res?.msg ||
             res.response.data.msg ||
             res.response.data.message ||
             "Something went wrong!",
-          duration: "3000",
-          status: "warning",
-          position: "top-right",
+          duration: 3000,
+          type: "warning",
         });
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Something went wrong!",
-        duration: "3000",
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        duration: 3000,
+        type: "warning",
       });
     }
     setIsSuccess(false);
@@ -109,28 +104,24 @@ const AgencyDetails = () => {
       });
 
       if (code === 200) {
-        toast({
+        toaster.create({
           title: "You’ve successfully rejected the invitation",
-          duration: "3000",
-          status: "success",
-          position: "top-right",
+          duration: 3000,
+          type: "success",
         });
         router.push("/");
       } else {
-        toast({
+        toaster.create({
           title: msg,
-          duration: "3000",
-          status: "warning",
-          position: "top-right",
+          duration: 3000,
+          type: "warning",
         });
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: "Error performing action",
-        duration: "3000",
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        duration: 3000,
+        type: "warning",
       });
     }
     setIsReject(false);

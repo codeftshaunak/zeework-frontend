@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { Box, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import queryString from "query-string";
 import {
   updateOfferRequest,
@@ -26,7 +26,6 @@ const Offer = () => {
   const [openModal, setOpenModal] = useState(false);
   const [jobDetails, setJobDetails] = useState();
   const [reject, setReject] = useState(false);
-  const toast = useToast();
   const dispatch = useDispatch();
   const { socket } = useContext(SocketContext); // Use socket from context
   const [isLoading, setIsLoading] = useState({
@@ -62,30 +61,26 @@ const Offer = () => {
       });
 
       if (code === 200) {
-        toast({
+        toaster.create({
           title: msg,
           duration: 3000,
-          status: "success",
-          position: "top-right",
+          type: "success",
         });
         sendMessage(messages, statusValue);
         router.push("/my-jobs");
         dispatch(setMyJobsData({ userJobs: {} }));
       } else {
-        toast({
+        toaster.create({
           title: message,
           duration: 3000,
-          status: "warning",
-          position: "top-right",
+          type: "warning",
         });
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
       });
     }
     setIsLoading({
@@ -107,28 +102,24 @@ const Offer = () => {
 
       if (res.code === 200) {
         // sendMessage("", "rejected");
-        toast({
+        toaster.create({
           title: res.msg,
           duration: 3000,
-          status: "success",
-          position: "top-right",
+          type: "success",
         });
         router.push("/my-jobs");
       } else {
-        toast({
+        toaster.create({
           title: res.msg || res.message,
           duration: 3000,
-          status: "warning",
-          position: "top-right",
+          type: "warning",
         });
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
       });
     }
     setIsLoading({

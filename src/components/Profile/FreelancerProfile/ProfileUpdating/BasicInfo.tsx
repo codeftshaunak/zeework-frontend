@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import QuillToolbar, {
   formats,
   modules,
@@ -20,7 +20,6 @@ const BasicInfo = ({ setIsModal }) => {
   const existProfile = useSelector((state: any) => state.profile.profile);
   const { professional_role, hourly_rate, description } = existProfile || {};
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const {
@@ -55,21 +54,17 @@ const BasicInfo = ({ setIsModal }) => {
         description: data.description,
       });
       if (response.code === 405 || response.code === 500) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setIsModal(false);
       } else if (response.code === 200) {
-        toast({
+        toaster.create({
           title: "Basic Info Updated Successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         dispatch(profileData({ profile: response.body }));
         setIsModal(false);

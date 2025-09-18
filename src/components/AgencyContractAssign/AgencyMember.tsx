@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Box, Button, Text, useToast, VStack } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { MainButtonRounded } from "../Button/MainButton";
 import { useContext, useState } from "react";
 import { assignContractToFreelancer } from "../../helpers/APIs/agencyApis";
@@ -15,7 +15,6 @@ const AgencyMember = ({ details, contractRef, setJobDetails }) => {
   const { profile_image, firstName, lastName, professional_role } = details;
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const toast = useToast();
   const [isAssigned, setIsAssigned] = useState(false);
   const { socket } = useContext(SocketContext);
   const dispatch = useDispatch();
@@ -56,12 +55,10 @@ const AgencyMember = ({ details, contractRef, setJobDetails }) => {
         }
         dispatch(clearMessageState());
       }
-      toast({
+      toaster.create({
         title: msg || message,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

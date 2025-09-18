@@ -1,10 +1,10 @@
+import { toaster } from "@/lib/providers";
 import {
   HStack,
   Image,
   VStack,
   Text,
   Avatar,
-  useToast,
 } from "@chakra-ui/react";
 import { AgencyBodyLayout } from "../../AgencyUI/AgencyBody";
 import { BsLink45Deg } from "react-icons/bs";
@@ -16,18 +16,15 @@ const TopSide = ({ details }) => {
     agency_coverImage,
     agency_profileImage,
   } = details || {};
-  const toast = useToast();
 
   const handleCopyProfileURL = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Agency Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
   return (

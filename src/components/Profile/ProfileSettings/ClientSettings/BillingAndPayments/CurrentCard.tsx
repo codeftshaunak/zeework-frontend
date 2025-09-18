@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useState } from "react";
 import {
   FaCcAmex,
@@ -45,31 +45,26 @@ const CurrentCard = ({ data, setData, setTab }) => {
   const { brand, exp_month, exp_year, last4, name, id } =
     data.card_details || {};
   const cardIcon = getCardIcon(brand);
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const removeCard = async () => {
     setIsLoading(true);
     try {
       const res = await deleteBankDetails({ type: "card", ref_id: id });
-      toast({
+      toaster.create({
         title: res.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
         status: res.code === 200 ? "success" : "warning",
-        isClosable: true,
       });
       if (res.code === 200) {
         setData({}), setIsModal(false);
         dispatch(showToast());
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
       });
     }
     setIsLoading(false);

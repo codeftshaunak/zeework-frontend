@@ -1,6 +1,6 @@
 "use client";
 
-import { HStack, Spinner, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { verifyMail } from "../../../helpers/APIs/apiRequest";
@@ -8,7 +8,6 @@ import BtnSpinner from "../../Skeletons/BtnSpinner";
 import HomeLayout from "../../Layouts/HomeLayout";
 
 export const VerifySuccess = () => {
-  const toast = useToast();
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = new URLSearchParams(location.search);
@@ -24,20 +23,16 @@ export const VerifySuccess = () => {
         token: token,
       });
       if (response.code === 200) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       } else if (response.code === 401) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {

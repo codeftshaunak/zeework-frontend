@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, HStack, Input, Textarea, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateFreelancer,
@@ -26,7 +26,6 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   const [countries, setCountries] = useState([]);
   const [countryLoading, setCountryLoading] = useState(true);
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const {
     register,
@@ -41,7 +40,6 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
       company_name: "",
       start_date: "",
       end_date: "",
-      position: "",
       job_location: "",
       job_description: "",
     },
@@ -133,24 +131,20 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
 
       if (response.code === 200) {
         if (response.body.experience) profileDispatch(response.body);
-        toast({
+        toaster.create({
           title:
             type === "Add Experience"
               ? "Experience Added Successfully"
               : "Experience Updated Successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setIsModal(false);
       } else {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
@@ -175,32 +169,26 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
         newProfile.experience = existProfile.experience?.filter(
           (item) => item._id !== defaultValue._id
         );
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         dispatch(profileData({ profile: newProfile }));
         setIsModal(false);
       } else {
-        toast({
+        toaster.create({
           title: msg || "Something gonna wrong!",
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "Something gonna wrong!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
 

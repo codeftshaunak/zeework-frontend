@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { Box, HStack, Text, VStack, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import {
   acceptAgencyInvitation,
   acceptInvitation,
@@ -19,7 +19,6 @@ const InterviewPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [jobDetails, setJobDetails] = useState();
 
-  const toast = useToast();
   const { socket } = useContext(SocketContext);
 
   // const getInvitationDetails = async () => {
@@ -43,11 +42,11 @@ const InterviewPage = () => {
   //         });
   //         if (response.code === 200) {
   //             const message = statusValue === "1" ? "Invitation Accepted Successfully!!!" : "You've Rejected Interview!!!";
-  //             toast({ title: message, duration: '3000', colorScheme: statusValue === "1" ? 'green' : 'warning', position: 'top-right' });
+  //             toaster.create({ title: message, duration: '3000', colorScheme: statusValue === "1" ? 'green' : 'warning', position: 'top-right' });
   //             router.push("/message");
   //         }
   //     } catch (error) {
-  //         toast({ title: "Error performing action", duration: '3000', position: 'top-right', status: 'warning', isClosable: true });
+  //         toaster.create({ title: "Error performing action", duration: '3000', position: 'top-right', status: 'warning', isClosable: true });
   //     }
   // };
 

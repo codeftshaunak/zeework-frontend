@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { changePasswordSchema } from "../../../../schemas/user-schema";
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { changeOldPassword } from "../../../../helpers/APIs/jobApis";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../utils/Error/ErrorMsg";
@@ -19,7 +19,6 @@ const ChangeOldPassword = () => {
   } = useForm({
     resolver: yupResolver(changePasswordSchema),
   });
-  const toast = useToast();
 
   // changes old password
   const changePassword = async (data) => {
@@ -30,12 +29,10 @@ const ChangeOldPassword = () => {
         new_password: data.new_password,
       });
 
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

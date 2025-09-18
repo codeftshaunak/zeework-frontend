@@ -5,7 +5,7 @@ import ContractTerms from "./ContractTerms";
 import FreelancerProfile from "./FreelancerProfile";
 import JobDetails from "./JobDetails";
 import { sendHireFreelancer } from "../../helpers/APIs/clientApis";
-import { useToast, Checkbox } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useRouter, usePathname } from "next/navigation";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { SocketContext } from "../../contexts/SocketContext";
@@ -24,7 +24,6 @@ const HireFreelancerPage = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const queryParams = new URLSearchParams(location.search);
   const freelancer_id = queryParams.get("freelancer");
@@ -56,37 +55,34 @@ const HireFreelancerPage = () => {
     const { job_type, hourly_rate, budget, accept_terms_condition } = formData;
 
     if (!accept_terms_condition) {
-      toast({
+      toaster.create({
         title: "Please accept the terms and conditions",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
       });
       return false;
     }
 
     if (job_type === "hourly" && Number(hourly_rate) < 1) {
-      toast({
+      toaster.create({
         title: "Please enter a valid hourly rate (minimum $1)",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
       });
       return false;
     }
 
     if (job_type === "fixed" && Number(budget) < 1) {
-      toast({
+      toaster.create({
         title: "Please enter a valid budget (minimum $1)",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
       });
       return false;
     }
 
     return true;
-  }, [formData, toast]);
+  }, [formData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,34 +122,28 @@ const HireFreelancerPage = () => {
         }
 
         dispatch(clearMessageState());
-        toast({
+        toaster.create({
           title: res?.msg || "Offer sent successfully!",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
 
         router.push("/client-dashboard");
       } else {
-        toast({
+        toaster.create({
           title: res?.msg || res?.response?.data?.msg || "Failed to send offer",
-          status: "error",
+          type: "error",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
       }
     } catch (error) {
       console.error("Error sending hire request:", error);
-      toast({
+      toaster.create({
         title:
           error?.response?.data?.msg ||
           "An error occurred while sending the offer",
-        status: "error",
+        type: "error",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     } finally {
       setIsSubmitting(false);

@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import {
@@ -9,7 +10,6 @@ import {
   
   
   Tabs,
-  useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -48,7 +48,6 @@ const ActiveJobDetailsComponent = () => {
 
   const dispatch = useDispatch();
 
-  const toast = useToast();
   const {
     register,
     handleSubmit,
@@ -108,12 +107,10 @@ const ActiveJobDetailsComponent = () => {
       formData.append("contract_ref", jobDetails._id);
 
       const { code, msg } = await submitTask(formData);
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
       if (code === 200) {
         if (socket) {

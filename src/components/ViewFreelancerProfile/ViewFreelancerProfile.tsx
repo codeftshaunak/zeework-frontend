@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
 import { getFreelancerInfo } from "../../helpers/APIs/clientApis";
-import { VStack, Avatar, Text, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import SkillCard from "../Profile/SkillCard";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,7 +25,6 @@ const ViewFreelancerProfile = () => {
   const [freelancerDetails, setFreelancerDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const toast = useToast();
 
   const { id } = useParams();
   const {
@@ -67,12 +66,10 @@ const ViewFreelancerProfile = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Zeework Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
 

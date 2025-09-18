@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
-import { HStack, VStack, Avatar, Text, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { CiLocationOn } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -58,7 +58,6 @@ export const FreelancerProfile = ({ viewAs }) => {
   } = profile.profile || [];
 
   const [localTime, setLocalTime] = useState();
-  const toast = useToast();
 
   const findWorkHistory = async () => {
     try {
@@ -100,12 +99,10 @@ export const FreelancerProfile = ({ viewAs }) => {
     const profileURL = `${window.location.origin}/profile/f/${profile?.profile?.user_id}`;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Zeework Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
 
@@ -125,11 +122,9 @@ export const FreelancerProfile = ({ viewAs }) => {
       <div className="w-[100%] justify-center m-auto flex flex-col gap-[24px]">
         <div className="w-[100%] bg-white flex items-center justify-between border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg max-sm:flex-col max-sm:gap-4">
           <div className="flex gap-[14px] items-center max-[380px]:gap-0">
-            <div style={{ position: "relative", padding: "10px" }}>
               {!viewAs && (
                 <div
                   style={{
-                    position: "absolute",
                     top: "0px",
                     left: "0px",
                     cursor: "pointer",

@@ -10,8 +10,8 @@ import {
   RadioGroup,
   Select,
   Stack,
-  useToast,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -111,7 +111,6 @@ const JobApply = ({ setPage, details }) => {
   const { hourly_rate } = profile.profile || [];
   const [cookies] = useCookies(["activeagency"]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const toast = useToast();
   const router = useRouter();
 
   // Determine if it's a fixed or hourly job
@@ -188,11 +187,9 @@ const JobApply = ({ setPage, details }) => {
       handleSubmissionResponse(response);
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "An error occurred while applying",
-        position: "top",
-        status: "error",
-        isClosable: true,
+        type: "error",
         duration: 2000,
       });
     } finally {
@@ -204,11 +201,9 @@ const JobApply = ({ setPage, details }) => {
     const isSuccess = response?.code === 200;
     const toastMessage = isSuccess ? "Job Applied Successfully" : response?.msg;
 
-    toast({
+    toaster.create({
       title: toastMessage,
-      position: "top",
-      status: isSuccess ? "success" : "error",
-      isClosable: true,
+      type: isSuccess ? "success" : "error",
       duration: 2000,
     });
 

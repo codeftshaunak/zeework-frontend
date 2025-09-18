@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import {
@@ -6,7 +7,6 @@ import {
   Input,
   InputGroup,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -43,7 +43,6 @@ export const CardDetailsForm = ({ set setCard }) => {
   const [countries, setCountries] = useState([]);
   const stripe = useStripe();
   const elements = useElements();
-  const toast = useToast();
 
   const dispatch = useDispatch();
 
@@ -119,12 +118,10 @@ export const CardDetailsForm = ({ set setCard }) => {
       } else {
         const { code, msg, body } = await addPaymentMethods({ token });
 
-        toast({
+        toaster.create({
           title: msg,
           status: code === 200 ? "success" : "warning",
           duration: 3000,
-          position: "top-right",
-          isClosable: true,
         });
 
         if (code === 200) {

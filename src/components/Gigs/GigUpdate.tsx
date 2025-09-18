@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, HStack, Text, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useRouter, useParams } from "next/navigation";
 import {
@@ -25,7 +25,6 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   const [gigData, setGigData] = useState({});
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
   const pathname = usePathname();
   const path = pathname;
   const router = useRouter();
@@ -197,12 +196,10 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
         video: mediaResponse.video,
       });
       if (response?.code === 200) {
-        toast({
+        toaster.create({
           title: response.msg,
           duration: 3000,
-          isClosable: true,
-          colorScheme: "green",
-          position: "top-right",
+          type: "success",
         });
         router.push(-1);
         setIsEdit(false);

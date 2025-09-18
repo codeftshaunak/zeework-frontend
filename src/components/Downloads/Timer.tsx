@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Image, useToast } from "@chakra-ui/react";
+import { Button, Image } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 
 const Timer = () => {
   const [downloadLink, setDownloadLink] = useState("");
@@ -10,8 +11,6 @@ const Timer = () => {
   const desktopApp = process.env.NEXT_PUBLIC_WINDOWS_TIMER_URL || '';
   const macApp = process.env.NEXT_PUBLIC_MAC_TIMER_URL || '';
   const appVersion = process.env.NEXT_PUBLIC_TIMER_VERSION || "0.0.0";
-
-  const toast = useToast();
 
   useEffect(() => {
     const platform = navigator.platform.toLowerCase();
@@ -31,12 +30,10 @@ const Timer = () => {
     if (downloadLink) {
       window.location.href = downloadLink;
     } else {
-      toast({
+      toaster.create({
         title: "Sorry, the timer is not available for your current platform.",
-        status: "info",
+        type: "info",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     }
   };

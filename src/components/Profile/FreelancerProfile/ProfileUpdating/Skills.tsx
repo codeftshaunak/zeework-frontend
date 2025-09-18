@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -17,7 +17,6 @@ import { skillsSchema } from "../../../../schemas/freelancer-profile-schema";
 const Skills = ({ setIsModal }) => {
   const userProfileInfo = useSelector((state: any) => state.profile.profile);
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
   const animatedComponents = makeAnimated();
   const [options, setOptions] = useState(null);
   const [optionsLoading, setOptionsLoading] = useState(true);
@@ -95,21 +94,17 @@ const Skills = ({ setIsModal }) => {
       });
 
       if (response.code == 405) {
-        toast({
+        toaster.create({
           title: response.msg,
-          status: "warning",
+          type: "warning",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         setIsModal(false);
       } else if (response.code === 200) {
-        toast({
+        toaster.create({
           title: "Skills Added Successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         dispatch(
           profileData({

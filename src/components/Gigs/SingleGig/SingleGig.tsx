@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useToast, Button } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { IoIosMore, IoMdClose } from "react-icons/io";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { deleteFreelancerGig } from "../../../helpers/APIs/gigApis";
@@ -14,7 +14,6 @@ const SingleGig = ({ gig, getAllGigs }) => {
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { title, images, _id } = gig;
-  const toast = useToast();
   const router = useRouter();
 
   // handle details & edit button
@@ -33,12 +32,10 @@ const SingleGig = ({ gig, getAllGigs }) => {
       try {
         const response = await deleteFreelancerGig(gig._id);
         if (response?.code === 200) {
-          toast({
+          toaster.create({
             title: response.msg,
             duration: 3000,
-            isClosable: true,
-            colorScheme: "green",
-            position: "top-right",
+            type: "success",
           });
           setIsModal(false);
           getAllGigs();

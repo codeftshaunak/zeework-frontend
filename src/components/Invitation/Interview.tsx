@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { Box, HStack, Text, VStack, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import queryString from "query-string";
 import {
   acceptInvitation,
@@ -30,7 +30,6 @@ const Interview = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
-  const toast = useToast();
   const { socket } = useContext(SocketContext); // Use socket from context
   const getInvitationDetails = async () => {
     setLoading(true);
@@ -61,31 +60,27 @@ const Interview = () => {
       }
 
       if (code === 200) {
-        toast({
+        toaster.create({
           title:
             statusValue == 1
               ? "You’ve accept the interview request"
               : "You’ve reject the interview request",
-          duration: "3000",
-          colorScheme: "green",
-          position: "top-right",
+          duration: 3000,
+          type: "success",
         });
         router.push("/");
       } else {
-        toast({
+        toaster.create({
           title: msg,
-          duration: "3000",
-          colorScheme: "warning",
-          position: "top-right",
+          duration: 3000,
+          type: "warning",
         });
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
-        duration: "3000",
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        duration: 3000,
+        type: "warning",
       });
     }
     setIsLoading({ isLoading: false, statusValue: null });

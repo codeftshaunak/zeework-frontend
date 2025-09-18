@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, useToast, VStack } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import React, { useContext, useEffect, useState } from "react";
 import { TbMessageCancel } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,7 +36,6 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   const userId = isAgencyId ? isAgencyId : senderDetails.user_id;
   const socketUser = senderDetails.user_id;
   const dispatch = useDispatch();
-  const toast = useToast();
 
   // Scroll to the bottom when the component is first rendered or when new messages are added
   useEffect(() => {
@@ -181,25 +180,21 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
       });
 
       if (code === 200) {
-        toast({
+        toaster.create({
           title: msg,
           duration: 3000,
-          isClosable: true,
-          colorScheme: "green",
-          position: "top-right",
+          type: "success",
         });
         setMessageData((prev) =>
           prev.filter((item) => item?._id !== selectedMsgId)
         );
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title:
           error?.message || error.response.data.msg || "Something gonna wrong!",
-        status: "error",
+        type: "error",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
       console.error("Error deleting message:", error);
     }

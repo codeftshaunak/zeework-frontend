@@ -6,7 +6,6 @@ import {
   Spinner,
   Text,
   Textarea,
-  useToast,
   VStack
 } from "@chakra-ui/react";
 import React, { useState } from "react";
@@ -21,7 +20,6 @@ const SubmitModal = ({
   const [messages, setMessage] = useState("");
   const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const toast = useToast();
 
   const handleTextValue = (e) => {
     setMessage(e.target.value);

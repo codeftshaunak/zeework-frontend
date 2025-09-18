@@ -20,8 +20,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
-  useToast,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import {
@@ -50,7 +50,6 @@ const JobDetails = ({ setPage, setDetails }) => {
   const [isImgLoading, setIsImgLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const toast = useToast();
 
   // include drag and drop with photo cropping features
   const [fileName, setFileName] = useState("");
@@ -221,12 +220,10 @@ const JobDetails = ({ setPage, setDetails }) => {
   const handleCopyLink = () => {
     const jobUrl = `${window.location.origin}/find-job/${jobDetails[0]._id}`;
     navigator.clipboard.writeText(jobUrl).then(() => {
-      toast({
+      toaster.create({
         title: "Link copied to clipboard",
-        status: "success",
+        type: "success",
         duration: 2000,
-        isClosable: true,
-        position: "top-right",
       });
     });
   };

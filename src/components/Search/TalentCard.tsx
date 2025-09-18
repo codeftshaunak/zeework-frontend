@@ -8,11 +8,11 @@ import {
   Stack,
   Input,
   Textarea,
-  useToast,
 } from "@chakra-ui/react";
 import { useContext, useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import FreelancerDetailsModal from "../Modals/FreelancerDetailsModal";
+import { toaster } from "@/lib/providers";
 import { sendAgencyInvitation } from "../../helpers/APIs/agencyApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { SocketContext } from "../../contexts/SocketContext";
@@ -35,13 +35,11 @@ const TalentCard = ({ freelancer }) => {
 
   const isHired = agencyMembersId?.find((id) => id === freelancer?.user_id);
 
-  const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     agency_profile: hasAgency,
     freelancer_id: selectedFreelancer?.user_id,
-    member_position: "",
     message: "",
   });
 
@@ -72,18 +70,16 @@ const TalentCard = ({ freelancer }) => {
     // check input field
     if (!formData.member_position || !formData.message) {
       if (!formData.member_position) {
-        toast({
+        toaster.create({
           title: "Please fill position field",
-          status: "warning",
-          duration: "3000",
-          position: "top-center",
+          type: "warning",
+          duration: 3000,
         });
       } else {
-        toast({
+        toaster.create({
           title: "Please fill message field",
-          status: "warning",
-          duration: "3000",
-          position: "top-center",
+          type: "warning",
+          duration: 3000,
         });
       }
       return;
@@ -122,33 +118,29 @@ const TalentCard = ({ freelancer }) => {
 
         dispatch(clearMessageState());
         setIsInvited(true);
-        toast({
+        toaster.create({
           title: msg,
-          status: "success",
-          duration: "3000",
-          position: "top-right",
+          type: "success",
+          duration: 3000,
         });
 
         setFormData({
-          member_position: "",
           message: "",
         });
         setIsOpenModal(false);
       } else {
-        toast({
+        toaster.create({
           title: msg || message,
-          status: "warning",
-          duration: "3000",
-          position: "top-right",
+          type: "warning",
+          duration: 3000,
         });
       }
     } catch (error) {
       console.log(error);
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Something wrong try again!",
-        status: "warning",
-        duration: "3000",
-        position: "top-right",
+        type: "warning",
+        duration: 3000,
       });
     }
     setIsLoading(false);

@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import {
@@ -7,7 +8,6 @@ import {
   InputLeftElement,
   Stack,
   HStack,
-  useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFreelancer } from "../../../../helpers/APIs/userApis";
@@ -45,7 +45,6 @@ const Account = () => {
   const profile = useSelector((state: any) => state.profile.profile);
   const isDisabled = profile.profile_verified;
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const {
     register,
@@ -62,12 +61,10 @@ const Account = () => {
 
   const updateAccount = async (data) => {
     if (isDisabled)
-      return toast({
+      return toaster.create({
         title: "You can't change the verified name",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
 
     setIsLoading(true);
@@ -84,30 +81,24 @@ const Account = () => {
         dispatch(
           profileData({ profile: { ...profile, ...updatedData.username } })
         );
-        toast({
+        toaster.create({
           title: "Account information updated",
-          status: "success",
+          type: "success",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
       } else {
-        toast({
+        toaster.create({
           title: "Something went wrong",
-          status: "error",
+          type: "error",
           duration: 3000,
-          position: "top",
-          isClosable: true,
         });
       }
     } catch (error) {
       console.error(error);
-      toast({
+      toaster.create({
         title: "Something went wrong",
-        status: "error",
+        type: "error",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     }
     setIsLoading(false);

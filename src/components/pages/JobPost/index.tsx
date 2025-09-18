@@ -1,7 +1,8 @@
 "use client";
 
-import { HStack, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useState } from "react";
+import { HStack } from "@chakra-ui/react";
 import Complete from "../../JobCreate/Completed";
 import FinalStep from "../../JobCreate/FinalStep";
 import FirstStep from "../../JobCreate/FirstStep";
@@ -15,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDashboard } from "../../../redux/pagesSlice/pagesSlice";
 
 const JobPost = () => {
-  const toast = useToast();
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const jobs = useSelector((state) => state.pages.dashboard.jobs);
@@ -44,22 +44,18 @@ const JobPost = () => {
     if (response?.code === 200)
       dispatch(setDashboard({ jobs: [...jobs, response.body] }));
     if (response.success) {
-      toast({
+      toaster.create({
         title: "Job post created successfully",
-        status: "success",
+        type: "success",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
 
       setStep(4);
     } else {
-      toast({
+      toaster.create({
         title: "Failed to create job post!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
     }
     setIsLoading(false);

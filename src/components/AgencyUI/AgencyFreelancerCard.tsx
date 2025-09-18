@@ -1,5 +1,6 @@
 "use client";
 
+import { toaster } from "@/lib/providers";
 import {
   Avatar,
   Badge,
@@ -7,7 +8,6 @@ import {
   Button,
   HStack,
   Text,
-  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
@@ -65,7 +65,6 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const toast = useToast();
   const selectMenuRef = useRef(null);
 
   const { member_position } = details || [];
@@ -118,12 +117,10 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
           )
         );
 
-      toast({
+      toaster.create({
         title: msg,
-        status: "success",
+        type: "success",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

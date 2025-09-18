@@ -1,3 +1,4 @@
+import { toaster } from "@/lib/providers";
 "use client";
 
 import {
@@ -6,7 +7,6 @@ import {
   Input,
   InputGroup,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useEffect, useState } from "react";
@@ -34,7 +34,6 @@ export const PayPalCardForm = ({ set setCard }) => {
     reset,
   } = useForm({ resolver: yupResolver(paypalCardSchema) });
   const [countries, setCountries] = useState([]);
-  const toast = useToast();
   const dispatch = useDispatch();
   useEffect(() => {
     const getCountriesList = async () => {
@@ -92,12 +91,10 @@ export const PayPalCardForm = ({ set setCard }) => {
       };
       const { code, msg, body } = await addPaymentMethods(reqBody);
 
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top-right",
-        isClosable: true,
       });
 
       if (code === 200) {
@@ -112,12 +109,10 @@ export const PayPalCardForm = ({ set setCard }) => {
         reset();
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Something went wrong!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
-        isClosable: true,
       });
     }
     setIsLoading(false);

@@ -11,7 +11,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "next/navigation";
-import { useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import StarRatings from "react-star-ratings";
 import { FaLocationDot } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
@@ -41,7 +41,6 @@ const AssignedContractDetails = () => {
   const [timeSheet, setTimeSheet] = useState([]);
   const [sheetLoading, setSheetLoading] = useState(true);
   const [active setActiveTab] = useState(0);
-  const toast = useToast();
   const {
     register,
     handleSubmit,
@@ -94,12 +93,10 @@ const AssignedContractDetails = () => {
       formData.append("contract_ref", jobDetails._id);
 
       const { code, msg } = await submitTask(formData);
-      toast({
+      toaster.create({
         title: msg,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
       if (code === 200) {
         if (socket) {

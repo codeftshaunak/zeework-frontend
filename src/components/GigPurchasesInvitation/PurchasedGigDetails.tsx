@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import { addDays, format } from "date-fns";
-import { Button, Avatar, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import StarRatings from "react-star-ratings";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import {
@@ -36,7 +36,6 @@ const PurchasedGigDetails = () => {
     avg_review,
     total_amount_spend,
   } = gigInfo?.client_details || {};
-  const toast = useToast();
   const router = useRouter();
 
   const gigDetails = async () => {
@@ -59,26 +58,22 @@ const PurchasedGigDetails = () => {
         gig_id: gigInfo.gig_id,
         status: status,
       });
-      toast({
+      toaster.create({
         title:
           res?.msg ||
           res.response.data.msg ||
           res.response.data.message ||
           "Something went wrong!",
-        status: res?.code === 200 ? "success" : "warning",
+        type: res?.code === 200 ? "success" : "warning",
         duration: 3000,
-        isClosable: true,
-        position: "top-right",
       });
 
       if (res.code === 200) router.push("/");
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Something went wrong!",
-        status: "warning",
+        type: "warning",
         duration: 3000,
-        position: "top-right",
-        isClosable: true,
       });
       console.error(error);
     }

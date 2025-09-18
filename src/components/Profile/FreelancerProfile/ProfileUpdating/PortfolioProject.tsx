@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -20,7 +20,6 @@ import { portfolioSchema } from "../../../../schemas/freelancer-profile-schema";
 const PortfolioProject = ({ type, setIsModal }) => {
   const existProfile = useSelector((state: any) => state.profile.profile);
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
   const animatedComponents = makeAnimated();
   const [options, setOptions] = useState([]);
   const [optionsLoading, setOptionsLoading] = useState(true);
@@ -118,12 +117,10 @@ const PortfolioProject = ({ type, setIsModal }) => {
       const response = await updateFreelancerProfile(formData);
 
       if (response.code === 200) {
-        toast({
+        toaster.create({
           title: "Portfolio Added Successfully",
-          status: "success",
+          type: "success",
           duration: 3000,
-          isClosable: true,
-          position: "top-right",
         });
         dispatch(profileData({ profile: response?.body }));
         setIsModal(false);

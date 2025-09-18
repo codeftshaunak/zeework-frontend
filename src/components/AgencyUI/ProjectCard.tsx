@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { HStack, VStack, Box, Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import {
   RiDeleteBin2Fill,
   RiEdit2Fill,
@@ -58,7 +58,6 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
     (state) => state.profile.agency.agency_services
   );
 
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const prevRef = useRef(null);
@@ -154,12 +153,10 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
 
       if (code === 200) dispatch(agencyData({ agency: body }));
 
-      toast({
+      toaster.create({
         title: code ? msg : message,
         status: code === 200 ? "success" : "warning",
         duration: 3000,
-        position: "top",
-        isClosable: true,
       });
     } catch (error) {
       console.error(error);

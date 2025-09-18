@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
-import { VStack, Avatar, Text, useToast, StackDivider } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import SkillCard from "../../Profile/FreelancerProfile/FreelancerProfile/SkillCard";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,7 +31,6 @@ const ViewFreelancerProfile = () => {
   const [freelancerDetails, setFreelancerDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const toast = useToast();
   const [showDetails, setShowDetails] = useState(false);
   const [paymentNotifyModal, setPaymentNotifyModal] = useState(false);
 
@@ -81,12 +80,10 @@ const ViewFreelancerProfile = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toast({
+    toaster.create({
       title: "Freelancer Profile Copied.",
-      status: "success",
+      type: "success",
       duration: 3000,
-      position: "top",
-      isClosable: true,
     });
   };
 

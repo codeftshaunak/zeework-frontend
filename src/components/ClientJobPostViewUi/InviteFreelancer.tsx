@@ -15,9 +15,9 @@ import {
   
   Tabs,
   Tooltip,
-  useToast,
   VStack,
 } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { useContext, useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,10 +51,9 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [isUserId, setIsUserId] = useState("");
   const [freelancerInfo, setFreelancerInfo] = useState({});
   const [searchText, setSearchText] = useState("");
-  const [active setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const { socket } = useContext(SocketContext);
   const router = useRouter();
-  const toast = useToast();
   const pathname = usePathname();
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
@@ -167,11 +166,9 @@ const InviteFreelancer = ({ appliedUsers }) => {
       //   if (result?.code == 200) {
       //     setOpen(false);
       //     setMessage("");
-      //     toast({
+      //     toaster.create({
       //       title: result?.msg,
-      //       position: "top-right",
-      //       status: "success",
-      //       isClosable: true,
+      //       type: "success",
       //       duration: 2000,
       //     });
       //   }
@@ -179,12 +176,10 @@ const InviteFreelancer = ({ appliedUsers }) => {
       //   setOpen(false);
       //   setMessage("");
       //   const message = error?.response?.data?.msg;
-      //   toast({
+      //   toaster.create({
       //     title: message,
-      //     status: "error",
+      //     type: "error",
       //     duration: 3000,
-      //     isClosable: true,
-      //     position: "top-right",
       //   });
       // }
     } else {
@@ -228,23 +223,19 @@ const InviteFreelancer = ({ appliedUsers }) => {
             closeModal();
             setMessage("");
           }
-          toast({
+          toaster.create({
             title: res.msg || res.response.data.msg,
-            position: "top-right",
             status: res.code === 200 ? "success" : "warning",
-            isClosable: true,
             duration: 2000,
           });
         } catch (error) {
           setOpen(false);
           setMessage("");
           const message = error?.response?.data?.msg;
-          toast({
+          toaster.create({
             title: message,
-            status: "error",
+            type: "error",
             duration: 3000,
-            isClosable: true,
-            position: "top-right",
           });
         }
       }

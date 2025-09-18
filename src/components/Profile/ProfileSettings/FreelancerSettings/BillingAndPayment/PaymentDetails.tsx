@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, useToast } from "@chakra-ui/react";
+import { toaster } from "@/lib/providers";
 import { MainButtonRounded } from "../../../../Button/MainButton";
 import { MdDelete, MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
@@ -13,7 +13,6 @@ const PaymentDetails = ({ data, set setData }) => {
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { payment_info, payment_method, _id } = data.payment_details || {};
-  const toast = useToast();
   const {
     bank_name,
     account_number,
@@ -36,23 +35,19 @@ const PaymentDetails = ({ data, set setData }) => {
         ref_id: _id,
       });
 
-      toast({
+      toaster.create({
         title: res.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
         status: res.code === 200 ? "success" : "warning",
-        isClosable: true,
       });
       if (res.code === 200) {
         setData({}), setIsModal(false);
       }
     } catch (error) {
-      toast({
+      toaster.create({
         title: error?.response?.data?.msg || "Error performing action",
         duration: 3000,
-        position: "top-right",
-        status: "warning",
-        isClosable: true,
+        type: "warning",
       });
     }
     setIsLoading(false);
