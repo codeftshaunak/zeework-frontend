@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useEffect, useState, useContext } from "react";
 import { io } from "socket.io-client";
 import { socketURL } from "../helpers/APIs/proxy";

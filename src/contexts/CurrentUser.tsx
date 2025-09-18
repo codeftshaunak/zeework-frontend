@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDetailsOfUser } from "../helpers/APIs/userApis";
