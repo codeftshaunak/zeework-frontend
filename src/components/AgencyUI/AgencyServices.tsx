@@ -3,8 +3,6 @@
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
   HStack,
   Text,
   VStack,
@@ -335,8 +333,8 @@ const AgencyServices = ({ agency, setAgency }) => {
             {/* Update services */}
             {modalType === "Services" && (
               <>
-                <FormControl mb={5}>
-                  <FormLabel fontSize={"lg"}>Category</FormLabel>
+                <Box mb={5}>
+                  <Text fontSize={"lg"} mb={2}>Category</Text>
                   <Select
                     {...register("agency_services.category", {
                       required: "Services Category is required",
@@ -373,10 +371,10 @@ const AgencyServices = ({ agency, setAgency }) => {
                   {errors.agency_services?.category && (
                     <ErrorMsg msg={errors.agency_services?.category.message} />
                   )}
-                </FormControl>
+                </Box>
 
-                <FormControl mb={5}>
-                  <FormLabel fontSize={"lg"}>Sub Category</FormLabel>
+                <Box mb={5}>
+                  <Text fontSize={"lg"} mb={2}>Sub Category</Text>
                   <Select
                     {...register("agency_services.subCategory", {
                       required: "Services Sub-Category is required",
@@ -403,7 +401,7 @@ const AgencyServices = ({ agency, setAgency }) => {
                       msg={errors.agency_services?.subCategory.message}
                     />
                   )}
-                </FormControl>
+                </Box>
               </>
             )}
             {/* Update skills */}
