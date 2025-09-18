@@ -1,5 +1,5 @@
 import { Avatar, AvatarBadge, Flex, Text } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const MessageHeader = ({ receiverDetails, contractDetails }) => {
   const profileImage =

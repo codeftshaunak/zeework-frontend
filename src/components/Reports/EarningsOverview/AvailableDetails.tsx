@@ -3,7 +3,7 @@
 import { Button, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import GetFreelancerPaid from "./GetFreelancerPaid";
 

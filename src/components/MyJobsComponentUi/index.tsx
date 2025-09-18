@@ -6,7 +6,7 @@ import ActiveJobSlider from "./ActiveJobSlider";
 import ApplyedJobs from "./ApplyedJobs/ApplyedJobs";
 import CompletedJobs from "./ApplyedJobs/CompletedJobs";
 import { VStack, Text, Button } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
 import { useDispatch, useSelector } from "react-redux";

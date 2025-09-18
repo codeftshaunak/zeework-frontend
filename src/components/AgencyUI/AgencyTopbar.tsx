@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, HStack, Progress, VStack } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getAllJobs } from "../../helpers/APIs/jobApis";
 import JobCard from "../FindJobUi/JobCard";
 

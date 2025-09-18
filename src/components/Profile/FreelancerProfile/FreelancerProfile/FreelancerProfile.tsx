@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
 import { HStack, VStack, Avatar, Text, useToast } from "@chakra-ui/react";
 import { CiLocationOn } from "react-icons/ci";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
 // import required modules

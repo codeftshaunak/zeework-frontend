@@ -13,7 +13,7 @@ import {
 import { getCategories, getCountries } from "../../helpers/APIs/freelancerApis";
 import { getSubCategory } from "../../helpers/APIs/freelancerApis";
 import { createAgency } from "../../helpers/APIs/agencyApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import Select from "react-select";

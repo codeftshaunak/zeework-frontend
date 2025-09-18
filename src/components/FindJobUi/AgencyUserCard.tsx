@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import UserCardSkeleton from "../Skeletons/UserCardSkeleton";

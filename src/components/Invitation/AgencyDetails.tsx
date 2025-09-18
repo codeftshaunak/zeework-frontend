@@ -15,7 +15,7 @@ import {
   getInvitationOfAgency,
 } from "../../helpers/APIs/freelancerApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FaClock, FaLocationDot } from "react-icons/fa6";
 import { IoBagCheck, IoCalendar } from "react-icons/io5";
 import { BsTranslate } from "react-icons/bs";

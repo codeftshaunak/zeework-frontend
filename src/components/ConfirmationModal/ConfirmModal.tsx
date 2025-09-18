@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Text, Image, HStack, useToast } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { endJobContract } from "../../helpers/APIs/jobApis";
 import { useState } from "react";
 import BtnSpinner from "../Skeletons/BtnSpinner";

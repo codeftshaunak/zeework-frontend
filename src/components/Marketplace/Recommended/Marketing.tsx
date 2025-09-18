@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import GigCards from "../GigCards/GigCards";
 import { getSearchGigs } from "../../../helpers/APIs/gigApis";
 import { Button } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Marketing = () => {
   const [gigs, setGigs] = useState([]);

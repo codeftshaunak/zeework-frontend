@@ -19,7 +19,7 @@ import { HStack, Avatar } from "@chakra-ui/react";
 import { getAllDetailsOfUser, uploadImage } from "../../helpers/APIs/userApis";
 import { CiLocationOn } from "react-icons/ci";
 import { formatTime, getUserLocation } from "../../helpers/APIs/formet";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getWorkHistory } from "../../helpers/APIs/freelancerApis";
 import { useDispatch, useSelector } from "react-redux";
 import UniversalModal from "../Modals/UniversalModal";

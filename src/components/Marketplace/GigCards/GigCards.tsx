@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
 
 const GigCards = ({ gigs, isLoading }) => {

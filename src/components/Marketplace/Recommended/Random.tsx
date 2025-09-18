@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import GigCards from "../GigCards/GigCards";
 import { getSearchGigs } from "../../../helpers/APIs/gigApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@chakra-ui/react";
 
 const Random = () => {

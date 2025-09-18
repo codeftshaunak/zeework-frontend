@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getFreelancerGigs } from "../../../helpers/APIs/gigApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
 

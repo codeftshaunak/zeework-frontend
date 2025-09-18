@@ -15,7 +15,7 @@ import "swiper/css/pagination";
 import HomeLayout from "../../../Layouts/HomeLayout";
 import { FaLocationDot } from "react-icons/fa6";
 import AgencyProfileSkeleton from "../../Skeletons/AgencyProfileSkeleton";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import PortfolioCard from "./PortfolioCard";
 import { useSelector } from "react-redux";
 import { getFreelancerById } from "../../../helpers/APIs/freelancerApis";

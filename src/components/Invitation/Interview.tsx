@@ -7,7 +7,7 @@ import {
   acceptInvitation,
   invitationDetails,
 } from "../../helpers/APIs/freelancerApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { JobDetailsSection } from "./JobDetails";
 import { SocketContext } from "../../contexts/SocketContext";
 import Modal from "./Modal";

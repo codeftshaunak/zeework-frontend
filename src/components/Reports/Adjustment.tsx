@@ -7,7 +7,7 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 const data = [
   {
     id: 0,

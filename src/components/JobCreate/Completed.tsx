@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useFormState } from "../../contexts/FormContext";
 import { FaRegCreditCard } from "react-icons/fa";
 import { useSelector } from "react-redux";

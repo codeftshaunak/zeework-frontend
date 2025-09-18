@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const TimerDownloadCard = ({ msg }) => {
   const router = useRouter();

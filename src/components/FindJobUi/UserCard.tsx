@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { Avatar } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import UserCardSkeleton from "../Skeletons/UserCardSkeleton";
 import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";

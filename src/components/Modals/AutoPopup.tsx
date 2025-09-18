@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import CTAButton from "../CTAButton";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AutoPopup = () => {

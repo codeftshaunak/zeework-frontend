@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Text, HStack } from "@chakra-ui/react";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";

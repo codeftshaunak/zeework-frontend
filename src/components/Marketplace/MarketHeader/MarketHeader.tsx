@@ -6,7 +6,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { CiFilter } from "react-icons/ci";
 
 import { SearchFilter } from "./SearchFilter";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
   const [searchText, setSearchText] = useState("");

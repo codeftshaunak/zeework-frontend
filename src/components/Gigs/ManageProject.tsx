@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, VStack, Box, Button, HStack } from "@chakra-ui/react";
 import GigStatus from "./GigStatus";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const ManageProject = () => {
   const router = useRouter();

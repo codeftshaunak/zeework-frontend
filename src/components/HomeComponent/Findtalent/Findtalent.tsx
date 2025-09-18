@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GreenButton } from "../../utils/Buttons/Buttons";
 
 const Findtalent = () => {

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
 
 const ActiveContract = ({ contractList, loading }) => {

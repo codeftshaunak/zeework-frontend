@@ -7,7 +7,7 @@ import {
   updateOfferRequest,
   offerDetails,
 } from "../../helpers/APIs/freelancerApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SocketContext } from "../../contexts/SocketContext";
 import Modal from "./Modal";
 import { ClientDetailsSection } from "./ClientDetailsSection";

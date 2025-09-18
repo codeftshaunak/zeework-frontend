@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Button, Text, VStack } from "@chakra-ui/react";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ContractCard from "./ContractCard";
 
 // Import Swiper styles

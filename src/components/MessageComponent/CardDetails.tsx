@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const CardDetails = ({ message, user_id, role }) => {
   const { title, type, job_type, amount, url, position } =

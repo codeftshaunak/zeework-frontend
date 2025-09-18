@@ -2,7 +2,7 @@ import React from "react";
 import UniversalModal from "./UniversalModal";
 import { MdPayment } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const AddPaymentNotifyModal = ({ isOpen, setIsOpen }) => {
   const router = useRouter();

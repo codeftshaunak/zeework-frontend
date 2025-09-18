@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GoHomeFill } from "react-icons/go";
 import { TiRefresh } from "react-icons/ti";
 

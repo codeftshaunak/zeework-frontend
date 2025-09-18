@@ -12,7 +12,7 @@ import {
 // import { utcToZonedTime } from 'date-fns-tz';
 import { getISOWeek, startOfISOWeek } from "date-fns";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Timesheet = ({ activeJobs, isLoading }) => {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { Button, Tooltip } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const InProgress = ({ balance }) => {
   const paymentStatus = useSelector(

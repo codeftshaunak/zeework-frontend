@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { getCompletedJobs } from "../../helpers/APIs/clientApis";
 import { setStatsData } from "../../redux/pagesSlice/pagesSlice";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";

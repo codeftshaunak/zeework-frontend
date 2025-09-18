@@ -13,7 +13,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useSelector } from "react-redux";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { removedAgencyMember } from "../../helpers/APIs/agencyApis";
 import { MainButtonRounded } from "../Button/MainButton";
 import UniversalModal from "../Modals/UniversalModal";

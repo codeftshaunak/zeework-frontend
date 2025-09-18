@@ -5,7 +5,7 @@ import { useToast, Button } from "@chakra-ui/react";
 import { IoIosMore, IoMdClose } from "react-icons/io";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { deleteFreelancerGig } from "../../../helpers/APIs/gigApis";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import UniversalModal from "../../Modals/UniversalModal";
 

@@ -38,7 +38,7 @@ import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";
 import UniversalModal from "../Modals/UniversalModal";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { AgencyBodyLayout } from "./AgencyBody";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
 const AgencyProfileHeader = ({ agency, setAgency }) => {

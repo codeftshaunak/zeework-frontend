@@ -4,7 +4,7 @@ import { Avatar, Box, Button, Text, useToast, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { MainButtonRounded } from "../Button/MainButton";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import UniversalModal from "../Modals/UniversalModal";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { MdRemoveModerator } from "react-icons/md";

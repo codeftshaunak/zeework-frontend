@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { IoMdRefreshCircle } from "react-icons/io";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {

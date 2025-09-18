@@ -32,7 +32,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { IoMdRefreshCircle } from "react-icons/io";
 import Pagination from "../utils/Pagination/Pagination";
 import useUserActivityListener from "../../hooks/useUserActivityListener";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const Talents = () => {
   const profile = useSelector((state: any) => state.profile);

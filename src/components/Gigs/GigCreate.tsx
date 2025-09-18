@@ -8,7 +8,7 @@ import Step1 from "./Steps/Step1";
 import Step2 from "./Steps/Step2";
 import Step3 from "./Steps/Step3";
 import Step4 from "./Steps/Step4";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { uploadImages, uploadMedia } from "../../helpers/APIs/gigApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import UniversalModal from "../Modals/UniversalModal";

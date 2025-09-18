@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Select from "react-select";
 import { getSkills } from "../../../helpers/APIs/freelancerApis";
 import { IoMdRefreshCircle } from "react-icons/io";

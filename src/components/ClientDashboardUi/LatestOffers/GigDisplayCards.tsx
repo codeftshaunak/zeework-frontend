@@ -10,7 +10,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 
 import { useRef } from "react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
 

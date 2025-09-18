@@ -2,7 +2,7 @@
 
 import { Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ClientProfileCard from "./ProfileCard";
 import {
   getClientJobs,

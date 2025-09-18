@@ -2,7 +2,7 @@ import { FaClock, FaHeadSideVirus } from "react-icons/fa6";
 import { HStack, Text, VStack, Box } from "@chakra-ui/react";
 import { MdCategory } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
   const {

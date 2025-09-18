@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { getAgencyMembers } from "../../helpers/APIs/agencyApis";
 import {

@@ -1,4 +1,4 @@
-import { useNavigate } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button, Stack, Box, Avatar, AvatarBadge } from "@chakra-ui/react";
 import { IoLocation } from "react-icons/io5";
 
