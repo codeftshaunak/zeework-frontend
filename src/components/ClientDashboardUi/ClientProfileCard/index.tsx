@@ -1,5 +1,5 @@
-import { Button, Text, VStack, Avatar, AvatarBadge } from "@chakra-ui/react";
-import { useNavigate } from "next/navigation";
+import { Button, Text, VStack, Avatar, Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 
 const ClientProfileCard = ({ data }) => {
   const { freelancerDetails, freelancer_id } = data;
@@ -31,12 +31,14 @@ const ClientProfileCard = ({ data }) => {
           name={freelancerDetails?.name}
           size="xl"
         >
-          <AvatarBadge
+          <Box
+            position="absolute"
             border="4px solid white"
             bg={`${
               freelancerDetails?.activity === "online" ? "green" : "gray.300"
             }`}
             boxSize="0.6em"
+            borderRadius="full"
             left={-1}
             top={0}
           />
@@ -61,9 +63,7 @@ const ClientProfileCard = ({ data }) => {
           size="sm"
           w={"100%"}
           onClick={() =>
-            router.push(`/message/${freelancer_id}?contract_ref=${data._id}`, {
-              replace: true,
-            })
+            router.replace(`/message/${freelancer_id}?contract_ref=${data._id}`)
           }
         >
           Message
