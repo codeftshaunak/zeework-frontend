@@ -4,7 +4,6 @@ import {
   Box,
   Avatar,
   VStack,
-  StackDivider,
   useDisclosure,
   Drawer,
   DrawerBody,
@@ -865,7 +864,7 @@ export const AuthHeader = ({ role }) => {
                         )}
                         <VStack
                           divider={
-                            <StackDivider borderColor="var(--bordersecondary)" />
+                            <Box height="1px" bg="var(--bordersecondary)" />
                           }
                           width={"full"}
                           spacing={0}
