@@ -6,8 +6,6 @@ import {
   Box,
   Select,
   Input,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -71,10 +69,10 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
       </Heading>
 
       {/* Hiring Team Section */}
-      <FormControl mb={8}>
-        <FormLabel fontWeight="bold" mb={2}>
+      <Box mb={8}>
+        <Text fontWeight="bold" mb={2} mb={2}>
           Hiring Team
-        </FormLabel>
+        </Text>
         <Select
           placeholder="Select Team"
           maxWidth="2xl"
@@ -85,24 +83,24 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
         >
           <option value={`${teamName}'s Team`}>{teamName}&apos;s Team</option>
         </Select>
-      </FormControl>
+      </Box>
 
       {/* Related Job Posting Section */}
-      <FormControl mb={8}>
-        <FormLabel
+      <Box mb={8}>
+        <Text
           fontWeight="bold"
           mb={2}
           display="flex"
           alignItems="center"
           gap={1}
-        >
+         mb={2}>
           Related Job Posting
           {jobInfo && (
             <Text color="gray.500" fontSize="sm">
               (Optional)
             </Text>
           )}
-        </FormLabel>
+        </Text>
         <Select
           placeholder="Select an open job post"
           maxWidth="2xl"
@@ -116,13 +114,13 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
             </option>
           ))}
         </Select>
-      </FormControl>
+      </Box>
 
       {/* Contract Title Section */}
-      <FormControl>
-        <FormLabel fontWeight="bold" mb={2}>
+      <Box>
+        <Text fontWeight="bold" mb={2} mb={2}>
           Contract Title
-        </FormLabel>
+        </Text>
         <Input
           placeholder="Enter contract title"
           maxWidth="2xl"
@@ -136,7 +134,7 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
         <Text fontSize="sm" color="gray.500" mt={1}>
           {formData?.contract_title?.length || 0}/50 characters
         </Text>
-      </FormControl>
+      </Box>
     </Box>
   );
 };

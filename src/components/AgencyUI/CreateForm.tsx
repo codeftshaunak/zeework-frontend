@@ -8,8 +8,6 @@ import {
   Input,
   Textarea,
   Button,
-  FormControl,
-  FormLabel,
   useToast,
 } from "@chakra-ui/react";
 import { getCategories, getCountries } from "../../helpers/APIs/freelancerApis";
@@ -147,8 +145,8 @@ const CreateForm = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full shadow p-5 sm:p-9 rounded-lg bg-white"
         >
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Agency Name</FormLabel>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Agency Name</Text>
             <Input
               {...register("agency_name", {
                 required: "Agency Name is required",
@@ -160,9 +158,9 @@ const CreateForm = () => {
             {errors.agency_name && (
               <ErrorMsg msg={errors.agency_name.message} />
             )}
-          </FormControl>
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Agency Overview</FormLabel>
+          </Box>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Agency Overview</Text>
             <Textarea
               {...register("agency_overview", {
                 required: "Agency Overview is required",
@@ -174,9 +172,9 @@ const CreateForm = () => {
             {errors.agency_overview && (
               <ErrorMsg msg={errors.agency_overview.message} />
             )}
-          </FormControl>
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Agency Tagline</FormLabel>
+          </Box>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Agency Tagline</Text>
             <Input
               {...register("agency_tagline", {
                 required: "Agency Tagline is required",
@@ -188,9 +186,9 @@ const CreateForm = () => {
             {errors.agency_tagline && (
               <ErrorMsg msg={errors.agency_tagline.message} />
             )}
-          </FormControl>
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Agency Location</FormLabel>
+          </Box>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Agency Location</Text>
             <Select
               {...register("agency_location", {
                 required: "Agency Location is required",
@@ -205,9 +203,9 @@ const CreateForm = () => {
             {errors.agency_location && (
               <ErrorMsg msg={errors.agency_location.message} />
             )}
-          </FormControl>
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Services Category</FormLabel>
+          </Box>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Services Category</Text>
             <Select
               {...register("agency_services.category", {
                 required: "Services Category is required",
@@ -231,10 +229,10 @@ const CreateForm = () => {
             {errors.agency_services?.category && (
               <ErrorMsg msg={errors.agency_services?.category.message} />
             )}
-          </FormControl>
+          </Box>
 
-          <FormControl mb={5}>
-            <FormLabel fontSize={["md", "xl"]}>Services Sub-Category</FormLabel>
+          <Box mb={5}>
+            <Text fontSize={["md", "xl"]} mb={2}>Services Sub-Category</Text>
             <Select
               {...register("agency_services.subCategory", {
                 required: "Services Sub-Category is required",
@@ -258,7 +256,7 @@ const CreateForm = () => {
             {errors.agency_services?.subCategory && (
               <ErrorMsg msg={errors.agency_services?.subCategory.message} />
             )}
-          </FormControl>
+          </Box>
 
           <Box textAlign={"right"}>
             <Button

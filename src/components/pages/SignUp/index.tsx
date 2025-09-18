@@ -6,7 +6,6 @@ import {
   Text,
   VStack,
   Box,
-  FormControl,
   InputRightAddon,
   Button,
   IconButton,
@@ -884,7 +883,7 @@ export const FreelancerSignUp = () => {
           >
             <br />
             <VStack width="100%" gap={"8"}>
-              <FormControl display={"grid"} gap={"5"}>
+              <Box display={"grid"} gap={"5"}>
                 <InputGroup gap={"5"} className="max-sm:flex-col">
                   <InputGroup display={"grid"}>
                     <Input
@@ -970,7 +969,7 @@ export const FreelancerSignUp = () => {
                     )}
                   </Stack>
                 </Box>
-              </FormControl>
+              </Box>
               <VStack width={"100%"} gap={"5"}>
                 <Button
                   width="full"
@@ -1245,7 +1244,7 @@ export const ClientSignUp = () => {
                 </Box>
               </HStack>
               <Divider text="Or" dwidth="180px" /> */}
-              <FormControl display={"grid"} gap={"5"}>
+              <Box display={"grid"} gap={"5"}>
                 <InputGroup gap={"5"}>
                   <InputGroup display={"grid"}>
                     <Input
@@ -1325,7 +1324,7 @@ export const ClientSignUp = () => {
                     )}
                   </Stack>
                 </Box>
-              </FormControl>
+              </Box>
               <VStack width={"100%"} gap={"5"}>
                 <Button
                   width="full"

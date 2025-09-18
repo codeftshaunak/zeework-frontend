@@ -6,8 +6,6 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
-  FormControl,
-  FormLabel,
   HStack,
   useToast,
 } from "@chakra-ui/react";
@@ -122,8 +120,8 @@ const Account = () => {
       <form onSubmit={handleSubmit(updateAccount)}>
         <Stack spacing={6}>
           <HStack spacing={4}>
-            <FormControl isInvalid={errors.firstName}>
-              <FormLabel>First Name</FormLabel>
+            <Box isInvalid={errors.firstName}>
+              <Text mb={2}>First Name</Text>
               <Input
                 name="firstName"
                 type="text"
@@ -133,9 +131,9 @@ const Account = () => {
                 {...register("firstName")}
               />
               <ErrorMsg msg={errors?.firstName?.message} className={"-mb-5"} />
-            </FormControl>
-            <FormControl isInvalid={errors.lastName}>
-              <FormLabel>Last Name</FormLabel>
+            </Box>
+            <Box isInvalid={errors.lastName}>
+              <Text mb={2}>Last Name</Text>
               <Input
                 name="lastName"
                 type="text"
@@ -145,10 +143,10 @@ const Account = () => {
                 {...register("lastName")}
               />
               <ErrorMsg msg={errors?.lastName?.message} className={"-mb-5"} />
-            </FormControl>
+            </Box>
           </HStack>
-          <FormControl isInvalid={errors.email}>
-            <FormLabel>Email</FormLabel>
+          <Box isInvalid={errors.email}>
+            <Text mb={2}>Email</Text>
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
@@ -167,7 +165,7 @@ const Account = () => {
               />
             </InputGroup>
             <ErrorMsg msg={errors.email?.message} />
-          </FormControl>
+          </Box>
         </Stack>
         <div className="mt-8">
           <Button

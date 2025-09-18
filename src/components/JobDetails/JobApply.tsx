@@ -3,7 +3,6 @@
 import {
   Box,
   Button,
-  FormControl,
   FormErrorMessage,
   HStack,
   Input,
@@ -392,7 +391,7 @@ const JobApply = ({ setPage, details }) => {
                       name="desiredPrice"
                       control={control}
                       render={({ field }) => (
-                        <FormControl isInvalid={errors.desiredPrice}>
+                        <Box isInvalid={errors.desiredPrice}>
                           <Input
                             {...field}
                             type="number"
@@ -402,7 +401,7 @@ const JobApply = ({ setPage, details }) => {
                           <FormErrorMessage>
                             {errors.desiredPrice?.message}
                           </FormErrorMessage>
-                        </FormControl>
+                        </Box>
                       )}
                     />
 
@@ -442,7 +441,7 @@ const JobApply = ({ setPage, details }) => {
                     name="hourlyRate"
                     control={control}
                     render={({ field }) => (
-                      <FormControl isInvalid={errors.hourlyRate}>
+                      <Box isInvalid={errors.hourlyRate}>
                         <Input
                           {...field}
                           type="number"
@@ -451,7 +450,7 @@ const JobApply = ({ setPage, details }) => {
                         <FormErrorMessage>
                           {errors.hourlyRate?.message}
                         </FormErrorMessage>
-                      </FormControl>
+                      </Box>
                     )}
                   />
 
@@ -483,7 +482,7 @@ const JobApply = ({ setPage, details }) => {
                     name="coverLetter"
                     control={control}
                     render={({ field }) => (
-                      <FormControl isInvalid={errors.coverLetter}>
+                      <Box isInvalid={errors.coverLetter}>
                         <ReactQuill
                           theme="snow"
                           value={field.value}
@@ -499,7 +498,7 @@ const JobApply = ({ setPage, details }) => {
                         <FormErrorMessage>
                           {errors.coverLetter?.message}
                         </FormErrorMessage>
-                      </FormControl>
+                      </Box>
                     )}
                   />
                 </Box>
