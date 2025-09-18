@@ -3,9 +3,6 @@
 import { useState } from "react";
 import {
   Accordion,
-  AccordionItem,
-  AccordionItemTrigger,
-  AccordionItemContent,
   Box,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
@@ -63,21 +60,19 @@ const Faqs = () => {
           Got a question about the platform? Check below!
         </h5>
         <div className="flex max-lg:flex-col justify-between lg:gap-10 mt-4">
-          <Accordion
-            defaultIndex={[0]}
-            allowMultiple
+          <Accordion.Root
+            defaultValue={["0"]}
+            multiple
             className="lg:my-4 my-1 flex flex-col gap-5 basis-[50%]"
           >
             {accordionData1.map((item, index) => (
-              <AccordionItem
+              <Accordion.Item
                 key={index}
-                border={0}
-                bg={"white"}
-                className="rounded-2xl max-[480px]:px-3 px-12 py-4 mb-2"
-                // isExpanded={expandedIndex === index}
+                value={index.toString()}
+                className="rounded-2xl max-[480px]:px-3 px-12 py-4 mb-2 bg-white border-0"
               >
                 <h2>
-                  <AccordionItemTrigger
+                  <Accordion.ItemTrigger
                     onClick={() => toggleAccordion(index)}
                     _hover={{ bg: "none", color: "inherit" }}
                     className="hover:cursor-pointer"
@@ -98,30 +93,29 @@ const Faqs = () => {
                         <FaPlus className="text-[16px]" />
                       </div>
                     )}
-                  </AccordionItemTrigger>
+                  </Accordion.ItemTrigger>
                 </h2>
-                <AccordionItemContent
+                <Accordion.ItemContent
                   pb={4}
                   className="text-[16px] font-medium font-poppins max-w-[514px] !ps-0 max-[480px]:text-xs"
                 >
                   {item.content}
-                </AccordionItemContent>
-              </AccordionItem>
+                </Accordion.ItemContent>
+              </Accordion.Item>
             ))}
-          </Accordion>
-          <Accordion
-            allowMultiple
+          </Accordion.Root>
+          <Accordion.Root
+            multiple
             className="lg:my-4 my-1 flex flex-col gap-5 basis-[50%]"
           >
             {accordionData2.map((item, index) => (
-              <AccordionItem
+              <Accordion.Item
                 key={index}
-                border={0}
-                bg={"white"}
-                className="rounded-2xl px-12 py-4 max-[480px]:px-2"
+                value={index.toString()}
+                className="rounded-2xl px-12 py-4 max-[480px]:px-2 bg-white border-0"
               >
                 <h2>
-                  <AccordionItemTrigger
+                  <Accordion.ItemTrigger
                     onClick={() => toggle2ndAccordion(index)}
                     _hover={{ bg: "none", color: "inherit" }}
                     px={0}
@@ -142,17 +136,17 @@ const Faqs = () => {
                         <FaPlus className="text-[16px]" />
                       </div>
                     )}
-                  </AccordionItemTrigger>
+                  </Accordion.ItemTrigger>
                 </h2>
-                <AccordionItemContent
+                <Accordion.ItemContent
                   pb={4}
                   className="text-[16px] font-medium font-poppins max-w-[514px] !ps-0 max-[480px]:text-xs"
                 >
                   {item.content}
-                </AccordionItemContent>
-              </AccordionItem>
+                </Accordion.ItemContent>
+              </Accordion.Item>
             ))}
-          </Accordion>
+          </Accordion.Root>
         </div>
       </div>
     </section>
