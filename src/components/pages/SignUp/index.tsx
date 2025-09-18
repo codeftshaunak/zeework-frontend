@@ -6,7 +6,6 @@ import {
   Text,
   VStack,
   Box,
-  InputRightAddon,
   Button,
   IconButton,
   InputGroup,
@@ -914,14 +913,14 @@ export const FreelancerSignUp = () => {
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
                     />
-                    <InputRightAddon padding={0} overflow={"hidden"}>
+                    <Box padding={0} overflow={"hidden"}>
                       <IconButton
                         aria-label={show ? "Hide Password" : "Show Password"}
                         icon={show ? <BsEyeSlash /> : <BsEye />}
                         onClick={() => handleClick()}
                         rounded={0}
                       />
-                    </InputRightAddon>
+                    </Box>
                   </InputGroup>
                   {errors.password && (
                     <ErrorMsg msg={errors.password.message} />
@@ -1275,13 +1274,13 @@ export const ClientSignUp = () => {
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
                     />
-                    <InputRightAddon padding={0} overflow={"hidden"}>
+                    <Box padding={0} overflow={"hidden"}>
                       <IconButton
                         aria-label={show ? "Hide Password" : "Show Password"}
                         icon={show ? <BsEyeSlash /> : <BsEye />}
                         onClick={() => handleClick()}
                       />
-                    </InputRightAddon>
+                    </Box>
                   </InputGroup>
                   {errors.password && (
                     <ErrorMsg msg={errors.password.message} />
