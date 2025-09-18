@@ -1,26 +1,163 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Cabinet Grotesk Black";
+  src: url("../assets/fonts/CabinetGrotesk-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Extra Bold";
+  src: url("../assets/fonts/CabinetGrotesk-Extrabold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Bold";
+  src: url("../assets/fonts/CabinetGrotesk-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Regular";
+  src: url("../assets/fonts/CabinetGrotesk-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Normal";
+  src: url("../assets/fonts/CabinetGrotesk-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Thin";
+  src: url("../assets/fonts/CabinetGrotesk-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Light";
+  src: url("../assets/fonts/CabinetGrotesk-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk Extra Light";
+  src: url("../assets/fonts/CabinetGrotesk-Extralight.otf") format("opentype");
+}
+/* Geist Fonts */
+
+@font-face {
+  font-family: "Geist Black";
+  src: url("../assets/fonts/Geist-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Ultra Black";
+  src: url("../assets/fonts/Geist-UltraBlack.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Bold";
+  src: url("../assets/fonts/Geist-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Semi Bold";
+  src: url("../assets/fonts/Geist-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Regular";
+  src: url("../assets/fonts/Geist-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Medium";
+  src: url("../assets/fonts/Geist-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Thin";
+  src: url("../assets/fonts/Geist-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Geist Light";
+  src: url("../assets/fonts/Geist-UltraLight.otf") format("opentype");
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primarycolor: #22c55e;
+  --primarytextcolor: #22c55e;
+  --primarysoftbg: #dcfce7;
+  --primarytext: #374151;
+  --bordersecondary: #d1d5db;
+  --secondarycolor: #f9fafb;
+  --secondarytext: #6b7280;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* For all scroll bars */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+@layer components {
+  .active-checkbox:has(input:checked) {
+    @apply bg-bg-success border-outline-active border-2;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.star-ratings {
+  display: flex !important;
+}
+
+#chat-container::-webkit-scrollbar {
+  display: none;
+}
+
+#chat-container {
+  scrollbar-width: none;
+}
+
+.swiper-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.css-13cymwt-control {
+  border-radius: 0.375rem;
+  border-color: var(--bordersecondary) !important;
+}
+
+#HomeSwiper .swiper-pagination-bullet {
+  background-color: transparent;
+  border: 1px solid #22c55e;
+  height: 10px;
+  width: 10px;
+  margin: 12px;
+  opacity: 100%;
+}
+
+#HomeSwiper .swiper-pagination-bullet-active {
+  background-color: var(--primarycolor);
+}
+
+#HomeSwiper .swiper-pagination {
+  position: static;
+}
+
+.quill-border .ql-container.ql-snow,
+.quill-border .ql-toolbar.ql-snow {
+  border: 1px solid var(--bordersecondary);
 }
