@@ -3,6 +3,7 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
+import { CookiesProvider } from "react-cookie";
 import { SocketProvider } from "../contexts/SocketContext";
 import { CurrentUserProvider } from "../contexts/CurrentUser";
 import { FormStateProvider } from "../contexts/FormContext";
@@ -12,18 +13,15 @@ import store from "../redux/store";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
-      <CurrentUserProvider>
-        <SocketProvider>
-          <FormStateProvider>
-            <ChakraProvider
-              theme={theme}
-              toastOptions={{ defaultOptions: { variant: 'custom' } }}
-            >
-              {children}
-            </ChakraProvider>
-          </FormStateProvider>
-        </SocketProvider>
-      </CurrentUserProvider>
+      <CookiesProvider>
+        <CurrentUserProvider>
+          <SocketProvider>
+            <FormStateProvider>
+              <ChakraProvider value={theme}>{children}</ChakraProvider>
+            </FormStateProvider>
+          </SocketProvider>
+        </CurrentUserProvider>
+      </CookiesProvider>
     </Provider>
   );
 }

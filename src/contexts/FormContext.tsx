@@ -2,18 +2,28 @@
 
 import { createContext, useContext, useMemo, useState } from "react";
 
-export const FormContext = createContext({
+interface FormContextType {
+  formState: Record<string, unknown>;
+  insertToFormState: (
+    v: Record<string, unknown>
+  ) => Record<string, unknown> | void;
+  clearFormState: () => void;
+}
+
+export const FormContext = createContext<FormContextType>({
   formState: {},
-  insertToFormState: (v) => {},
+  insertToFormState: (v: Record<string, unknown>) => {},
   clearFormState: () => {},
 });
 
 export const useFormState = () => useContext(FormContext);
 
-export const FormStateProvider = ({ children }) => {
-  const [formState, setFormState] = useState({});
+import { ReactNode } from "react";
+
+export const FormStateProvider = ({ children }: { children: ReactNode }) => {
+  const [formState, setFormState] = useState<Record<string, unknown>>({});
   // insert new data to the state
-  const insertToFormState = (v) => {
+  const insertToFormState = (v: Record<string, unknown>) => {
     if (!v) return formState;
     const newState = { ...formState, ...v };
     setFormState(newState);

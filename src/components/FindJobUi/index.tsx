@@ -15,7 +15,6 @@ import {
   VStack,
   RadioGroup,
   Stack,
-  Radio,
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { BiSearchAlt, BiXCircle } from "react-icons/bi";
@@ -874,29 +873,39 @@ export const Filter = ({
                   w={"full"}
                   marginLeft={5}
                 >
-                  <RadioGroup
-                    colorScheme="primary"
+                  <RadioGroup.Root
+                    colorPalette="green"
                     defaultValue="1"
-                    onChange={(value) => handleHourlyRateChange(value)}
+                    onValueChange={(details) => handleHourlyRateChange(details.value)}
                   >
                     <Stack spacing={4} direction="column">
-                      <Radio colorScheme="green" value="1">
-                        Any hourly rate
-                      </Radio>
-                      <Radio colorScheme="green" value="2">
-                        $10 - 30$
-                      </Radio>
-                      <Radio colorScheme="green" value="3">
-                        $30 - 50$
-                      </Radio>
-                      <Radio colorScheme="green" value="4">
-                        $50 - 100$
-                      </Radio>
-                      <Radio colorScheme="green" value="5">
-                        $100 & above
-                      </Radio>
+                      <RadioGroup.Item value="1">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>Any hourly rate</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="2">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$10 - 30$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="3">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$30 - 50$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="4">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$50 - 100$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="5">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
+                      </RadioGroup.Item>
                     </Stack>
-                  </RadioGroup>
+                  </RadioGroup.Root>
                 </VStack>
               )}
             </div>

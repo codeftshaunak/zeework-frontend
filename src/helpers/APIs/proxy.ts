@@ -5,8 +5,8 @@ import axios from "axios";
 // export const socketURL = "http://localhost:5002/";
 
 // Live Backend URL
-export const socketURL = import.meta.env.VITE_SOCKET_URL;
-export const BASE_URL = import.meta.env.VITE_BASE_URL;
+export const socketURL = process.env.NEXT_PUBLIC_SOCKET_URL;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const authToken = localStorage.getItem("authtoken");
 

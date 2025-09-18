@@ -21,7 +21,7 @@ import SmoothMotion from "../../../../utils/Animation/SmoothMotion";
 import { PayPalCardForm } from "./PayPalCardForm";
 
 // Load Stripe.js with your publishable key
-const privateKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const privateKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = loadStripe(privateKey);
 
 const BillingAndPayments = () => {

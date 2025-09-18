@@ -7,9 +7,9 @@ const Timer = () => {
   const [downloadLink, setDownloadLink] = useState("");
   const [platformText, setPlatformText] = useState("");
 
-  const desktopApp = import.meta.env.VITE_WINDOWS_TIMER_URL;
-  const macApp = import.meta.env.VITE_MAC_TIMER_URL;
-  const appVersion = import.meta.env.VITE_TIMER_VERSION || "0.0.0";
+  const desktopApp = process.env.NEXT_PUBLIC_WINDOWS_TIMER_URL || '';
+  const macApp = process.env.NEXT_PUBLIC_MAC_TIMER_URL || '';
+  const appVersion = process.env.NEXT_PUBLIC_TIMER_VERSION || "0.0.0";
 
   const toast = useToast();
 

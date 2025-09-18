@@ -1,73 +1,53 @@
-import { extendTheme, createMultiStyleConfigHelpers } from "@chakra-ui/react";
-import { alertAnatomy } from '@chakra-ui/anatomy'
+import { createSystem, defaultConfig, defineConfig, defineSlotRecipe } from "@chakra-ui/react";
 
-
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(alertAnatomy.keys)
-
-const customVariant = definePartsStyle((props) => {
-  let color = 'black';
-  let bg = '#E6F4EB';
-
-
-  switch (props.status) {
-    case "warning":
-      color = 'yellow.500';
-      break;
-    case "error":
-      color = 'red.500';
-      break;
-    case "success":
-      color = 'green.500';
-      break;
-    case "info":
-      color = 'blue.500';
-      break;
-    default:
-      break;
-  }
-
-  switch (props.status) {
-    case "warning":
-      bg = "#FDF2DB";
-      break;
-    case "error":
-      bg = "#FFE5E4"
-      break;
-    case "success":
-      bg = "#D4F9E7"
-      break;
-    case "info":
-      bg = "#EAF0FA"
-      break;
-    default:
-      break;
-  }
-
-
-  return {
+// Define alert slot recipe for custom styling
+const alertSlotRecipe = defineSlotRecipe({
+  slots: ["title", "description", "container", "icon", "spinner"],
+  base: {
     container: {
-      bg,
-      color,
-      border: '1px solid',
-      borderColor: 'gray.300',
-      fontWeight: 'normal',
-      fontSize: '15px',
-      fontFamily: 'poppins',
+      border: "1px solid",
+      borderColor: "gray.300",
+      fontWeight: "normal",
+      fontSize: "15px",
+      fontFamily: "poppins",
       _dark: {
-        borderColor: 'gray.600',
-        background: 'gray.800',
+        borderColor: "gray.600",
+        background: "gray.800",
       },
-
     },
-
-
-  }
-})
-
-export const alertTheme = defineMultiStyleConfig({
-  variants: { custom: customVariant },
-})
+  },
+  variants: {
+    status: {
+      warning: {
+        container: {
+          color: "yellow.500",
+          bg: "#FDF2DB",
+        },
+      },
+      error: {
+        container: {
+          color: "red.500",
+          bg: "#FFE5E4",
+        },
+      },
+      success: {
+        container: {
+          color: "green.500",
+          bg: "#D4F9E7",
+        },
+      },
+      info: {
+        container: {
+          color: "blue.500",
+          bg: "#EAF0FA",
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    status: "success",
+  },
+});
 
 // Function to generate shades of a color
 const generateColorScheme = (color) => {
@@ -114,14 +94,32 @@ const primaryColor = "#22c55e";
 // Generate color scheme
 const primaryScheme = generateColorScheme(primaryColor);
 
-
-const theme = extendTheme({
-  colors: {
-    primary: primaryScheme,
+// Create custom config
+const config = defineConfig({
+  theme: {
+    tokens: {
+      colors: {
+        primary: {
+          50: { value: primaryScheme[50] },
+          100: { value: primaryScheme[100] },
+          200: { value: primaryScheme[200] },
+          300: { value: primaryScheme[300] },
+          400: { value: primaryScheme[400] },
+          500: { value: primaryScheme[500] },
+          600: { value: primaryScheme[600] },
+          700: { value: primaryScheme[700] },
+          800: { value: primaryScheme[800] },
+          900: { value: primaryScheme[900] },
+        },
+      },
+    },
+    slotRecipes: {
+      alert: alertSlotRecipe,
+    },
   },
-  components: {
-    Alert: alertTheme
-  }
 });
+
+// Create the system
+const theme = createSystem(defaultConfig, config);
 
 export default theme;
