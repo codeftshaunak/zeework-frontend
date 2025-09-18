@@ -112,10 +112,10 @@
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-@layer components {
-  .active-checkbox:has(input:checked) {
-    @apply bg-green-200 border-green-500 border-2;
-  }
+/* Custom checkbox styles */
+.active-checkbox:has(input:checked) {
+  background-color: #f0fdf4;
+  border: 2px solid #22c55e;
 }
 
 .star-ratings {
