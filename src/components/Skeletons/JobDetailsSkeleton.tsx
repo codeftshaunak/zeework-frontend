@@ -1,5 +1,6 @@
 import { SkeletonText } from "@chakra-ui/react";
-import { Link } from "next/navigation";
+import { Link } from "../ui/migration-helpers";
+
 
 const JobDetailsSkeleton = ({ hideNavigation }) => {
   return (

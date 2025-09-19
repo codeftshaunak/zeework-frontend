@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";
 import { getSingleJobDetails } from "../../helpers/APIs/jobApis";
 import StarRatings from "react-star-ratings";
@@ -33,8 +33,9 @@ import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
 import Cropper from "react-easy-crop";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 import { toaster } from "../ui/toaster";
+import { Link } from "../ui/migration-helpers";
 
-const JobDetails = ({ setPage, setDetails }) => {
+const JobDetails = ({ setPage = () => { }, setDetails = (details = []) => { } }) => {
   const profile = useSelector((state: any) => state.profile);
   const [cookies] = useCookies(["activeagency"]);
   const activeagency = cookies.activeagency;
