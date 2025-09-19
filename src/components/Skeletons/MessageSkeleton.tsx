@@ -1,4 +1,5 @@
-import { Avatar, HStack, VStack, Box, Flex, Skeleton } from "@chakra-ui/react";
+import { Avatar } from "../ui/Avatar";
+import { HStack, VStack, Box, Flex, Skeleton } from "@chakra-ui/react";
 
 export const MessageUsersSkeleton = () => {
   return (

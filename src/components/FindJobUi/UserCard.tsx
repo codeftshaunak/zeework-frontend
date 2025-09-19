@@ -3,7 +3,49 @@
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
-import { Avatar } from "@chakra-ui/react";
+import React from 'react';
+
+// Define Avatar component locally if import is problematic
+interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+  src?: string;
+  name?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+}
+
+const Avatar: React.FC<AvatarProps> = ({
+  src,
+  name,
+  size = 'md',
+  className,
+  ...props
+}) => {
+  const sizeClasses = {
+    'sm': 'w-8 h-8 text-sm',
+    'md': 'w-12 h-12 text-base',
+    'lg': 'w-16 h-16 text-lg',
+    'xl': 'w-20 h-20 text-xl',
+    '2xl': 'w-24 h-24 text-2xl'
+  };
+
+  const initials = name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
+
+  return (
+    <div 
+      className={`relative inline-flex items-center justify-center rounded-full bg-gray-100 font-medium text-gray-600 ${sizeClasses[size]} ${className}`}
+      {...props}
+    >
+      {src ? (
+        <img
+          src={src}
+          alt={name}
+          className="w-full h-full object-cover rounded-full"
+        />
+      ) : (
+        <span>{initials}</span>
+      )}
+    </div>
+  );
+};
 import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import UserCardSkeleton from "../Skeletons/UserCardSkeleton";
@@ -54,25 +96,23 @@ const UserProfileCard = () => {
               <Avatar
                 src={profile_image}
                 name={firstName + " " + lastName}
-                className={`h-[90px!important] w-[90px!important] object-cover border-2 ${
-                  !activeAgency && "cursor-pointer"
-                }`}
+                className={`!w-[90px] !h-[90px] border-2 ${!activeAgency && "cursor-pointer"
+                  }`}
                 onClick={() =>
                   !activeAgency && router.push(`/profile/f/${user_id}`)
                 }
               />
             </div>
             <div
-              className={`text-2xl text-[#072C15] font-medium capitalize ${
-                !activeAgency && "cursor-pointer"
-              }`}
+              className={`text-2xl text-[#072C15] font-medium capitalize ${!activeAgency && "cursor-pointer"
+                }`}
               onClick={() => !activeAgency && router.push(`/profile/f/${user_id}`)}
             >
               {firstName + " " + lastName?.slice(0, 1) + "."}
             </div>
             <div className="text-sm text-[#072C15] text-center capitalize">
-              {professional_role.length > 40
-                ? `${professional_role.slice(0, 40)}...`
+              {professional_role?.length > 40
+                ? `${professional_role?.slice(0, 40)}...`
                 : professional_role}
             </div>
 
@@ -85,9 +125,8 @@ const UserProfileCard = () => {
             />
           </div>
           <div
-            className={`relative w-[80%] xl:w-[300px] border border-transparent rounded-lg flex justify-center items-center bg-white/60 ${
-              hasAgency && activeAgency ? "mb-0" : "mb-4"
-            }`}
+            className={`relative w-[80%] xl:w-[300px] border border-transparent rounded-lg flex justify-center items-center bg-white/60 ${hasAgency && activeAgency ? "mb-0" : "mb-4"
+              }`}
           >
             <div className="p-4 w-full">
               <div className="text-xs xl:text-sm text-[#15181E]">

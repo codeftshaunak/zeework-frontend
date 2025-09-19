@@ -1,4 +1,5 @@
-import { Box, Flex, Avatar, HStack, Text, AvatarBadge } from "@chakra-ui/react";
+import { Avatar } from "../ui/Avatar";
+import { Box, Flex, HStack, Text, AvatarBadge } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 const MessageUserList = ({

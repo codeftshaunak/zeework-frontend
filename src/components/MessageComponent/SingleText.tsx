@@ -1,6 +1,7 @@
 "use client";
 
-import { HStack, Box, Flex, Text, Avatar, AvatarBadge } from "@chakra-ui/react";
+import { Avatar } from "../ui/Avatar";
+import { HStack, Box, Flex, Text, AvatarBadge } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import CardDetails from "./CardDetails";
 import { format, differenceInMinutes, differenceInHours } from "date-fns";

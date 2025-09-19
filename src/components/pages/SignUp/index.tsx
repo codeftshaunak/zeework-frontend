@@ -9,11 +9,12 @@ import {
   Button,
   IconButton,
   InputGroup,
-  Checkbox,
+
   Stack,
   RadioGroup,
+  Checkbox,
 } from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+
 import React, { useEffect, useState } from "react";
 import CTAButton from "../../CTAButton";
 import { BsFacebook, BsApple, BsEyeSlash, BsEye } from "react-icons/bs";
@@ -34,6 +35,10 @@ import {
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import ErrorMsg from "../../utils/Error/ErrorMsg";
+import { CustomCheckbox } from "@/components/ui/CustomCheckbox";
+import { toaster } from "@/lib/providers";
+
+
 
 export const SignUp = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -48,8 +53,8 @@ export const SignUp = () => {
     selectedOption === "freelancer"
       ? "Apply as a freelancer"
       : selectedOption === "client"
-      ? "Join as a client"
-      : "Create An Account";
+        ? "Join as a client"
+        : "Create An Account";
 
   const handleButtonClick = () => {
     if (selectedOption === "freelancer") {
@@ -702,6 +707,7 @@ export const FreelancerSignUp = () => {
           type: "success",
           duration: 3000,
         });
+
         setVerifyShow(true);
         setCountdown(119);
         sessionStorage.setItem("email", body.email);
@@ -733,6 +739,7 @@ export const FreelancerSignUp = () => {
           duration: 3000,
           type: "success",
         });
+
         setCountdown(119);
       }
     } catch (error) {
@@ -741,6 +748,7 @@ export const FreelancerSignUp = () => {
         type: "error",
         duration: 3000,
       });
+
       console.error("Error fetching search results:", error);
     }
     setIsLoading(false);
@@ -872,47 +880,48 @@ export const FreelancerSignUp = () => {
             <br />
             <VStack width="100%" gap={"8"}>
               <Box display={"grid"} gap={"5"}>
-                <InputGroup gap={"5"} className="max-sm:flex-col">
-                  <InputGroup display={"grid"}>
+                <HStack gap={"5"} className="max-sm:flex-col">
+                  <Box width="100%">
                     <Input
                       {...register("firstName")}
                       placeholder="First name"
                     />
-
                     {errors.firstName && (
-                      <ErrorMsg msg={errors.firstName.message} />
+                      <ErrorMsg msg={errors.firstName.message} className="" />
                     )}
-                  </InputGroup>
-                  <InputGroup display={"grid"}>
+                  </Box>
+                  <Box width="100%">
                     <Input {...register("lastName")} placeholder="Last name" />
                     {errors.lastName && (
-                      <ErrorMsg msg={errors.lastName.message} />
+                      <ErrorMsg msg={errors.lastName.message} className="" />
                     )}
-                  </InputGroup>
-                </InputGroup>
-                <InputGroup display={"grid"}>
+                  </Box>
+                </HStack>
+                <Box>
                   <Input {...register("email")} placeholder="Email" />
-                  {errors.email && <ErrorMsg msg={errors.email.message} />}
-                </InputGroup>
+                  {errors.email && <ErrorMsg msg={errors.email.message} className="" />}
+                </Box>
 
                 <Stack gap={0}>
-                  <InputGroup size="md">
+                  <Box position="relative">
                     <Input
                       {...register("password")}
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
+                      paddingRight="40px"
                     />
-                    <Box padding={0} overflow={"hidden"}>
+                    <Box position="absolute" right="8px" top="50%" transform="translateY(-50%)">
                       <IconButton
                         aria-label={show ? "Hide Password" : "Show Password"}
-                        icon={show ? <BsEyeSlash /> : <BsEye />}
+                        children={show ? <BsEyeSlash /> : <BsEye />}
                         onClick={() => handleClick()}
-                        rounded={0}
+                        size="sm"
+                        variant="ghost"
                       />
                     </Box>
-                  </InputGroup>
+                  </Box>
                   {errors.password && (
-                    <ErrorMsg msg={errors.password.message} />
+                    <ErrorMsg msg={errors.password.message} className="" />
                   )}
                 </Stack>
 
@@ -926,21 +935,21 @@ export const FreelancerSignUp = () => {
                     }}
                     className="custom-select"
                   />
-                  {errors.country && <ErrorMsg msg={errors.country.message} />}
+                  {errors.country && <ErrorMsg msg={errors.country.message} className="" />}
                 </Stack>
 
                 <Box display={"grid"} gap={"5"}>
-                  <Checkbox
+                  <CustomCheckbox
                     {...register("sendEmails")}
                     size="md"
                     colorScheme="green"
                     className="max-sm:font-[400] max-sm:text-xs"
                   >
                     Send me information on how to find my dream job.
-                  </Checkbox>
+                  </CustomCheckbox>
                   <Stack gap={0}>
                     <HStack>
-                      <Checkbox
+                      <CustomCheckbox
                         {...register("has_accepted_terms")}
                         size="md"
                         colorScheme="green"
@@ -950,10 +959,10 @@ export const FreelancerSignUp = () => {
                         <span className="font-[600] text-[var(--primarytextcolor)]">
                           Terms of Service
                         </span>
-                      </Checkbox>
+                      </CustomCheckbox>
                     </HStack>
                     {errors.has_accepted_terms && (
-                      <ErrorMsg msg={errors.has_accepted_terms.message} />
+                      <ErrorMsg msg={errors.has_accepted_terms.message} className="" />
                     )}
                   </Stack>
                 </Box>
@@ -1057,6 +1066,7 @@ export const ClientSignUp = () => {
           type: "success",
           duration: 3000,
         });
+
         setVerifyShow(true);
         setCountdown(119);
         sessionStorage.setItem("email", response.body.email);
@@ -1084,6 +1094,7 @@ export const ClientSignUp = () => {
           duration: 3000,
           type: "success",
         });
+
       }
       setCountdown(119);
     } catch (error) {
@@ -1225,45 +1236,47 @@ export const ClientSignUp = () => {
               <Divider text="Or" dwidth="180px" /> */}
               <Box display={"grid"} gap={"5"}>
                 <HStack gap={"5"}>
-                  <InputGroup display={"grid"}>
+                  <Box width="100%">
                     <Input
                       {...register("firstName")}
                       placeholder="First name"
                     />
-
                     {errors.firstName && (
-                      <ErrorMsg msg={errors.firstName.message} />
+                      <ErrorMsg msg={errors.firstName.message} className="" />
                     )}
-                  </InputGroup>
-                  <InputGroup display={"grid"}>
+                  </Box>
+                  <Box width="100%">
                     <Input {...register("lastName")} placeholder="Last name" />
                     {errors.lastName && (
-                      <ErrorMsg msg={errors.lastName.message} />
+                      <ErrorMsg msg={errors.lastName.message} className="" />
                     )}
-                  </InputGroup>
+                  </Box>
                 </HStack>
-                <InputGroup display={"grid"}>
+                <Box>
                   <Input {...register("email")} placeholder="Email" />
-                  {errors.email && <ErrorMsg msg={errors.email.message} />}
-                </InputGroup>
+                  {errors.email && <ErrorMsg msg={errors.email.message} className="" />}
+                </Box>
 
                 <Stack gap={0}>
-                  <InputGroup size="md">
+                  <Box position="relative">
                     <Input
                       {...register("password")}
                       type={show ? "text" : "password"}
                       placeholder="Enter password"
+                      paddingRight="40px"
                     />
-                    <Box padding={0} overflow={"hidden"}>
+                    <Box position="absolute" right="8px" top="50%" transform="translateY(-50%)">
                       <IconButton
                         aria-label={show ? "Hide Password" : "Show Password"}
-                        icon={show ? <BsEyeSlash /> : <BsEye />}
+                        children={show ? <BsEyeSlash /> : <BsEye />}
                         onClick={() => handleClick()}
+                        size="sm"
+                        variant="ghost"
                       />
                     </Box>
-                  </InputGroup>
+                  </Box>
                   {errors.password && (
-                    <ErrorMsg msg={errors.password.message} />
+                    <ErrorMsg msg={errors.password.message} className="" />
                   )}
                 </Stack>
 
@@ -1277,18 +1290,18 @@ export const ClientSignUp = () => {
                     }}
                     className="custom-select"
                   />
-                  {errors.country && <ErrorMsg msg={errors.country.message} />}
+                  {errors.country && <ErrorMsg msg={errors.country.message} className="" />}
                 </Stack>
                 <Box display={"grid"} gap={"5"}>
-                  <Checkbox
+                  <CustomCheckbox
                     {...register("sendEmails")}
                     size="md"
                     colorScheme="green"
                   >
                     Send me emails on how to find the best talent
-                  </Checkbox>
+                  </CustomCheckbox>
                   <Stack gap={0}>
-                    <Checkbox
+                    <CustomCheckbox
                       {...register("has_accepted_terms")}
                       size="md"
                       colorScheme="green"
@@ -1297,9 +1310,9 @@ export const ClientSignUp = () => {
                       <span className="font-[600] text-[var(--primarytextcolor)]">
                         Terms of Service
                       </span>
-                    </Checkbox>
+                    </CustomCheckbox>
                     {errors.has_accepted_terms && (
-                      <ErrorMsg msg={errors.has_accepted_terms.message} />
+                      <ErrorMsg msg={errors.has_accepted_terms.message} className="" />
                     )}
                   </Stack>
                 </Box>
