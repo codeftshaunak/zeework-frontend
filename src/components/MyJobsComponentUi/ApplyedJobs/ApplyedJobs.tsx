@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Table,
@@ -13,7 +15,7 @@ import {
   Text,
   Button,
   Box,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { Link, useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
@@ -42,31 +44,21 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
             </div>
             <Table
               variant="simple"
-              justifyContent={"center"}
-              width={"100%"}
-              margin={"auto"}
-              alignItems={"center"}
-              textAlign={"center"}
+              className="w-full m-[auto] items-center"
             >
-              <Thead justifyContent={"center"} textAlign={"center"}>
-                <Tr textAlign={"center"}>
+              <Thead>
+                <Tr>
                   <Th
-                    fontSize={"1rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Date
                   </Th>
                   <Th
-                    fontSize={"1rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "hidden" : ""}`}
                   >
                     Name
                   </Th>
                   <Th
-                    fontSize={"1rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Status
@@ -86,20 +78,17 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
                   return (
                     <Tr
                       key={index}
-                      alignItems={"center"}
+                      className="items-center"
                       className={item === null ? "!hidden" : ""}
                     >
                       <Td
                         className={`text-[1.1rem] max-[480px]:text-[0.8rem] max-lg:${
                           hidden ? "" : "hidden"
                         }`}
-                        textAlign={"center"}
-                        width={"33%"}
                       >
                         {formattedDate}
                       </Td>
                       <Td
-                        width={"33%"}
                         className={`max-lg:!w-[100%] flex-row max-lg:${
                           !hidden ? "" : "hidden"
                         }`}
@@ -121,37 +110,24 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
                           </Link>
                           <Link
                             to={`/find-job/${item?._id}`}
-                            className="max-sm:hidden block "
+                            className="max-sm:hidden block"
                           >
                             {item?.title}
                           </Link>
                         </div>
                       </Td>
                       <Td
-                        height={"2rem"}
                         className={`text-[1.1rem] max-lg:${
                           hidden ? "" : "hidden"
                         }`}
-                        textAlign={"center"}
-                        width={"33%"}
                       >
-                        <Box
-                          height={"2rem"}
-                          display={"flex"}
-                          alignItems={"center"}
-                          justifyContent={"center"}
+                        <div
+                          className="h-[2rem] flex items-center justify-center font-400 text-white p-[20px 0px] rounded w-[150px] text-center m-[auto] max-[480px]:!w-[100px] max-[360px]:!w-[80px]"
                           backgroundColor={"var(--primarytextcolor)"}
-                          fontWeight={"400"}
-                          color={"white"}
-                          padding={"20px 0px"}
-                          borderRadius={"20px"}
-                          width={"150px"}
-                          textAlign={"center"}
-                          margin={"auto"}
-                          className="max-[480px]:!w-[100px] max-[360px]:!w-[80px]"
+                         
                         >
                           {"Applied"}
-                        </Box>
+                        </div>
                       </Td>
                     </Tr>
                   );
@@ -161,27 +137,19 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
           </TableContainer>
         </div>
       ) : (
-        <VStack
-          alignItems="center"
-          justifyContent="center"
-          border="0.1px solid var(--bordersecondary)"
-          height="10rem"
-          rounded={"lg"}
-          bgColor={"white"}
+        <div
+          className="bg-white flex flex-col rounded-lg"
         >
-          <Text
-            fontSize="1.2rem"
-            textTransform="capitalize"
-            fontWeight="600"
-            marginBottom={"0.4em"}
+          <span
+           
+           
+           
+            className="mb-[0.4em]"
           >
             You haven&apos;t applied to any job.
-          </Text>
-          <Button
-            borderRadius="25px"
-            fontWeight="500"
+          </span>
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             backgroundColor="var(--primarycolor)"
-            color="white"
             _hover={{
               border: "1px solid var(--primarycolor)",
               backgroundColor: "white",
@@ -192,8 +160,8 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
             }}
           >
             Visit For New Opportunities
-          </Button>
-        </VStack>
+          </button>
+        </div>
       )}
     </div>
   );

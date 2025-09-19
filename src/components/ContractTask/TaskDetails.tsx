@@ -1,7 +1,9 @@
+
 "use client";
+import React from "react";
 
 import { FaClock, FaHeadSideVirus } from "react-icons/fa6";
-import { HStack, Text, VStack, Box } from "@chakra-ui/react";
+
 import { MdCategory } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
 import { useRouter } from "next/navigation";
@@ -54,8 +56,6 @@ export const TaskDetails = ({ jobDetails, taskDetails }) => {
         return (
           <iframe
             src={fileDetails.file}
-            width="100%"
-            height="600px"
             className="text-sm text-blue-500 font-semibold border px-2 py-1 rounded w-full"
             title="PDF Viewer"
           ></iframe>
@@ -98,19 +98,17 @@ export const TaskDetails = ({ jobDetails, taskDetails }) => {
 
   return (
     <div className="w-full h-fit flex gap-10 bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
-      <VStack alignItems="start" width={"full"}>
+      <div className="flex flex-col w-full">
         <div className="w-full flex flex-col sm:flex-row justify-between">
-          <Text
-            color="var(--primarytextcolor)"
-            fontWeight="600"
-            cursor="pointer"
-            mb="0"
-            alignItems={"end"}
+          <span
+           
+           
+            className="cursor-pointer items-end"
             onClick={() => router.push(`/find-job/${jobDetails?.job_id}`)}
           >
             View Job Post
-          </Text>{" "}
-          <Box textAlign={"right"}>
+          </span>{" "}
+          <div className="text-right">
             <span
               className={`text-base font-normal px-3 uppercase rounded-full text-right border ${
                 status !== "rejected"
@@ -120,111 +118,103 @@ export const TaskDetails = ({ jobDetails, taskDetails }) => {
             >
               {status}
             </span>
-            <Text borderRadius="15px" fontWeight="300">
+            <span className="rounded-2xl font-light">
               {formatDate(new Date(created_at))}
-            </Text>
-          </Box>
+            </span>
+          </div>
         </div>
-        <Text
-          fontSize={{ base: "1.3rem", lg: "1.4rem" }}
-          fontWeight="500"
-          className="capitalize"
+        <span
+          className="text-xl lg:text-2xl font-medium capitalize"
         >
           {job_details?.[0]?.title}{" "}
-        </Text>
+        </span>
         <div className="flex gap-x-10 sm:gap-x-20 flex-wrap mt-1 text-sm lg:text-base">
           {job_details?.[0]?.experience && (
-            <HStack alignItems="start">
-              <Text mt="0.5rem">
-                <FaHeadSideVirus fontSize="20px" />
-              </Text>
+            <div className="flex flex-row items-center">
+              <span className="mt-2">
+                <FaHeadSideVirus />
+              </span>
               <div>
-                <Text mb="0" fontWeight="600">
+                <span className="font-semibold">
                   {job_details?.[0]?.experience}
-                </Text>
-                <Text mb="0" fontSize="0.8rem">
+                </span>
+                <span className="text-xs">
                   Experience Level
-                </Text>
+                </span>
               </div>
-            </HStack>
+            </div>
           )}
 
           {job_details?.[0]?.categories?.[0]?.value && (
-            <HStack alignItems="start">
-              <Text mt="0.5rem">
-                <MdCategory fontSize="20px" />
-              </Text>
+            <div className="flex flex-row items-center">
+              <span className="mt-2">
+                <MdCategory />
+              </span>
               <div>
-                <Text mb="0" fontWeight="600">
+                <span className="font-semibold">
                   {job_details?.[0]?.categories?.[0]?.value}
-                </Text>
-                <Text mb="0" fontSize="0.8rem">
+                </span>
+                <span className="text-xs">
                   Category
-                </Text>
+                </span>
               </div>
-            </HStack>
+            </div>
           )}
           {job_details?.[0]?.job_type == "fixed" && (
-            <HStack alignItems="start">
-              <Text mt="0.5rem">
-                <FaClock fontSize="20px" />
-              </Text>
+            <div className="flex flex-row items-center">
+              <span className="mt-2">
+                <FaClock />
+              </span>
               <div>
-                <Text mb="0" fontWeight="600">
+                <span className="font-semibold">
                   ${project_budget ? project_budget : budget}
-                </Text>
-                <Text mb="0" fontSize="0.8rem">
+                </span>
+                <span className="text-xs">
                   Fixed Budget
-                </Text>
+                </span>
               </div>
-            </HStack>
+            </div>
           )}
           {job_details?.[0]?.job_type == "hourly" && (
-            <HStack alignItems="start">
-              <Text mt="0.5rem">
-                <FaClock fontSize="20px" />
-              </Text>
+            <div className="flex flex-row items-center">
+              <span className="mt-2">
+                <FaClock />
+              </span>
               <div>
-                <Text mb="0" fontWeight="600">
+                <span className="font-semibold">
                   ${hourly_rate ? hourly_rate : job_details?.[0]?.amount}
-                </Text>
-                <Text mb="0" fontSize="0.8rem">
+                </span>
+                <span className="text-xs">
                   Hourly Range
-                </Text>
+                </span>
               </div>
-            </HStack>
+            </div>
           )}
           {job_details?.[0]?.durations && (
-            <HStack alignItems="start">
-              <Text mt="0.5rem">
-                <IoCalendar fontSize="20px" />
-              </Text>
+            <div className="flex flex-row items-center">
+              <span className="mt-2">
+                <IoCalendar />
+              </span>
               <div>
-                <Text mb="0" fontWeight="600">
+                <span className="font-semibold">
                   {job_details?.[0]?.durations}
-                </Text>
-                <Text mb="0" fontSize="0.8rem">
+                </span>
+                <span className="text-xs">
                   Duration
-                </Text>
+                </span>
               </div>
-            </HStack>
+            </div>
           )}
         </div>
 
         <div className="flex gap-4 flex-wrap mt-2">
           {job_details?.[0]?.skills?.map((skill) => (
-            <Text
+            <span
               key={skill}
-              textTransform={"capitalize"}
-              paddingX={"15px"}
-              paddingY={"6px"}
-              backgroundColor={"#E7F2EB"}
-              color={"#355741"}
-              borderRadius={"10px"}
-              height={"36px"}
+              className="capitalize px-4 py-1.5 bg-[#E7F2EB] text-[#355741] rounded-lg h-9 flex items-center"
             >
               {skill}
-            </Text>
+            </span>
           ))}
         </div>
 
@@ -251,7 +241,7 @@ export const TaskDetails = ({ jobDetails, taskDetails }) => {
             </p>
           </div>
         </div>
-      </VStack>
+      </div>
 
       {isModal && (
         <UniversalModal isModal={isModal} setIsModal={setIsModal}>

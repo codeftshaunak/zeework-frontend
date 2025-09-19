@@ -1,5 +1,7 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import React from "react";
+import { toast } from "@/lib/toast";
 
 // End Contract By Client
 import { useEffect, useState } from "react";
@@ -11,7 +13,7 @@ import {
   Box,
   Select,
   Button,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { BiSolidDislike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import StarRatings from "react-star-ratings";
@@ -152,40 +154,23 @@ const ReviewComponent = () => {
   const handleSubmit = async () => {
     const errorMessage = validateFormData();
     if (errorMessage) {
-      toaster.create({
-        title: errorMessage,
-        type: "info",
-        duration: 3000,
-      });
+      toast.info(errorMessage);
       return;
     }
     setIsLoading(true);
     try {
       const res = await giveFeedback(formData);
       if (res.code === 200) {
-        toaster.create({
-          title: res.msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(res.msg);
 
         setIsModal(true);
         // router.push("/");
       } else {
-        toaster.create({
-          title: res.msg || res.response.data.msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(res.msg || res.response.data.msg);
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title:
-          error.data.msg || "Some issue happen please check everything again",
-        type: "error",
-        duration: 3000,
-      });
+      toast.error(error.data.msg || "Some issue happen please check everything again");
     }
     setIsLoading(false);
   };
@@ -203,90 +188,63 @@ const ReviewComponent = () => {
 
   return (
     <>
-      <VStack
-        width={{ lg: "90%" }}
-        alignItems={"start"}
-        gap={"30px"}
-        margin={"auto"}
-        padding={"0 0 3rem 0"}
+      <div className="flex flex-col} className= m-[auto] p-[0 0 3rem 0]"items-start"
+       
       >
-        <Text
-          textAlign={"left"}
-          fontSize={"2rem"}
-          fontWeight={"600"}
+        <span
           marginTop={{ base: "4", md: "10" }}
-        >
+         className="text-4xl font-semibold text-left">
           {" "}
           End contract review{" "}
-        </Text>
-        <VStack
-          alignItems={"start"}
-          justifyContent={"start"}
-          margin={"auto"}
-          width={"100%"}
-          gap={"20px"}
-          padding={{ base: "1.5rem", md: "3rem 2.5rem" }}
-          border={"0.1px solid gray"}
-          borderRadius={"15px"}
-          bgColor={"white"}
+        </span>
+        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}
+         
         >
-          <Box width={"80%"} gap={"20px"}>
-            <Box>
-              <Text textAlign={"left"} fontSize={"1.2rem"} fontWeight={"600"}>
+          <div className="w-[80%]">
+            <div>
+              <span className="text-xl font-semibold text-left">
                 {role == 1 && "Client"}
                 {role == 2 && "Freelancer"}
-              </Text>
-              <Text textAlign={"left"} fontSize={"1.2rem"}>
+              </span>
+              <span className="text-xl text-left">
                 {receiverDetails?.firstName} {receiverDetails?.lastName}
-              </Text>
-            </Box>
+              </span>
+            </div>
             <br />
-            <Box>
-              <Text textAlign={"left"} fontSize={"1.2rem"} fontWeight={"600"}>
+            <div>
+              <span className="text-xl font-semibold text-left">
                 {" "}
                 Contract Title{" "}
-              </Text>
-              <Text textAlign={"left"} fontSize={"1.2rem"}>
+              </span>
+              <span className="text-xl text-left">
                 {" "}
                 {jobDetails?.contract_title}{" "}
-              </Text>
-            </Box>
-          </Box>
-        </VStack>
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <VStack
-          alignItems={"start"}
-          justifyContent={"start"}
-          margin={"auto"}
-          width={"100%"}
-          gap={"20px"}
-          padding={{ base: "1.5rem", md: "3rem 2.5rem" }}
-          border={"0.1px solid gray"}
-          borderRadius={"15px"}
-          bgColor={"white"}
+        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}
+         
         >
-          <Text textAlign={"left"} fontSize={"1.6rem"} fontWeight={"600"}>
+          <span className="text-3xl font-semibold text-left">
             {" "}
             Private feedback{" "}
-          </Text>
-          <Box width={{ lg: "80%" }} gap={"20px"}>
-            <Text fontSize={"1.2rem"}>
+          </span>
+          <div}>
+            <span className="text-xl">
               This is your opportunity to share feedback on{" "}
               {receiverDetails?.firstName} that you {"don't"} want posted
               publicly.
               {"We'll"} use it to improve the user experience, but we {"won't"}{" "}
               share it with {receiverDetails?.firstName}.
-            </Text>
+            </span>
             <br />
-            <Box>
-              <Text
-                textAlign={"left"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                marginBottom={"1rem"}
-              >
+            <div>
+              <span
+               className="mb-[1rem] text-xl font-semibold text-left">
                 Primary reason for ending contract
-              </Text>
+              </span>
               <Select
                 placeholder="Select a reason"
                 size="lg"
@@ -309,108 +267,78 @@ const ReviewComponent = () => {
                   <option value={"not found"}>Not Found</option>
                 )}
               </Select>
-            </Box>
+            </div>
             <br />
-            <Box>
-              <Text textAlign={"left"} fontSize={"1.2rem"} fontWeight={"600"}>
+            <div>
+              <span className="text-xl font-semibold text-left">
                 {" "}
                 How likely are you to recommend this client to a friend or a
                 colleague?
-              </Text>
+              </span>
               <br />
-              <VStack alignItems={"start"}>
-                <HStack
-                  justifyContent={"space-between"}
-                  flexWrap={"wrap"}
-                  width={"100%"}
+              <div className="flex flex-col className="items-start">
+                <div className="flex flex-row items-center className= w-full"justify-between"
+                  flexWrap="wrap"
+                 
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                    <VStack
-                      key={num}
-                      fontSize={"1.2rem"}
-                      justifyContent={"center"}
-                      borderRadius={"50%"}
-                      cursor={"pointer"}
-                      fontWeight={"600"}
-                      width={"50px"}
-                      height={"50px"}
-                      border={"2px solid var(--bordersecondary)"}
-                      textAlign={"center"}
-                      bg={
-                        selectedNumber === num
-                          ? "var(--primarycolor)"
-                          : "transparent"
-                      }
-                      color={selectedNumber === num ? "white" : "black"}
+                    <divtext-1.2rem justify-center rounded"
+                      className="font-600 w-[50px] h-[50px] border text-center flex flex-col key={num} className= cursor-pointer"
                       onClick={() => handleNumberClick(num)}
                     >
-                      <Text padding={"0"}>{num}</Text>
-                    </VStack>
+                      <span>{num}</span>
+                    </div>
                   ))}
-                </HStack>
+                </div>
 
-                <HStack
-                  justifyContent={"space-between"}
-                  width={"100%"}
-                  marginTop={"1rem"}
+                <div className="flex flex-row items-center className="justify-between w-full mt-[1rem]"
                 >
                   <BiSolidDislike
-                    fontSize={"1.9rem"}
-                    color="var(--primarytextcolor)"
                   />
-                  <Text>
+                  <span>
                     Embark on a journey to discover your preferred range of
                     choices.
-                  </Text>
-                  <BiSolidLike fontSize={"1.9rem"} color="#0096FE" />
-                </HStack>
-              </VStack>
-            </Box>
-          </Box>
-        </VStack>
+                  </span>
+                  <BiSolidLike />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <VStack
-          alignItems={"start"}
-          justifyContent={"start"}
-          margin={"auto"}
-          width={"100%"}
-          gap={{ base: "10px", md: "20px" }}
-          padding={{ base: "1.5rem", md: "3rem 2.5rem" }}
-          border={"0.1px solid gray"}
-          borderRadius={"15px"}
-          bgColor={"white"}
+        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}}
+         
         >
-          <Text textAlign={"left"} fontSize={"1.6rem"} fontWeight={"600"}>
+          <span className="text-3xl font-semibold text-left">
             {" "}
             Public feedback{" "}
-          </Text>
-          <Box width={{ lg: "80%" }} gap={"20px"}>
-            <Text fontSize={{ md: "1.2rem" }}>
+          </span>
+          <div}>
+            <span}>
               We&apos;ll post your feedback on {receiverDetails?.firstName}
               &apos;s Recent History when they&apos;ve left there feedback for
               you or after 14-day feedback period closes. Your insights can help
               other Zeework talent choose their next job{" "}
-            </Text>
+            </span>
             <br />
-            <Box>
-              <VStack alignItems={"start"}>
-                <Box marginTop={{ base: 10, md: 8 }}>
-                  <Text
-                    fontSize={{ base: "x-large", md: "2xl" }}
-                    fontWeight="semibold"
+            <div>
+              <div className="flex flex-col className="items-start">
+                <div marginTop={{ base: 10, md: 8 }}>
+                  <span}
+                   
                   >
                     Feedback to client
-                  </Text>
-                  <Box
+                  </span>
+                  <div
                     marginTop={{ base: 3, md: 6 }}
                     className="flex flex-col gap-4 md:gap-8 w-full"
                   >
                     {options?.map((option, index) => (
-                      <Box
+                      <div
                         key={index}
                         className="flex md:items-center gap-1 sm:gap-2 md:gap-6 flex-col md:flex-row"
                       >
-                        <Box className="flex items-center gap-2">
+                        <div className="flex items-center gap-2">
                           <StarRatings
                             rating={
                               formData.private_feedback.feedback.find(
@@ -431,96 +359,76 @@ const ReviewComponent = () => {
                             starDimension="2rem"
                             name={`ratings-${index}`}
                           />
-                        </Box>
-                        <Text fontSize={{ md: "xl" }} className="w-full">
+                        </div>
+                        <span} className="w-full">
                           {option}
-                        </Text>
-                      </Box>
+                        </span>
+                      </div>
                     ))}
-                  </Box>
-                  <Text
-                    fontWeight="semibold"
-                    fontSize={{ base: "xl", md: "2xl" }}
+                  </div>
+                  <span}
                     marginTop={{ base: 4, md: 8 }}
                   >
                     Total Score: {totalScore}
-                  </Text>
-                </Box>
-              </VStack>
-            </Box>
+                  </span>
+                </div>
+              </div>
+            </div>
             <br />
             <br />
-            <Box>
-              <Text
-                fontSize={{ base: "x-large", md: "2xl" }}
-                fontWeight="semibold"
+            <div>
+              <span}
+               
               >
                 Share your experience to Zeework community
-              </Text>
-              <Box marginTop={{ base: 3, md: 6 }}>
-                <Textarea
-                  padding={{ base: 2, md: 4 }}
-                  height={{ base: 32, md: 40 }}
-                  fontSize={{ base: "lg", md: "xl" }}
+              </span>
+              <div marginTop={{ base: 3, md: 6 }}>
+                <spanarea}}}
                   placeholder="Your comments will be shared publicly"
                   value={feedbackMessage}
                   onChange={(e) => setFeedbackMessage(e.target.value)}
                   sx={{ "::placeholder": { opacity: 0.3 } }} // Adjust opacity as needed
                 />
-              </Box>
-            </Box>
-          </Box>
-        </VStack>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <VStack
-          marginTop={{ md: "10" }}
-          border={"0.1px solid gray"}
-          borderRadius={"15px"}
-          padding={{ base: "1.5rem", md: "3rem 2.5rem" }}
-          justifyContent={"start"}
-          width={"100%"}
-          alignItems={"start"}
-          bgColor={"white"}
+        <div className="flex flex-col marginTop={{ md: border rounded"10" }}}
+          className="justify-start w-full items-start bg-white"
         >
-          <Box marginTop={{ base: 4, md: 6 }}>
-            <Text fontSize={{ sm: "xl", md: "1.2rem" }}>
+          <div marginTop={{ base: 4, md: 6 }}>
+            <span}>
               Ending this contract will permanently lock the Work Diary for this
               project. {"We'll"} let your client know the job is done and send
               you a final statement for any unpaid work.
-            </Text>
-          </Box>
-          <Box
-            marginTop={{ base: 2, md: 6 }}
-            width={{ base: "full", sm: "fit-content" }}
+            </span>
+          </div>
+          <div
+            marginTop={{ base: 2, md: 6 }}}
           >
-            <Box className="flex flex-col items-center sm:flex-row md:items-center justify-center text-center gap-3 sm:gap-6 w-full">
-              <Text
-                fontSize={{ base: "xl", md: "1.2rem" }}
-                fontWeight="450"
-                className="text-[#22c55e]"
-                width={{ base: "full", sm: "fit-content" }}
+            <div className="flex flex-col items-center sm:flex-row md:items-center justify-center text-center gap-3 sm:gap-6 w-full">
+              <span}
+               
+                className="text-[#22c55e]"}
               >
                 Cancel
-              </Text>
+              </span>
 
-              <Button
-                width={"full"}
-                fontSize={{ base: "xl", md: "1.2rem" }}
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"}
                 isLoading={isLoading}
                 loadingText="Submitting"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
                 paddingX={8}
-                rounded={"full"}
                 onClick={() => handleSubmit()}
               >
                 Submit Review
-              </Button>
-            </Box>
-          </Box>
-        </VStack>
-      </VStack>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Successful Popup */}
       {isModal && (

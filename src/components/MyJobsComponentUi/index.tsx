@@ -1,11 +1,13 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";
 import ActiveJobSlider from "./ActiveJobSlider";
 import ApplyedJobs from "./ApplyedJobs/ApplyedJobs";
 import CompletedJobs from "./ApplyedJobs/CompletedJobs";
-import { VStack, Text, Button } from "@chakra-ui/react";
+
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
@@ -56,26 +58,14 @@ const MyJobsComponentUi = () => {
               <ActiveJobSlider activeJobList={active_jobs} />
             </div>
           ) : (
-            <VStack
-              alignItems={"center"}
-              justifyContent={"center"}
-              className="border border-[var(--bordersecondary)] rounded-lg"
-              height={"10rem"}
-              bgColor={"white"}
+            <div className="flex flex-col className="items-center justify-center border border-[var(--bordersecondary)] rounded-lg h-[10rem] bg-white"
             >
-              <Text
-                fontSize={"1.2rem"}
-                textTransform={"capitalize"}
-                fontWeight={"600"}
-                marginBottom={"10px"}
-              >
+              <span
+               className="mb-[10px] text-xl font-semibold capitalize">
                 Currently No Active Jobs
-              </Text>
-              <Button
-                borderRadius={"25px"}
-                fontWeight={"500"}
+              </span>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
                 backgroundColor={"var(--primarycolor)"}
-                color={"white"}
                 _hover={{
                   border: "1px solid var(--primarycolor)",
                   backgroundColor: "white",
@@ -84,8 +74,8 @@ const MyJobsComponentUi = () => {
                 onClick={() => router.push("/find-job")}
               >
                 Find Jobs Now
-              </Button>
-            </VStack>
+              </button>
+            </div>
           )}
         </div>
       </div>

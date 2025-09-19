@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Card,
@@ -8,7 +9,7 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 // import { utcToZonedTime } from 'date-fns-tz';
 import { getISOWeek, startOfISOWeek } from "date-fns";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
@@ -66,35 +67,32 @@ const Timesheet = ({ activeJobs, isLoading }) => {
         <div className="mb-3">
           <Card>
             <CardBody
-              paddingY={"2.5rem"}
-              overflowX={"auto"}
-              minHeight={"200px"}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
+              paddingY="2.5rem"
+              overflowX="auto"
+              minHeight="200px"
+              className="items-center"
             >
               {activeJobs?.length ? (
-                <Box overflowX={"auto"} width={"100%"}>
+                <div overflowX="auto" className="w-full">
                   <Table variant="simple">
-                    <Thead textAlign={"center"}>
-                      <Tr maxWidth={"100%"} textAlign={"center"}>
+                    <Thead>
+                      <Tr maxWidth="100%">
                         <Th
-                          fontSize={"1rem"}
-                          textColor={"black"}
-                          marginBottom={"1.5rem"}
+                          textColor="black"
+                          className="mb-[1.5rem]"
                         >
                           Hourly Contracts
                         </Th>
-                        <Th textAlign="center">Mon</Th>
-                        <Th textAlign="center">Tue</Th>
-                        <Th textAlign="center">Wed</Th>
-                        <Th textAlign="center">Thu</Th>
-                        <Th textAlign="center">Fri</Th>
-                        <Th textAlign="center">Sat</Th>
-                        <Th textAlign="center">Sun</Th>
-                        <Th textAlign="center">Hours</Th>
-                        <Th textAlign="center">Rate</Th>
-                        <Th textAlign="center">Amount</Th>
+                        <Th>Mon</Th>
+                        <Th>Tue</Th>
+                        <Th>Wed</Th>
+                        <Th>Thu</Th>
+                        <Th>Fri</Th>
+                        <Th>Sat</Th>
+                        <Th>Sun</Th>
+                        <Th>Hours</Th>
+                        <Th>Rate</Th>
+                        <Th>Amount</Th>
                       </Tr>
                       <br />
                     </Thead>
@@ -124,23 +122,23 @@ const Timesheet = ({ activeJobs, isLoading }) => {
                           </Td>
                           {date_time?.length
                             ? date_time?.map((date, index) => (
-                              <Td key={index} textAlign="center">
+                              <Td key={index}>
                                 {formatTime(date.time)}
                               </Td>
                             ))
                             : [1, 2, 3, 4, 5, 6, 7]?.map((date, index) => (
-                              <Td key={index} textAlign="center">
+                              <Td key={index}>
                                 0
                               </Td>
                             ))}
-                          <Td textAlign="center">
+                          <Td>
                             {formatTime(this_week?.[0]?.total_time)}
                           </Td>
-                          <Td textAlign={"center"} fontWeight={"semibold"}>
+                          <Td>
                             ${contract.details?.hourly_rate}
                             <sub className="font-normal">/hr</sub>
                           </Td>
-                          <Td textAlign="center" fontWeight={"semibold"}>
+                          <Td>
                             ${total_earning?.toFixed(2) || 0}
                           </Td>
                         </Tr>
@@ -181,23 +179,23 @@ const Timesheet = ({ activeJobs, isLoading }) => {
                               </Td>
                               {date_time.length
                                 ? date_time.map((date, index) => (
-                                    <Td key={index} textAlign="center">
+                                    <Td key={index}>
                                       {formatTime(date.time)}
                                     </Td>
                                   ))
                                 : [1, 2, 3, 4, 5, 6, 7].map((_, index) => (
-                                    <Td key={index} textAlign="center">
+                                    <Td key={index}>
                                       0
                                     </Td>
                                   ))}
-                              <Td textAlign="center">
+                              <Td>
                                 {formatTime(this_week_time)}
                               </Td>
-                              <Td textAlign={"center"} fontWeight={"semibold"}>
+                              <Td>
                                 ${contract.details?.hourly_rate}
                                 <sub className="font-normal">/hr</sub>
                               </Td>
-                              <Td textAlign="center" fontWeight={"semibold"}>
+                              <Td>
                                 ${total_earning.toFixed(2) || 0}
                               </Td>
                             </Tr>
@@ -205,7 +203,7 @@ const Timesheet = ({ activeJobs, isLoading }) => {
                         })}
                     </Tbody>
                   </Table>
-                </Box>
+                </div>
               ) : (
                 <div className="text-center capitalize font-bold">
                   You haven&apos;t got any hourly contract jobs!

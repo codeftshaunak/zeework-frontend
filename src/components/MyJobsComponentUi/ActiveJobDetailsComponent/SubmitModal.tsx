@@ -7,7 +7,7 @@ import {
   Text,
   Textarea,
   VStack
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import React, { useState } from "react";
 
 const SubmitModal = ({
@@ -32,17 +32,16 @@ const SubmitModal = ({
   };
 
   return (
-    <VStack>
-      <Box className="fixed inset-0 flex items-center justify-center z-50">
-        <Box className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></Box>
+    <div className="flex flex-col> <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
-        <Box className="modal-container bg-white w-8/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-          <Box className="modal-content py-4 text-left px-6">
-            <Box className="flex justify-between items-center pb-3 border-b">
-              <Text className="text-xl font-bold capitalize text-center w-full">
+        <div className="modal-container bg-white w-8/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+          <div className="modal-content py-4 text-left px-6">
+            <div className="flex justify-between items-center pb-3 border-b">
+              <span className="text-xl font-bold capitalize text-center w-full">
                 Submit your work for payment
-              </Text>
-            </Box>
+              </span>
+            </div>
 
             <br />
             <p className="text-md">
@@ -50,85 +49,65 @@ const SubmitModal = ({
               Your payment will be released upon approval.`}
             </p>
 
-            <VStack
-              className="my-5"
-              justifyContent={"flex-start"}
-              alignItems={"start"}
-              width={"100%"}
+            <div className="flex flex-col my-5 justify-flex-start items-start w-full"
             >
-              <Box width={"100%"} marginBottom={"0.5rem"}>
-                <Text
-                  fontWeight={"bold"}
-                  textAlign={"left"}
-                  pl={"0.2rem"}
-                  fontSize={"1.1rem"}
-                >
+              <div className="w-full mb-[0.5rem]">
+                <span
+                  pl="0.2rem"
+                 className="font-bold text-left">
                   Project Name
-                </Text>
-                <Text textAlign={"left"} pl={"0.2rem"} fontSize={"1.1rem"}>
+                </span>
+                <span pl="0.2rem" className="text-left">
                   {jobDetails?.title}
-                </Text>
-              </Box>
+                </span>
+              </div>
 
-              <Box width={"100%"} marginBottom={"0.5rem"}>
-                <Text
-                  fontWeight={"bold"}
-                  textAlign={"left"}
-                  pl={"0.2rem"}
-                  fontSize={"1.1rem"}
-                >
+              <div className="w-full mb-[0.5rem]">
+                <span
+                  pl="0.2rem"
+                 className="font-bold text-left">
                   Project Amount
-                </Text>
-                <Text textAlign={"left"} pl={"0.2rem"} fontSize={"1.1rem"}>
+                </span>
+                <span pl="0.2rem" className="text-left">
                   ${jobDetails?.amount}
-                </Text>
-              </Box>
+                </span>
+              </div>
 
-              <Box width={"100%"} marginBottom={"0.5rem"}>
-                <Text
-                  fontWeight={"bold"}
-                  textAlign={"left"}
-                  pl={"0.2rem"}
-                  fontSize={"1.1rem"}
-                >
+              <div className="w-full mb-[0.5rem]">
+                <span
+                  pl="0.2rem"
+                 className="font-bold text-left">
                   Your Message To Client
-                </Text>
-                <Textarea
+                </span>
+                <spanarea
                   placeholder="Enter your message..."
-                  size="md"
                   value={messages}
                   onChange={handleTextValue}
-                  border="1px"
+                 
                   borderColor="gray.300"
-                  borderRadius="md"
-                  p={2}
                 />
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
-              </Box>
+              </div>
 
-              <Box width={"100%"} marginBottom={"0.5rem"}>
-                <Text
-                  fontWeight={"bold"}
-                  textAlign={"left"}
-                  pl={"0.2rem"}
-                  fontSize={"1.1rem"}
-                  marginBottom={"0.5rem"}
-                >
+              <div className="w-full mb-[0.5rem]">
+                <span
+                  pl="0.2rem"
+                 className="mb-[0.5rem] font-bold text-left">
                   Upload File
-                </Text>
-                <Input
+                </span>
+                <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   type="file"
                   onChange={handleFileChange}
-                  backgroundColor={"white"}
-                  paddingTop={"0.3rem"}
+                  backgroundColor="white"
+                  paddingTop="0.3rem"
                   accept=".pdf,.doc,.docx,.txt,.jpeg,.jpg,.png"
                 />
-              </Box>
-            </VStack>
+              </div>
+            </div>
 
-            <Box className="flex justify-end pt-2 border-t">
+            <div className="flex justify-end pt-2 border-t">
               <button
                 onClick={() => setOpenModal(false)}
                 className="px-4 py-2 mx-4 bg-white border border-black rounded-lg text-black hover:bg-[#F0FDF4]"
@@ -141,11 +120,11 @@ const SubmitModal = ({
               >
                 {loadingSubmit ? <Spinner /> : "Submit Your Work"}
               </button>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </VStack>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

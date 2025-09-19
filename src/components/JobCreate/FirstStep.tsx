@@ -17,7 +17,7 @@ import QuillToolbar, {
   modules,
 } from "../utils/QuillToolbar/QuillToolbar";
 import ErrorMsg from "../utils/Error/ErrorMsg";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+
 import { customSelectStyles } from "../utils/Select/index";
 
 interface SkillOption {
@@ -177,16 +177,15 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
         <div className="w-full md:w-[530px] text-gray-700 font-medium leading-tight mb-2">
           Title
         </div>
-        <Input
-          bgColor={"white"}
-          className="rounded-md"
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm rounded-md"
+         
           borderColor={"var(--bordersecondary)"}
           _placeholder={{ color: "gray.500" }}
           placeholder="Write work title..."
           type="text"
           {...register("title")}
         />
-        {errors?.title && <ErrorMsg msg={errors.title.message} className="" />}
+        {errors?.title && <ErrorMsg msg={errors.title.message} />}
       </div>
 
       {/* DESCRIPTION FIELD */}
@@ -211,7 +210,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
           />
         </div>
 
-        {errors?.description && <ErrorMsg msg={errors.description.message} className="" />}
+        {errors?.description && <ErrorMsg msg={errors.description.message} />}
       </div>
 
       {/* TAGS FIELD */}
@@ -245,7 +244,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
           )}
         />
 
-        {errors?.categories && <ErrorMsg msg={errors.categories.message} className="" />}
+        {errors?.categories && <ErrorMsg msg={errors.categories.message} />}
       </div>
 
       {/* SKILLS FIELD */}
@@ -271,7 +270,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
             />
           )}
         />
-        {errors?.skills && <ErrorMsg msg={errors.skills.message} className="" />}
+        {errors?.skills && <ErrorMsg msg={errors.skills.message} />}
       </div>
 
       {/* BUDGET FIELD */}
@@ -284,11 +283,11 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
               type="radio"
               value={"fixed"}
               checked={defaultValues && defaultValues?.job_type === "fixed"}
-              className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+              className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
             />
             <label
               htmlFor="default-radio-1"
-              className="ml-2 font-medium text-gray-900 "
+              className="ml-2 font-medium text-gray-900"
             >
               Fixed Budget
             </label>
@@ -300,17 +299,17 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
               type="radio"
               value={"hourly"}
               checked={defaultValues && defaultValues?.job_type === "hourly"}
-              className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+              className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
             />
             <label
               htmlFor="default-radio-2"
-              className="ml-2 font-medium text-gray-900 "
+              className="ml-2 font-medium text-gray-900"
             >
               Hourly
             </label>
           </div>
         </div>
-        {errors?.job_type && <ErrorMsg msg={errors.job_type.message} className="" />}
+        {errors?.job_type && <ErrorMsg msg={errors.job_type.message} />}
       </div>
 
       {/* AMOUNT FIELD */}
@@ -318,24 +317,21 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
         <div className="w-full md:w-[530px] text-gray-700 font-medium leading-tight mb-2">
           Add Amount
         </div>
-        <InputGroup width={"100%"} bgColor={"white"} rounded={"md"}>
-          <InputLeftElement
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"Group>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
             pointerEvents="none"
-            color="gray.500"
-            fontSize="1.2em"
-            fontWeight={"semibold"}
             children="$"
           />
-          <Input
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm rounded-md"
             borderColor={"var(--bordersecondary)"}
             _placeholder={{ color: "gray.500" }}
-            className="rounded-md"
+           
             type="number"
             placeholder="400"
             {...register("amount")}
           />
         </InputGroup>
-        {errors?.amount && <ErrorMsg msg={errors.amount.message} className="" />}
+        {errors?.amount && <ErrorMsg msg={errors.amount.message} />}
       </div>
 
       {/* FILE FIELD */}
@@ -381,7 +377,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
         <div className="text-neutral-500 mt-3 font-medium leading-tight">
           Max size 100 MB
         </div>
-        {(errors as any)?.file && <ErrorMsg msg={(errors as any).file.message} className="" />}
+        {(errors as any)?.file && <ErrorMsg msg={(errors as any).file.message} />}
       </div>
 
       <button

@@ -97,7 +97,7 @@ const MarketplaceBody = () => {
         category={categoryOptions}
         isLoading={isLoadingSearch}
         refresh={getSearchingGigs}
-        route={"/marketplace?"}
+        route="/marketplace?"
       />
       {isSearch && (
         <div className="bg-neutral-100 p-5 rounded-md w-full">

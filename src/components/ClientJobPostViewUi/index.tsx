@@ -64,11 +64,7 @@ export const ClientJobPostViewComponent = () => {
         </div>
         <div className="mt-4">
           <CTAButton
-            text={"Post a new job"}
-            bg={"var(--primarycolor)"}
-            color={"#ffff"}
-            fontSize="1rem"
-            height="2.5rem"
+            text="Post a new job"
             onClick={() => router.push("/create-job")}
           ></CTAButton>
         </div>
@@ -147,9 +143,6 @@ export const ClientJobPostViewComponent = () => {
             <Tab>Hire (0)</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Indicator
-            height="2px"
-            borderRadius="1px"
-            color={"#000"}
             className=" bg-fg-brand"
           />
         </Tabs.Root> */}

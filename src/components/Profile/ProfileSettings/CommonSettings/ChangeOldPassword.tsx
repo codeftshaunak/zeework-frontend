@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { changePasswordSchema } from "../../../../schemas/user-schema";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { changeOldPassword } from "../../../../helpers/APIs/jobApis";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../utils/Error/ErrorMsg";
@@ -29,11 +29,7 @@ const ChangeOldPassword = () => {
         new_password: data.new_password,
       });
 
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +43,7 @@ const ChangeOldPassword = () => {
   return (
     <div className="border-[1px] border-[var(--bordersecondary)] rounded-lg bg-white overflow-hidden">
       <form onSubmit={handleSubmit(changePassword)}>
-        <div className="flex flex-col gap-[8px] py-[20px] px-[24px] w-full ">
+        <div className="flex flex-col gap-[8px] py-[20px] px-[24px] w-full">
           <p className="text-[#374151] text-2xl font-[600] mb-4">
             Change Password
           </p>
@@ -100,25 +96,20 @@ const ChangeOldPassword = () => {
           </div>
           <div className="text-right mt-5 flex justify-start gap-3 mb-1">
             <Button
-              colorScheme="primary"
-              rounded={"full"}
               paddingX={8}
-              variant={"outline"}
               onClick={handleCancel}
-            >
+             className="rounded-full">
               Cancel
-            </Button>
+            </button>
             <Button
               type="submit"
-              colorScheme="primary"
-              rounded={"full"}
               paddingX={8}
               isLoading={passLoading}
               loadingText="Updating"
               spinner={<BtnSpinner />}
             >
               Update
-            </Button>
+            </button>
           </div>
         </div>
       </form>

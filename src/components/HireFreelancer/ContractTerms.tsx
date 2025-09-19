@@ -1,11 +1,13 @@
+
 "use client";
+import React from "react";
 
 import { FaPen, FaQuestionCircle } from "react-icons/fa";
 import { IoIosAlarm } from "react-icons/io";
 import { GiPriceTag } from "react-icons/gi";
 import { useRef, useState } from "react";
 import { useLocation } from "next/navigation";
-import { Flex, Text } from "@chakra-ui/react";
+
 
 const ContractTerms = ({ formData, setFormData, loading }) => {
   const priceRef = useRef(null);
@@ -53,9 +55,9 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
         pey for the work you
       </p> */}
       <div className="mt-5">
-        <Flex fontWeight="bold" mb={2} gap={1} alignItems={"center"}>
+        <div className="flex className="items-center">
           Payment Option <FaQuestionCircle className="cursor-pointer" />
-        </Flex>
+        </div>
 
         <div className="grid grid-cols-2 max-w-2xl gap-5 mt-1">
           <div
@@ -71,7 +73,7 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
                 Popular
               </small>
               {formData.job_type === "fixed" ? (
-                <div className="h-5 w-5 rounded-full border-2 border-gray-400  relative"></div>
+                <div className="h-5 w-5 rounded-full border-2 border-gray-400 relative"></div>
               ) : (
                 activeRadio
               )}
@@ -94,7 +96,7 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
               {formData.job_type === "fixed" ? (
                 activeRadio
               ) : (
-                <div className="h-5 w-5 rounded-full border-2 border-gray-400  relative"></div>
+                <div className="h-5 w-5 rounded-full border-2 border-gray-400 relative"></div>
               )}
             </div>
             <div className="mb-2 mt-1">
@@ -147,7 +149,7 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
                 Weekly Hourly Limit{" "}
                 <FaQuestionCircle className="cursor-pointer" />
               </h5>
-              <p className=" text-gray-600">
+              <p className="text-gray-600">
                 Set your hourly limit to control your budget.
               </p>
             </div>
@@ -178,7 +180,7 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
                   onBlur={() => setIsEditingHours(false)}
                 />
               ) : (
-                <p className=" text-gray-600">40 max/week</p>
+                <p className="text-gray-600">40 max/week</p>
               )}
             </div>
             <p className="mt-2 text-gray-600">

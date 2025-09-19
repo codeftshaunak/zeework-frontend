@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useEffect, useState } from "react";
 import { FormStateProvider } from "../../contexts/FormContext";
 import Steps from "../JobCreate/Steps";
@@ -38,11 +38,7 @@ const UpdateJob = () => {
     const { code, msg, body } = await updateJob(jobDetails?._id, formData);
 
     if (code === 200) {
-      toaster.create({
-        title: msg,
-        type: "success",
-        duration: 3000,
-      });
+      toast.success(msg);
 
       dispatch(
         setDashboard({
@@ -54,11 +50,7 @@ const UpdateJob = () => {
         state: { jobDetails: body },
       });
     } else {
-      toaster.create({
-        title: msg,
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning(msg);
 
       router.push(-1);
     }
@@ -76,9 +68,7 @@ const UpdateJob = () => {
         <Box marginTop={10}>
           {step < 4 ? (
             <HStack
-              justifyContent={"space-around"}
-              width={"full"}
-              alignItems={"flex-start"}
+              className="w-full"
               flexDirection={{ base: "column", md: "row" }}
             >
               <Steps step={step} setStep={setStep} />

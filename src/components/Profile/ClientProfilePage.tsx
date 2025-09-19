@@ -1,5 +1,6 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import { toast } from "@/lib/toast";
 
 import React, { useEffect, useState, useCallback } from "react";
 import ProfileContainer from "./ProfileContainer";
@@ -13,9 +14,9 @@ import {
   SliderTrack,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import ReviewCard from "./FreelancerProfile/FreelancerProfile/ReviewCard";
-import { HStack, Avatar } from "@chakra-ui/react";
+
 import { getAllDetailsOfUser, uploadImage } from "../../helpers/APIs/userApis";
 import { CiLocationOn } from "react-icons/ci";
 import { formatTime, getUserLocation } from "../../helpers/APIs/formet";
@@ -111,11 +112,7 @@ export const ClientProfilePage = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toaster.create({
-      title: "Zeework Profile Copied.",
-      type: "success",
-      duration: 3000,
-    });
+    toast.success("Zeework Profile Copied.");
   };
 
   const handleOpenModal = (type) => {
@@ -230,7 +227,7 @@ export const ClientProfilePage = () => {
     <>
       <ProfileContainer>
         <div className="w-full sm:w-[100%] flex flex-col gap-[24px] m-auto">
-          <div className=" w-full flex items-center justify-between border-2 py-[20px] px-[24px] border-[var(--primarycolor)] bg-green-50 rounded-xl max-sm:flex-col max-sm:gap-4">
+          <div className="w-full flex items-center justify-between border-2 py-[20px] px-[24px] border-[var(--primarycolor)] bg-green-50 rounded-xl max-sm:flex-col max-sm:gap-4">
             <div className="flex gap-[14px] items-center">
                 <div
                   style={{
@@ -248,8 +245,6 @@ export const ClientProfilePage = () => {
                 <Avatar
                   src={profile_image}
                   name={firstName + " " + lastName}
-                  width={"60px"}
-                  height={"60px"}
                 />
               </div>
               <div className="flex flex-col justify-start gap-[10px]">
@@ -261,13 +256,13 @@ export const ClientProfilePage = () => {
                     onClick={() => handleOpenModal("Business Name")}
                   />
                 </div>
-                <HStack className="text-[16px] text-[#374151] font-[400]">
+                <div className="flex flex-row items-center className="text-[16px] text-[#374151] font-[400]">
                   <CiLocationOn />{" "}
                   <p className="capitalize">
                     {" "}
                     {location}, {localTime} local time
                   </p>
-                </HStack>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-[12px]">
@@ -275,7 +270,7 @@ export const ClientProfilePage = () => {
                 className="flex items-center justify-center w-[36px] h-[36px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer hover:bg-slate-100"
                 onClick={handleCopyProfileURL}
               >
-                <BsLink45Deg width={"20px"} height={"20px"} />
+                <BsLink45Deg />
               </div>
               <button
                 className="py-[8px] px-[12px] rounded-[6px] text-[14px] font-500 text-[#fff] bg-[#22C55E]"
@@ -286,26 +281,25 @@ export const ClientProfilePage = () => {
             </div>
           </div>
           <div className="flex flex-col xl:flex-row gap-[24px]">
-            <div className="flex flex-1 gap-[24px]  flex-col ">
+            <div className="flex flex-1 gap-[24px] flex-col">
               <div className="flex py-6 bg-white w-full xl:w-[400px] relative flex-col gap-[24px] border-[1px] px-[24px] border-[var(--bordersecondary)] rounded-lg">
                 <p className="text-[20px] text-[#374151] font-[600]">
                   Client Stats
                 </p>
-                <VStack
-                  backgroundColor={"#f4f5f787"}
-                  height={"80px"}
-                  shadow={"sm"}
-                  justifyContent={"center"}
+                <div className="flex flex-col backgroundColor= h-[80px]"#f4f5f787"
+                 
+                  shadow="sm"
+                  className="justify-center"
                 >
-                  <Text fontWeight={"600"} top={"8rem"} textAlign={"center"}>
+                  <span top="8rem" className="font-semibold text-center">
                     Updated Client Stats <br /> Coming Soon
-                  </Text>
-                </VStack>
+                  </span>
+                </div>
               </div>
             </div>
             <div className="flex-[2] flex flex-col gap-[24px]">
-              <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] bg-white rounded-xl">
-                <div className="">
+              <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] bg-white rounded-xl">
+                <div >
                   <div className="flex gap-[16px] justify-between">
                     <p className="text-[20px] text-[#374151] font-[600]">
                       Client Description
@@ -380,11 +374,11 @@ export const ClientProfilePage = () => {
                           />
 
                           {isDragActive ? (
-                            <p className="text-center ">
+                            <p className="text-center">
                               Drop the files here ...{" "}
                             </p>
                           ) : (
-                            <p className="text-center ">
+                            <p className="text-center">
                               Drag &apos;n&apos; drop image file here, or click
                               to select file
                             </p>
@@ -430,10 +424,10 @@ export const ClientProfilePage = () => {
                             }}
                           >
                             <SliderTrack className="bg-slate-300">
-                              <SliderFilledTrack bg={"slategrey"} />
+                              <SliderFilledTrack />
                             </SliderTrack>
                             <SliderThumb boxSize={6}>
-                              <Box className="text-slate-500" as={TiZoom} />
+                              <div className="text-slate-500" as={TiZoom} />
                             </SliderThumb>
                           </Slider>
                           <TiPlus />
@@ -513,16 +507,15 @@ export const ClientProfilePage = () => {
                 </div>
                 {imageSrc && (
                   <div className="text-right mt-10">
-                    <Button
+                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       isLoading={isLoading}
                       loadingText="Uploading"
-                      colorScheme="primary"
                       onClick={() => handleUpdateProfile()}
                       paddingX={7}
                       spinner={<BtnSpinner />}
                     >
                       Upload
-                    </Button>
+                    </button>
                   </div>
                 )}
               </>
@@ -563,16 +556,15 @@ export const ClientProfilePage = () => {
             {/* On Submit Button */}
             {modalType !== "Profile Photo" && (
               <div className="text-right mt-5">
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
-                  loadingText={"Updating"}
-                  colorScheme="primary"
+                  loadingText="Updating"
                   type="submit"
                   paddingX={7}
                   spinner={<BtnSpinner />}
                 >
                   Update
-                </Button>
+                </button>
               </div>
             )}
           </form>

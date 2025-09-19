@@ -1,6 +1,8 @@
-"use client";
 
-import { VStack, HStack, Skeleton } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import {
   getClientContract,
   getClientReport,
@@ -68,9 +70,8 @@ const ClientReport = () => {
       <div>
         <h2 className="mt-8 mb-8 text-[25px] font-semibold">Overview</h2>
 
-        <HStack
-          className="max-md:!flex-col flex flex-wrap"
-          justifyContent="space-between"
+        <div className="flex flex-row items-center max-md:!flex-col flex-wrap"
+         
         >
           {renderSkeleton(
             isReportsLoading,
@@ -100,13 +101,13 @@ const ClientReport = () => {
               label="Total Spend"
             />
           )}
-        </HStack>
+        </div>
       </div>
 
       <br />
 
       <div>
-        <h2 className="mt-8 mb-8  text-[25px] font-semibold">
+        <h2 className="mt-8 mb-8 text-[25px] font-semibold">
           Active Contracts
         </h2>
         <ActiveContract
@@ -117,7 +118,7 @@ const ClientReport = () => {
 
       {/* Completed Jobs */}
       <div>
-        <h2 className="mt-8 mb-8  text-[25px] font-semibold">Completed Jobs</h2>
+        <h2 className="mt-8 mb-8 text-[25px] font-semibold">Completed Jobs</h2>
         <CompletedJobs />
       </div>
     </div>
@@ -125,24 +126,21 @@ const ClientReport = () => {
 };
 
 const OverviewCard = ({ value, label }) => (
-  <VStack
+  <div
     minWidth="250px"
-    height="8rem"
+   
     backgroundColor="#ffffff"
-    border="1px solid #D1D5DA"
-    borderRadius="10px"
-    cursor="pointer"
-    alignItems="center"
-    justifyContent="center"
+   
+   
     _hover={{
       border: "1px solid var(--primarycolor)",
       transition: "0.3s ease-in-out",
     }}
-    className="max-md:!w-full"
+    className="max-md:!w-full flex flex-col cursor-pointer"
   >
     <p className="font-semibold text-3xl mb-2">{value}</p>
     <p className="text-lg capitalize">{label}</p>
-  </VStack>
+  </div>
 );
 
 export default ClientReport;

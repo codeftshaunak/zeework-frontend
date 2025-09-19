@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { MainButtonRounded } from "../../../../Button/MainButton";
 import { MdDelete, MdHighlightOff } from "react-icons/md";
 import { useState } from "react";
@@ -35,20 +35,12 @@ const PaymentDetails = ({ data, set setData }) => {
         ref_id: _id,
       });
 
-      toaster.create({
-        title: res.msg || "Error performing action",
-        duration: 3000,
-        status: res.code === 200 ? "success" : "warning",
-      });
+      toast.default(res.msg || "Error performing action");
       if (res.code === 200) {
         setData({}), setIsModal(false);
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading(false);
   };
@@ -70,7 +62,7 @@ const PaymentDetails = ({ data, set setData }) => {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              <div className="">
+              <div >
                 <h2 className="text-xl font-semibold text-white mb-4 bg-gray-300 px-5 pt-5 pb-3">
                   Bank Details
                 </h2>
@@ -175,7 +167,7 @@ const PaymentDetails = ({ data, set setData }) => {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              <div className="">
+              <div >
                 <h2 className="text-xl font-semibold text-white mb-4 bg-gray-300 px-5 pt-5 pb-3">
                   Paypal
                 </h2>
@@ -210,7 +202,7 @@ const PaymentDetails = ({ data, set setData }) => {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              <div className="">
+              <div >
                 <h2 className="text-xl font-semibold text-white mb-4 bg-gray-300 px-5 pt-5 pb-3">
                   Payoneer
                 </h2>
@@ -250,23 +242,18 @@ const PaymentDetails = ({ data, set setData }) => {
         </p>
         <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 mt-6 sm:mt-10">
           <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
-            onClick={() => setIsModal(false)}
+            onClick={() = className="w-full"> setIsModal(false)}
           >
             No, I don&apos;t want
-          </Button>
+          </button>
           <Button
             isLoading={isLoading}
             loadingText=" Yes, I want to removed"
-            colorScheme="primary"
-            width={"full"}
             spinner={<BtnSpinner />}
             onClick={() => removePayment()}
           >
             Yes, I want to removed
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

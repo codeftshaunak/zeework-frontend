@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import queryString from "query-string";
@@ -8,8 +10,8 @@ import {
   VStack,
   Avatar,
   Button,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import {
   acceptAgencyInvitation,
   getInvitationOfAgency,
@@ -67,30 +69,17 @@ const AgencyDetails = () => {
       });
 
       if (res.code === 200) {
-        toaster.create({
-          title: "You’ve successfully accepted the invitation",
-          duration: 3000,
-          type: "success",
-        });
+        toast.default("You’ve successfully accepted the invitation");
         router.push("/");
       } else {
-        toaster.create({
-          title:
-            res.message ||
+        toast.default(res.message ||
             res?.msg ||
             res.response.data.msg ||
             res.response.data.message ||
-            "Something went wrong!",
-          duration: 3000,
-          type: "warning",
-        });
+            "Something went wrong!");
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Something went wrong!",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Something went wrong!");
     }
     setIsSuccess(false);
   };
@@ -104,25 +93,13 @@ const AgencyDetails = () => {
       });
 
       if (code === 200) {
-        toaster.create({
-          title: "You’ve successfully rejected the invitation",
-          duration: 3000,
-          type: "success",
-        });
+        toast.default("You’ve successfully rejected the invitation");
         router.push("/");
       } else {
-        toaster.create({
-          title: msg,
-          duration: 3000,
-          type: "warning",
-        });
+        toast.default(msg);
       }
     } catch (error) {
-      toaster.create({
-        title: "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default("Error performing action");
     }
     setIsReject(false);
   };
@@ -137,14 +114,13 @@ const AgencyDetails = () => {
         <InvitationSkeleton />
       ) : status ? (
         <div className="grid lg:grid-cols-3 gap-5">
-          <VStack
-            alignItems="start"
-            width="full"
-            border="1px solid var(--bordersecondary)"
-            padding="1rem 1rem"
-            borderRadius="xl"
-            bgColor={"white"}
-            className="lg:col-span-2"
+          <div className="flex flex-col bg-white lg:col-span-2"
+           
+           
+           
+           
+           
+           
           >
             <p
               className="text-green-500 font-semibold border-b border-transparent hover:border-green-500 border-spacing-0 transition cursor-pointer"
@@ -159,21 +135,16 @@ const AgencyDetails = () => {
               <div className="w-[95%] space-y-2 m-auto">
                 <Avatar
                   name={agency_name}
-                  src={agency_profileImage}
-                  width={"100px"}
-                  height={"100px"}
-                  borderRadius={"50%"}
-                  fontSize={"3rem"}
-                  objectFit={"cover"}
+                  src={agency_profileImage} className="rounded"
+                  objectFit="cover"
                 />
-                <div className="flex justify-between ">
+                <div className="flex justify-between">
                   <div className="flex gap-3">
                     <div>
-                      <HStack>
-                        <h2 className="text-xl font-semibold text-green-600">
+                      <div className="flex flex-row items-center> <h2 className="text-xl font-semibold text-green-600">
                           {agency_name}
                         </h2>
-                      </HStack>
+                      </div>
                       <p className="font-medium text-gray-400">
                         {agency_tagline}
                       </p>
@@ -181,73 +152,68 @@ const AgencyDetails = () => {
                   </div>
                 </div>
                 <div className="flex gap-x-6 sm:gap-x-10 flex-wrap py-3 text-sm lg:text-base">
-                  <HStack alignItems="start">
-                    <Text mt="0.5rem">
-                      <FaClock fontSize="20px" />
-                    </Text>
+                  <div className="flex flex-row items-center> <span>
+                      <FaClock />
+                    </span>
                     <div>
-                      <Text mb="0" fontWeight="600">
+                      <span>
                         {agency_hourlyRate || "Not Found"}
                         <sub>/hr</sub>
-                      </Text>
-                      <Text mb="0" fontSize="0.8rem">
+                      </span>
+                      <span>
                         Hourly Rate
-                      </Text>
+                      </span>
                     </div>
-                  </HStack>
+                  </div>
 
-                  <HStack alignItems="start">
-                    <Text mt="0.5rem">
-                      <IoBagCheck fontSize="20px" />
-                    </Text>
+                  <div className="flex flex-row items-center> <span>
+                      <IoBagCheck />
+                    </span>
                     <div>
-                      <Text mb="0" fontWeight="600">
+                      <span>
                         {agency_totalJob || "Not Found"}
-                      </Text>
-                      <Text mb="0" fontSize="0.8rem">
+                      </span>
+                      <span>
                         Completed Jobs
-                      </Text>
+                      </span>
                     </div>
-                  </HStack>
-                  <HStack alignItems="start">
-                    <Text mt="0.5rem">
-                      <BsTranslate fontSize="20px" />
-                    </Text>
+                  </div>
+                  <div className="flex flex-row items-center> <span>
+                      <BsTranslate />
+                    </span>
                     <div>
-                      <Text mb="0" fontWeight="600">
+                      <span>
                         {agency_language || "Not Found"}
-                      </Text>
-                      <Text mb="0" fontSize="0.8rem">
+                      </span>
+                      <span>
                         Language
-                      </Text>
+                      </span>
                     </div>
-                  </HStack>
-                  <HStack alignItems="start">
-                    <Text mt="0.5rem">
-                      <IoCalendar fontSize="20px" />
-                    </Text>
+                  </div>
+                  <div className="flex flex-row items-center> <span>
+                      <IoCalendar />
+                    </span>
                     <div>
-                      <Text mb="0" fontWeight="600">
+                      <span>
                         {agency_foundedYear || "Not Found"}
-                      </Text>
-                      <Text mb="0" fontSize="0.8rem">
+                      </span>
+                      <span>
                         Founded
-                      </Text>
+                      </span>
                     </div>
-                  </HStack>
-                  <HStack alignItems="start">
-                    <Text mt="0.5rem">
-                      <FaLocationDot fontSize="20px" />
-                    </Text>
+                  </div>
+                  <div className="flex flex-row items-center> <span>
+                      <FaLocationDot />
+                    </span>
                     <div>
-                      <Text mb="0" fontWeight="600">
+                      <span>
                         {agency_location?.name || "Not Found"}
-                      </Text>
-                      <Text mb="0" fontSize="0.8rem">
+                      </span>
+                      <span>
                         Location
-                      </Text>
+                      </span>
                     </div>
-                  </HStack>
+                  </div>
                 </div>
                 <div className="flex gap-2 flex-wrap mt-8">
                   {agency_skills &&
@@ -263,7 +229,7 @@ const AgencyDetails = () => {
 
                 <div className="pt-3">
                   <p className="sm:text-lg font-semibold">Overview:</p>
-                  <article className="">
+                  <article >
                     <div
                       dangerouslySetInnerHTML={{ __html: agency_overview }}
                     />
@@ -271,7 +237,7 @@ const AgencyDetails = () => {
                 </div>
               </div>
             </div>
-          </VStack>
+          </div>
           <div className="lg:col-span-1 w-full h-fit bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
             <div>
               <p className="sm:text-lg font-semibold">Contract Title:</p>
@@ -284,12 +250,9 @@ const AgencyDetails = () => {
               <p>{invitationDetails?.invitation_details?.message}</p>
             </div>
 
-            <VStack marginTop="2rem" alignItems="start" gap={3}>
-              <Button
-                width={"full"}
+            <div className="flex flex-col> <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                 isLoading={isSuccess}
                 loadingText="Accept Invitation"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
                 paddingX={5}
@@ -299,14 +262,11 @@ const AgencyDetails = () => {
                 {status === "accepted"
                   ? "Already Accepted"
                   : "Accept Invitation"}
-              </Button>
-              <Button
-                width={"full"}
+              </button>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                 isLoading={isReject}
                 loadingText="Reject Invitation"
-                colorScheme="primary"
                 type="submit"
-                variant="outline"
                 spinner={<BtnSpinner />}
                 paddingX={5}
                 onClick={() => rejectInvitation()}
@@ -315,8 +275,8 @@ const AgencyDetails = () => {
                 {status === "rejected"
                   ? "Already Rejected"
                   : "Reject Invitation"}
-              </Button>
-            </VStack>
+              </button>
+            </div>
           </div>
         </div>
       ) : (

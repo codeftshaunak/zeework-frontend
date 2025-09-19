@@ -1,4 +1,5 @@
-import { Avatar, AvatarBadge, Flex, Text } from "@/components/ui/migration-helpers";
+import React from "react";
+
 import { useRouter } from "next/navigation";
 
 interface MessageHeaderProps {
@@ -20,27 +21,22 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
   const router = useRouter();
   console.log(receiverDetails);
   return (
-    <Flex borderBottom="1px" borderColor="gray.400" py={2} px={{ md: 2 }}>
+    <div className="flex borderBottom="1px" borderColor="gray.400"}>
       <Avatar
         src={profileImage}
-        size={"md"}
+        size="md"
         round="20px"
         marginRight="20px"
-        border="1px solid var(--primarycolor)"
         name={name}
       >
-        <AvatarBadge
-          border="3.5px solid white"
-          bg={`${
-            receiverDetails?.activity === "online" ? "green" : "gray.300"
-          }`}
+        <AvatarBadge`}
           boxSize="0.8em"
           left={-2}
           top={0}
         />
       </Avatar>
-      <Flex flexDir="column">
-        <Text
+      <div className="flex flexDir="column">
+        <span
           onClick={() =>
             router.push(
               `/profile/${
@@ -50,19 +46,16 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
               }`
             )
           }
-          fontWeight="semibold"
-          fontSize="lg"
           marginBottom="0"
-          cursor="pointer"
           _hover={{ color: "primary.600" }}
         >
           {name}
-        </Text>
-        <Text fontWeight="" fontSize="sm" marginBottom="0">
+        </span>
+        <span>
           {title}
-        </Text>
-      </Flex>
-    </Flex>
+        </span>
+      </div>
+    </div>
   );
 };
 

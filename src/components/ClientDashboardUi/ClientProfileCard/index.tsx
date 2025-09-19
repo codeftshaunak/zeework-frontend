@@ -1,4 +1,5 @@
-import { Button, Text, VStack, Avatar, Box } from "@chakra-ui/react";
+import React from "react";
+
 import { useRouter } from "next/navigation";
 
 const ClientProfileCard = ({ data }) => {
@@ -13,63 +14,44 @@ const ClientProfileCard = ({ data }) => {
   };
 
   return (
-    <VStack
-      color="var(--primarytext)"
-      background={"white"}
-      width={"270px"}
-      gap={5}
-      border={"1px solid #DFDFDF"}
-      borderRadius={"10px"}
-      justifyContent={"space-between"}
-      alignItems={"center"}
-      padding={"1rem"}
-      className="max-md:!w-full"
+    <div className="flex flex-col w-[270px]"
+     
+      background="white"
+      className="border rounded justify-between items-center p-[1rem] max-md:!w-full"
     >
-      <VStack>
-        <Avatar
-          src={freelancerDetails?.profile_image}
-          name={freelancerDetails?.name}
-          size="xl"
-        >
-          <Box
-            position="absolute"
-            border="4px solid white"
-            bg={`${
-              freelancerDetails?.activity === "online" ? "green" : "gray.300"
-            }`}
-            boxSize="0.6em"
-            borderRadius="full"
-            left={-1}
-            top={0}
+      <div className="flex flex-col> <div className="relative">
+          <Avatar
+            src={freelancerDetails?.profile_image}
+            name={freelancerDetails?.name}
+            size="xl"
           />
-        </Avatar>
-        <VStack gap={"0"}>
-          <Text
-            fontSize="1.2rem"
-            fontWeight={"bold"}
-            marginBottom={"0"}
-            textTransform={"capitalize"}
+          <div
+            className={`absolute border-4 border-white rounded-full w-3 h-3 -left-1 top-0 ${
+              freelancerDetails?.activity === "online" ? "bg-green-500" : "bg-gray-300"
+            }`}
+          />
+        </div>
+        <div className="flex flex-col className="gap-0">
+          <span
+            className="capitalize"
           >
             {sliceName(freelancerDetails?.name) + "."}
-          </Text>
-          <Text marginBottom={"0"} textAlign={"center"} fontSize={"sm"}>
+          </span>
+          <span>
             {data?.contract_title}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack gap={"0"} w="100%">
-        <Button
-          colorScheme="primary"
-          size="sm"
-          w={"100%"}
+          </span>
+        </div>
+      </div>
+      <divgap-0" className="flex flex-col className= w-full">
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
           onClick={() =>
             router.replace(`/message/${freelancer_id}?contract_ref=${data._id}`)
           }
         >
           Message
-        </Button>
-      </VStack>
-    </VStack>
+        </button>
+      </div>
+    </div>
   );
 };
 

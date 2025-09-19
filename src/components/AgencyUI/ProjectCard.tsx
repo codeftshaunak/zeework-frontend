@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import {
   RiDeleteBin2Fill,
   RiEdit2Fill,
@@ -153,11 +153,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
 
       if (code === 200) dispatch(agencyData({ agency: body }));
 
-      toaster.create({
-        title: code ? msg : message,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(code ? msg : message);
     } catch (error) {
       console.error(error);
     }
@@ -205,25 +201,19 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
           />
           {isHover && (
             <Box
-              transition={"0.6s ease-in-out"}
+              transition="0.6s ease-in-out"
               className="h-40 sm:h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300"
             >
               <HStack
-                fontSize={"2.5rem"}
-                position={"absolute"}
                 transform={"translate(-50%, -50%)"}
-                top={"50%"}
-                left={"50%"}
-              >
+                top="50%"
+                left="50%"
+               className="absolute">
                 <VStack
-                  backgroundColor={"white"}
-                  borderRadius={"50%"}
-                  width={"40px"}
-                  height={"40px"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  transition={"0.6s ease-in-out"}
-                  cursor={"pointer"}
+                  backgroundColor="white"
+                  w="40px"
+                  className="items-center justify-center rounded cursor-pointer"
+                  transition="0.6s ease-in-out"
                   _hover={{
                     border: "2px solid var(--primarycolor)",
                     color: "var(--primarycolor)",
@@ -232,19 +222,15 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                     setModalType("details"), setIsModal(true);
                   }}
                 >
-                  <RiInformationFill cursor={"pointer"} fontSize={"25px"} />
+                  <RiInformationFill />
                 </VStack>
                 {!isPrivate && (
                   <>
                     <VStack
-                      backgroundColor={"white"}
-                      borderRadius={"50%"}
-                      width={"40px"}
-                      height={"40px"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      transition={"0.6s ease-in-out"}
-                      cursor={"pointer"}
+                      backgroundColor="white"
+                      w="40px"
+                      className="items-center justify-center rounded cursor-pointer"
+                      transition="0.6s ease-in-out"
                       _hover={{
                         border: "2px solid var(--primarycolor)",
                         color: "var(--primarycolor)",
@@ -265,24 +251,20 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                           setIsModal(true);
                       }}
                     >
-                      <RiEdit2Fill fontSize={"25px"} />
+                      <RiEdit2Fill />
                     </VStack>
                     <VStack
-                      backgroundColor={"white"}
-                      borderRadius={"50%"}
-                      width={"40px"}
-                      height={"40px"}
-                      alignItems={"center"}
-                      justifyContent={"center"}
-                      transition={"0.6s ease-in-out"}
-                      cursor={"pointer"}
+                      backgroundColor="white"
+                      w="40px"
+                      className="items-center justify-center rounded cursor-pointer"
+                      transition="0.6s ease-in-out"
                       _hover={{
                         border: "2px solid var(--primarycolor)",
                         color: "var(--primarycolor)",
                       }}
                       onClick={() => setIsDeleteAgencyId(_id)}
                     >
-                      <RiDeleteBin2Fill cursor={"pointer"} fontSize={"25px"} />
+                      <RiDeleteBin2Fill />
                     </VStack>
                   </>
                 )}
@@ -400,7 +382,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
         <UniversalModal
           isModal={isModal}
           setIsModal={setIsModal}
-          title={"Update Project"}
+          title="Update Project"
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-[16px]">
@@ -541,12 +523,11 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
               <Button
                 isLoading={isLoading}
                 loadingText="Submit"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>

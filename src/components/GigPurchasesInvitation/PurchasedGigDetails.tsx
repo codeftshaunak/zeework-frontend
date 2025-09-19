@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import { addDays, format } from "date-fns";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import StarRatings from "react-star-ratings";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import {
@@ -58,23 +58,14 @@ const PurchasedGigDetails = () => {
         gig_id: gigInfo.gig_id,
         status: status,
       });
-      toaster.create({
-        title:
-          res?.msg ||
+      toast.default(res?.msg ||
           res.response.data.msg ||
           res.response.data.message ||
-          "Something went wrong!",
-        type: res?.code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+          "Something went wrong!");
 
       if (res.code === 200) router.push("/");
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Something went wrong!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning(error?.response?.data?.msg || "Something went wrong!");
       console.error(error);
     }
     setResLoading(false);
@@ -102,7 +93,7 @@ const PurchasedGigDetails = () => {
             </div>
             <div className="text-lg">
               <p className="text-3xl font-semibold tracking-wide">{title}</p>
-              <p className="mt-2 ">
+              <p className="mt-2">
                 Service price:{" "}
                 <span className="font-semibold">${pricing?.service_price}</span>
               </p>
@@ -139,7 +130,6 @@ const PurchasedGigDetails = () => {
               </p>
               <div className="grid gap-5 mt-5">
                 <Button
-                  colorScheme="primary"
                   spinner={<BtnSpinner />}
                   isDisabled={
                     gigInfo?.status === "reject" ||
@@ -153,10 +143,8 @@ const PurchasedGigDetails = () => {
                   {gigInfo?.status === "accept"
                     ? "Offer Accepted"
                     : "Accept Offer"}
-                </Button>
+                </button>
                 <Button
-                  colorScheme="primary"
-                  variant="outline"
                   spinner={<BtnSpinner />}
                   isDisabled={gigInfo?.status === "reject" || resLoading}
                   onClick={() => {
@@ -166,7 +154,7 @@ const PurchasedGigDetails = () => {
                   {gigInfo?.status === "reject"
                     ? "Offer Declined"
                     : "Decline Offer"}
-                </Button>
+                </button>
               </div>
               <div>
                 <p className="text-xl font-semibold mt-10 text-center mb-1">
@@ -177,7 +165,7 @@ const PurchasedGigDetails = () => {
                   <Avatar
                     src={profile_image}
                     name={firstName + " " + lastName}
-                    size={"lg"}
+                    size="lg"
                   />{" "}
                   <div>
                     <p className="text-2xl font-semibold">
@@ -234,25 +222,20 @@ const PurchasedGigDetails = () => {
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
           <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
-            onClick={() => {
+            onClick={() = className="w-full"> {
               setIsModal(false), setModalType("");
             }}
             isDisabled={resLoading}
           >
             No, I don&apos;t want
-          </Button>
+          </button>
           <Button
             isLoading={resLoading}
-            colorScheme="primary"
-            width={"full"}
             spinner={<BtnSpinner />}
             onClick={() => handleGigPurchasesRequest(modalType)}
           >
             Yes, I want to {modalType}
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

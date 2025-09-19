@@ -1,6 +1,8 @@
-"use client";
 
-import { Input, Text, VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useCallback, useEffect, useState } from "react";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose, IoMdVideocam } from "react-icons/io";
@@ -114,7 +116,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title={"Create a Gig Gallery"} onBackward={onBack}>
+        <GigCreateLayout title="Create a Gig Gallery" onBackward={onBack}>
           <div className="flex flex-col gap-[2px] mt-6">
             <label htmlFor="fileInput" className="text-xl font-[600] pb-0 mb-0">
               Project Images
@@ -179,7 +181,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             {errors.images && <ErrorMsg msg={errors.images.message} />}
           </div>
 
-          <VStack alignItems={"start"}>
+          <div className="flex flex-col className="items-start">
             <label className="text-xl font-[600] pb-0 mb-0">
               Project Videos
             </label>
@@ -188,19 +190,17 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               selectedVideo?.preview === "" ||
               selectedVideo === undefined) && (
               <label htmlFor="videoInput" className="w-full md:w-fit">
-                <VStack
-                  textAlign={"center"}
-                  backgroundColor={"white"}
-                  padding={"2rem 2rem"}
-                  className="shadow-lg rounded-lg cursor-pointer"
+                <div className="flex flex-col className= p-[2rem 2rem] shadow-lg rounded-lg cursor-pointer"text-center"
+                  backgroundColor="white"
+                 
                   onDrop={handleDrop}
                   onDragOver={(e) => e.preventDefault()}
                 >
-                  <IoMdVideocam size={"1.6rem"} />
-                  <Text>
+                  <IoMdVideocam size="1.6rem" />
+                  <span>
                     Drag video here or <br /> <strong>browse</strong>
-                  </Text>
-                  <Input
+                  </span>
+                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     id="videoInput"
                     type="file"
                     accept="video/*"
@@ -208,7 +208,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     onChange={handleVideoSelect}
                     style={{ display: "none" }} // Hide the actual input
                   />
-                </VStack>
+                </div>
               </label>
             )}
 
@@ -227,7 +227,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                 </span>
               </div>
             )}
-          </VStack>
+          </div>
         </GigCreateLayout>
       </form>
     </FormProvider>

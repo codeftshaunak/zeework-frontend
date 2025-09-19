@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import UniversalModal from "../../Modals/UniversalModal";
 import {
@@ -8,8 +10,8 @@ import {
   InputLeftElement,
   RadioGroup,
   Stack,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import { useContext, useState } from "react";
 import Select from "react-select";
 import { useSelector } from "react-redux";
@@ -87,11 +89,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
         getUserDetails(), setIsSuccessBody(body);
       }
 
-      toaster.create({
-        title: msg || message,
-        type: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg || message);
     } catch (error) {
       console.error(error);
     }
@@ -115,7 +113,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                 </p>
                 <hr />
                 <div className="flex flex-col gap-1 mt-4 tracking-wide">
-                  <p className="text-lg  font-semibold">Payment method</p>
+                  <p className="text-lg font-semibold">Payment method</p>
                   <p className="capitalize">
                     {isSuccessBody?.payment_method?.payment_method}
                   </p>
@@ -160,8 +158,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
               <div className="flex flex-col gap-1 font-semibold my-5 tracking-wide">
                 <p className="text-lg sm:text-xl">Amount</p>
                 <RadioGroup.Root onValueChange={setAmountType} value={amountType}>
-                  <Stack>
-                    <RadioGroup.Item value="all">
+                  <div className="flex> <RadioGroup.Item value="all">
                       <RadioGroup.ItemHiddenInput />
                       <RadioGroup.ItemIndicator />
                       <RadioGroup.ItemText>${balance}</RadioGroup.ItemText>
@@ -171,20 +168,18 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                       <RadioGroup.ItemIndicator />
                       <RadioGroup.ItemText>Other amount</RadioGroup.ItemText>
                     </RadioGroup.Item>
-                  </Stack>
+                  </div>
                 </RadioGroup.Root>
                 {amountType === "custom" && (
                   <>
-                    <InputGroup width={"fit-content"}>
-                      <InputLeftElement
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                         pointerEvents="none"
-                        color="gray.300"
-                        fontSize="1.2em"
                         paddingRight={1}
                       >
                         $
                       </InputLeftElement>
-                      <Input
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                         type="number"
                         placeholder="Enter amount"
                         // {...register("withdraw_amount")}
@@ -237,17 +232,15 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                 >
                   Cancel
                 </button>
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Get Paid"
-                  colorScheme="primary"
                   spinner={<BtnSpinner />}
                   paddingX={10}
-                  rounded={"full"}
                   type="submit"
                 >
                   Get Paid
-                </Button>
+                </button>
               </div>
             </form>
           )}

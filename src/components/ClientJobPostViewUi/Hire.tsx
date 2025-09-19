@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   
@@ -7,7 +9,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 import { useState } from "react";
 
@@ -22,9 +24,6 @@ export const Hire = () => {
             <Tabs.Trigger className="px-0 text-black">Hired</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Indicator
-            height="2px"
-            borderRadius="1px"
-            color={"#000"}
             className=" bg-fg-brand"
           />
           <SmoothMotion key={activeTab}>

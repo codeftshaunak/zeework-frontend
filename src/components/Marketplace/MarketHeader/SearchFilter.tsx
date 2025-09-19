@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Box,
@@ -116,11 +118,11 @@ export const SearchFilter = ({
   };
 
   return (
-    <Box className="w-full lg:w-[450px] bg-white px-7 py-5 rounded-2xl border border-[var(--bordersecondary)]">
-      <HStack justifyContent={"space-between"}>
-        <Text fontWeight={"500"} fontSize={"1.5rem"} paddingBottom={"0rem"}>
+    <div className="w-full lg:w-[450px] bg-white px-7 py-5 rounded-2xl border border-[var(--bordersecondary)]">
+      <div className="flex flex-row items-center className="justify-between">
+        <span paddingBottom="0rem" className="text-2xl font-medium">
           Filters
-        </Text>
+        </span>
 
         <IoMdRefreshCircle
           className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
@@ -130,12 +132,12 @@ export const SearchFilter = ({
             if (!loading) resetSearching();
           }}
         />
-      </HStack>
+      </div>
       {!routeCategory && (
-        <VStack alignItems={"flex-start"} w={"full"} marginTop={"10px"}>
-          <Text fontWeight={"600"} mb={1}>
+        <divitems-flex-start" className="mt-[10px] flex flex-col className= w-full">
+          <span className="font-semibold">
             Category
-          </Text>
+          </span>
           <Select
             placeholder="Select Your Category"
             className="w-full"
@@ -145,12 +147,12 @@ export const SearchFilter = ({
             onChange={(value) => setSelectedCategories(value)}
             value={selectedCategories}
           />
-        </VStack>
+        </div>
       )}
-      <VStack alignItems={"flex-start"} w={"full"} marginTop={"10px"}>
-        <Text fontWeight={"600"} mb={1}>
+      <divitems-flex-start" className="mt-[10px] flex flex-col className= w-full">
+        <span className="font-semibold">
           Technology
-        </Text>
+        </span>
         <Select
           placeholder="Select Your Technology"
           className="w-full"
@@ -162,32 +164,25 @@ export const SearchFilter = ({
           value={selectedSkills}
           isLoading={isLoading}
         />
-      </VStack>
-      <VStack
-        alignItems={"flex-start"}
-        justifyContent={"flex-start"}
+      </div>
+      <div className="flex flex-col className="items-flex-start justify-flex-start"
         marginTop={5}
       >
-        <Text fontWeight={"600"} mb={1}>
+        <span className="font-semibold">
           Price Range
-        </Text>
-        <VStack
-          alignItems={"flex-start"}
-          className="max-lg:!flex-row gap-4 max-[540px]:!flex-col"
+        </span>
+        <div className="flex flex-col className="items-flex-start max-lg:!flex-row gap-4 max-[540px]:!flex-col"
         >
           <div className="min-w-max flex flex-col">
-            <VStack
-              alignItems={"flex-start"}
-              justifyContent={"flex-start"}
-              w={"full"}
+            <divitems-flex-start justify-flex-start"
               marginLeft={5}
-            >
+             className="flex flex-col className= w-full">
               <RadioGroup.Root
                 colorScheme="primary"
                 value={selectedPrice}
                 onValueChange={(value) => setSelectedPrice(value)}
               >
-                <Stack spacing={2} direction="column">
+                <div className="flex spacing={2} direction="column">
                   <RadioGroup.Item value="">
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />
@@ -208,12 +203,12 @@ export const SearchFilter = ({
                     <RadioGroup.ItemIndicator />
                     <RadioGroup.ItemText>$500 - $1000 or above</RadioGroup.ItemText>
                   </RadioGroup.Item>
-                </Stack>
+                </div>
               </RadioGroup.Root>
-            </VStack>
+            </div>
           </div>
-        </VStack>
-      </VStack>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };

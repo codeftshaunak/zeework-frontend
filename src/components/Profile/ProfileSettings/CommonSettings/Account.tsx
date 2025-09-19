@@ -1,5 +1,7 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import React from "react";
+import { toast } from "@/lib/toast";
 
 import {
   Button,
@@ -8,7 +10,7 @@ import {
   InputLeftElement,
   Stack,
   HStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFreelancer } from "../../../../helpers/APIs/userApis";
 import { useForm } from "react-hook-form";
@@ -61,11 +63,7 @@ const Account = () => {
 
   const updateAccount = async (data) => {
     if (isDisabled)
-      return toaster.create({
-        title: "You can't change the verified name",
-        type: "warning",
-        duration: 3000,
-      });
+      return toast.warning("You can't change the verified name");
 
     setIsLoading(true);
     try {
@@ -81,25 +79,13 @@ const Account = () => {
         dispatch(
           profileData({ profile: { ...profile, ...updatedData.username } })
         );
-        toaster.create({
-          title: "Account information updated",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Account information updated");
       } else {
-        toaster.create({
-          title: "Something went wrong",
-          type: "error",
-          duration: 3000,
-        });
+        toast.error("Something went wrong");
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "Something went wrong",
-        type: "error",
-        duration: 3000,
-      });
+      toast.error("Something went wrong");
     }
     setIsLoading(false);
   };
@@ -109,11 +95,10 @@ const Account = () => {
       <h2 className="text-xl font-semibold mb-5">Account</h2>
 
       <form onSubmit={handleSubmit(updateAccount)}>
-        <Stack spacing={6}>
-          <HStack spacing={4}>
-            <Box isInvalid={errors.firstName}>
-              <Text mb={2}>First Name</Text>
-              <Input
+        <div className="flex spacing={6}> <div className="flex flex-row items-center spacing={4}>
+            <div isInvalid={errors.firstName}>
+              <span>First Name</span>
+              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="firstName"
                 type="text"
                 placeholder="Enter first name"
@@ -121,11 +106,11 @@ const Account = () => {
                 focusBorderColor="green.300"
                 {...register("firstName")}
               />
-              <ErrorMsg msg={errors?.firstName?.message} className={"-mb-5"} />
-            </Box>
-            <Box isInvalid={errors.lastName}>
-              <Text mb={2}>Last Name</Text>
-              <Input
+              <ErrorMsg msg={errors?.firstName?.message} className="-mb-5" />
+            </div>
+            <div isInvalid={errors.lastName}>
+              <span>Last Name</span>
+              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="lastName"
                 type="text"
                 placeholder="Enter last name"
@@ -133,20 +118,18 @@ const Account = () => {
                 focusBorderColor="green.300"
                 {...register("lastName")}
               />
-              <ErrorMsg msg={errors?.lastName?.message} className={"-mb-5"} />
-            </Box>
-          </HStack>
-          <Box isInvalid={errors.email}>
-            <Text mb={2}>Email</Text>
-            <InputGroup>
-              <InputLeftElement
+              <ErrorMsg msg={errors?.lastName?.message} className="-mb-5" />
+            </div>
+          </div>
+          <div isInvalid={errors.email}>
+            <span>Email</span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                 pointerEvents="none"
-                color="gray.300"
-                fontSize="1.2em"
               >
                 @
               </InputLeftElement>
-              <Input
+              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="email"
                 type="email"
                 placeholder="Enter email"
@@ -156,19 +139,17 @@ const Account = () => {
               />
             </InputGroup>
             <ErrorMsg msg={errors.email?.message} />
-          </Box>
-        </Stack>
+          </div>
+        </div>
         <div className="mt-8">
-          <Button
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             type="submit"
-            colorScheme="primary"
-            rounded={"full"}
             paddingX={8}
             isLoading={isLoading}
             loadingText="Updating"
           >
             Update
-          </Button>
+          </button>
         </div>
       </form>
     </div>

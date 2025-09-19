@@ -1,6 +1,8 @@
-"use client";
 
-import { Button, Tooltip } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -51,52 +53,40 @@ const AvailableDetails = ({ balance }) => {
                 label={
                   !balance && "You don't have sufficient balance to proceed."
                 }
-                bg="gray.500"
                 placement="top"
               >
-                <Button
-                  colorScheme={balance ? "primary" : null}
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isDisabled={!balance}
-                  rounded="full"
                   onClick={() => setIsPaidModal(true)}
                 >
                   Get Paid Now
-                </Button>
+                </button>
               </Tooltip>{" "}
-              <Button
-                colorScheme="primary"
-                variant="outline"
-                rounded="full"
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => router.push("/setting/billing-payments")}
               >
                 View Payment Settings
-              </Button>
+              </button>
             </div>
           )}
           {paymentStatus === "unverified" && (
-            <Button
-              colorScheme="primary"
-              variant="outline"
-              rounded="full"
-              className="w-full md:w-fit"
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full md:w-fit"
+             
               onClick={() => router.push("/setting/billing-payments")}
             >
               Verify Payment Methods
-            </Button>
+            </button>
           )}
           {paymentStatus === "reviewing" && (
             <div className="flex flex-col md:flex-row gap-5">
-              <Button rounded="full" isDisabled cursor={"not-allowed"}>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground" isDisabled>
                 Get Paid Now
-              </Button>{" "}
-              <Button
-                colorScheme="primary"
-                variant="outline"
-                rounded="full"
+              </button>{" "}
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => router.push("/setting/billing-payments")}
               >
                 View Submitted Details
-              </Button>
+              </button>
             </div>
           )}
         </div>

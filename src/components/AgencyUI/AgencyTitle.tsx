@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Text, HStack, VStack } from "@chakra-ui/react";
+
 import { RiEdit2Fill } from "react-icons/ri";
 import { FiPlus } from "react-icons/fi";
 // import { AgencyUpdatedModal } from "./ProfileUpdated";
@@ -18,27 +18,15 @@ const AgencyTitle = ({
 
   return (
     <>
-      <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-        <Text
-          fontSize={
-            !isSmall ? { base: "1.3rem", md: "1.7rem", lg: "2rem" } : "1.3rem"
+      <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+        <span : "1.3rem"
           }
-          fontWeight={"600"}
-          marginBottom={"0"}
-        >
+         className="mb-[0] font-semibold">
           {children}
-        </Text>
+        </span>
         {isValue && (
-          <VStack
-            backgroundColor={"white"}
-            borderRadius={"50%"}
-            width={"20px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"20px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
+          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
@@ -46,21 +34,13 @@ const AgencyTitle = ({
             }}
             onClick={() => setIsModal(true)}
           >
-            <RiEdit2Fill fontSize={"10px"} />
-          </VStack>
+            <RiEdit2Fill />
+          </div>
         )}
         {noAdded ||
           (!isValue && (
-            <VStack
-              backgroundColor={"white"}
-              borderRadius={"50%"}
-              width={"30px"}
-              border={"1px solid var(--primarycolor)"}
-              height={"30px"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              transition={"0.6s ease-in-out"}
-              cursor={"pointer"}
+            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
+              transition="0.6s ease-in-out"
               _hover={{
                 border: "2px solid var(--primarycolor)",
                 backgroundColor: "transparent",
@@ -68,10 +48,10 @@ const AgencyTitle = ({
               }}
               onClick={() => setIsModal(true)}
             >
-              <FiPlus fontSize={"25px"} />
-            </VStack>
+              <FiPlus />
+            </div>
           ))}
-      </HStack>
+      </div>
       {/* {isModal && (
         <AgencyUpdatedModal
           isModal={isModal}

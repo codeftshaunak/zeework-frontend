@@ -40,11 +40,11 @@ const HeroSection = () => {
             </p>
             <div className="flex md:flex-row flex-col items-center gap-4 md:w-fit w-full my-8">
               <MainButton
-                children={"Become a Freelancer"}
+                children="Become a Freelancer"
                 onClick={() => router.push("/signup")}
               />
               <MainButtonTranparent
-                children={"Hire a Freelancer"}
+                children="Hire a Freelancer"
                 onClick={() => router.push("/signup")}
               />
             </div>
@@ -54,9 +54,9 @@ const HeroSection = () => {
               TRENDING SERVICES
             </p>
             <div className="flex gap-2 max-sm:flex-col max-sm:w-full flex-wrap  max-[425px]:gap-5">
-              <HeroBadge title={"DESIGNER"} />
-              <HeroBadge title={"DEVELOPER"} />
-              <HeroBadge title={"WORDPRESS"} />
+              <HeroBadge title="DESIGNER" />
+              <HeroBadge title="DEVELOPER" />
+              <HeroBadge title="WORDPRESS" />
             </div>
           </div>
         </div>

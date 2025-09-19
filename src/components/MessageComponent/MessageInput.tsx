@@ -1,4 +1,4 @@
-import { HStack, VStack, Spinner } from "@chakra-ui/react";
+
 import { BsSendFill } from "react-icons/bs";
 import ReactQuill from "react-quill";
 
@@ -21,12 +21,8 @@ const MessageInput = ({
   const msgLength = stripHtml(message).length;
 
   return (
-    <HStack
-      width="100%"
-      margin="auto"
-      padding={{ md: "0 10px" }}
-      justifyContent="space-between"
-      className="rounded"
+    <div
+      className="mx-auto md:px-2.5 justify-between rounded flex flex-row items-center w-full"
     >
       <ReactQuill
         theme="snow"
@@ -35,29 +31,26 @@ const MessageInput = ({
         className="h-[50px] w-full [&>*]:rounded-md overflow-y-auto"
         modules={modules}
       />
-      <VStack
-        height={"45px"}
-        width="60px"
-        alignItems="center"
-        justifyContent="center"
-        borderRadius="5px"
-        borderColor="ButtonFace"
-        className={
+      <div className="flex flex-col"
+       
+       
+       
+        className={`border-gray-200 ${
           isLoading || msgLength
             ? "bg-green-500 cursor-pointer"
             : "bg-slate-100 cursor-not-allowed"
-        }
+        }`}
         onClick={() => {
           if (!isLoading && msgLength) handleSendMessage();
         }}
       >
         {isLoading ? (
-          <Spinner color="white" />
+          <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
         ) : (
-          <BsSendFill fontSize="15px" className={message && "text-white"} />
+          <BsSendFill className={message && "text-white"} />
         )}
-      </VStack>
-    </HStack>
+      </div>
+    </div>
   );
 };
 

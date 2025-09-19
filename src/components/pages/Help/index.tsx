@@ -1,6 +1,8 @@
-"use client";
 
-import { Image } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import CTAButton from "../../CTAButton";
@@ -48,12 +50,10 @@ const SocialMedia = () => {
       <Image
         src="./images/social_work.jpg"
         alt="cover image"
-        className="shadow-lg"
-        // height={{ base: "150px", md: "250px", lg: "350px" }}
-        width={"100%"}
-        filter={"brightness(100%)"}
-        borderRadius={"10px"}
-        marginBottom={"30px"}
+        className="shadow-lg w-full"
+        //}
+       
+        filter={"brightness(100%)"} className="rounded mb-[30px]"
       />
       <div className="flex justify-evenly sm:pt-5 text-3xl sm:text-4xl md:text-5xl text-gray-200">
         <FaFacebook className="cursor-pointer" />
@@ -121,11 +121,7 @@ const Contact = () => {
           </div>
           <div className="p-2 w-full">
             <CTAButton
-              text={"Send Request"}
-              bg={"#22C55E"}
-              color={"#ffff"}
-              fontSize="1rem"
-              height="2.5rem"
+              text="Send Request"
             ></CTAButton>
           </div>
         </div>
@@ -141,13 +137,10 @@ const Help = () => {
         <Image
           src="./images/help_banner.png"
           alt="cover image"
-          className="shadow bg-cover"
-          height={{ base: "auto", md: "250px", lg: "350px" }}
-          width={"100%"}
-          objectFit={"cover"}
-          filter={"brightness(100%)"}
-          borderRadius={"10px"}
-          marginTop={"2rem"}
+          className="shadow bg-cover w-full"}
+         
+          objectFit="cover"
+          filter={"brightness(100%)"} className="rounded mt-[2rem]"
         />
         <div className="flex gap-10 w-full flex-wrap">
           <div className="w-full">

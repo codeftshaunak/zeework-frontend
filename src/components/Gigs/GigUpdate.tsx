@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useRouter, useParams } from "next/navigation";
 import {
@@ -196,11 +196,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
         video: mediaResponse.video,
       });
       if (response?.code === 200) {
-        toaster.create({
-          title: response.msg,
-          duration: 3000,
-          type: "success",
-        });
+        toast.default(response.msg);
         router.push(-1);
         setIsEdit(false);
       }
@@ -277,30 +273,28 @@ export const GigCreateLayout = ({
 }) => {
   return (
     <div className="sm:w-full lg:w-[60%]">
-      <Text fontSize={"2.5rem"} fontWeight={"600"} textAlign={"left"}>
+      <Text className="text-left font-semibold">
         {title}
       </Text>
       <br />
       <div className="w-full flex flex-col gap-5">{children}</div>
-      <HStack marginTop={"1rem"}>
+      <HStack className="mt-[1rem]">
         <Button
-          colorScheme="primary"
           marginRight={5}
           onClick={onBackward}
           isDisabled={isLoading}
         >
           {backwardBtnText}
-        </Button>
+        </button>
         <Button
           isLoading={isLoading}
           loadingText={forwardBtnText}
-          colorScheme="primary"
           type="submit"
           spinner={<BtnSpinner />}
           onClick={onForward}
         >
           {forwardBtnText}
-        </Button>
+        </button>
       </HStack>
     </div>
   );

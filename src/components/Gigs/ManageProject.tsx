@@ -1,24 +1,19 @@
 import React from "react";
-import { Text, VStack, Box, Button, HStack } from "@chakra-ui/react";
+
 import GigStatus from "./GigStatus";
 import { useRouter } from "next/navigation";
 
 const ManageProject = () => {
   const router = useRouter();
   return (
-    <VStack width={"100%"}>
-      <HStack justifyContent={"space-between"} width={"100%"}>
-        <Text fontWeight={"500"} fontSize={"20px"} color={"black"}>
+    <div className="flex flex-col className="w-full">
+      <div className="flex flex-row items-center className="justify-between w-full">
+        <span className="font-medium text-black">
           Your Gigs
-        </Text>
-        <Button
-          className="mt-3 border"
-          backgroundColor={"white"}
-          height={"34px"}
-          fontWeight={"400"}
-          borderRadius={"25px"}
-          border={"2px solid  var(--primarytextcolor)"}
-          transition={"0.3s ease-in-out"}
+        </span>
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground mt-3 border rounded"
+          backgroundColor="white"
+          transition="0.3s ease-in-out"
           _hover={{
             color: "white",
             backgroundColor: "var(--primarytextcolor)",
@@ -27,18 +22,13 @@ const ManageProject = () => {
           onClick={() => router.push("/freelancer/gig/create")}
         >
           Create A New Gig
-        </Button>
-      </HStack>
-      <HStack
-        width={"100%"}
-        marginTop={"1rem"}
-        border={"1px solid #d8d8d8"}
-        borderRadius={"5px"}
-        bg={"white"}
+        </button>
+      </div>
+      <div className="flex flex-row items-center className="w-full mt-[1rem] border rounded bg-white"
       >
         <GigStatus />
-      </HStack>
-    </VStack>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Button,
@@ -11,7 +13,7 @@ import {
   Thead,
   Tr,
   VStack
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,52 +64,36 @@ const CompletedJobs = () => {
             </div>
             <Table
               variant="simple"
-              justifyContent={"center"}
-              width={"100%"}
-              margin={"auto"}
-              alignItems={"center"}
-              textAlign={"center"}
+              className="w-full m-[auto] items-center"
             >
-              <Thead justifyContent={"center"} textAlign={"center"}>
-                <Tr textAlign={"center"}>
+              <Thead>
+                <Tr>
                   <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Date
                   </Th>
                   {/* <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "hidden" : ""}`}
                   >
                     Job Title
                   </Th> */}
                   <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "hidden" : ""}`}
                   >
                     Contract Title
                   </Th>
                   <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Job Type
                   </Th>
                   <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Hiring Budget
                   </Th>
                   <Th
-                    fontSize={"0.8rem"}
-                    textAlign={"center"}
                     className={`capitalize max-lg:${hidden ? "" : "hidden"}`}
                   >
                     Details
@@ -127,13 +113,12 @@ const CompletedJobs = () => {
                   return (
                     <Tr
                       key={index}
-                      alignItems={"center"}
+                      className="items-center"
                       className={item === null ? "!hidden" : ""}
                     >
                       <Td
                         className={`text-[1rem] max-[480px]:text-[0.8rem] max-lg:${hidden ? "" : "hidden"
                           }`}
-                        textAlign={"center"}
                       >
                         {formattedDate}
                       </Td>
@@ -142,17 +127,17 @@ const CompletedJobs = () => {
                           }`}
                       >
                         <div className="text-[#22C35E] text-[1rem] font-medium capitalize text-center">
-                          <Text className="max-[420px]:block hidden">
+                          <span className="max-[420px]:block hidden">
                             {item?.job_title?.slice(0, 15)}
                             {item?.job_title?.length >= 15 ? "..." : ""}
-                          </Text>
-                          <Text className="sm:hidden max-[420px]:hidden">
+                          </span>
+                          <span className="sm:hidden max-[420px]:hidden">
                             {item?.job_title?.slice(0, 25)}
                             {item?.job_title?.length >= 25 ? "..." : ""}
-                          </Text>
-                          <Text className="max-sm:hidden block ">
+                          </span>
+                          <span className="max-sm:hidden block">
                             {item?.job_title}
-                          </Text>
+                          </span>
                         </div>
                       </Td> */}
                       <Td
@@ -160,33 +145,29 @@ const CompletedJobs = () => {
                           }`}
                       >
                         <div className="font-medium capitalize text-center">
-                          <Text className="max-[420px]:block hidden">
+                          <span className="max-[420px]:block hidden">
                             {item?.contract_title?.slice(0, 15)}
                             {item?.contract_title?.length >= 15 ? "..." : ""}
-                          </Text>
-                          <Text className="text-[1rem] sm:hidden max-[420px]:hidden ">
+                          </span>
+                          <span className="text-[1rem] sm:hidden max-[420px]:hidden">
                             {item?.contract_title?.slice(0, 25)}
                             {item?.contract_title?.length >= 25 ? "..." : ""}
-                          </Text>
-                          <Text className="max-sm:hidden block text-[1rem]">
+                          </span>
+                          <span className="max-sm:hidden block text-[1rem]">
                             {item?.contract_title}
-                          </Text>
+                          </span>
                         </div>
                       </Td>
                       <Td
-                        height={"2rem"}
                         className={`max-lg:${hidden ? "" : "hidden"}`}
-                        textAlign={"center"}
                       >
-                        <Text className="capitalize">{item?.job_type}</Text>
+                        <span className="capitalize">{item?.job_type}</span>
                       </Td>
                       <Td
-                        height={"2rem"}
                         className={`text-[1rem] max-lg:${hidden ? "" : "hidden"
                           }`}
-                        textAlign={"center"}
                       >
-                        <Text className="capitalize text-lg font-semibold">
+                        <span className="capitalize text-lg font-semibold">
                           $
                           {item?.job_type === "fixed" ? (
                             item?.budget
@@ -196,23 +177,17 @@ const CompletedJobs = () => {
                               <sub className="font-normal">/hr</sub>
                             </>
                           )}
-                        </Text>
+                        </span>
                       </Td>
                       <Td
-                        height={"2rem"}
                         className={`text-[1rem] max-lg:${hidden ? "" : "hidden"
                           }`}
-                        textAlign={"center"}
                       >
-                        <Button
-                          colorScheme="primary"
-                          rounded="full"
-                          variant="outline"
-                          size="sm"
+                        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                           onClick={() => router.push(`/contract/${item._id}`)}
                         >
                           Details
-                        </Button>
+                        </button>
                       </Td>
                     </Tr>
                   );
@@ -222,18 +197,13 @@ const CompletedJobs = () => {
           </TableContainer>
         </div>
       ) : (
-        <VStack
-          alignItems="center"
-          justifyContent="center"
-          border="0.1px solid var(--bordersecondary)"
-          height="10rem"
-          rounded={"lg"}
-          bgColor={"white"}
+        <div
+          className="bg-white flex flex-col rounded-lg"
         >
-          <Text fontSize="1.2rem" textTransform="capitalize" fontWeight="600" className="text-center">
+          <span className="text-center">
             You haven&apos;t any completed jobs.
-          </Text>
-        </VStack>
+          </span>
+        </div>
       )}
     </div>
   );

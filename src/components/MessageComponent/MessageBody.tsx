@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import React, { useContext, useEffect, useState } from "react";
 import { TbMessageCancel } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -180,22 +180,13 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
       });
 
       if (code === 200) {
-        toaster.create({
-          title: msg,
-          duration: 3000,
-          type: "success",
-        });
+        toast.default(msg);
         setMessageData((prev) =>
           prev.filter((item) => item?._id !== selectedMsgId)
         );
       }
     } catch (error) {
-      toaster.create({
-        title:
-          error?.message || error.response.data.msg || "Something gonna wrong!",
-        type: "error",
-        duration: 3000,
-      });
+      toast.error(error?.message || error.response.data.msg || "Something gonna wrong!");
       console.error("Error deleting message:", error);
     }
     setActionIsLoading(false);
@@ -220,15 +211,10 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   return (
     <>
       <Box
-        width="100%"
         px="20px"
         py="1rem"
         // mt="1.5rem"
-        borderRadius="15px"
-        position="relative"
-        overflow="hidden"
-        className="border shadow-sm bg-white pb-5"
-      >
+       className="border shadow-sm bg-white pb-5 overflow-hidden w-full relative">
         {/* Message Header */}
         <MessageHeader
           receiverDetails={receiverDetails}
@@ -236,23 +222,14 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
         />
 
         {/* Message Body */}
-        <VStack
-          alignItems={{ md: "start" }}
-          width="100%"
-          height="100%"
+        <VStack}
           paddingBottom={{ md: "20px" }}
-          position="relative"
-        >
-          <Box
-            height={{ base: "65vh", md: "58vh" }}
+         className="w-full h-full relative">
+          <Box}
             overflowY="auto"
-            overflowX={"hidden"}
-            width="100%"
-            display="flex"
+            overflowX="hidden"
             flexDir="column"
-            alignItems="start"
             marginBottom={{ md: "1.5rem" }}
-            justifyContent="flex-start"
             id="chat-container"
             css={{
               "&::WebkitScrollbar": {
@@ -260,7 +237,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
               },
               scrollbarWidth: "none",
             }}
-          >
+           className="flex items-start w-full">
             {/* Messages */}
             {messageData?.length
               ? messageData.map((user, index) => (
@@ -304,23 +281,18 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
             </p>
             <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
               <Button
-                colorScheme="primary"
-                variant="outline"
-                width="full"
-                onClick={() => setIsModal(false)}
+                onClick={() = className="w-full"> setIsModal(false)}
               >
                 No, cancel
-              </Button>
+              </button>
               <Button
                 isLoading={actionIsLoading}
                 loadingText="Deleting..."
-                colorScheme="primary"
-                width="full"
                 spinner={<BtnSpinner />}
                 onClick={() => handleDelete(selectedMsgId)}
               >
                 Yes, delete it
-              </Button>
+              </button>
             </div>
           </>
         )}

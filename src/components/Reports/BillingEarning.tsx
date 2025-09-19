@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tabs,    TabPanel } from "@chakra-ui/react";
+
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 // import { BsChevronRight } from "react-icons/bs";
 const DataListData = [
@@ -109,8 +109,6 @@ const BillingEarning = () => {
                           <div className="flex space-x-2 items-center">
                             <span>
                               <svg
-                                width="20"
-                                height="20"
                                 viewBox="0 0 20 20"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -118,8 +116,6 @@ const BillingEarning = () => {
                                 <rect
                                   x="3.33301"
                                   y="4.16675"
-                                  width="13.3333"
-                                  height="13.3333"
                                   rx="1.33333"
                                   stroke="#6B7280"
                                   strokeWidth="1.5"
@@ -169,8 +165,6 @@ const BillingEarning = () => {
                           </div>
                           <span>
                             <svg
-                              width="20"
-                              height="20"
                               viewBox="0 0 20 20"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -202,8 +196,6 @@ const BillingEarning = () => {
                                       <span>
                                         {" "}
                                         <svg
-                                          width="20"
-                                          height="20"
                                           viewBox="0 0 20 20"
                                           fill="none"
                                           xmlns="http://www.w3.org/2000/svg"
@@ -211,8 +203,6 @@ const BillingEarning = () => {
                                           <rect
                                             x="3.33301"
                                             y="4.16675"
-                                            width="13.3333"
-                                            height="13.3333"
                                             rx="1.33333"
                                             stroke="currentColor"
                                             strokeWidth="1.5"

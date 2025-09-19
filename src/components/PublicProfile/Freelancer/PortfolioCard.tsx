@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper/modules";
 import { useRef, useState } from "react";
 import { RiInformationLine } from "react-icons/ri";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 
 import { BsLink45Deg } from "react-icons/bs";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
@@ -30,11 +30,7 @@ const PortfolioCard = ({ portfolio }) => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toaster.create({
-      title: "Zeework Profile Copied.",
-      type: "success",
-      duration: 3000,
-    });
+    toast.success("Zeework Profile Copied.");
   };
 
   return (
@@ -72,17 +68,15 @@ const PortfolioCard = ({ portfolio }) => {
         </p>
         {isHover && (
           <Box
-            transition={"0.6s ease-in-out"}
+            transition="0.6s ease-in-out"
             className="h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300 z-10"
           >
             <HStack
-              fontSize={"2.5rem"}
-              position={"absolute"}
               transform={"translate(-50%, -50%)"}
-              top={"50%"}
-              left={"50%"}
-            >
-              <VStack alignItems={"center"} justifyContent={"center"}>
+              top="50%"
+              left="50%"
+             className="absolute">
+              <VStack className="items-center justify-center">
                 <button
                   className="text-xl flex items-center gap-1 text-white px-5 py-2 bg-white/10 backdrop-filter backdrop-blur rounded-lg"
                   onClick={() => setIsModal(true)}

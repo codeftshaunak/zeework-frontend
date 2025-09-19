@@ -1,9 +1,11 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getAgencyById } from "../../../helpers/APIs/agencyApis";
-import { Box, VStack } from "@chakra-ui/react";
+
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
 import TopSide from "./TopSide";
@@ -35,19 +37,15 @@ const ViewAgencyProfile = () => {
       {isLoading ? (
         <AgencyProfileSkeleton />
       ) : agencyDetails?.agency_name ? (
-        <VStack width={"full"}>
+        <div className="flex flex-col className="w-full">
           <TopSide details={agencyDetails} />
-          <Box
-            display={{ lg: "flex" }}
-            width={"100%"}
-            paddingY={"20px"}
-            position={"relative"}
-            className="shadow-sm border p-4 bg-white mt-2 lg:px-10"
+          <div
+            className="lg:flex w-full py-[20px] relative shadow-sm border p-4 bg-white mt-2 lg:px-10"
           >
             <LeftSide details={agencyDetails} />
             <RightSide details={agencyDetails} />
-          </Box>
-        </VStack>
+          </div>
+        </div>
       ) : (
         <DataNotAvailable onRefresh={getAgencyDetails} />
       )}

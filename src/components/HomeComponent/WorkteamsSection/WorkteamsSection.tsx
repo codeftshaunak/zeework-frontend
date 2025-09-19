@@ -16,7 +16,7 @@ const WorkteamsCard = ({ image, title, subTitle, color }) => {
             <div className="flex gap-4 items-center lg:absolute bottom-6">
                 <p className="text-[16px] font-semibold text-[#141414]">Learn More</p>
                 <div className={`rounded-full p-1 ${color === "primary" ? 'bg-fg-badge-primary/80' : color === "secondary" ? 'bg-fg-badge-secondary/80' : 'bg-fg-badge-tertiary/80'}`}>
-                    <FaArrowRight className="text-white" fontSize={'0.8rem'} />
+                    <FaArrowRight className="text-white" />
                 </div>
             </div>
         </div>
@@ -33,9 +33,9 @@ const WorkteamsSection = () => {
                 </div>
 
                 <div className="flex lg:flex-row flex-col justify-center lg:flex-wrap gap-[40px] py-[50px]">
-                    <WorkteamsCard color={"primary"} image={"./icons/FlexibltyBadge.svg"} title={"Flexibility"} subTitle={"Ramp up and down, from short-term engagemennnts to full-time teams"} />
-                    <WorkteamsCard color={"secondary"} image={"./icons/MoneyBadge.svg"} title={"Cost Saving"} subTitle={"Pay only for hours worked. Hourly rates fit any budget."} />
-                    <WorkteamsCard image={"./icons/TalentBadge.svg"} title={"Access To Talent"} subTitle={"Hire the best from around the world."} />
+                    <WorkteamsCard image="./icons/FlexibltyBadge.svg" title="Flexibility" subTitle="Ramp up and down, from short-term engagemennnts to full-time teams" />
+                    <WorkteamsCard image="./icons/MoneyBadge.svg" title="Cost Saving" subTitle="Pay only for hours worked. Hourly rates fit any budget." />
+                    <WorkteamsCard image="./icons/TalentBadge.svg" title="Access To Talent" subTitle="Hire the best from around the world." />
                 </div>
             </div>
         </section>

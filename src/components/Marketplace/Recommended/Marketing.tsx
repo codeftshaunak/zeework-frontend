@@ -1,9 +1,11 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import GigCards from "../GigCards/GigCards";
 import { getSearchGigs } from "../../../helpers/APIs/gigApis";
-import { Button } from "@chakra-ui/react";
+
 import { useRouter } from "next/navigation";
 
 const Marketing = () => {
@@ -45,13 +47,7 @@ const Marketing = () => {
           <GigCards gigs={gigs?.slice(0, 6)} isLoading={isLoading} />
         </div>
       </div>
-      <Button
-        variant={"outline"}
-        colorScheme="primary"
-        bgColor={"white"}
-        rounded={"full"}
-        size={"sm"}
-        px={10}
+      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         onClick={() =>
           router.push(
             "/marketplace/search?type=marketing&category=65a89e292a1e1295cacac5c2"
@@ -60,7 +56,7 @@ const Marketing = () => {
         isDisabled={isLoading}
       >
         See More
-      </Button>
+      </button>
     </div>
   );
 };

@@ -1,5 +1,7 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import React from "react";
+import { toast } from "@/lib/toast";
 
 import {
   Avatar,
@@ -10,7 +12,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaLocationDot } from "react-icons/fa6";
@@ -107,11 +109,7 @@ const ActiveJobDetailsComponent = () => {
       formData.append("contract_ref", jobDetails._id);
 
       const { code, msg } = await submitTask(formData);
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200) {
         if (socket) {
           socket.emit(
@@ -182,8 +180,6 @@ const ActiveJobDetailsComponent = () => {
         return (
           <iframe
             src={fileDetails.file}
-            width="100%"
-            height="600px"
             className="text-sm text-blue-500 font-semibold border px-2 py-1 rounded w-full"
             title="PDF Viewer"
           ></iframe>
@@ -233,9 +229,8 @@ const ActiveJobDetailsComponent = () => {
           </h2>
         </div>
 
-        <div className="">
+        <div >
           <Tabs.Root
-            position="relative"
             variant="unstyled"
             onChange={(index) => setActiveTab(index)}
           >
@@ -249,9 +244,6 @@ const ActiveJobDetailsComponent = () => {
             </Tabs.List>
             <Tabs.Indicator
               mt="1.5px"
-              height="2px"
-              bg="var(--primarytextcolor)"
-              borderRadius="1px"
             />
             <SmoothMotion key={activeTab}>
               <Tabs.Content>
@@ -265,7 +257,7 @@ const ActiveJobDetailsComponent = () => {
                         <div className="lg:col-span-1 w-full h-fit bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
                           <div className="flex gap-3 mb-4">
                             <Avatar
-                              size={"lg"}
+                              size="lg"
                               name={
                                 clientDetails?.firstName +
                                 " " +
@@ -313,12 +305,9 @@ const ActiveJobDetailsComponent = () => {
                             </p>
                           </div>
 
-                          <Button
-                            mt={10}
-                            mb={3}
-                            width={"full"}
-                            border={"1px"}
-                            borderColor={"green.200"}
+                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                           
+                            borderColor="green.200"
                             leftIcon={<LuMessagesSquare />}
                             onClick={() =>
                               router.push(
@@ -327,39 +316,30 @@ const ActiveJobDetailsComponent = () => {
                             }
                           >
                             Message
-                          </Button>
+                          </button>
                           {/* for freelancer */}
                           {jobDetails?.offer_to === "freelancer" && (
                             <>
                               {jobDetails?.status === "completed" ? (
-                                <Button
-                                  width={"full"}
-                                  border={"1px"}
-                                  borderColor={"yellow.200"}
+                                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                                  borderColor="yellow.200"
                                 >
                                   Job Already Completed
-                                </Button>
+                                </button>
                               ) : (
                                 <>
                                   {jobDetails?.job_type === "fixed" &&
                                     (jobDetails?.status === "task_submitted" ? (
-                                      <Button
-                                        width={"full"}
-                                        border={"1px"}
-                                        colorScheme="primary"
-                                        variant={"outline"}
+                                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                         onClick={() =>
                                           setViewSubmittedTask(true)
                                         }
                                         leftIcon={<LuView />}
                                       >
                                         View Submission
-                                      </Button>
+                                      </button>
                                     ) : (
-                                      <Button
-                                        width={"full"}
-                                        border={"1px"}
-                                        colorScheme="primary"
+                                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                         isDisabled={
                                           jobDetails?.status ===
                                           "task_submitted"
@@ -370,7 +350,7 @@ const ActiveJobDetailsComponent = () => {
                                         }}
                                       >
                                         Submit Work
-                                      </Button>
+                                      </button>
                                     ))}
                                 </>
                               )}
@@ -380,18 +360,15 @@ const ActiveJobDetailsComponent = () => {
                           {/* for agency */}
                           {jobDetails?.offer_to === "agency" &&
                             (jobDetails?.status === "completed" ? (
-                              <Button
-                                width={"full"}
-                                border={"1px"}
-                                borderColor={"yellow.200"}
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                                borderColor="yellow.200"
                               >
                                 Job Already Completed
-                              </Button>
+                              </button>
                             ) : (
                               <>
-                                <Button
-                                  colorScheme="primary"
-                                  width={"full"}
+                                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                                 
                                   onClick={() =>
                                     router.push(
                                       `/contract-assign/${jobDetails._id}`
@@ -399,7 +376,7 @@ const ActiveJobDetailsComponent = () => {
                                   }
                                 >
                                   Assign contract to agency member
-                                </Button>
+                                </button>
                               </>
                             ))}
                         </div>
@@ -414,7 +391,7 @@ const ActiveJobDetailsComponent = () => {
                     {timeSheetLoading ? (
                       <HorizontalCardSkeleton />
                     ) : timeSheet?.details ? (
-                      <div className=" mt-3 sm:mt-5 lg:mt-10">
+                      <div className="mt-3 sm:mt-5 lg:mt-10">
                         <JobTimeSheet data={timeSheet} />
                       </div>
                     ) : (
@@ -438,7 +415,7 @@ const ActiveJobDetailsComponent = () => {
         <UniversalModal
           isModal={isSubmitTask}
           setIsModal={setIsSubmitTask}
-          title={"Send completed task"}
+          title="Send completed task"
         >
           <form onSubmit={handleSubmit(handleSubmitTask)}>
             <div className="grid gap-5">
@@ -478,15 +455,14 @@ const ActiveJobDetailsComponent = () => {
               </div>
             </div>
             <div className="text-right mt-10">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isSubmitLoading}
                 loadingText="Submitting"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>
@@ -497,7 +473,7 @@ const ActiveJobDetailsComponent = () => {
         <UniversalModal
           isModal={viewSubmittedTask}
           setIsModal={setViewSubmittedTask}
-          title={"Submitted Task"}
+          title="Submitted Task"
         >
           <div className="flex flex-col gap-2 items-start">
             <div className="text-md">

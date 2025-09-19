@@ -1,5 +1,7 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import React from "react";
+import { toast } from "@/lib/toast";
 
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,7 +11,7 @@ import {
   Input,
   Textarea,
   Button,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { getCategories, getCountries } from "../../helpers/APIs/freelancerApis";
 import { getSubCategory } from "../../helpers/APIs/freelancerApis";
 import { createAgency } from "../../helpers/APIs/agencyApis";
@@ -108,20 +110,12 @@ const CreateForm = () => {
     try {
       const { code, msg } = await createAgency(data);
       if (code === 200) {
-        toaster.create({
-          title: "Agency Profile Created Successfully.",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Agency Profile Created Successfully.");
         getUserDetails();
 
         router.push(-1);
       } else {
-        toaster.create({
-          title: msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg);
       }
     } catch (error) {
       console.log(error);
@@ -130,60 +124,55 @@ const CreateForm = () => {
   };
 
   return (
-    <HStack width={"100%"} margin={"auto"} alignItems={"center"}>
-      <Box
-        width={["100%", "100%", "90%", "60%"]}
-        margin={"auto"}
-        borderRadius={"15px"}
+    <div className="flex flex-row items-center className="w-full m-[auto] items-center">
+      <div
+        className="m-[auto] rounded"
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full shadow p-5 sm:p-9 rounded-lg bg-white"
         >
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Agency Name</Text>
-            <Input
+          <div>
+            <span>Agency Name</span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("agency_name", {
                 required: "Agency Name is required",
               })}
               placeholder="ZeeWork"
-              fontSize={["1rem", "1.1rem"]}
             />
 
             {errors.agency_name && (
               <ErrorMsg msg={errors.agency_name.message} />
             )}
-          </Box>
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Agency Overview</Text>
-            <Textarea
+          </div>
+          <div>
+            <span>Agency Overview</span>
+            <spanarea
               {...register("agency_overview", {
                 required: "Agency Overview is required",
               })}
-              fontSize={["1rem", "1.1rem"]}
               placeholder="This is an agency with highly creating value. We provide services to people who need to start there business."
             />
 
             {errors.agency_overview && (
               <ErrorMsg msg={errors.agency_overview.message} />
             )}
-          </Box>
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Agency Tagline</Text>
-            <Input
+          </div>
+          <div>
+            <span>Agency Tagline</span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("agency_tagline", {
                 required: "Agency Tagline is required",
               })}
-              fontSize={["1rem", "1.1rem"]}
               placeholder="We are working for create impact on the world"
             />
 
             {errors.agency_tagline && (
               <ErrorMsg msg={errors.agency_tagline.message} />
             )}
-          </Box>
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Agency Location</Text>
+          </div>
+          <div>
+            <span>Agency Location</span>
             <Select
               {...register("agency_location", {
                 required: "Agency Location is required",
@@ -198,9 +187,9 @@ const CreateForm = () => {
             {errors.agency_location && (
               <ErrorMsg msg={errors.agency_location.message} />
             )}
-          </Box>
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Services Category</Text>
+          </div>
+          <div>
+            <span>Services Category</span>
             <Select
               {...register("agency_services.category", {
                 required: "Services Category is required",
@@ -224,10 +213,10 @@ const CreateForm = () => {
             {errors.agency_services?.category && (
               <ErrorMsg msg={errors.agency_services?.category.message} />
             )}
-          </Box>
+          </div>
 
-          <Box mb={5}>
-            <Text fontSize={["md", "xl"]} mb={2}>Services Sub-Category</Text>
+          <div>
+            <span>Services Sub-Category</span>
             <Select
               {...register("agency_services.subCategory", {
                 required: "Services Sub-Category is required",
@@ -251,23 +240,22 @@ const CreateForm = () => {
             {errors.agency_services?.subCategory && (
               <ErrorMsg msg={errors.agency_services?.subCategory.message} />
             )}
-          </Box>
+          </div>
 
-          <Box textAlign={"right"}>
-            <Button
+          <div className="text-right">
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               isLoading={loading}
               loadingText="Submit"
-              colorScheme="primary"
               type="submit"
               spinner={<BtnSpinner />}
               marginTop={3}
             >
               Submit
-            </Button>
-          </Box>
+            </button>
+          </div>
         </form>
-      </Box>
-    </HStack>
+      </div>
+    </div>
   );
 };
 

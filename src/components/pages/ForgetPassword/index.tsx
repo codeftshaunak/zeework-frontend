@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { CiUser } from "react-icons/ci";
 import {
@@ -9,8 +11,8 @@ import {
   Button,
   Text,
   Box,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import OnboardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
 import { useState } from "react";
 import { TbPasswordFingerprint, TbPasswordUser } from "react-icons/tb";
@@ -112,245 +114,189 @@ const ForgetPassword = () => {
   };
 
   const visibleToast = (msg, code) => {
-    toaster.create({
-      title: msg,
-      duration: 3000,
-      type: code === 200 ? "success" : "error",
-    });
+    toast.default(msg);
   };
 
   return (
     <OnboardingCardLayout title="Forget Your Password">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-5">
-        <VStack width="100%" gap={6}>
-          {step === 1 && (
-            <>
-              <Box width={"full"}>
-                <Text marginBottom={1}>Enter your email address</Text>
+        <div className="flex flex-col> {step === 1 && ( <> <div className="w-full">
+                <span marginBottom={1}>Enter your email address</span>
                 <Skeleton
                   isLoaded
-                  width={"full"}
+                  className="w-full"
                   startColor="gray.100"
                   endColor="gray.300"
                 >
-                  <Flex
-                    border="1px solid var(--bordersecondary)"
-                    borderRadius="5px"
-                    width="100%"
-                    justifyContent="center"
-                    alignItems="center"
-                    overflow={"hidden"}
-                  >
-                    <Box padding={"0.4rem"}>
+                  <div
+                   className="flex overflow-hidden">
+                    <div className="p-[0.4rem]">
                       <CiUser
                         style={{ fontSize: "1.3rem", marginRight: "0.1rem" }}
                       />
-                    </Box>
-                    <Input
+                    </div>
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type="text"
                       name="email"
                       placeholder="Username Or Email"
-                      fontSize="1rem"
-                      width="100%"
-                      border="none"
-                      variant="unstyled"
-                      rounded={0}
-                      padding="0.5rem 0.5rem"
                       {...register("email")}
                     />
-                  </Flex>
+                  </div>
                   {errors.email && <ErrorMsg msg={errors.email.message} />}
                 </Skeleton>
-              </Box>
-              <Button
+              </div>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 loadingText="Continue"
-                colorScheme="primary"
                 type="submit"
                 paddingX="10"
                 isLoading={isLoading}
                 spinner={<BtnSpinner />}
               >
                 Continue
-              </Button>
-              <Text onClick={() => router.push("/login")} fontWeight={"500"}>
+              </button>
+              <span onClick={() => router.push("/login")}>
                 Do you know the password?{" "}
                 <span className="text-[var(--primarytextcolor)] cursor-pointer">
                   Login
                 </span>
-              </Text>
+              </span>
             </>
           )}
           {step === 2 && (
             <>
-              <Box width={"full"}>
-                <Text marginBottom={1}>Enter OTP</Text>
+              <div className="w-full">
+                <span marginBottom={1}>Enter OTP</span>
                 <Skeleton
                   isLoaded
-                  width={"full"}
+                  className="w-full"
                   startColor="gray.100"
                   endColor="gray.300"
                 >
-                  <Flex
-                    border="1px solid var(--bordersecondary)"
-                    borderRadius="5px"
-                    width="100%"
-                    justifyContent="center"
-                    alignItems="center"
-                    padding="0rem 0.4rem"
+                  <div className="flex"
+                   
+                   
+                   
+                   
+                   
+                   
                   >
                     <TbPasswordFingerprint
                       style={{ fontSize: "1.3rem", marginRight: "0.1rem" }}
                     />
-                    <Input
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type="number"
                       name="OTP"
                       placeholder="****"
-                      fontSize="1rem"
-                      width="100%"
-                      border="none"
-                      variant="unstyled"
-                      padding="0.5rem 0.5rem"
                       {...register("OTP")}
                     />
-                  </Flex>
+                  </div>
                   {errors.OTP && <ErrorMsg msg={errors.OTP.message} />}
                 </Skeleton>
-              </Box>
-              <Button
+              </div>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 loadingText="Continue"
-                colorScheme="primary"
                 type="submit"
                 paddingX="10"
                 isLoading={isLoading}
                 spinner={<BtnSpinner />}
               >
                 Continue
-              </Button>
+              </button>
             </>
           )}
           {step === 3 && (
             <>
-              <Box width={"full"}>
-                <Text marginBottom={1}>New Password</Text>
+              <div className="w-full">
+                <span marginBottom={1}>New Password</span>
                 <Skeleton
                   isLoaded
-                  width={"full"}
+                  className="w-full"
                   startColor="gray.100"
                   endColor="gray.300"
                 >
-                  <Flex
-                    border="1px solid var(--bordersecondary)"
-                    borderRadius="5px"
-                    width="100%"
-                    justifyContent="center"
-                    alignItems="center"
-                    overflow={"hidden"}
-                  >
-                    <Box padding={"0.5rem"}>
+                  <div
+                   className="flex overflow-hidden">
+                    <div className="p-[0.5rem]">
                       {" "}
                       <TbPasswordUser
                         style={{ fontSize: "1.3rem", marginRight: "0.1rem" }}
                       />
-                    </Box>
-                    <Input
+                    </div>
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type={visiblePass.one ? "text" : "password"}
                       name="password"
                       placeholder="****"
-                      fontSize="1rem"
-                      width="100%"
-                      border="none"
-                      variant="unstyled"
-                      padding="0.4rem"
-                      rounded={0}
                       {...register("password")}
                     />
-                    <Box
+                    <div
                       onClick={() =>
                         setVisiblePass({
                           ...visiblePass,
                           one: !visiblePass.one,
                         })
                       }
-                      fontSize={"xl"}
-                      bgColor={"gray.200"}
                       padding="0.6rem"
                     >
                       {visiblePass.one ? <FaEye /> : <FaEyeSlash />}
-                    </Box>
-                  </Flex>
+                    </div>
+                  </div>
                   {errors.password && (
                     <ErrorMsg msg={errors.password.message} />
                   )}
                 </Skeleton>
-              </Box>
-              <Box width={"full"}>
-                <Text marginBottom={1}>Repeat Password</Text>
+              </div>
+              <div className="w-full">
+                <span marginBottom={1}>Repeat Password</span>
                 <Skeleton
                   isLoaded
-                  width={"full"}
+                  className="w-full"
                   startColor="gray.100"
                   endColor="gray.300"
                 >
-                  <Flex
-                    border="1px solid var(--bordersecondary)"
-                    borderRadius="5px"
-                    width="100%"
-                    justifyContent="center"
-                    alignItems="center"
-                    overflow={"hidden"}
-                  >
-                    <Box padding={"0.5rem"}>
+                  <div
+                   className="flex overflow-hidden">
+                    <div className="p-[0.5rem]">
                       {" "}
                       <TbPasswordUser
                         style={{ fontSize: "1.3rem", marginRight: "0.1rem" }}
                       />
-                    </Box>
+                    </div>
 
-                    <Input
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type={visiblePass.two ? "text" : "password"}
                       name="repeatPassword"
                       placeholder="****"
-                      fontSize="1rem"
-                      width="100%"
-                      border="none"
-                      variant="unstyled"
-                      padding="0.4rem"
-                      rounded={0}
                       {...register("repeatPassword")}
                     />
-                    <Box
+                    <div
                       onClick={() =>
                         setVisiblePass({
                           ...visiblePass,
                           two: !visiblePass.two,
                         })
                       }
-                      fontSize={"xl"}
-                      bgColor={"gray.200"}
                       padding="0.6rem"
-                      cursor={"pointer"}
                     >
                       {visiblePass.two ? <FaEye /> : <FaEyeSlash />}
-                    </Box>
-                  </Flex>
+                    </div>
+                  </div>
                   {errors.repeatPassword && (
                     <ErrorMsg msg={errors.repeatPassword.message} />
                   )}
                 </Skeleton>
-              </Box>
-              <Button
+              </div>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 loadingText="Continue"
-                colorScheme="primary"
                 type="submit"
                 paddingX="10"
                 isLoading={isLoading}
                 spinner={<BtnSpinner />}
               >
                 Continue
-              </Button>
+              </button>
             </>
           )}
-        </VStack>
+        </div>
       </form>
     </OnboardingCardLayout>
   );

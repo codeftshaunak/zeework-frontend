@@ -1,6 +1,8 @@
-"use client";
 
-import { VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { agencyData } from "../../redux/authSlice/profileSlice";
@@ -19,7 +21,7 @@ const AgencyProfile = () => {
   }, [agency]);
 
   return (
-    <VStack width={"100%"}>
+    <div className="flex flex-col w-full">
       {!agencyProfile?._id ? (
         <AgencyProfileSkeleton />
       ) : (
@@ -28,7 +30,7 @@ const AgencyProfile = () => {
           <AgencyBody agency={agencyProfile} setAgency={setAgency} />
         </>
       )}
-    </VStack>
+    </div>
   );
 };
 

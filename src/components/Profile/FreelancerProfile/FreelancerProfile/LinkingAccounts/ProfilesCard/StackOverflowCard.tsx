@@ -1,6 +1,8 @@
-"use client";
 
-import { Avatar } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
 import { MdInsertLink } from "react-icons/md";
@@ -56,7 +58,7 @@ const StackOverflowCard = ({ data, isPublic }) => {
           )}
         </div>
         {display_name && (
-          <Avatar size={"sm"} src={profile_image} name={display_name} />
+          <Avatar size="sm" src={profile_image} name={display_name} />
         )}
       </div>
 

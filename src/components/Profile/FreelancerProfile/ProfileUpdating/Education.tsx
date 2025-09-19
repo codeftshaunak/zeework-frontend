@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateFreelancer,
@@ -112,21 +112,12 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
       if (response.code === 200 && response.body) {
         if (response.body.education) profileDispatch(response.body);
 
-        toaster.create({
-          title:
-            type === "Add Education"
+        toast.success(type === "Add Education"
               ? "Education Added Successfully"
-              : "Education Updated Successfully",
-          type: "success",
-          duration: 3000,
-        });
+              : "Education Updated Successfully");
         setIsModal(false);
       } else {
-        toaster.create({
-          title: response.msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(response.msg);
       }
     } catch (error) {
       console.error(error);
@@ -150,27 +141,15 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
         newProfile.education = existProfile.education?.filter(
           (item) => item._id !== defaultValue._id
         );
-        toaster.create({
-          title: msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(msg);
         dispatch(profileData({ profile: newProfile }));
         setIsModal(false);
       } else {
-        toaster.create({
-          title: msg || "Something gonna wrong!",
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg || "Something gonna wrong!");
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "Something gonna wrong!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Something gonna wrong!");
     }
 
     setIsLoading(false);
@@ -210,7 +189,7 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
                 )}
               </div>
             </div>
-            <HStack justifyContent={"space-between"}>
+            <HStack className="justify-between">
               <div className="flex flex-col gap-[2px] w-[49%]">
                 <p className="font-[500] text-[#374151]">Start Date</p>
                 <div>
@@ -247,14 +226,12 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
             <Button
               isLoading={isLoading}
               loadingText={type === "Add Education" ? "Adding" : "Updating"}
-              colorScheme="primary"
               type="submit"
-              fontSize={"0.9rem"}
               spinner={<BtnSpinner />}
               paddingX={8}
             >
               {type === "Add Education" ? "Add" : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       )}
@@ -271,23 +248,19 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
 
           <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
             <Button
-              variant={"outline"}
-              colorScheme="primary"
               onClick={() => setIsModal(false)}
-              width="full"
             >
               No, cancel
-            </Button>
+            </button>
             <Button
               isLoading={isLoading}
               loadingText="Deleting.."
-              colorScheme="primary"
               spinner={<BtnSpinner />}
               onClick={handleDelete}
-              width={"full"}
+              className="w-full"
             >
               Yes, delete it
-            </Button>
+            </button>
           </div>
         </div>
       )}

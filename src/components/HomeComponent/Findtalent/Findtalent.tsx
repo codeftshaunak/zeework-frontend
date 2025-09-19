@@ -27,11 +27,11 @@ const Findtalent = () => {
               />
               <img
                 className="absolute z-10 left-[2%] -bottom-[7%] max-[1439px]:hidden"
-                src={"./images/TalentEllipse.svg"}
+                src="./images/TalentEllipse.svg"
               />
               <img
                 className="absolute z-10 left-[25%] bottom-0 max-[1439px]:hidden"
-                src={"./images/TalentCircle3.svg"}
+                src="./images/TalentCircle3.svg"
               />
               <h1 className=" font-cabinet-normal md:text-[40px] text-[1.9rem] md:leading-[70px] md:text-left sm:text-center max-md:text-white max-[425px]:text-[1.2rem]  max-[425px]:font-geist-extra  max-[425px]:text-center">
                 Find{" "}
@@ -46,7 +46,7 @@ const Findtalent = () => {
               </p>
               <div className="z-10">
                 <GreenButton
-                  children={"Hire a Freelancer"}
+                  children="Hire a Freelancer"
                   onClick={() => router.push("/signup")}
                 />
               </div>
@@ -55,15 +55,15 @@ const Findtalent = () => {
           <div className="w-full max-2xl:flex-1 xl:w-[755px] flex justify-center max-md:hidden relative">
             <img
               className="absolute z-10 -left-[5%] -bottom-[10%]"
-              src={"./images/TalentCircle1.svg"}
+              src="./images/TalentCircle1.svg"
             />
             <img
               className="absolute z-10 right-[calc(40.5%)] -bottom-[10%]"
-              src={"./images/TalentCircle2.svg"}
+              src="./images/TalentCircle2.svg"
             />
             <img
               className="absolute z-10 right-0 -bottom-[27.5%]"
-              src={"./images/TalentEllipse2.svg"}
+              src="./images/TalentEllipse2.svg"
             />
             <div className="flex gap-8 h-full">
               <div className="flex gap-8 flex-col justify-between basis-[50%]">
@@ -71,14 +71,14 @@ const Findtalent = () => {
                   <div className="bg-gradient-to-br from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
                   <img
                     className="h-full w-full z-0"
-                    src={"images/TalentSectionImg1.png"}
+                    src="images/TalentSectionImg1.png"
                   />
                 </div>
                 <div className="basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                   <div className="bg-gradient-to-l from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
                   <img
                     className="h-full w-full z-0"
-                    src={"images/TalentSectionImg2.png"}
+                    src="images/TalentSectionImg2.png"
                   />
                 </div>
               </div>
@@ -86,7 +86,7 @@ const Findtalent = () => {
                 <div className="bg-gradient-to-bl from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
                 <img
                   className="h-full w-full z-0"
-                  src={"images/TalentSectionImg3.png"}
+                  src="images/TalentSectionImg3.png"
                 />
               </div>
             </div>

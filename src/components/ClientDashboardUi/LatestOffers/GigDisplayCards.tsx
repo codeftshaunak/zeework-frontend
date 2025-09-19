@@ -1,8 +1,10 @@
+
 "use client";
+import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
-import { Button, Tooltip } from "@chakra-ui/react";
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -46,7 +48,7 @@ export const GigCard = ({ data, isPurchaseReq, tabIndex }) => {
             </p>
           </div>
           <div className="text-left text-md">
-            <Tooltip hasArrow label={title} bg="gray.500" placement="top">
+            <Tooltip hasArrow label={title} placement="top">
               {title?.length > 33
                 ? `I will ${title.slice(0, 33)}..`
                 : `I will  ${title}`}

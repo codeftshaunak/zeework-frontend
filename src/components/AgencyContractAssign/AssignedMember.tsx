@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useState } from "react";
 import { MainButtonRounded } from "../Button/MainButton";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -35,11 +35,7 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
 
       if (code === 200) setJobDetails((prev) => ({ ...prev, ...body }));
 
-      toaster.create({
-        title: msg || message,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg || message);
     } catch (error) {
       console.error(error);
     }
@@ -50,31 +46,22 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
   return (
     <>
       <VStack
-        marginTop={"10px"}
-        padding={4}
-        className="shadow border p-4 rounded-md"
-        lineHeight={"20px"}
-        position={"relative"}
-        width={"300px"}
-        bgColor={"white"}
-        justifyContent={"space-between"}
-      >
-        <Box textAlign={"center"}>
+        className="shadow border p-4 rounded-md leading-[20px] relative bg-white justify-between"
+        w="300px"
+       
+       className="mt-[10px] p-4">
+        <Box className="text-center">
           <Avatar
             src={profile_image}
             name={first_name + " " + first_name}
-            size={"lg"}
+            size="lg"
           />
-          <Text fontSize={"1.4rem"} fontWeight={"semibold"} mt={2}>
+          <Text mt={2} className="text-2xl font-semibold">
             {first_name + " " + last_name}
           </Text>
           <Text
-            fontSize={"0.9rem"}
-            textAlign={"center"}
-            overflow={"hidden"}
-            width={"100%"}
             my={1}
-          >
+           className="text-center overflow-hidden w-full text-sm">
             {professional_role}
           </Text>
         </Box>
@@ -125,23 +112,18 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
           <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
-            onClick={() => setIsModal(false)}
+            onClick={() = className="w-full"> setIsModal(false)}
           >
             No, I don&apos;t want
-          </Button>
+          </button>
           <Button
             isLoading={isLoading}
             loadingText="Yes, I want to assign"
-            colorScheme="primary"
-            width={"full"}
             spinner={<BtnSpinner />}
             onClick={() => handleEndContract()}
           >
             End Contract
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

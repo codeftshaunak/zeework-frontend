@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Skeleton,
@@ -7,7 +9,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import AddPaymentDetails from "./AddPaymentDetails";
 import { useEffect, useState } from "react";
 import PaymentDetails from "./PaymentDetails";
@@ -37,22 +39,18 @@ const BillingAndPayment = () => {
     <div className="border-[1px] border-[var(--bordersecondary)] rounded-lg bg-white overflow-hidden w-full">
       <Skeleton isLoaded={!isLoading} startColor="gray.50" endColor="gray.200">
         <Tabs.Root
-          position="relative"
           colorScheme="primary"
           padding={6}
-          rounded="2xl"
-          bgColor="white"
           index={tab - 1}
           onChange={(index) => setTab(index + 1)}
         >
           <Tabs.List
-            display={"flex"}
             flexDirection={{ base: "column", sm: "row" }}
           >
             {bankDetails?.payment_details && (
-              <Tabs.Trigger fontWeight={"semibold"}>Current Payment Details</Tabs.Trigger>
+              <Tabs.Trigger>Current Payment Details</Tabs.Trigger>
             )}
-            <Tabs.Trigger fontWeight={"semibold"}>Add Payment Method</Tabs.Trigger>
+            <Tabs.Trigger>Add Payment Method</Tabs.Trigger>
           </Tabs.List>
           <SmoothMotion key={tab}>
             <Tabs.Content>

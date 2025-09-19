@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { addPaymentMethods } from "../../../../../helpers/APIs/payments";
 import {
   addBankSchema,
@@ -55,11 +55,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
         payment_details: data,
       });
 
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200) {
         setBank({
           payment_verified: body?.payment_verified,
@@ -69,11 +65,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading(false);
     setIsModal(false);
@@ -123,21 +115,21 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
           <PaymentCard
             title="Bank Transfer"
             icon={<CiBank />}
-            modalType={"bank"}
+            modalType="bank"
             setModalType={setFormType}
             setIsModal={setIsModal}
           />
           <PaymentCard
             title="Paypal"
             icon={<FaPaypal />}
-            modalType={"paypal"}
+            modalType="paypal"
             setModalType={setFormType}
             setIsModal={setIsModal}
           />
           <PaymentCard
             title="Payoneer"
             icon={null}
-            modalType={"payoneer"}
+            modalType="payoneer"
             setModalType={setFormType}
             setIsModal={setIsModal}
           />
@@ -180,7 +172,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                       type="text"
                       id="bank-name"
                       placeholder="Enter Bank Name"
-                      className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                      className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                     />
                     {errors.bank_name && (
                       <ErrorMsg msg={errors.bank_name.message} />
@@ -195,7 +187,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                       type="text"
                       id="account-number"
                       placeholder="Enter Account Number"
-                      className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                      className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                     />
                     {errors.account_number && (
                       <ErrorMsg msg={errors.account_number.message} />
@@ -210,7 +202,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                       type="text"
                       id="iban"
                       placeholder="Enter IBAN"
-                      className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                      className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                     />
                     {errors.account_or_iban && (
                       <ErrorMsg msg={errors.account_or_iban.message} />
@@ -228,7 +220,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                         type="text"
                         id="sort-code"
                         placeholder="Enter Sort Code"
-                        className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                        className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                       />
                       {errors.sort_code && (
                         <ErrorMsg msg={errors.sort_code.message} />
@@ -243,7 +235,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                         type="text"
                         id="routing-number"
                         placeholder="Enter Routing Number"
-                        className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                        className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                       />
                       {errors.routing_number && (
                         <ErrorMsg msg={errors.routing_number.message} />
@@ -258,7 +250,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                         type="text"
                         id="bic-swift-code"
                         placeholder="Enter BIC/SWIFT Code"
-                        className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                        className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                       />
                       {errors.bic_swift_code && (
                         <ErrorMsg msg={errors.bic_swift_code.message} />
@@ -277,7 +269,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                         type="text"
                         id="first-name"
                         placeholder="Enter First Name"
-                        className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                        className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                       />
                       {errors.first_name && (
                         <ErrorMsg msg={errors.first_name.message} />
@@ -292,7 +284,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                         type="text"
                         id="last-name"
                         placeholder="Enter Last Name"
-                        className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                        className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                       />
                       {errors.last_name && (
                         <ErrorMsg msg={errors.last_name.message} />
@@ -325,7 +317,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                       {...register("personal_details")}
                       id="personal-details"
                       placeholder="Enter Personal Details"
-                      className="border px-3 py-2 rounded-md focus:outline-none  placeholder:text-gray-300"
+                      className="border px-3 py-2 rounded-md focus:outline-none placeholder:text-gray-300"
                     ></textarea>
                     {errors.personal_details && (
                       <ErrorMsg msg={errors.personal_details.message} />
@@ -344,7 +336,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                 <div>
                   <input
                     type="text"
-                    className="py-2 px-3 outline-none border-[1px] rounded-md w-full focus:outline-none  placeholder:text-gray-300  text-gray-400 font-[400] border-[var(--bordersecondary)] "
+                    className="py-2 px-3 outline-none border-[1px] rounded-md w-full focus:outline-none placeholder:text-gray-300 text-gray-400 font-[400] border-[var(--bordersecondary)]"
                     placeholder="Email"
                     {...register("email")}
                   />
@@ -362,7 +354,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                 <div>
                   <input
                     type="text"
-                    className="py-2 px-3 outline-none border-[1px] rounded-md w-full focus:outline-none  placeholder:text-gray-300  text-gray-400 font-[400] border-[var(--bordersecondary)] "
+                    className="py-2 px-3 outline-none border-[1px] rounded-md w-full focus:outline-none placeholder:text-gray-300 text-gray-400 font-[400] border-[var(--bordersecondary)]"
                     placeholder="Email"
                     {...register("email")}
                   />
@@ -373,23 +365,20 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
 
             <div className="text-right mt-10 flex justify-end gap-10 mb-1">
               <Button
-                colorScheme="primary"
-                variant={"outline"}
                 paddingX={10}
                 onClick={handleCancel}
               >
                 Cancel
-              </Button>
+              </button>
               <Button
                 isLoading={isLoading}
                 loadingText="Submit"
-                colorScheme="primary"
                 type="submit"
                 paddingX={10}
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </Box>

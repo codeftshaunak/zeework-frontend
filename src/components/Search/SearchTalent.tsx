@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
@@ -12,7 +14,7 @@ import {
   Stack,
   SkeletonText,
   StackDivider,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { BiSearchAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import TalentCard from "./TalentCard";
@@ -44,14 +46,9 @@ export const Talents = () => {
       <div className="py-6 px-8 flex">
         <div className="w-[75%]">
           <div className="flex justify-between">
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"32%"}
-              borderRadius={"10px"}
-              justifyContent={"center"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
+            <div
+              transition="0.3s ease-in-out"
+              className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
               _hover={{
                 borderColor: "#22c55e",
               }}
@@ -70,15 +67,10 @@ export const Talents = () => {
                   Search & apply to your next
                 </div>
               </div>
-            </HStack>
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"32%"}
-              borderRadius={"10px"}
-              justifyContent={"center"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
+            </div>
+            <div
+              transition="0.3s ease-in-out"
+              className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
               _hover={{
                 borderColor: "#22c55e",
               }}
@@ -91,15 +83,10 @@ export const Talents = () => {
                   Check your earnings & time spent working
                 </div>
               </div>
-            </HStack>
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"32%"}
-              borderRadius={"10px"}
-              justifyContent={"center"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
+            </div>
+            <div
+              transition="0.3s ease-in-out"
+              className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
               _hover={{
                 borderColor: "#22c55e",
               }}
@@ -112,7 +99,7 @@ export const Talents = () => {
                   View your active jobs & proposals
                 </div>
               </div>
-            </HStack>
+            </div>
           </div>
           <div className="text-xl font-semibold mt-4 capitalize">
             Here are jobs for you
@@ -391,23 +378,16 @@ export const SearchTalents = () => {
       <div className="py-6 flex w-full">
         <div className="w-[40%] max-xl:hidden">
           {/* filtering items */}
-          <VStack
-            marginTop={"1rem"}
-            alignItems={"start"}
-            padding={5}
-            gap={"5"}
-            bgColor={"white"}
-            rounded={"2xl"}
-            width={"90%"}
-          >
-            <HStack justifyContent={"space-between"} width={"full"}>
-              <Text
-                fontWeight={"500"}
-                fontSize={"1.5rem"}
-                paddingBottom={"0rem"}
-              >
+          <divmt-[1rem] items-start"
+            className="bg-white w-[90%]"
+           
+           className="flex flex-col className= p-5">
+            <div className="flex flex-row items-center className="justify-between w-full">
+              <span
+                paddingBottom="0rem"
+               className="text-2xl font-medium">
                 Filters
-              </Text>
+              </span>
 
               <IoMdRefreshCircle
                 className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
@@ -417,30 +397,17 @@ export const SearchTalents = () => {
                   if (!loading) handleResetFilters();
                 }}
               />
-            </HStack>
-            <VStack alignItems={"flex-start"} justifyContent={"flex-start"}>
-              <Text fontWeight={"600"}>Category</Text>
-              <VStack padding={"0 0.5rem 0"} alignItems={"flex-start"} mt={1}>
+            </div>
+            <div className="flex flex-col className="items-flex-start justify-flex-start">
+              <span className="font-semibold">Category</span>
+              <div className="flex flex-col className="p-[0 0.5rem 0] items-flex-start">
                 <RadioGroup.Root defaultValue="2">
-                  <Stack spacing={2} direction="column">
+                  <div className="flex spacing={2} direction="column">
                     {categoryData?.map((category) => (
-                      <VStack key={category._id} spacing={2} align="start">
-                        <RadioGroup.Item
-                          value={category._id}
-                          checked={selectedCategories === category._id}
-                          onClick={() => handleCategoryChange(category?._id)}
-                        >
-                          <RadioGroup.ItemHiddenInput />
-                          <RadioGroup.ItemIndicator />
-                          <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
-                        </RadioGroup.Item>
-                        {selectedCategories === category?._id &&
-                          subCategory.length > 0 && (
-                            <VStack
+                      <div className="flex flex-col key={category._id} spacing={2} > <RadioGroup.Item value={category._id} checked={selectedCategories === category._id} onClick={() => handleCategoryChange(category?._id)} > <RadioGroup.ItemHiddenInput /> <RadioGroup.ItemIndicator /> <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText> </RadioGroup.Item> {selectedCategories === category?._id && subCategory.length > 0 && ( <div className="flex flex-col
                               spacing={2}
-                              paddingLeft={5}
+                              paddingLeft={5}"
                               direction="column"
-                              width={250}
                             >
                               <Select
                                 className="w-full"
@@ -453,23 +420,20 @@ export const SearchTalents = () => {
                                   handleSubCategoryChange(selectedOptions)
                                 }
                               />
-                            </VStack>
+                            </div>
                           )}
-                      </VStack>
+                      </div>
                     ))}
-                  </Stack>
+                  </div>
                 </RadioGroup.Root>
-              </VStack>
-            </VStack>
+              </div>
+            </div>
 
-            <VStack
-              alignItems={"flex-start"}
-              justifyContent={"flex-start"}
-              w={"full"}
-            >
-              <Text fontWeight={"600"}>Hourly Rate</Text>
+            <divitems-flex-start justify-flex-start"
+             className="flex flex-col className= w-full">
+              <span className="font-semibold">Hourly Rate</span>
               <RadioGroup.Root
-                padding={"0 0.5rem 0"}
+                padding="0 0.5rem 0"
                 value={hourlyRateStep}
                 mt={1}
                 onValueChange={(value) => {
@@ -477,7 +441,7 @@ export const SearchTalents = () => {
                   handleHourlyRateChange(value);
                 }}
               >
-                <Stack spacing={4} direction="column">
+                <div className="flex spacing={4} direction="column">
                   <RadioGroup.Item value="1">
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />
@@ -503,30 +467,25 @@ export const SearchTalents = () => {
                     <RadioGroup.ItemIndicator />
                     <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
                   </RadioGroup.Item>
-                </Stack>
+                </div>
               </RadioGroup.Root>
-            </VStack>
-          </VStack>
+            </div>
+          </div>
         </div>
         <div className="w-full mt-4">
           <div className="border border-[var(--bordersecondary)] rounded-2xl mb-4 overflow-hidden">
-            <img src={talentBanner} className="" />
+            <img src={talentBanner} />
           </div>
           <div className="text-2xl font-semibold mb-4">
             Find Your Perfect Freelancer
           </div>
 
           <form onSubmit={handleSearch}>
-            <HStack
-              width={"100%"}
-              justifyContent={"space-evenly"}
-              marginX={"auto"}
-              marginBottom={"0.9rem"}
+            <div className="flex flex-row items-center className="w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
             >
-              <Input
+              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="searchText"
                 placeholder="Search for freelancer..."
-                bgColor={"white"}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     // Handle form submission
@@ -540,44 +499,32 @@ export const SearchTalents = () => {
                 }}
                 className="xl:hidden"
               >
-                <Box
-                  fontWeight={"800"}
-                  fontSize={"1.5rem"}
-                  border={"1px solid var(--primarycolor)"}
-                  padding={"5px 10px"}
-                  borderRadius={"5px"}
-                  backgroundColor={"white"}
-                  cursor={"pointer"}
-                  color={"var(--primarycolor)"}
-                  transition={"0.3s ease-in-out"}
+                <div
+                  backgroundColor="white"
+                  className="text-var(--primarycolor) font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer"
+                  transition="0.3s ease-in-out"
                   _hover={{
                     backgroundColor: "var(--primarycolor)",
                     color: "#fff",
                   }}
                 >
                   <CiFilter />
-                </Box>
+                </div>
               </button>
               <button type="submit">
-                <Box
-                  fontWeight={"800"}
-                  fontSize={"1.5rem"}
-                  border={"1px solid var(--primarycolor)"}
-                  padding={"5px 10px"}
-                  borderRadius={"5px"}
+                <div
                   backgroundColor={"var(--primarycolor)"}
-                  cursor={"pointer"}
-                  color={"white"}
-                  transition={"0.3s ease-in-out"}
+                  className="text-white font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer"
+                  transition="0.3s ease-in-out"
                   _hover={{
                     backgroundColor: "#fff",
                     color: "#000",
                   }}
                 >
                   <BiSearchAlt />
-                </Box>
+                </div>
               </button>
-            </HStack>
+            </div>
           </form>
           <div
             className={`w-full xl:hidden ${
@@ -585,23 +532,16 @@ export const SearchTalents = () => {
             }`}
           >
             {/* filtering items */}
-            <VStack
-              marginTop={"1rem"}
-              alignItems={"start"}
-              padding={5}
-              gap={"5"}
-              bgColor={"white"}
-              rounded={"2xl"}
-              width={"100%"}
-            >
-              <HStack justifyContent={"space-between"} width={"full"}>
-                <Text
-                  fontWeight={"500"}
-                  fontSize={"1.5rem"}
-                  paddingBottom={"0rem"}
-                >
+            <divmt-[1rem] items-start"
+              className="bg-white w-full"
+             
+             className="flex flex-col className= p-5">
+              <div className="flex flex-row items-center className="justify-between w-full">
+                <span
+                  paddingBottom="0rem"
+                 className="text-2xl font-medium">
                   Filters
-                </Text>
+                </span>
 
                 <IoMdRefreshCircle
                   className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
@@ -611,30 +551,17 @@ export const SearchTalents = () => {
                     if (!loading) handleResetFilters();
                   }}
                 />
-              </HStack>
-              <VStack alignItems={"flex-start"} justifyContent={"flex-start"}>
-                <Text fontWeight={"600"}>Category</Text>
-                <VStack padding={"0 0.5rem 0"} alignItems={"flex-start"} mt={1}>
+              </div>
+              <div className="flex flex-col className="items-flex-start justify-flex-start">
+                <span className="font-semibold">Category</span>
+                <div className="flex flex-col className="p-[0 0.5rem 0] items-flex-start">
                   <RadioGroup.Root defaultValue="2">
-                    <Stack spacing={2} direction="column">
+                    <div className="flex spacing={2} direction="column">
                       {categoryData?.map((category) => (
-                        <VStack key={category._id} spacing={2} align="start">
-                          <RadioGroup.Item
-                            value={category._id}
-                            checked={selectedCategories === category?._id}
-                            onClick={() => handleCategoryChange(category?._id)}
-                          >
-                            <RadioGroup.ItemHiddenInput />
-                            <RadioGroup.ItemIndicator />
-                            <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
-                          </RadioGroup.Item>
-                          {selectedCategories === category?._id &&
-                            subCategory.length > 0 && (
-                              <VStack
+                        <div className="flex flex-col key={category._id} spacing={2} > <RadioGroup.Item value={category._id} checked={selectedCategories === category?._id} onClick={() => handleCategoryChange(category?._id)} > <RadioGroup.ItemHiddenInput /> <RadioGroup.ItemIndicator /> <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText> </RadioGroup.Item> {selectedCategories === category?._id && subCategory.length > 0 && ( <div className="flex flex-col
                                 spacing={2}
-                                paddingLeft={5}
+                                paddingLeft={5}"
                                 direction="column"
-                                width={250}
                               >
                                 <Select
                                   className="w-full"
@@ -647,28 +574,25 @@ export const SearchTalents = () => {
                                     handleSubCategoryChange(selectedOptions)
                                   }
                                 />
-                              </VStack>
+                              </div>
                             )}
-                        </VStack>
+                        </div>
                       ))}
-                    </Stack>
+                    </div>
                   </RadioGroup.Root>
-                </VStack>
-              </VStack>
+                </div>
+              </div>
 
-              <VStack
-                alignItems={"flex-start"}
-                justifyContent={"flex-start"}
-                w={"full"}
-              >
-                <Text fontWeight={"600"}>Hourly Rate</Text>
+              <divitems-flex-start justify-flex-start"
+               className="flex flex-col className= w-full">
+                <span className="font-semibold">Hourly Rate</span>
                 <RadioGroup.Root
-                  padding={"0 0.5rem 0"}
+                  padding="0 0.5rem 0"
                   defaultValue="1"
                   mt={1}
                   onValueChange={(value) => handleHourlyRateChange(value)}
                 >
-                  <Stack spacing={4} direction="column">
+                  <div className="flex spacing={4} direction="column">
                     <RadioGroup.Item value="1">
                       <RadioGroup.ItemHiddenInput />
                       <RadioGroup.ItemIndicator />
@@ -694,26 +618,22 @@ export const SearchTalents = () => {
                       <RadioGroup.ItemIndicator />
                       <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
                     </RadioGroup.Item>
-                  </Stack>
+                  </div>
                 </RadioGroup.Root>
-              </VStack>
-            </VStack>
+              </div>
+            </div>
           </div>
-          <div className=" mt-10 w-[100%]">
-            <VStack
-              divider={<StackDivider borderColor="gray.200" />}
+          <div className="mt-10 w-[100%]">
+            <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
               spacing={4}
-              align="stretch"
-              border={"1px solid"}
-              borderColor={"gray.200"}
+              
+              borderColor="gray.200"
               paddingY={5}
               paddingX={10}
-              rounded={"2xl"}
-              bgColor={"white"}
             >
               {loading ? (
                 [1, 2, 3].map((item) => (
-                  <Box key={item} paddingY={7}>
+                  <div key={item} paddingY={7}>
                     <SkeletonText
                       noOfLines={4}
                       spacing="4"
@@ -721,7 +641,7 @@ export const SearchTalents = () => {
                       startColor="gray.100"
                       endColor="gray.300"
                     />
-                  </Box>
+                  </div>
                 ))
               ) : freelancerData?.data?.length ? (
                 freelancerData.data
@@ -732,11 +652,11 @@ export const SearchTalents = () => {
                     <TalentCard key={freelancer._id} freelancer={freelancer} />
                   ))
               ) : (
-                <h1 className="text-3xl text-gray-300 text-center ">
+                <h1 className="text-3xl text-gray-300 text-center">
                   Not Found{" "}
                 </h1>
               )}
-            </VStack>
+            </div>
 
             {/* Pagination */}
             <Pagination

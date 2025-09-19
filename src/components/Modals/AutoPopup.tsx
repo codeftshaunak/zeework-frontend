@@ -72,13 +72,8 @@ const AutoPopup = () => {
 
                 <div className="flex justify-center">
                   <CTAButton
-                    text={"Join Now For Free"}
-                    bg={"#22C55E"}
-                    color={"#ffff"}
-                    fontSize="1.2rem"
-                    height="2.5rem"
+                    text="Join Now For Free"
                     margin="1rem 0"
-                    textAlign="center"
                     onClick={() => {
                       router.push("/signup");
                     }}

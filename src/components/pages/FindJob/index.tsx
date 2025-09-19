@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { AllJobs, SearchJobPage } from "../../FindJobUi";
-import { VStack } from "@chakra-ui/react";
+
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -24,14 +24,12 @@ export const FindJob = () => {
   return (
     <HomeLayout>
       {role == 1 && (
-        <VStack
-          padding={"0"}
-          bg="#F6F7F9"
-          width={"full"}
-          justifyContent={"center"}
+        <div className="flex flex-col className= w-full justify-center"p-[0]"
+         
+         
         >
           <AllJobs />
-        </VStack>
+        </div>
       )}
     </HomeLayout>
   );
@@ -42,9 +40,9 @@ export const SearchPage = () => {
 
   return (
     <HomeLayout>
-      <VStack padding={"0"} width={"full"}>
+      <div className="flex flex-col className="p-[0] w-full">
         <SearchJobPage isFreelancer={!!role === 1} />
-      </VStack>
+      </div>
     </HomeLayout>
   );
 };

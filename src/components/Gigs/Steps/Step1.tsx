@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Checkbox,
@@ -8,7 +10,7 @@ import {
   InputLeftElement,
   Textarea,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
@@ -100,8 +102,8 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title={"Gig Price & Scope"} onBackward={onBack}>
-          <VStack alignItems={"start"}>
+        <GigCreateLayout title="Gig Price & Scope" onBackward={onBack}>
+          <div className="flex flex-col className="items-start">
             {/* <label htmlFor="" className="text-2xl font-[600] pb-0 capitalize">
               Create pricing tiers
             </label> */}
@@ -113,12 +115,10 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <>
-                  <Textarea
+                  <spanarea
                     {...field}
                     placeholder="Web Application"
-                    marginTop={"5px"}
-                    bgColor={"white"}
-                  />
+                  / className="mt-[5px] bg-white">
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
                       {fieldState.error.message}
@@ -128,9 +128,9 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               )}
             /> */}
             {/* <p className="text-right w-full">0/30 characters</p> */}
-          </VStack>
+          </div>
 
-          <VStack alignItems={"start"}>
+          <div className="flex flex-col className="items-start">
             {/* <label htmlFor="" className="text-xl font-[600] pb-0">
               Custom Description
             </label> */}
@@ -139,12 +139,10 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <>
-                  <Textarea
+                  <spanarea
                     {...field}
                     placeholder="Web Application"
-                    marginTop={"5px"}
-                    bgColor={"white"}
-                  />
+                  / className="mt-[5px] bg-white">
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
                       {fieldState.error.message}
@@ -154,12 +152,9 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               )}
             /> */}
             {/* <p className="text-right w-full">0/80 characters</p> */}
-          </VStack>
+          </div>
 
-          <HStack
-            display={{ base: "grid", md: "flex" }}
-            alignItems={"center"}
-            justifyContent={{ base: "normal", md: "space-between" }}
+          <div className="flex flex-row items-center} className="items-center"}
           >
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Gig Price
@@ -169,19 +164,15 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <div className="relative w-full md:w-1/2">
-                  <InputGroup
-                    marginTop={"5px"}
-                    width={"100%"}
-                    bgColor={"white"}
+                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
+                   
                   >
-                    <InputLeftElement
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                       pointerEvents="none"
-                      color="gray.500"
-                      fontSize="1.2em"
                     >
                       $
                     </InputLeftElement>
-                    <Input
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type="number"
                       {...field}
                       value={field.value === null ? "" : field.value}
@@ -194,19 +185,16 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                   </InputGroup>
 
                   {fieldState.error && (
-                    <p className="" style={{ color: "red", marginTop: "5px" }}>
+                    <p style={{ color: "red", marginTop: "5px" }}>
                       {fieldState.error.message}
                     </p>
                   )}
                 </div>
               )}
             />
-          </HStack>
+          </div>
 
-          <HStack
-            display={{ base: "grid", md: "flex" }}
-            alignItems={"center"}
-            justifyContent={{ base: "normal", md: "space-between" }}
+          <div className="flex flex-row items-center} className="items-center"}
           >
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Days Until Delivery
@@ -216,19 +204,15 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <div className="relative w-full md:w-1/2">
-                  <InputGroup
-                    marginTop={"5px"}
-                    width={"100%"}
-                    bgColor={"white"}
+                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
+                   
                   >
-                    <InputLeftElement
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                       pointerEvents="none"
-                      color="gray.500"
-                      fontSize="1.2em"
                     >
                       <PiHourglassMediumFill />
                     </InputLeftElement>{" "}
-                    <Input
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type="number"
                       {...field}
                       value={field.value === null ? "" : field.value}
@@ -241,19 +225,16 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                   </InputGroup>
 
                   {fieldState.error && (
-                    <p className="" style={{ color: "red", marginTop: "5px" }}>
+                    <p style={{ color: "red", marginTop: "5px" }}>
                       {fieldState.error.message}
                     </p>
                   )}
                 </div>
               )}
             />
-          </HStack>
+          </div>
 
-          <HStack
-            display={{ base: "grid", md: "flex" }}
-            alignItems={"center"}
-            justifyContent={{ base: "normal", md: "space-between" }}
+          <div className="flex flex-row items-center} className="items-center"}
           >
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Number Of Revisions
@@ -271,16 +252,16 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     <option value="4">4</option>
                   </select>
                   {fieldState.error && (
-                    <p className="" style={{ color: "red", marginTop: "5px" }}>
+                    <p style={{ color: "red", marginTop: "5px" }}>
                       {fieldState.error.message}
                     </p>
                   )}
                 </div>
               )}
             />
-          </HStack>
+          </div>
 
-          {/* <VStack alignItems={"start"} width={"100%"}>
+          {/* <div className="flex flex-col className="items-start w-full">
             <label htmlFor="" className="text-2xl font-[600] pb-0 mb-4">
               Services Options
             </label>
@@ -370,11 +351,11 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
 
             {errors.pricing?.service_options && (
-              <p className="" style={{ color: "red", marginTop: "5px" }}>
+              <p style={{ color: "red", marginTop: "5px" }}>
                 {errors.pricing?.service_options?.root?.message}
               </p>
             )}
-          </VStack> */}
+          </div> */}
         </GigCreateLayout>
       </form>
     </FormProvider>

@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import QuillToolbar, {
   formats,
   modules,
@@ -54,18 +54,10 @@ const BasicInfo = ({ setIsModal }) => {
         description: data.description,
       });
       if (response.code === 405 || response.code === 500) {
-        toaster.create({
-          title: response.msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(response.msg);
         setIsModal(false);
       } else if (response.code === 200) {
-        toaster.create({
-          title: "Basic Info Updated Successfully",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Basic Info Updated Successfully");
         dispatch(profileData({ profile: response.body }));
         setIsModal(false);
       }
@@ -151,13 +143,11 @@ const BasicInfo = ({ setIsModal }) => {
           <Button
             isLoading={isLoading}
             loadingText="Updating"
-            colorScheme="primary"
             type="submit"
-            fontSize={"0.9rem"}
             spinner={<BtnSpinner />}
           >
             Update Info
-          </Button>
+          </button>
         </div>
       </form>
     </div>
