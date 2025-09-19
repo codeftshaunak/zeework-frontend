@@ -1,7 +1,12 @@
-import { Avatar, AvatarBadge, Flex, Text } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, Flex, Text } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
-const MessageHeader = ({ receiverDetails, contractDetails }) => {
+interface MessageHeaderProps {
+  receiverDetails?: any;
+  contractDetails?: any;
+}
+
+const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contractDetails }) => {
   const profileImage =
     receiverDetails?.agency_profileImage || receiverDetails?.profile_image;
   const name =

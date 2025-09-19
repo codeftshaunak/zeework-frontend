@@ -1,5 +1,10 @@
 import React from "react";
-const LoadingButton = ({ isRounded }) => {
+
+interface LoadingButtonProps {
+  isRounded?: boolean;
+}
+
+const LoadingButton: React.FC<LoadingButtonProps> = () => {
   return (
     <div>
       <button

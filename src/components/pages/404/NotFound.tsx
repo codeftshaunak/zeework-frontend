@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Center, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Heading, Link, Text, VStack } from "@/components/ui/migration-helpers";
 import { Link as ReactLink } from "react-router";
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <VStack bg="#C1C1C1" height={"100vh"}>
       <Center height={"100%"}>

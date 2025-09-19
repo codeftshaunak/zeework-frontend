@@ -6,7 +6,6 @@ import {
   FormErrorMessage,
   HStack,
   Input,
-  Radio,
   RadioGroup,
   Select,
   Stack,
@@ -318,20 +317,20 @@ const JobApply = ({ setPage, details }) => {
                 name="applicantType"
                 control={control}
                 render={({ field }) => (
-                  <RadioGroup {...field} marginTop="4">
+                  <RadioGroup.Root {...field} marginTop="4">
                     <Stack>
-                      <Radio size="lg" value="freelancer" colorScheme="green">
-                        As a freelancer
-                      </Radio>
-                      <Radio
-                        size="lg"
-                        value="agency_member"
-                        colorScheme="green"
-                      >
-                        As an agency member
-                      </Radio>
+                      <RadioGroup.Item value="freelancer">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>As a freelancer</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="agency_member">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>As an agency member</RadioGroup.ItemText>
+                      </RadioGroup.Item>
                     </Stack>
-                  </RadioGroup>
+                  </RadioGroup.Root>
                 )}
               />
               {errors.applicantType && (

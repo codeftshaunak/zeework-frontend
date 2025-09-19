@@ -1,12 +1,9 @@
-import { VStack } from "@chakra-ui/react";
+import React from 'react';
 
-export const ActiveIcon = () => {
+export const ActiveIcon: React.FC = () => {
   return (
-    <VStack
-      width={"10px"}
-      height={"10px"}
-      borderRadius={"50%"}
-      backgroundColor={"#22C35E"}
-    ></VStack>
+    <div
+      className="w-[10px] h-[10px] rounded-full bg-[#22C35E]"
+    ></div>
   );
 };

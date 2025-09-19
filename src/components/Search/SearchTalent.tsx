@@ -10,7 +10,6 @@ import {
   Avatar,
   RadioGroup,
   Stack,
-  Radio,
   SkeletonText,
   StackDivider,
 } from "@chakra-ui/react";
@@ -422,17 +421,19 @@ export const SearchTalents = () => {
             <VStack alignItems={"flex-start"} justifyContent={"flex-start"}>
               <Text fontWeight={"600"}>Category</Text>
               <VStack padding={"0 0.5rem 0"} alignItems={"flex-start"} mt={1}>
-                <RadioGroup defaultValue="2">
+                <RadioGroup.Root defaultValue="2">
                   <Stack spacing={2} direction="column">
                     {categoryData?.map((category) => (
                       <VStack key={category._id} spacing={2} align="start">
-                        <Radio
-                          colorScheme="green"
-                          isChecked={selectedCategories === category._id}
-                          onChange={() => handleCategoryChange(category?._id)}
+                        <RadioGroup.Item
+                          value={category._id}
+                          checked={selectedCategories === category._id}
+                          onClick={() => handleCategoryChange(category?._id)}
                         >
-                          {category?.category_name}
-                        </Radio>
+                          <RadioGroup.ItemHiddenInput />
+                          <RadioGroup.ItemIndicator />
+                          <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
+                        </RadioGroup.Item>
                         {selectedCategories === category?._id &&
                           subCategory.length > 0 && (
                             <VStack
@@ -457,7 +458,7 @@ export const SearchTalents = () => {
                       </VStack>
                     ))}
                   </Stack>
-                </RadioGroup>
+                </RadioGroup.Root>
               </VStack>
             </VStack>
 
@@ -467,33 +468,43 @@ export const SearchTalents = () => {
               w={"full"}
             >
               <Text fontWeight={"600"}>Hourly Rate</Text>
-              <RadioGroup
+              <RadioGroup.Root
                 padding={"0 0.5rem 0"}
                 value={hourlyRateStep}
                 mt={1}
-                onChange={(value) => {
+                onValueChange={(value) => {
                   setHourlyRateStep(value);
                   handleHourlyRateChange(value);
                 }}
               >
                 <Stack spacing={4} direction="column">
-                  <Radio colorScheme="green" value="1">
-                    Any hourly rate
-                  </Radio>
-                  <Radio colorScheme="green" value="2">
-                    $10 - 30$
-                  </Radio>
-                  <Radio colorScheme="green" value="3">
-                    $30 - 50$
-                  </Radio>
-                  <Radio colorScheme="green" value="4">
-                    $50 - 100$
-                  </Radio>
-                  <Radio colorScheme="green" value="5">
-                    $100 & above
-                  </Radio>
+                  <RadioGroup.Item value="1">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>Any hourly rate</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="2">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$10 - 30$</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="3">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$30 - 50$</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="4">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$50 - 100$</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="5">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
+                  </RadioGroup.Item>
                 </Stack>
-              </RadioGroup>
+              </RadioGroup.Root>
             </VStack>
           </VStack>
         </div>
@@ -517,7 +528,9 @@ export const SearchTalents = () => {
                 placeholder="Search for freelancer..."
                 bgColor={"white"}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter");
+                  if (e.key === "Enter") {
+                    // Handle form submission
+                  }
                 }}
               />
               <button
@@ -602,17 +615,19 @@ export const SearchTalents = () => {
               <VStack alignItems={"flex-start"} justifyContent={"flex-start"}>
                 <Text fontWeight={"600"}>Category</Text>
                 <VStack padding={"0 0.5rem 0"} alignItems={"flex-start"} mt={1}>
-                  <RadioGroup defaultValue="2">
+                  <RadioGroup.Root defaultValue="2">
                     <Stack spacing={2} direction="column">
                       {categoryData?.map((category) => (
                         <VStack key={category._id} spacing={2} align="start">
-                          <Radio
-                            colorScheme="green"
-                            isChecked={selectedCategories === category?._id}
-                            onChange={() => handleCategoryChange(category?._id)}
+                          <RadioGroup.Item
+                            value={category._id}
+                            checked={selectedCategories === category?._id}
+                            onClick={() => handleCategoryChange(category?._id)}
                           >
-                            {category?.category_name}
-                          </Radio>
+                            <RadioGroup.ItemHiddenInput />
+                            <RadioGroup.ItemIndicator />
+                            <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
+                          </RadioGroup.Item>
                           {selectedCategories === category?._id &&
                             subCategory.length > 0 && (
                               <VStack
@@ -637,7 +652,7 @@ export const SearchTalents = () => {
                         </VStack>
                       ))}
                     </Stack>
-                  </RadioGroup>
+                  </RadioGroup.Root>
                 </VStack>
               </VStack>
 
@@ -647,30 +662,40 @@ export const SearchTalents = () => {
                 w={"full"}
               >
                 <Text fontWeight={"600"}>Hourly Rate</Text>
-                <RadioGroup
+                <RadioGroup.Root
                   padding={"0 0.5rem 0"}
                   defaultValue="1"
                   mt={1}
-                  onChange={(value) => handleHourlyRateChange(value)}
+                  onValueChange={(value) => handleHourlyRateChange(value)}
                 >
                   <Stack spacing={4} direction="column">
-                    <Radio colorScheme="green" value="1">
-                      Any hourly rate
-                    </Radio>
-                    <Radio colorScheme="green" value="2">
-                      $10 - 30$
-                    </Radio>
-                    <Radio colorScheme="green" value="3">
-                      $30 - 50$
-                    </Radio>
-                    <Radio colorScheme="green" value="4">
-                      $50 - 100$
-                    </Radio>
-                    <Radio colorScheme="green" value="5">
-                      $100 & above
-                    </Radio>
+                    <RadioGroup.Item value="1">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>Any hourly rate</RadioGroup.ItemText>
+                    </RadioGroup.Item>
+                    <RadioGroup.Item value="2">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>$10 - 30$</RadioGroup.ItemText>
+                    </RadioGroup.Item>
+                    <RadioGroup.Item value="3">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>$30 - 50$</RadioGroup.ItemText>
+                    </RadioGroup.Item>
+                    <RadioGroup.Item value="4">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>$50 - 100$</RadioGroup.ItemText>
+                    </RadioGroup.Item>
+                    <RadioGroup.Item value="5">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
+                    </RadioGroup.Item>
                   </Stack>
-                </RadioGroup>
+                </RadioGroup.Root>
               </VStack>
             </VStack>
           </div>

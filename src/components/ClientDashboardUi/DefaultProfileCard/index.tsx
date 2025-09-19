@@ -1,6 +1,6 @@
-import { Button, Text, VStack, Avatar } from "@chakra-ui/react";
+import { Button, Text, VStack, Avatar } from "@/components/ui/migration-helpers";
 
-const DefaultClientProfileCard = () => {
+const DefaultClientProfileCard: React.FC = () => {
   return (
     <VStack
       color="var(--primarytext)"

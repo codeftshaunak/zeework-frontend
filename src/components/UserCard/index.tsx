@@ -1,15 +1,15 @@
-import { HStack, Image, Text, VStack } from "@chakra-ui/react";
+import React from 'react';
+import { HStack, Text, VStack } from '@/components/ui/migration-helpers';
 import { AiOutlineStar } from "react-icons/ai";
 import { BsBriefcase, BsSend } from "react-icons/bs";
 
-const UserCard = () => {
+const UserCard: React.FC = () => {
   return (
     <VStack color="var(--primarytext)" gap={"5"}>
-      <Image
+      <img
         src="./images/user.jpeg"
         alt="user"
-        width="80px"
-        borderRadius="100%"
+        className="w-20 h-20 rounded-full object-cover"
       />
 
       <VStack gap={"0"}>

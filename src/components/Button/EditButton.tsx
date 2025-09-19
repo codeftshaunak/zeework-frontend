@@ -1,6 +1,10 @@
 import React from "react";
 
-const EditButton = ({ onClick }) => {
+interface EditButtonProps {
+  onClick?: () => void;
+}
+
+const EditButton: React.FC<EditButtonProps> = ({ onClick }) => {
   return (
     <div
       className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] hover:bg-slate-100 cursor-pointer rounded-[6px] border-[1px] border-[var(--bordersecondary)] "

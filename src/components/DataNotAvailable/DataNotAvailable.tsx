@@ -1,9 +1,13 @@
-import { Button } from "@chakra-ui/react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { GoHomeFill } from "react-icons/go";
 import { TiRefresh } from "react-icons/ti";
 
-const DataNotAvailable = ({ onRefresh }) => {
+interface DataNotAvailableProps {
+  onRefresh?: () => void;
+}
+
+const DataNotAvailable: React.FC<DataNotAvailableProps> = ({ onRefresh }) => {
   const router = useRouter();
 
   const handleRefresh = () => {
@@ -29,23 +33,20 @@ const DataNotAvailable = ({ onRefresh }) => {
         Sorry, the data you are looking for is currently not available!
       </p>
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center mt-5 sm:mt-10">
-        <Button
-          colorScheme="primary"
-          variant={"outline"}
-          leftIcon={<TiRefresh className="text-2xl" />}
+        <button
           onClick={handleRefresh}
-          width={"full"}
+          className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-green-600 bg-white border border-green-600 rounded-md hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
         >
+          <TiRefresh className="text-2xl mr-2" />
           Refresh Page
-        </Button>
-        <Button
-          colorScheme="primary"
-          leftIcon={<GoHomeFill />}
+        </button>
+        <button
           onClick={handleGoToHome}
-          width={"full"}
+          className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
         >
+          <GoHomeFill className="mr-2" />
           Go to Home
-        </Button>
+        </button>
       </div>
     </div>
   );

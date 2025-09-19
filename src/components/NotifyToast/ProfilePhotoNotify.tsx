@@ -5,11 +5,7 @@ import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdCheckmarkCircleOutline, IoMdClose } from "react-icons/io";
 import UniversalModal from "../Modals/UniversalModal";
-import {
-  Box,
-  Button,
-  Slider,
-} from "@chakra-ui/react";
+import { Box } from '@/components/ui/migration-helpers';
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { uploadImage } from "../../helpers/APIs/userApis";
 import { profileData } from "../../redux/authSlice/profileSlice";
@@ -238,22 +234,15 @@ const ProfilePhotoNotify = () => {
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex items-center gap-1 w-full sm:w-96">
                     <TiMinus />
-                    <Slider.Root
-                      value={[zoom]}
-                      min={1}
-                      max={3}
-                      step={0.1}
-                      onValueChange={(details) => {
-                        !isCropped && setZoom(details.value[0]);
-                      }}
-                    >
-                      <Slider.Track className="bg-slate-300">
-                        <Slider.Range style={{ backgroundColor: "slategrey" }} />
-                      </Slider.Track>
-                      <Slider.Thumb index={0} className="w-6 h-6">
-                        <Box className="text-slate-500" as={TiZoom} />
-                      </Slider.Thumb>
-                    </Slider.Root>
+                    <input
+                      type="range"
+                      min="1"
+                      max="3"
+                      step="0.1"
+                      value={zoom}
+                      onChange={(e) => !isCropped && setZoom(parseFloat(e.target.value))}
+                      className="flex-1 h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer"
+                    />
                     <TiPlus />
                   </div>
                   <div className="flex items-center justify-center gap-x-5 flex-wrap">
@@ -331,18 +320,15 @@ const ProfilePhotoNotify = () => {
           </div>
           {imageSrc && (
             <div className="text-right mt-10">
-              <Button
-                isLoading={isLoading}
-                loadingText="Uploading"
-                colorScheme="primary"
+              <button
                 type="button"
                 onClick={handleUploadPhoto}
-                paddingX={7}
-                spinner={<BtnSpinner />}
-                disabled={!croppedImage && !fullImage}
+                disabled={!croppedImage && !fullImage || isLoading}
+                className="inline-flex items-center px-7 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Upload
-              </Button>
+                {isLoading && <BtnSpinner size="16" />}
+                {isLoading ? "Uploading" : "Upload"}
+              </button>
             </div>
           )}
         </>

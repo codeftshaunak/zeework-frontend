@@ -1,6 +1,6 @@
-import { SkeletonText } from "@chakra-ui/react";
+import { SkeletonText } from "@/components/ui/migration-helpers";
 
-const AgencyProfileSkeleton = () => {
+const AgencyProfileSkeleton: React.FC = () => {
   return (
     <div className="w-full overflow-hidden">
       <div className="animate-pulse">

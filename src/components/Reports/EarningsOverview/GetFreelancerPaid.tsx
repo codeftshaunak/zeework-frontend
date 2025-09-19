@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Radio,
   RadioGroup,
   Stack,
 } from "@chakra-ui/react";
@@ -160,16 +159,20 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
               </div>
               <div className="flex flex-col gap-1 font-semibold my-5 tracking-wide">
                 <p className="text-lg sm:text-xl">Amount</p>
-                <RadioGroup onChange={setAmountType} value={amountType}>
+                <RadioGroup.Root onValueChange={setAmountType} value={amountType}>
                   <Stack>
-                    <Radio size="md" value="all" colorScheme="green">
-                      ${balance}
-                    </Radio>
-                    <Radio size="md" value="custom" colorScheme="green">
-                      Other amount
-                    </Radio>
+                    <RadioGroup.Item value="all">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>${balance}</RadioGroup.ItemText>
+                    </RadioGroup.Item>
+                    <RadioGroup.Item value="custom">
+                      <RadioGroup.ItemHiddenInput />
+                      <RadioGroup.ItemIndicator />
+                      <RadioGroup.ItemText>Other amount</RadioGroup.ItemText>
+                    </RadioGroup.Item>
                   </Stack>
-                </RadioGroup>
+                </RadioGroup.Root>
                 {amountType === "custom" && (
                   <>
                     <InputGroup width={"fit-content"}>

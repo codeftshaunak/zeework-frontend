@@ -1,7 +1,7 @@
 "use client";
 
-import { Text, VStack } from '@chakra-ui/react';
-import React from 'react'
+import React from 'react';
+import { Text, VStack } from '@/components/ui/migration-helpers';
 import HomeLayout from '../HomeLayout';
 
 interface OnbardingCardLayoutProps {

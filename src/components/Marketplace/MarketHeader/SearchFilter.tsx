@@ -3,12 +3,11 @@
 import {
   Box,
   HStack,
-  Radio,
   RadioGroup,
   Stack,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "../../ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-select";
@@ -100,7 +99,7 @@ export const SearchFilter = ({
     const queryString = queryParams.join("&");
 
     router.push(`${route}${queryString}`, { replace: true });
-  }, [selectedCategories, selectedPrice, selectedSkills, navigate]);
+  }, [selectedCategories, selectedPrice, selectedSkills, router]);
 
   const resetSearching = () => {
     if (!routeCategory) setSelectedCategories([]);
@@ -183,26 +182,34 @@ export const SearchFilter = ({
               w={"full"}
               marginLeft={5}
             >
-              <RadioGroup
+              <RadioGroup.Root
                 colorScheme="primary"
                 value={selectedPrice}
-                onChange={(value) => setSelectedPrice(value)}
+                onValueChange={(value) => setSelectedPrice(value)}
               >
                 <Stack spacing={2} direction="column">
-                  <Radio colorScheme="green" value="">
-                    Any Price Range
-                  </Radio>
-                  <Radio colorScheme="green" value="10-100">
-                    $10 - $100
-                  </Radio>
-                  <Radio colorScheme="green" value="100-500">
-                    $100 - $500
-                  </Radio>
-                  <Radio colorScheme="green" value="500-">
-                    $500 - $1000 or above
-                  </Radio>
+                  <RadioGroup.Item value="">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>Any Price Range</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="10-100">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$10 - $100</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="100-500">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$100 - $500</RadioGroup.ItemText>
+                  </RadioGroup.Item>
+                  <RadioGroup.Item value="500-">
+                    <RadioGroup.ItemHiddenInput />
+                    <RadioGroup.ItemIndicator />
+                    <RadioGroup.ItemText>$500 - $1000 or above</RadioGroup.ItemText>
+                  </RadioGroup.Item>
                 </Stack>
-              </RadioGroup>
+              </RadioGroup.Root>
             </VStack>
           </div>
         </VStack>

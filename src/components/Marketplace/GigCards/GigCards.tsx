@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "@chakra-ui/react";
+import { Tooltip } from "../../ui/migration-helpers";
 import { useRouter } from "next/navigation";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
 

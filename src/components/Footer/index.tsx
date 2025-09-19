@@ -1,6 +1,5 @@
 import LinkArrowIcon from "../../assets/icons/link-arrow";
 import { Link, useRouter } from "next/navigation";
-import { Image, HStack } from "@chakra-ui/react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
@@ -230,9 +229,9 @@ export const MVPFooter = () => {
         <div className="max-w-[1300px] mx-auto">
           <div className="w-[1300px] h-[23px] flex-col justify-start items-start gap-9 inline-flex">
             <div className="flex justify-between w-full items-center">
-              <Image src="/images/zeework_logo.png" width={"150px"} />
+              <img src="/images/zeework_logo.png" className="w-[150px]" alt="ZeeWork Logo" />
 
-              <HStack width={"75%"} justifyContent={"space-between"}>
+              <div className="w-3/4 flex items-center justify-between">
                 <div className="justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg f cursor-pointer"
@@ -289,7 +288,7 @@ export const MVPFooter = () => {
                 <div className="text-gray-700 text-base leading-tight">
                   ZeeWork © 2023. All Rights Reserved
                 </div>
-              </HStack>
+              </div>
             </div>
           </div>
         </div>

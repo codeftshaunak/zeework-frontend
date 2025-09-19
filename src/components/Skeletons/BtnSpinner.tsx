@@ -1,4 +1,10 @@
-const BtnSpinner = ({ size }) => {
+import React from 'react';
+
+interface BtnSpinnerProps {
+  size?: string | number;
+}
+
+const BtnSpinner: React.FC<BtnSpinnerProps> = ({ size }) => {
   return (
     <svg
       width={size ? size : "20"}

@@ -1,8 +1,16 @@
-import { Button, Text, HStack } from "@chakra-ui/react";
+import { Button, Text, HStack } from "@/components/ui/migration-helpers";
 import { MainButtonRounded } from "../Button/MainButton";
 import UniversalModal from "../Modals/UniversalModal";
 
-const ConfirmModalCommon = ({
+interface ConfirmModalCommonProps {
+  openModal: boolean;
+  setOpenModal: (open: boolean) => void;
+  title: string;
+  handleSubmit: () => void;
+  isLoading?: { isLoading: boolean };
+}
+
+const ConfirmModalCommon: React.FC<ConfirmModalCommonProps> = ({
   openModal,
   setOpenModal,
   title,

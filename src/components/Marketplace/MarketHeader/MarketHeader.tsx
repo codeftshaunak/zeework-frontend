@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, HStack, Image, Input, VStack } from "@chakra-ui/react";
+import { Box, HStack, Image, Input, VStack } from "../../ui/migration-helpers";
 import { BiSearchAlt } from "react-icons/bi";
 import { CiFilter } from "react-icons/ci";
 

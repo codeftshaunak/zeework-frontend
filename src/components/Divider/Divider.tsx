@@ -1,13 +1,31 @@
-import { Box, HStack, Text } from '@chakra-ui/react'
 import React from 'react'
 
-const Divider = (props) => {
+interface DividerProps {
+    text?: string;
+    dwidth?: string;
+}
+
+const Divider: React.FC<DividerProps> = (props) => {
+    const width = props.dwidth || "100px";
+
     return (
-        <HStack justifyContent={"space-between"} width={"100%"}>
-            <Box backgroundColor="var(--bordersecondary)" height="1px" width={props.dwidth ? props.dwidth : "100px"}></Box>
-            <Text color={"var(--secondarytext)"}>{props.text}</Text>
-            <Box backgroundColor="var(--bordersecondary)" height="1px" width={props.dwidth ? props.dwidth : "100px"}></Box>
-        </HStack>
+        <div className="flex items-center justify-between w-full">
+            <div
+                className="h-px"
+                style={{
+                    backgroundColor: "var(--bordersecondary)",
+                    width: width
+                }}
+            ></div>
+            <span style={{ color: "var(--secondarytext)" }}>{props.text}</span>
+            <div
+                className="h-px"
+                style={{
+                    backgroundColor: "var(--bordersecondary)",
+                    width: width
+                }}
+            ></div>
+        </div>
     )
 }
 

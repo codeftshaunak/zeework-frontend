@@ -924,29 +924,39 @@ export const Filter = ({
                   w={"full"}
                   marginLeft={5}
                 >
-                  <RadioGroup
+                  <RadioGroup.Root
                     colorScheme="primary"
                     defaultValue="1"
-                    onChange={(value) => handleFixedRateChange(value)}
+                    onValueChange={(value) => handleFixedRateChange(value)}
                   >
                     <Stack spacing={4} direction="column">
-                      <Radio colorScheme="primary" value="1">
-                        Any rate
-                      </Radio>
-                      <Radio colorScheme="primary" value="2">
-                        $100 - 300$
-                      </Radio>
-                      <Radio colorScheme="primary" value="3">
-                        $300 - 500$
-                      </Radio>
-                      <Radio colorScheme="primary" value="4">
-                        $500 - 1000$
-                      </Radio>
-                      <Radio colorScheme="primary" value="5">
-                        $1000 & above
-                      </Radio>
+                      <RadioGroup.Item value="1">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>Any rate</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="2">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$100 - 300$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="3">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$300 - 500$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="4">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$500 - 1000$</RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                      <RadioGroup.Item value="5">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>$1000 & above</RadioGroup.ItemText>
+                      </RadioGroup.Item>
                     </Stack>
-                  </RadioGroup>
+                  </RadioGroup.Root>
                 </VStack>
               )}
             </div>

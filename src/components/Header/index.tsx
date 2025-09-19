@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  Box,
-  VStack,
-  useDisclosure,
-  Tabs,
-  Button,
-  Drawer,
-  Avatar,
-} from "@chakra-ui/react";
+import { cn } from "@/lib/utils";
+import { Box, VStack } from "@/components/ui/migration-helpers";
+import { useState } from "react";
+import { Avatar } from "@chakra-ui/react/avatar";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import CTAButton from "../CTAButton";
@@ -70,7 +65,9 @@ export const Header = () => {
 
   // Manage mobile menu and search
   const [isMenuRef, setIsMenuRef] = useState(true);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
   const btnRef = React.useRef();
 
   // ======= search for jobs and talent
@@ -172,10 +169,7 @@ export const Header = () => {
                   <RiSearchLine className="text-2xl text-gray-600" />
                 </button>
               </div>
-              <Box
-                className="hidden sm:flex whitespace-no-wrap items-center justify-center my-2 py-2 border border-transparent text-base leading-6 font-medium rounded-md  focus:shadow-outline-indigo  transition ease-in-out duration-150"
-                width={"210px"}
-              >
+              <div className="hidden sm:flex whitespace-no-wrap items-center justify-center my-2 py-2 border border-transparent text-base leading-6 font-medium rounded-md focus:shadow-outline-indigo transition ease-in-out duration-150 w-[210px]">
                 <CTAButton
                   onClick={() => router.push("/login")}
                   text={"Log In"}
@@ -191,7 +185,7 @@ export const Header = () => {
                   fontSize="1rem"
                   height="2.5rem"
                 ></CTAButton>
-              </Box>
+              </div>
             </div>
 
             {/* <!-- Profile dropdown --> */}
@@ -218,14 +212,12 @@ export const Header = () => {
           </div>
 
           {/* Mobile menu for /home route */}
-          <Drawer.Root
-            open={isOpen}
-            placement={isMenuRef ? "start" : "end"}
-            onOpenChange={({ open }) => !open && onClose()}
-            size={"full"}
-          >
-            <Drawer.Content mt={isMenuRef ? 16 : 0}>
-              <Drawer.Body>
+          {isOpen && (
+            <div className={cn(
+              "fixed inset-0 z-50 bg-white",
+              isMenuRef ? "" : "mt-16"
+            )}>
+              <div className="p-4">
                 {isMenuRef ? (
                   <div className="md:block lg:hidden">
                     <div className="px-2 pt-2 pb-3 flex justify-center items-center flex-col">
@@ -239,12 +231,7 @@ export const Header = () => {
                         </a>
                       ))}
                       <div className="gap-4 w-full sm:hidden flex justify-center">
-                        <Box
-                          style={boxStyle}
-                          className="mt-3 ml-2"
-                          justifyContent={"space-between"}
-                          width={"210px"}
-                        >
+                        <div className="mt-3 ml-2 flex items-center justify-between w-[210px] text-gray-600 text-base">
                           <CTAButton
                             onClick={() => router.push("/login")}
                             text={"Log In"}
@@ -259,7 +246,7 @@ export const Header = () => {
                             fontSize="1rem"
                             height="2.5rem"
                           ></CTAButton>
-                        </Box>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -273,33 +260,20 @@ export const Header = () => {
                       >
                         <FiChevronLeft className="text-3xl text-gray-600" />
                       </button>
-                      <Tabs.Root variant="unstyled">
-                        <Tabs.List className="border-b font-semibold">
-                          <Tabs.Trigger
-                            className="px-0 text-black"
-                            onClick={() => handelSelectedValue("talent")}
-                          >
-                            Talent
-                          </Tabs.Trigger>
-                          <Tabs.Trigger
-                            className="px-0 text-black"
-                            onClick={() => handelSelectedValue("job")}
-                          >
-                            Jobs
-                          </Tabs.Trigger>
-                        </Tabs.List>
-                        <Tabs.Indicator
-                          height="2px"
-                          borderRadius="1px"
-                          color={"#000"}
-                          className=" bg-fg-brand"
-                        />
-                        {/* Upgrading in future */}
-                        {/* <Tabs.Content>
-                          <Tabs.Content p={0}></Tabs.Content>
-                          <Tabs.Content p={0}></Tabs.Content>
-                        </Tabs.Content> */}
-                      </Tabs.Root>
+                      <div className="border-b font-semibold">
+                        <button
+                          className="px-0 text-black mr-4 pb-2 border-b-2 border-transparent hover:border-black transition"
+                          onClick={() => handelSelectedValue("talent")}
+                        >
+                          Talent
+                        </button>
+                        <button
+                          className="px-0 text-black pb-2 border-b-2 border-transparent hover:border-black transition"
+                          onClick={() => handelSelectedValue("job")}
+                        >
+                          Jobs
+                        </button>
+                      </div>
                     </div>
                     <div className="flex items-center border-[var(--bordersecondary)] border-[1px] py-2 pl-4 rounded-full justify-between w-full mt-4">
                       <div className="flex items-center gap-4">
@@ -327,9 +301,9 @@ export const Header = () => {
                     </div>
                   </div>
                 )}
-              </Drawer.Body>
-            </Drawer.Content>
-          </Drawer.Root>
+              </div>
+            </div>
+          )}
 
           {/* <div className="md:hidden mt-2">
             <button
@@ -387,7 +361,9 @@ export const AuthHeader = ({ role }) => {
     profile.agency || {};
   const userId = activeAgency ? profile.agency._id : user_id;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
   const [isMenuRef, setIsMenuRef] = useState(false);
   const btnRef = React.useRef();
 
@@ -830,19 +806,9 @@ export const AuthHeader = ({ role }) => {
                   )}
                   {isOpenNotification && (
                     <>
-                      <VStack
-                        position={"absolute"}
-                        top={12}
-                        right={0}
-                        zIndex={50}
-                        bg={"white"}
-                        bgColor={"white"}
-                        width={72}
-                        spacing={0}
-                        maxHeight={80}
+                      <div
                         ref={selectModalRef}
-                        overflow={"hidden"}
-                        className="border-slate-200 border transition-all rounded-md"
+                        className="absolute top-12 right-0 z-50 bg-white w-72 max-h-80 overflow-hidden border-slate-200 border transition-all rounded-md flex flex-col"
                       >
                         {hasUnreadNotifications && (
                           <div className="bg-primary w-full text-white px-4 flex justify-end">
@@ -856,16 +822,7 @@ export const AuthHeader = ({ role }) => {
                             </p>
                           </div>
                         )}
-                        <VStack
-                          divider={
-                            <Box height="1px" bg="var(--bordersecondary)" />
-                          }
-                          width={"full"}
-                          spacing={0}
-                          overflowY={"auto"}
-                          align="stretch"
-                          fontSize={"small"}
-                        >
+                        <div className="w-full overflow-y-auto text-sm flex flex-col">
                           {sortedNotifications?.length ? (
                             sortedNotifications?.map((item) => (
                               <div
@@ -899,8 +856,8 @@ export const AuthHeader = ({ role }) => {
                               You haven&apos;t any notification!
                             </div>
                           )}
-                        </VStack>
-                      </VStack>
+                        </div>
+                      </div>
                       <div className="h-5 w-5 bg-slate-200 shadow-sm rotate-45 absolute top-11 right-2.5"></div>
                     </>
                   )}
@@ -1048,14 +1005,12 @@ export const AuthHeader = ({ role }) => {
       </div>
 
       {/* Mobile nav links and searching */}
-      <Drawer.Root
-        open={isOpen}
-        placement={isMenuRef ? "start" : "end"}
-        onOpenChange={({ open }) => !open && onClose()}
-        size={"full"}
-      >
-        <Drawer.Content mt={isMenuRef ? 16 : 0}>
-          <Drawer.Body>
+      {isOpen && (
+        <div className={cn(
+          "fixed inset-0 z-50 bg-white",
+          isMenuRef ? "" : "mt-16"
+        )}>
+          <div className="p-4">
             {isMenuRef ? (
               <div>
                 <div className="grid gap-3 tracking-wide">
@@ -1115,12 +1070,12 @@ export const AuthHeader = ({ role }) => {
                                 </div>
                               </>
                             ) : (
-                              <Button
-                                colorScheme="primary"
+                              <button
+                                className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition"
                                 onClick={() => router.push("/agency-build")}
                               >
                                 Create Agency
-                              </Button>
+                              </button>
                             )}
                           </>
                         ) : (
@@ -1196,39 +1151,20 @@ export const AuthHeader = ({ role }) => {
                   <button onClick={onClose}>
                     <FiChevronLeft className="text-3xl text-gray-600" />
                   </button>
-                  <Tabs.Root variant="unstyled">
-                    <Tabs.List className="border-b font-semibold">
-                      <Tabs.Trigger
-                        className="px-0 text-black"
-                        onClick={() => handelSelectedValue("talent")}
-                      >
-                        Talent
-                      </Tabs.Trigger>
-                      <Tabs.Trigger
-                        className="px-0 text-black"
-                        onClick={() => handelSelectedValue("job")}
-                      >
-                        Jobs
-                      </Tabs.Trigger>
-                      {/* <Tabs.Trigger
-                        className="px-0 text-black"
-                        onClick={() => handelSelectedValue("marketplace")}
-                      >
-                        Marketplace
-                      </Tabs.Trigger> */}
-                    </Tabs.List>
-                    <Tabs.Indicator
-                      height="2px"
-                      borderRadius="1px"
-                      color={"#000"}
-                      className=" bg-fg-brand"
-                    />
-                    {/* Upgrading in future */}
-                    {/* <Tabs.Content>
-                            <Tabs.Content p={0}></Tabs.Content>
-                            <Tabs.Content p={0}></Tabs.Content>
-                          </Tabs.Content> */}
-                  </Tabs.Root>
+                  <div className="border-b font-semibold">
+                    <button
+                      className="px-0 text-black mr-4 pb-2 border-b-2 border-transparent hover:border-black transition"
+                      onClick={() => handelSelectedValue("talent")}
+                    >
+                      Talent
+                    </button>
+                    <button
+                      className="px-0 text-black pb-2 border-b-2 border-transparent hover:border-black transition"
+                      onClick={() => handelSelectedValue("job")}
+                    >
+                      Jobs
+                    </button>
+                  </div>
                 </div>
                 <div className="flex items-center border-[var(--bordersecondary)] border-[1px] py-2 pl-4 rounded-full justify-between w-full mt-4">
                   <div className="flex items-center gap-4">
@@ -1256,9 +1192,9 @@ export const AuthHeader = ({ role }) => {
                 </div>
               </div>
             )}
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Root>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
@@ -1269,6 +1205,12 @@ const NavItem = ({
   onClick,
   isNotification,
   additionalActiveRoutes = [],
+}: {
+  title: string;
+  url: string;
+  onClick?: () => void;
+  isNotification?: number;
+  additionalActiveRoutes?: string[];
 }) => {
   const pathname = usePathname();
 
@@ -1298,7 +1240,7 @@ const NavItem = ({
         }`}
       >
         <p className={`md:text-[16px] font-[500]`}>{title}</p>
-        {isNotification > 0 && (
+        {isNotification && isNotification > 0 && (
           <p className="bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center font-medium text-[12px]">
             {isNotification > 9 ? "9+" : isNotification}
           </p>

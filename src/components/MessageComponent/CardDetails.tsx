@@ -1,7 +1,13 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
-const CardDetails = ({ message, user_id, role }) => {
+interface CardDetailsProps {
+  message?: any;
+  user_id?: string;
+  role?: number;
+}
+
+const CardDetails: React.FC<CardDetailsProps> = ({ message, user_id, role }) => {
   const { title, type, job_type, amount, url, position } =
     message?.card_details || {};
   const router = useRouter();

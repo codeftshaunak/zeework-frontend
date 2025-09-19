@@ -3,7 +3,7 @@
 import {
   Box,
   Text,
-  Radio,
+  RadioGroup,
   Tabs,
   
   
@@ -78,11 +78,17 @@ const BillingAndPayments = () => {
               <Tabs.Content padding={0}>
                 <Box mt={5}>
                   <Box marginBottom={6}>
-                    <Radio size="lg" colorScheme="primary" isChecked>
-                      <Text fontSize="xl" fontWeight="semibold">
-                        Payment Card
-                      </Text>
-                    </Radio>
+                    <RadioGroup.Root value="payment-card">
+                      <RadioGroup.Item value="payment-card">
+                        <RadioGroup.ItemHiddenInput />
+                        <RadioGroup.ItemIndicator />
+                        <RadioGroup.ItemText>
+                          <Text fontSize="xl" fontWeight="semibold">
+                            Payment Card
+                          </Text>
+                        </RadioGroup.ItemText>
+                      </RadioGroup.Item>
+                    </RadioGroup.Root>
                   </Box>
 
                   <Box marginTop={1} className="w-full xl:w-[700px]">

@@ -1224,7 +1224,7 @@ export const ClientSignUp = () => {
               </HStack>
               <Divider text="Or" dwidth="180px" /> */}
               <Box display={"grid"} gap={"5"}>
-                <InputGroup gap={"5"}>
+                <HStack gap={"5"}>
                   <InputGroup display={"grid"}>
                     <Input
                       {...register("firstName")}
@@ -1241,7 +1241,7 @@ export const ClientSignUp = () => {
                       <ErrorMsg msg={errors.lastName.message} />
                     )}
                   </InputGroup>
-                </InputGroup>
+                </HStack>
                 <InputGroup display={"grid"}>
                   <Input {...register("email")} placeholder="Email" />
                   {errors.email && <ErrorMsg msg={errors.email.message} />}

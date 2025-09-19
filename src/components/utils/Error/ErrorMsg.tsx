@@ -1,22 +1,19 @@
-import { Text } from "@chakra-ui/react";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import PropTypes from "prop-types";
+import { cn } from "@/lib/utils";
 
 const ErrorMsg = ({ msg, className }) => {
   if (!msg) return;
   return (
-    <Text
-      textColor={"red"}
-      display={"flex"}
-      gap={0.5}
-      fontSize={"small"}
-      className={className}
-      lineHeight="12px"
-      mt={"3px"}
+    <span
+      className={cn(
+        "flex items-center gap-0.5 text-sm text-red-500 leading-3 mt-0.5",
+        className
+      )}
     >
       <HiOutlineInformationCircle className="min-h-[13px] min-w-[13px]" />
       {msg}
-    </Text>
+    </span>
   );
 };
 

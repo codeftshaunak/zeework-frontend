@@ -1,7 +1,15 @@
-import { Box, Flex, Avatar, Text, HStack, AvatarBadge } from "@chakra-ui/react";
+import { Box, Flex, Avatar, Text, HStack, AvatarBadge } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
-const SearchedUsers = ({
+interface SearchedUsersProps {
+  filteredUser: any[];
+  query: string;
+  setFilteredUser: (users: any[]) => void;
+  setQuery: (query: string) => void;
+  handleOnClose?: () => void;
+}
+
+const SearchedUsers: React.FC<SearchedUsersProps> = ({
   filteredUser,
   query,
   setFilteredUser,

@@ -1,7 +1,12 @@
-import { Box, Input } from "@chakra-ui/react";
+import { Box, Input } from "@/components/ui/migration-helpers";
 import { FaSearch } from "react-icons/fa";
 
-const MessageSearchBar = ({ query, handleSearchingUser }) => {
+interface MessageSearchBarProps {
+  query: string;
+  handleSearchingUser: (value: string) => void;
+}
+
+const MessageSearchBar: React.FC<MessageSearchBarProps> = ({ query, handleSearchingUser }) => {
   return (
     <Box
       position="relative"
