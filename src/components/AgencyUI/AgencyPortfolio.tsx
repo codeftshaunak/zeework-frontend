@@ -1,26 +1,25 @@
+import React from "react";
 
-import { Box, Image, Text } from "@chakra-ui/react";
+
 import AgencyTitle from "./AgencyTitle";
 
 const AgencyPortfolio = () => {
   return (
-    <Box width={"100%"}>
+    <div className="w-full">
       <AgencyTitle>Projects</AgencyTitle>
-      <Box marginTop={"20px"}>
+      <div className="mt-[20px]">
         <Image
           src="./images/404not-added.png"
-          width={"150px"}
-          display={"block"}
-          margin={"auto"}
-        ></Image>
-        <Text fontSize={"1.3rem"} textAlign={"center"} fontWeight={"600"}>
+          className="m-[auto]"
+        ></img>
+        <span className="font-semibold text-center">
           You haven&apos;t added your project!
-        </Text>
-        <Text fontSize={"1rem"} textAlign={"center"}>
+        </span>
+        <span className="text-base text-center">
 
-        </Text>
-      </Box>
-    </Box>
+        </span>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Box,
@@ -6,7 +8,7 @@ import {
   HStack,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AiOutlineBorderlessTable } from "react-icons/ai";
@@ -203,30 +205,15 @@ const AgencyServices = ({ agency, setAgency }) => {
 
   return (
     <>
-      <VStack
-        alignItems="flex-start"
-        gap={{ base: 2, md: 5 }}
-        width={{ base: "full" }}
+      <div className="flex flex-col"}}
       >
-        <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-          <Text
-            fontSize={{ base: "1.3rem", md: "1.7rem", lg: "2rem" }}
-            fontWeight={"600"}
-            marginBottom={"0"}
-          >
+        <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+          <span}
+           className="mb-[0] font-semibold">
             Services
-          </Text>
-          <VStack
-            backgroundColor={"white"}
-            borderRadius={"50%"}
-            width={"20px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"20px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
-            mt={1}
+          </span>
+          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
@@ -234,63 +221,45 @@ const AgencyServices = ({ agency, setAgency }) => {
             }}
             onClick={() => handleUpdate("Services")}
           >
-            {agency_services ? <RiEdit2Fill /> : <FiPlus fontSize={"15px"} />}
-          </VStack>
-        </HStack>
+            {agency_services ? <RiEdit2Fill /> : <FiPlus />}
+          </div>
+        </div>
 
-        <Box>
+        <div>
           <div className="flex gap-2 flex-wrap">
             {category?.map((i) => (
-              <Text
+              <span
                 key={i._id}
-                paddingX={"15px"}
-                paddingY={"4px"}
-                backgroundColor={"#E7F2EB"}
-                color={"#355741"}
-                borderRadius={"10px"}
-                display={"flex"}
-                alignItems={"center"}
-                gap={1}
+                paddingX="15px"
+                paddingY="4px"
+                backgroundColor="#E7F2EB"
+                className="items-center rounded flex"
               >
                 <AiOutlineBorderlessTable /> {i.category_name}
-              </Text>
+              </span>
             ))}
           </div>
           <div className="flex gap-2 flex-wrap mt-4">
             {subCategory?.map((d, i) => (
-              <Text
+              <span
                 key={i}
-                paddingX={"15px"}
-                paddingY={"4px"}
-                backgroundColor={"#E7F2EB"}
-                color={"#355741"}
-                borderRadius={"10px"}
+                paddingX="15px"
+                paddingY="4px"
+                backgroundColor="#E7F2EB" className="rounded"
               >
                 {d.sub_category_name}
-              </Text>
+              </span>
             ))}
           </div>
-        </Box>
+        </div>
 
-        <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-          <Text
-            fontSize={{ base: "1.3rem", md: "1.7rem", lg: "2rem" }}
-            fontWeight={"600"}
-            marginBottom={"0"}
-          >
+        <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+          <span}
+           className="mb-[0] font-semibold">
             Skills
-          </Text>
-          <VStack
-            backgroundColor={"white"}
-            borderRadius={"50%"}
-            width={"20px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"20px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
-            mt={1}
+          </span>
+          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
@@ -301,26 +270,23 @@ const AgencyServices = ({ agency, setAgency }) => {
             {agency_skills?.length ? (
               <RiEdit2Fill />
             ) : (
-              <FiPlus fontSize={"15px"} />
+              <FiPlus />
             )}
-          </VStack>
-        </HStack>
+          </div>
+        </div>
         <div className="flex gap-2 flex-wrap">
           {agency_skills?.map((item) => (
-            <Text
+            <span
               key={item}
-              textTransform={"capitalize"}
-              paddingX={"15px"}
-              paddingY={"4px"}
-              backgroundColor={"#E7F2EB"}
-              color={"#355741"}
-              borderRadius={"10px"}
-            >
+              paddingX="15px"
+              paddingY="4px"
+              backgroundColor="#E7F2EB"
+             className="rounded capitalize">
               {item}
-            </Text>
+            </span>
           ))}
         </div>
-      </VStack>
+      </div>
 
       {/* Update Agency Service Modal */}
       {isModal && (
@@ -333,8 +299,8 @@ const AgencyServices = ({ agency, setAgency }) => {
             {/* Update services */}
             {modalType === "Services" && (
               <>
-                <Box mb={5}>
-                  <Text fontSize={"lg"} mb={2}>Category</Text>
+                <div>
+                  <span className="text-lg">Category</span>
                   <Select
                     {...register("agency_services.category", {
                       required: "Services Category is required",
@@ -371,10 +337,10 @@ const AgencyServices = ({ agency, setAgency }) => {
                   {errors.agency_services?.category && (
                     <ErrorMsg msg={errors.agency_services?.category.message} />
                   )}
-                </Box>
+                </div>
 
-                <Box mb={5}>
-                  <Text fontSize={"lg"} mb={2}>Sub Category</Text>
+                <div>
+                  <span className="text-lg">Sub Category</span>
                   <Select
                     {...register("agency_services.subCategory", {
                       required: "Services Sub-Category is required",
@@ -401,7 +367,7 @@ const AgencyServices = ({ agency, setAgency }) => {
                       msg={errors.agency_services?.subCategory.message}
                     />
                   )}
-                </Box>
+                </div>
               </>
             )}
             {/* Update skills */}
@@ -431,15 +397,14 @@ const AgencyServices = ({ agency, setAgency }) => {
               </div>
             )}
             <div className="text-right mt-10">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isLoading}
                 loadingText="Updating"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Update
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>

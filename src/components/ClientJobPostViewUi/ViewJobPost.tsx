@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { format, formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
@@ -59,11 +59,7 @@ const ViewJobPost = () => {
     try {
       const response = await deleteJob(_id);
       if (response)
-        toaster.create({
-          title: "Job post deleted successfully",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Job post deleted successfully");
       if (response?.code === 200)
         dispatch(
           setDashboard({ jobs: jobs?.filter((job) => job._id !== _id) })
@@ -71,11 +67,7 @@ const ViewJobPost = () => {
       router.push("/client-dashboard");
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "Failed to delete job post!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Failed to delete job post!");
     }
     setIsModalType(null);
     setIsLoading(false);
@@ -97,11 +89,7 @@ const ViewJobPost = () => {
   const handleCopyLink = () => {
     const jobUrl = `${window.location.origin}/find-job/${_id}`;
     navigator.clipboard.writeText(jobUrl).then(() => {
-      toaster.create({
-        title: "Link copied to clipboard",
-        type: "success",
-        duration: 2000,
-      });
+      toast.success("Link copied to clipboard");
     });
   };
 
@@ -142,7 +130,7 @@ const ViewJobPost = () => {
             />
           </div>
           <div className="mt-4 border rounded-lg basis-full md:mt-0 md:basis-1/4 border-slate-300 bg-white h-fit">
-            <div className="p-6 border-b ">
+            <div className="p-6 border-b">
               <div className="space-y-3">
                 <div
                   className="flex items-center gap-2 cursor-pointer w-fit hover:text-[var(--primarycolor)] transition"
@@ -167,7 +155,7 @@ const ViewJobPost = () => {
                 </h2>
               </div>
               <div>
-                <h2 className="text-[#374151] text-base font-semibold ">
+                <h2 className="text-[#374151] text-base font-semibold">
                   Payment method {payment_verified ? "verified" : "unverified"}
                 </h2>
                 <div className="text-[#374151] text-sm flex items-center gap-1">
@@ -188,7 +176,7 @@ const ViewJobPost = () => {
                 <p className="text-[#374151] text-sm">{formattedTime}</p>
               </div>
               <div>
-                <h2 className="text-[#374151] text-base font-semibold ">
+                <h2 className="text-[#374151] text-base font-semibold">
                   {job_posted} jobs posted
                 </h2>
                 <p className="text-[#374151] text-sm">
@@ -196,7 +184,7 @@ const ViewJobPost = () => {
                 </p>
               </div>
               <div>
-                <h2 className="text-[#374151] text-base font-semibold ">
+                <h2 className="text-[#374151] text-base font-semibold">
                   ${total_amount_spend} total spent
                 </h2>
                 <p>
@@ -232,21 +220,18 @@ const ViewJobPost = () => {
 
             <div className="flex gap-5 mt-5">
               <Button
-                colorScheme="primary"
-                variant={"outline"}
                 onClick={() => setIsModalType(null)}
               >
                 Cancel
-              </Button>
+              </button>
               <Button
                 isLoading={isLoading}
                 loadingText=" Yes, I want to Delete"
-                colorScheme="primary"
                 spinner={<BtnSpinner />}
                 onClick={handleDelete}
               >
                 Proceed
-              </Button>
+              </button>
             </div>
           </div>
         )}
@@ -258,17 +243,12 @@ const ViewJobPost = () => {
 
             <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 mt-8 sm:mt-20">
               <Button
-                colorScheme="primary"
-                variant={"outline"}
-                width={"full"}
-                onClick={() => setIsModalType(null)}
+                onClick={() = className="w-full"> setIsModalType(null)}
               >
                 No, I don&apos;t want to Update
-              </Button>
+              </button>
               <Button
                 isLoading={isLoading}
-                colorScheme="primary"
-                width={"full"}
                 loadingText=" Yes, I want to Update"
                 spinner={<BtnSpinner />}
                 onClick={() =>
@@ -278,7 +258,7 @@ const ViewJobPost = () => {
                 }
               >
                 Yes, I want to Update
-              </Button>
+              </button>
             </div>
           </>
         )}

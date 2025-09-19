@@ -46,12 +46,12 @@ const UserProfileSetting = () => {
           <p className="text-[14px] text-[#374151] font-[600]">Skills</p>
 
           {/* <div className="grid grid-cols-3 gap-4">
-            <SkillCard title={"Design"} />
-            <SkillCard title={"Development"} />
-            <SkillCard title={"Animator"} />
-            <SkillCard title={"Sales"} />
-            <SkillCard title={"Marketing"} />
-            <SkillCard title={"Virtual Asst."} />
+            <SkillCard title="Design" />
+            <SkillCard title="Development" />
+            <SkillCard title="Animator" />
+            <SkillCard title="Sales" />
+            <SkillCard title="Marketing" />
+            <SkillCard title="Virtual Asst." />
           </div> */}
         </div>
         <hr className=" border-t-[green]" />
@@ -90,16 +90,12 @@ const UserProfileSetting = () => {
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
                   viewBox="0 0 20 20"
                   fill="none"
                 >
                   <rect
                     x="3.33301"
                     y="4.16699"
-                    width="13.3333"
-                    height="13.3333"
                     rx="1.33333"
                     stroke="#9CA3AF"
                     strokeWidth="1.5"
@@ -156,16 +152,12 @@ const UserProfileSetting = () => {
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
                   viewBox="0 0 20 20"
                   fill="none"
                 >
                   <rect
                     x="3.33301"
                     y="4.16699"
-                    width="13.3333"
-                    height="13.3333"
                     rx="1.33333"
                     stroke="#9CA3AF"
                     strokeWidth="1.5"

@@ -1,6 +1,8 @@
-"use client";
 
-import { Box, Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
@@ -126,26 +128,13 @@ const AgencyProjects = ({ agency, setAgency }) => {
 
   return (
     <>
-      <Box width={"100%"} marginTop={"2rem"}>
-        <HStack>
-          <Text
-            fontSize={{ base: "1.3rem", md: "1.7rem", lg: "2.3rem" }}
-            fontWeight={"600"}
-            marginBottom={"0px"}
-          >
+      <div className="w-full mt-[2rem]">
+        <div className="flex flex-row items-center> <span} className="mb-[0px] font-semibold">
             Projects
-          </Text>
+          </span>
           {
-            <VStack
-              backgroundColor={"white"}
-              borderRadius={"50%"}
-              width={"30px"}
-              border={"1px solid var(--primarycolor)"}
-              height={"30px"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              transition={"0.6s ease-in-out"}
-              cursor={"pointer"}
+            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
+              transition="0.6s ease-in-out"
               _hover={{
                 border: "2px solid var(--primarycolor)",
                 backgroundColor: "transparent",
@@ -153,10 +142,10 @@ const AgencyProjects = ({ agency, setAgency }) => {
               }}
               onClick={() => setIsModal(true)}
             >
-              <FiPlus fontSize={"25px"} />
-            </VStack>
+              <FiPlus />
+            </div>
           }
-        </HStack>
+        </div>
         {agency?.agency_portfolio?.length > 0 ? (
           <div className="relative mt-3 z-0">
             <Swiper
@@ -208,33 +197,27 @@ const AgencyProjects = ({ agency, setAgency }) => {
             )}
           </div>
         ) : (
-          <Box marginTop={"20px"}>
+          <div className="mt-[20px]">
             <Image
               src="/images/404not-added.png"
-              width={"150px"}
-              display={"block"}
-              margin={"auto"}
-            ></Image>
-            <Text
-              fontSize={"1.3rem"}
-              textAlign={"center"}
-              fontWeight={"600"}
-              marginTop={"1.5rem"}
-            >
+              className="m-[auto]"
+            ></img>
+            <span
+             className="mt-[1.5rem] font-semibold text-center">
               You haven&apos;t added any projects yet!
-            </Text>
-            <Text fontSize={"1rem"} textAlign={"center"}>
+            </span>
+            <span className="text-base text-center">
               Showcase your best work here.
-            </Text>
-          </Box>
+            </span>
+          </div>
         )}
-      </Box>
+      </div>
 
       {/* Only New Project Creating UI */}
       <UniversalModal
         isModal={isModal}
         setIsModal={setIsModal}
-        title={"Create Portfolio"}
+        title="Create Portfolio"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-[16px]">
@@ -243,10 +226,10 @@ const AgencyProjects = ({ agency, setAgency }) => {
                 <p className="text-[14px] font-[500] text-[#374151] mb-2">
                   Project Name
                 </p>
-                <div className="w-[100%]  py-[2px] px-[12px] outline-none border-[1px] border-[var(--bordersecondary)] rounded-md">
+                <div className="w-[100%] py-[2px] px-[12px] outline-none border-[1px] border-[var(--bordersecondary)] rounded-md">
                   <input
                     type="text"
-                    className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)] "
+                    className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
                     placeholder="Project Name"
                     required
                     {...register("project_name")}
@@ -258,10 +241,10 @@ const AgencyProjects = ({ agency, setAgency }) => {
                 <p className="text-[14px] font-[500] text-[#374151] mb-2">
                   Project Description
                 </p>
-                <div className="w-[100%]  py-[2px] px-[12px] outline-none border-[1px] border-[var(--bordersecondary)] rounded-md">
+                <div className="w-[100%] py-[2px] px-[12px] outline-none border-[1px] border-[var(--bordersecondary)] rounded-md">
                   <textarea
                     type="text"
-                    className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)] "
+                    className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
                     placeholder="Description"
                     required
                     {...register("project_description")}
@@ -352,15 +335,14 @@ const AgencyProjects = ({ agency, setAgency }) => {
             </div>
           </div>
           <div className="text-right mt-10">
-            <Button
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               isLoading={isLoading}
               loadingText="Submit"
-              colorScheme="primary"
               type="submit"
               spinner={<BtnSpinner />}
             >
               Submit
-            </Button>
+            </button>
           </div>
         </form>
       </UniversalModal>
@@ -375,24 +357,21 @@ const AgencyProjects = ({ agency, setAgency }) => {
         </p>
 
         <div className="flex gap-5 sm:gap-10 mt-8 sm:mt-20">
-          <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+           
             onClick={() => setIsDeleteAgencyId(null)}
           >
             No, I don&apos;t want to Delete
-          </Button>
-          <Button
+          </button>
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
             isLoading={isLoading}
             loadingText=" Yes, I want to Delete"
-            colorScheme="primary"
-            width={"full"}
+           
             onClick={handleDeleteAgency}
             spinner={<BtnSpinner />}
           >
             Yes, I want to Delete
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Avatar,
@@ -9,7 +11,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { useRouter, useParams } from "next/navigation";
@@ -73,7 +75,6 @@ const CompleteJob = () => {
         </h2>
       </div>
       <Tabs.Root
-        position="relative"
         variant="unstyled"
         onChange={(index) => setActiveTab(index)}
       >
@@ -87,9 +88,6 @@ const CompleteJob = () => {
         </Tabs.List>
         <Tabs.Indicator
           mt="1.5px"
-          height="2px"
-          bg="var(--primarytextcolor)"
-          borderRadius="1px"
         />
         <SmoothMotion key={activeTab}>
           <Tabs.Content>
@@ -108,7 +106,7 @@ const CompleteJob = () => {
                     <div className="col-span-1 w-full h-fit bg-white p-8 rounded-xl border border-[var(--bordersecondary)]">
                       <div className="flex gap-3 mb-4">
                         <Avatar
-                          size={"lg"}
+                          size="lg"
                           // src={
                           //   profile_image
                           //     ? profile_image
@@ -153,11 +151,7 @@ const CompleteJob = () => {
                         </p>
                       </div>
 
-                      <Button
-                        mt={5}
-                        width={"full"}
-                        colorScheme={"primary"}
-                        variant={freelancer_review ? "outline" : "solid"}
+                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                         isDisabled={freelancer_review}
                         onClick={() =>
                           !freelancer_review &&
@@ -172,7 +166,7 @@ const CompleteJob = () => {
                         {freelancer_review
                           ? "Already Given Feedback"
                           : "Send Feedback For Client"}
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -183,9 +177,9 @@ const CompleteJob = () => {
             {jobDetails?.job_type === "hourly" && (
               <Tabs.Content paddingX={0}>
                 {timeSheetLoading ? (
-                  <HorizontalCardSkeleton className={"mt-3 sm:mt-5 lg:mt-10"} />
+                  <HorizontalCardSkeleton className="mt-3 sm:mt-5 lg:mt-10" />
                 ) : timeSheet?.details ? (
-                  <div className=" mt-3 sm:mt-5 lg:mt-10">
+                  <div className="mt-3 sm:mt-5 lg:mt-10">
                     <JobTimeSheet data={timeSheet} />
                   </div>
                 ) : (

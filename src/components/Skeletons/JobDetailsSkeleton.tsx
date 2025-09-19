@@ -1,5 +1,7 @@
-import { SkeletonText } from "@chakra-ui/react";
-import { Link } from "../ui/migration-helpers";
+
+import React from "react";
+
+import { Link } from "next/navigation";
 
 
 const JobDetailsSkeleton = ({ hideNavigation }) => {
@@ -8,7 +10,7 @@ const JobDetailsSkeleton = ({ hideNavigation }) => {
       <div className="py-2 w-full">
         {!hideNavigation && (
           <div className="flex gap-2 py-6">
-            <Link to={"/"}>
+            <Link to="/">
               <img src="/icons/home.svg" alt="home" />
             </Link>
             <img src="/icons/chevron-right.svg" alt="arrow right" />

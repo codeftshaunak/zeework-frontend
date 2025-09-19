@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { BsPlus } from "react-icons/bs";
 import { useEffect, useState, useCallback } from "react";
@@ -11,7 +13,7 @@ import {
 } from "../../../../../helpers/APIs/userApis";
 import { useDispatch, useSelector } from "react-redux";
 import ProfilesCard from "./ProfilesCard/ProfilesCard";
-import { Button, StackDivider, VStack } from "@chakra-ui/react";
+
 import { IoLogoGithub, IoLogoStackoverflow } from "react-icons/io5";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import { profileData } from "../../../../../redux/authSlice/profileSlice";
@@ -106,16 +108,15 @@ const LinkedAccounts = () => {
           </div>
         </div>
         {linkedAccounts.length > 0 && (
-          <VStack
-            divider={<StackDivider borderColor="gray.200" />}
+          <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
             spacing={4}
-            align="stretch"
+            
             className="bg-slate-50 rounded-md p-3"
           >
             {linkedAccounts.map((item) => (
               <ProfilesCard key={item.user_id} data={item} />
             ))}
-          </VStack>
+          </div>
         )}
       </div>
 
@@ -124,32 +125,28 @@ const LinkedAccounts = () => {
           Select Your Account
         </p>
         <div className="flex gap-10 flex-wrap justify-center py-10 px-5 bg-slate-100 rounded-md">
-          <Button
-            leftIcon={<IoLogoGithub className="text-2xl" />}
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl"
+            leftIcon={<IoLogoGithub />}
             onClick={handleConnectGithub}
-            bgColor={"black"}
             _hover={{ bgColor: "#262626" }}
-            textColor={"white"}
-            rounded={"full"}
+            textColor="white"
             isLoading={isLoading}
-            loadingText={"Connect"}
+            loadingText="Connect"
             spinner={<BtnSpinner />}
           >
             Connect
-          </Button>
-          <Button
-            leftIcon={<IoLogoStackoverflow className="text-2xl" />}
+          </button>
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl"
+            leftIcon={<IoLogoStackoverflow />}
             onClick={handleConnectStackOverflow}
-            bgColor={"#f08424"}
             _hover={{ bgColor: "##cf8748" }}
-            textColor={"white"}
-            rounded={"full"}
+            textColor="white"
             isLoading={isStackOverflowLoading}
-            loadingText={"Connect"}
+            loadingText="Connect"
             spinner={<BtnSpinner />}
           >
             Connect
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

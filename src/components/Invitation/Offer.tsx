@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import queryString from "query-string";
 import {
   updateOfferRequest,
@@ -61,27 +61,15 @@ const Offer = () => {
       });
 
       if (code === 200) {
-        toaster.create({
-          title: msg,
-          duration: 3000,
-          type: "success",
-        });
+        toast.default(msg);
         sendMessage(messages, statusValue);
         router.push("/my-jobs");
         dispatch(setMyJobsData({ userJobs: {} }));
       } else {
-        toaster.create({
-          title: message,
-          duration: 3000,
-          type: "warning",
-        });
+        toast.default(message);
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading({
       isLoading: false,
@@ -102,25 +90,13 @@ const Offer = () => {
 
       if (res.code === 200) {
         // sendMessage("", "rejected");
-        toaster.create({
-          title: res.msg,
-          duration: 3000,
-          type: "success",
-        });
+        toast.default(res.msg);
         router.push("/my-jobs");
       } else {
-        toaster.create({
-          title: res.msg || res.message,
-          duration: 3000,
-          type: "warning",
-        });
+        toast.default(res.msg || res.message);
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading({
       isLoading: false,
@@ -176,7 +152,7 @@ const Offer = () => {
   const rejectInvite = () => setReject(true);
 
   return (
-    <Box width={"full"}>
+    <Box className="w-full">
       <br />
       <br />
       <h2 className="my-3 text-2xl font-bold text-[1.6rem] text-[#374151]">
@@ -208,7 +184,7 @@ const Offer = () => {
             <ConfirmModalCommon
               setOpenModal={setReject}
               openModal={reject}
-              title={"Reject The Offer"}
+              title="Reject The Offer"
               handleSubmit={handleRejectOffer}
               isLoading={isLoading}
             />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "../../ui/migration-helpers";
+
 import { useRouter } from "next/navigation";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
 
@@ -49,7 +49,6 @@ const GigCards = ({ gigs, isLoading }) => {
                     <Tooltip
                       hasArrow
                       label={gig.title}
-                      bg="gray.500"
                       placement="top"
                     >
                       {gig.title?.length > 50

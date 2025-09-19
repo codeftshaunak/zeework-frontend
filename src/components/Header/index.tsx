@@ -2,7 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Avatar } from "../ui/Avatar";
+
+
+import { Avatar } from "@/components/ui/migration-helpers";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import CTAButton from "../CTAButton";
@@ -60,7 +62,9 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
-  const btnRef = React.useRef<HTMLButtonElement>();
+
+  const btnRef = React.useRef<HTMLButtonElement>(null);
+
 
   // ======= search for jobs and talent
 
@@ -164,18 +168,12 @@ export const Header = () => {
               <div className="hidden sm:flex whitespace-no-wrap items-center justify-center my-2 py-2 border border-transparent text-base leading-6 font-medium rounded-md focus:shadow-outline-indigo transition ease-in-out duration-150 w-[210px]">
                 <CTAButton
                   onClick={() => router.push("/login")}
-                  text={"Log In"}
-                  fontSize="1rem"
-                  height="2.5rem"
+                  text="Log In"
                   className="mr-2"
                 ></CTAButton>
                 <CTAButton
                   onClick={() => router.push("/signup")}
-                  text={"Sign Up"}
-                  bg={"#22C55E"}
-                  color={"#ffff"}
-                  fontSize="1rem"
-                  height="2.5rem"
+                  text="Sign Up"
                 ></CTAButton>
               </div>
             </div>
@@ -226,17 +224,11 @@ export const Header = () => {
                         <div className="mt-3 ml-2 flex items-center justify-between w-[210px] text-gray-600 text-base">
                           <CTAButton
                             onClick={() => router.push("/login")}
-                            text={"Log In"}
-                            fontSize="1rem"
-                            height="2.5rem"
+                            text="Log In"
                           ></CTAButton>
                           <CTAButton
                             onClick={() => router.push("/signup")}
-                            text={"Sign Up"}
-                            bg={"#22C55E"}
-                            color={"#ffff"}
-                            fontSize="1rem"
-                            height="2.5rem"
+                            text="Sign Up"
                           ></CTAButton>
                         </div>
                       </div>
@@ -304,8 +296,6 @@ export const Header = () => {
               }}
             >
               <svg
-                width="30px"
-                height="30px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -663,13 +653,13 @@ export const AuthHeader = ({ role }: { role: number }) => {
                   additionalActiveRoutes={role == 1 ? ["/search-job"] : []}
                 />
 
-                {role == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
-                <NavItem title={"My Stats"} url="/my-stats" />
+                {role == 1 && <NavItem title="My Jobs" url="/my-jobs" />}
+                <NavItem title="My Stats" url="/my-stats" />
                 {/* {role == 2 && (
-                  <NavItem title={"Marketplace"} url={"/marketplace"} />
+                  <NavItem title="Marketplace" url="/marketplace" />
                 )} */}
                 <NavItem
-                  title={"Messages"}
+                  title="Messages"
                   url="/message"
                   isNotification={unReadMsg?.length}
                 />
@@ -1010,16 +1000,16 @@ export const AuthHeader = ({ role }: { role: number }) => {
                     url={role == 1 ? "/find-job" : "/client-dashboard"}
                   />
 
-                  {role == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
+                  {role == 1 && <NavItem title="My Jobs" url="/my-jobs" />}
 
-                  <NavItem title={"My Stats"} url="/my-stats" />
+                  <NavItem title="My Stats" url="/my-stats" />
 
                   {/* {role == 2 && (
-                    <NavItem title={"Marketplace"} url={"/marketplace"} />
+                    <NavItem title="Marketplace" url="/marketplace" />
                   )} */}
 
                   <NavItem
-                    title={"Messages"}
+                    title="Messages"
                     url="/message"
                     isNotification={unReadMsg?.length}
                   />
@@ -1113,15 +1103,15 @@ export const AuthHeader = ({ role }: { role: number }) => {
                         {openInfo && (
                           <div ref={selectModalRef} className="grid gap-1">
                             <NavItem
-                              title={"Profile"}
+                              title="Profile"
                               url={`/profile/${
                                 role == 2 ? "c" : activeAgency ? "a" : "f"
                               }/${activeAgency ? agency_profile : user_id}`}
                             />
 
-                            <NavItem title={"Setting"} url={"/setting"} />
+                            <NavItem title="Setting" url="/setting" />
 
-                            <NavItem title={"Help"} url={"/help"} />
+                            <NavItem title="Help" url="/help" />
 
                             <div
                               className="flex gap-1 items-center cursor-pointer font-semibold"

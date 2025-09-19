@@ -70,8 +70,6 @@ function TransactionHistory() {
                   <div className="flex space-x-2 items-center">
                     <span>
                       <svg
-                        width="20"
-                        height="20"
                         viewBox="0 0 20 20"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +77,6 @@ function TransactionHistory() {
                         <rect
                           x="3.33301"
                           y="4.16675"
-                          width="13.3333"
-                          height="13.3333"
                           rx="1.33333"
                           stroke="#6B7280"
                           strokeWidth="1.5"
@@ -130,8 +126,6 @@ function TransactionHistory() {
                   </div>
                   <span>
                     <svg
-                      width="20"
-                      height="20"
                       viewBox="0 0 20 20"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -161,8 +155,6 @@ function TransactionHistory() {
                               <span>
                                 {" "}
                                 <svg
-                                  width="20"
-                                  height="20"
                                   viewBox="0 0 20 20"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
@@ -170,8 +162,6 @@ function TransactionHistory() {
                                   <rect
                                     x="3.33301"
                                     y="4.16675"
-                                    width="13.3333"
-                                    height="13.3333"
                                     rx="1.33333"
                                     stroke="currentColor"
                                     strokeWidth="1.5"

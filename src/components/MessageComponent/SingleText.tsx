@@ -1,7 +1,9 @@
-"use client";
 
-import { Avatar } from "../ui/Avatar";
-import { HStack, Box, Flex, Text, AvatarBadge } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
+
 import { useState, useEffect } from "react";
 import CardDetails from "./CardDetails";
 import { format, differenceInMinutes, differenceInHours } from "date-fns";
@@ -65,43 +67,34 @@ const SingleText = ({
   };
 
   return (
-    <Box position="relative" padding={{ md: "4px" }} width={"100%"}>
+    <div} className="w-full relative">
       {user.sender_id === userId ? (
-        <HStack justifyContent={{ md: "end" }} width={"100%"}>
-          <HStack
-            flexDirection={{ base: "column-reverse", md: "row" }}
-            alignItems={{ md: "start" }}
-            gap={{ base: "2px", md: "15px" }}
-            width={"100%"}
+        <div className="flex flex-row items-center} className="w-full">
+          <div className="flex flex-row items-center}}}
+           
           >
-            <Box className="md:ml-auto">
+            <div className="md:ml-auto">
               {!user.isRepeated && (
-                <Text fontWeight={"600"} textAlign={"right"}>
+                <span className="font-semibold text-right">
                   You
-                </Text>
+                </span>
               )}
-              <Flex
-                width={"100%"}
-                textAlign={"right"}
+              <divw-full text-right"
                 flexDir="column"
                 alignContent="end"
-                alignItems="end"
-                bgColor={"#dcf7e3"}
-                mt={user.isRepeated ? -1 : 0}
-                mb={1}
+               
+                className="bg-#dcf7e3 relative"
                 paddingY={2}
                 paddingX={4}
-                gap={2}
-                rounded={"md"}
-                position={"relative"}
-                onMouseEnter={() => setIsMore(true)}
+               
+                onMouseEnter={() = className="flex className= rounded-md"> setIsMore(true)}
                 onMouseLeave={() => setIsMore(false)}
               >
                 <>
                   <Linkify>
-                    <Box
-                      fontSize={"1rem"}
-                      color="gray.600"
+                    <div
+                      className="text-1rem"
+                     
                       dangerouslySetInnerHTML={{ __html: user.message }}
                     />
                   </Linkify>
@@ -125,73 +118,60 @@ const SingleText = ({
                     </div>
                   </div>
                 )}
-              </Flex>
-            </Box>
-            <Box ml={{ base: "auto", md: "0" }} width={"32px"}>
+              </div>
+            </div>
+            <div ml={{ base: "auto", md: "0" }} className="w-[32px]">
               {!user.isRepeated && (
                 <Avatar
                   size="sm"
                   round="20px"
                   mt={{ base: 5, md: 0 }}
-                  border={"1px solid var(--primarycolor)"}
                   src={getProfileImage()}
                   name={getDisplayName()}
                 />
               )}
-            </Box>
-          </HStack>
-        </HStack>
+            </div>
+          </div>
+        </div>
       ) : (
-        <HStack>
-          <HStack
-            flexDirection={{ base: "column", md: "row" }}
-            alignItems={{ md: "start" }}
-            gap={{ base: "2px", md: "15px" }}
-            width={"100%"}
+        <div className="flex flex-row items-center> <div className= w-full"flex flex-row items-center}}}
+           
           >
-            <Box width={"32px"}>
+            <div className="w-[32px]">
               {!user.isRepeated && (
                 <Avatar
                   size="sm"
                   round="20px"
                   mt={{ base: 5, md: 0 }}
-                  border={"1px solid var(--primarycolor)"}
                   src={getProfileImage()}
                   name={getDisplayName()}
                 >
-                  <AvatarBadge
-                    border="2px solid white"
-                    bg={`${
-                      receiverDetails?.activity === "online"
-                        ? "green"
-                        : "gray.300"
-                    }`}
+                  <AvatarBadge`}
                     boxSize="0.8em"
                     left={-1.5}
                     top={0}
                   />
                 </Avatar>
               )}
-            </Box>
-            <Box>
+            </div>
+            <div>
               {!user.isRepeated && (
-                <Text fontWeight={"600"}>{getDisplayName()}</Text>
+                <span className="font-semibold">{getDisplayName()}</span>
               )}
-              <Flex
+              <div
                 flexDir="column"
-                bgColor={"gray.100"}
+                className="bg-gray.100 relative"
                 paddingY={2}
                 paddingX={4}
-                rounded={"md"}
-                position={"relative"}
-                onMouseEnter={() => setIsMore(true)}
+               
+                onMouseEnter={() = className="flex rounded-md"> setIsMore(true)}
                 onMouseLeave={() => setIsMore(false)}
               >
                 <>
                   <Linkify>
-                    <Box
-                      fontSize="1rem"
-                      color="gray.600"
+                    <div
+                     
+                     
                       dangerouslySetInnerHTML={{ __html: user.message }}
                     />
                   </Linkify>
@@ -203,12 +183,12 @@ const SingleText = ({
                 <p className="text-[12px] text-left mt-1 -mb-1 text-gray-300">
                   {timeDifference}
                 </p>
-              </Flex>
-            </Box>
-          </HStack>
-        </HStack>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

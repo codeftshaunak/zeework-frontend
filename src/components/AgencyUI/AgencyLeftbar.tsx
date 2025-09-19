@@ -1,4 +1,5 @@
-import { VStack } from "@chakra-ui/react";
+import React from "react";
+
 import AgencyOverview from "./AgencyOverview";
 import AgencyProjects from "./AgencyPorjects";
 import AgencyServices from "./AgencyServices";
@@ -7,13 +8,10 @@ import AgencyWorkHistory from "./AgencyWorkHistory";
 const AgencyLeftbar = ({ agency, setAgency }) => {
   const { agency_overview } = agency || {};
   return (
-    <VStack
-      alignItems={"flex-start"}
-      width={{ base: "100%", lg: "70%" }}
+    <divitems-flex-start"}
       marginRight={{ lg: 5 }}
-      gap={"5"}
       borderRight={{ base: "none", lg: "0.1px solid gray" }}
-    >
+     className="flex flex-col className= p-5">
       <AgencyOverview overview={agency_overview} setAgency={setAgency} />
       <br />
       <AgencyServices agency={agency} setAgency={setAgency} />
@@ -22,7 +20,7 @@ const AgencyLeftbar = ({ agency, setAgency }) => {
       <br />
       <AgencyWorkHistory setAgency={setAgency} />
       <br />
-    </VStack>
+    </div>
   );
 };
 

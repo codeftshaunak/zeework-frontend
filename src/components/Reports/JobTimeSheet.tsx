@@ -1,4 +1,5 @@
-import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import React from "react";
+
 import {
   differenceInCalendarWeeks,
   format,
@@ -83,23 +84,23 @@ const JobTimeSheet = ({ data, isLoading }) => {
       ) : (
         <div className="mb-3">
           {lastWeek ? (
-            <Box overflowX={"auto"}>
+            <div overflowX="auto">
               <Table variant="simple">
-                <Thead textAlign="center">
+                <Thead>
                   <Tr>
-                    <Th fontSize="1rem" textColor="black" mb="1.5rem">
+                    <Th textColor="black">
                       Week Number
                     </Th>
-                    <Th textAlign="center">Mon</Th>
-                    <Th textAlign="center">Tue</Th>
-                    <Th textAlign="center">Wed</Th>
-                    <Th textAlign="center">Thu</Th>
-                    <Th textAlign="center">Fri</Th>
-                    <Th textAlign="center">Sat</Th>
-                    <Th textAlign="center">Sun</Th>
-                    <Th textAlign="center">Hours</Th>
-                    <Th textAlign="center">Rate</Th>
-                    <Th textAlign="center">Amount</Th>
+                    <Th>Mon</Th>
+                    <Th>Tue</Th>
+                    <Th>Wed</Th>
+                    <Th>Thu</Th>
+                    <Th>Fri</Th>
+                    <Th>Sat</Th>
+                    <Th>Sun</Th>
+                    <Th>Hours</Th>
+                    <Th>Rate</Th>
+                    <Th>Amount</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -112,23 +113,23 @@ const JobTimeSheet = ({ data, isLoading }) => {
                     </Td>
                     {lastWeek?.date_time?.map((date, idx) => {
                       return (
-                        <Td key={idx} textAlign="center">
+                        <Td key={idx}>
                           {formatTimeInHours(date.time)}
                         </Td>
                       );
                     })}
-                    <Td textAlign="center">
+                    <Td>
                       {formatTimeInHours(lastWeekTime)}
                     </Td>
-                    <Td textAlign="center" fontWeight="semibold">
+                    <Td>
                       ${data?.details?.hourly_rate}
                       <sub className="font-normal">/hr</sub>
                     </Td>
-                    <Td textAlign="center">${totalEarning.toFixed(2)}</Td>
+                    <Td>${totalEarning.toFixed(2)}</Td>
                   </Tr>
                 </Tbody>
               </Table>
-            </Box>
+            </div>
           ) : (
             <div>No data available</div>
           )}

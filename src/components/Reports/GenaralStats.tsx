@@ -1,13 +1,13 @@
-import { Card, HStack } from "@chakra-ui/react";
+import React from "react";
+
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
 
 const GenaralStats = ({ stats, isLoading }) => {
   return (
     <div>
       <h2 className="mt-10 mb-8 text-[25px] font-semibold">General Stats</h2>
-      <HStack
-        className="max-md:!flex-col max-lg:!flex-wrap max-lg:!justify-center"
-        justify={"space-between"}
+      <div className="flex flex-row items-center max-md:!flex-col max-lg:!flex-wrap max-lg:!justify-center"
+        justify="space-between"
       >
         {isLoading ? (
           <HorizontalCardSkeleton />
@@ -15,14 +15,8 @@ const GenaralStats = ({ stats, isLoading }) => {
           stats?.map((data, index) => (
             <Card
               key={index}
-              width={"260px"}
-              height={"10rem"}
-              cursor={"pointer"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              boxShadow={"0"}
-              border={"1px solid #D1D5DA"}
-              borderRadius={"10px"}
+              className="items-center rounded"
+              boxShadow="0"
               _hover={{
                 border: "1px solid var(--primarycolor)",
                 transition: "0.3s ease-in-out",
@@ -34,7 +28,7 @@ const GenaralStats = ({ stats, isLoading }) => {
             </Card>
           ))
         )}
-      </HStack>
+      </div>
     </div>
   );
 };

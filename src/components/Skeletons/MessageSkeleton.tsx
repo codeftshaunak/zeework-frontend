@@ -1,128 +1,95 @@
-import { Avatar } from "../ui/Avatar";
-import { HStack, VStack, Box, Flex, Skeleton } from "@chakra-ui/react";
+
+import React from "react";
+
+
 
 export const MessageUsersSkeleton = () => {
   return (
     <div>
-      <Flex
-        className="h-[90px] w-full border rounded-2xl bg-white mt-[2rem] cursor-pointer opacity-50"
-        cursor={"not-allowed"}
-        alignItems={"center"}
+      <div
+        className="items-center flex h-[90px] w-full border rounded-2xl bg-white mt-[2rem] cursor-pointer opacity-50 cursor-not-allowed"
       >
-        <Flex
-          align="center"
-          alignItems={"center"}
+        <div className="flex items-center"
+          
+         
           justify="between"
-          py={2}
-          px={4}
         >
-          <Box width="85px">
+          <div>
             <Avatar size="md" round="20px" />
-          </Box>
-          <Box
-            width="full"
-            marginLeft={4}
-            display={{ base: "none", xl: "block" }}
+          </div>
+          <div
+           
+            marginLeft={4}}
           >
-            <Skeleton width="100px" height={3}></Skeleton>
-            <Skeleton width="120px" height={2} marginTop={3}></Skeleton>
-            <Skeleton width={18} height={2} marginTop={2}></Skeleton>
-          </Box>
-        </Flex>
-      </Flex>
+            <Skeleton></Skeleton>
+            <Skeleton marginTop={3}></Skeleton>
+            <Skeleton marginTop={2}></Skeleton>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export const MessageBodySkeleton = () => {
   return (
-    <Box
-      width="100%"
-      px={"20px"}
-      py={"1rem"}
-      borderRadius={"15px"}
-      position={"relative"}
-      height={"80%"}
-      overflow={"hidden"}
-      className="border shadow-sm bg-white"
-      cursor={"not-allowed"}
+    <div
+      className="border shadow-sm bg-white rounded relative h-[80%] overflow-hidden cursor-not-allowed"
     >
-      <Flex
+      <div className="flex items-center"
         borderBottom="1px"
         borderColor="gray.400"
-        h="60px"
-        py={2}
-        gap={3}
-        alignItems={"center"}
+       
       >
         <Avatar size="md" round="20px" />
-        <Flex flexDir="column">
-          <Skeleton width={16} height={3}></Skeleton>
-          <Skeleton width={40} height={2} marginTop={3}></Skeleton>
-        </Flex>
-      </Flex>
+        <div className="flex flexDir="column">
+          <Skeleton></Skeleton>
+          <Skeleton marginTop={3}></Skeleton>
+        </div>
+      </div>
 
-      <VStack
-        alignItems={"start"}
-        width={"100%"}
-        height={"100%"}
-        position={"relative"}
+      <div className="flex flex-col className="items-start w-full h-[100%] relative"
       >
-        <Box
-          height={"69vh"}
-          overflowY={"auto"}
-          width={"100%"}
-          display={"flex"}
-          flexDir={"column"}
-          justifyContent={"flex-start"}
-          gap={5}
+        <div
+          className="h-[69vh] w-full flex"
+          overflowY="auto"
+         
+          flexDir="column"
+          className="justify-flex-start"
         >
-          <HStack marginTop={2}>
-            <Avatar size="sm" round="20px" opacity={"0.5"} />
-            <Flex flexDir="column" gap={2}>
-              <Skeleton height={3} width={"100px"} rounded={"sm"}></Skeleton>
-              <Skeleton
-                width={{ base: "200px", md: "450px" }}
-                height={2}
-                rounded={"sm"}
+          <div className="flex flex-row items-center marginTop={2}> <Avatar size="sm" round="20px" opacity="0.5" />
+            <div className="flex flexDir="column">
+              <Skeleton></Skeleton>
+              <Skeleton}
               ></Skeleton>
-            </Flex>
-          </HStack>
-          <HStack marginLeft={"auto"}>
-            <VStack justifyContent={"end"} alignItems={"end"}>
-              <Skeleton height={3} width={"100px"} rounded={"sm"}></Skeleton>
-              <Skeleton
-                width={{ base: "200px", md: "450px" }}
-                height={2}
-                rounded={"sm"}
+            </div>
+          </div>
+          <div className="flex flex-row items-center className="ml-[auto]">
+            <div className="flex flex-col className="justify-end items-end">
+              <Skeleton></Skeleton>
+              <Skeleton}
               ></Skeleton>
-            </VStack>
-            <Avatar size="sm" round="20px" opacity={"0.5"} />
-          </HStack>
-          <HStack alignItems={"start"} marginTop={2}>
-            <Avatar size="sm" round="20px" opacity={"0.5"} />
-            <Flex flexDir="column" gap={2}>
-              <Skeleton height={3} width={"100px"} rounded={"sm"}></Skeleton>
-              <Skeleton
-                width={{ base: "200px", md: "450px" }}
-                height={2}
-                rounded={"sm"}
+            </div>
+            <Avatar size="sm" round="20px" opacity="0.5" />
+          </div>
+          <div className="flex flex-row items-center className="items-start" marginTop={2}>
+            <Avatar size="sm" round="20px" opacity="0.5" />
+            <div className="flex flexDir="column">
+              <Skeleton></Skeleton>
+              <Skeleton}
               ></Skeleton>
-            </Flex>
-          </HStack>
-          <HStack marginLeft={"auto"}>
-            <VStack justifyContent={"end"} alignItems={"end"}>
-              <Skeleton height={3} width={"100px"} rounded={"sm"}></Skeleton>
-              <Skeleton
-                width={{ base: "200px", md: "450px" }}
-                height={2}
-                rounded={"sm"}
+            </div>
+          </div>
+          <div className="flex flex-row items-center className="ml-[auto]">
+            <div className="flex flex-col className="justify-end items-end">
+              <Skeleton></Skeleton>
+              <Skeleton}
               ></Skeleton>
-            </VStack>
-            <Avatar size="sm" round="20px" opacity={"0.5"} />
-          </HStack>
-        </Box>
-      </VStack>
-    </Box>
+            </div>
+            <Avatar size="sm" round="20px" opacity="0.5" />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

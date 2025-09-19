@@ -9,8 +9,8 @@ import {
   RadioGroup,
   Select,
   Stack,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -186,11 +186,7 @@ const JobApply = ({ setPage, details }) => {
       handleSubmissionResponse(response);
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "An error occurred while applying",
-        type: "error",
-        duration: 2000,
-      });
+      toast.error("An error occurred while applying");
     } finally {
       setIsLoading(false);
     }
@@ -200,11 +196,7 @@ const JobApply = ({ setPage, details }) => {
     const isSuccess = response?.code === 200;
     const toastMessage = isSuccess ? "Job Applied Successfully" : response?.msg;
 
-    toaster.create({
-      title: toastMessage,
-      type: isSuccess ? "success" : "error",
-      duration: 2000,
-    });
+    toast.default(toastMessage);
 
     if (isSuccess) {
       router.push("/find-job");
@@ -260,30 +252,28 @@ const JobApply = ({ setPage, details }) => {
   };
 
   return (
-    <Box w="100%" pt={2} pb={6}>
+    <div pt={2} pb={6} className="w-full">
       {/* Breadcrumb */}
-      <Box className="flex gap-2 py-6">
+      <div className="flex gap-2 py-6">
         <img src="/icons/home.svg" alt="home" />
         <img src="/icons/chevron-right.svg" alt="arrow right" />
-        <Box className="cursor-pointer" onClick={() => setPage(1)}>
+        <div className="cursor-pointer" onClick={() => setPage(1)}>
           {details_new?.title}
-        </Box>
+        </div>
         <img src="/icons/chevron-right.svg" alt="arrow right" />
-        <Box>Submit Proposal</Box>
-      </Box>
+        <div>Submit Proposal</div>
+      </div>
 
-      <Box className="w-full flex justify-between pb-4 max-lg:flex-col max-lg:gap-4">
-        <Box
-          w="100%"
-          className="lg:!flex-col-reverse lg:flex lg:justify-end lg:gap-4"
-        >
+      <div className="w-full flex justify-between pb-4 max-lg:flex-col max-lg:gap-4">
+        <div
+         className="lg:!flex-col-reverse lg:flex lg:justify-end lg:gap-4 w-full">
           {/* Job Details */}
-          <Box className="w-full lg:w-[96%] border border-tertiary rounded-2xl p-5 sm:p-10 bg-white h-max mb-4">
-            <Box fontWeight="semibold" marginBottom="1" className="text-xl">
+          <div className="w-full lg:w-[96%] border border-tertiary rounded-2xl p-5 sm:p-10 bg-white h-max mb-4">
+            <div className="text-xl">
               Job Details
-            </Box>
+            </div>
             <br />
-            <Box
+            <div
               className={
                 showJobDetails
                   ? "capitalize line-clamp-none"
@@ -301,25 +291,24 @@ const JobApply = ({ setPage, details }) => {
             >
               {showJobDetails ? "less" : "more"}
             </button>
-          </Box>
+          </div>
 
           {/* Proposal Type Selection */}
           {hasAgency && (
-            <Box className="w-full lg:w-[96%] border border-tertiary rounded-2xl p-5 sm:p-10 bg-white">
-              <Box fontWeight="semibold" marginBottom="6" className="text-xl">
+            <div className="w-full lg:w-[96%] border border-tertiary rounded-2xl p-5 sm:p-10 bg-white">
+              <div className="text-xl">
                 Proposal Type
-              </Box>
-              <Box fontWeight="semibold">
+              </div>
+              <div>
                 Do you want to submit the proposal as a freelancer or as an
                 agency member?
-              </Box>
+              </div>
               <Controller
                 name="applicantType"
                 control={control}
                 render={({ field }) => (
                   <RadioGroup.Root {...field} marginTop="4">
-                    <Stack>
-                      <RadioGroup.Item value="freelancer">
+                    <div className="flex> <RadioGroup.Item value="freelancer">
                         <RadioGroup.ItemHiddenInput />
                         <RadioGroup.ItemIndicator />
                         <RadioGroup.ItemText>As a freelancer</RadioGroup.ItemText>
@@ -329,29 +318,29 @@ const JobApply = ({ setPage, details }) => {
                         <RadioGroup.ItemIndicator />
                         <RadioGroup.ItemText>As an agency member</RadioGroup.ItemText>
                       </RadioGroup.Item>
-                    </Stack>
+                    </div>
                   </RadioGroup.Root>
                 )}
               />
               {errors.applicantType && (
                 <ErrorMsg msg={errors.applicantType.message} />
               )}
-            </Box>
+            </div>
           )}
-        </Box>
+        </div>
 
         {/* Form Section */}
-        <Box w="70%" className="max-lg:!w-full">
+        <div className="max-lg:!w-full">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box w="full">
+            <div className="w-full">
               {/* Fixed Job Form */}
               {isFixedJob && (
-                <Box className="w-full">
+                <div className="w-full">
                   {/* Budget Type Selection */}
-                  <Box className="border border-tertiary rounded-2xl p-10 mb-4 bg-white">
-                    <Box fontWeight="semibold" mb={2}>
+                  <div className="border border-tertiary rounded-2xl p-10 mb-4 bg-white">
+                    <div>
                       Select Budget Type
-                    </Box>
+                    </div>
                     <Controller
                       name="budgetType"
                       control={control}
@@ -365,18 +354,16 @@ const JobApply = ({ setPage, details }) => {
                     {errors.budgetType && (
                       <ErrorMsg msg={errors.budgetType.message} />
                     )}
-                  </Box>
+                  </div>
 
                   {/* Bid Details Section */}
-                  <Box className="border border-tertiary rounded-2xl p-10 mb-4 bg-white">
-                    <Box
-                      fontWeight="semibold"
-                      mb={2}
-                      textTransform="capitalize"
-                      fontSize="xl"
+                  <div className="border border-tertiary rounded-2xl p-10 mb-4 bg-white">
+                    <div
+                     
+                     
                     >
                       Write Your Fee For The Contract
-                    </Box>
+                    </div>
                     <p className="mb-2">
                       Client Budget: ${details_new?.amount}
                     </p>
@@ -385,98 +372,91 @@ const JobApply = ({ setPage, details }) => {
                       name="desiredPrice"
                       control={control}
                       render={({ field }) => (
-                        <Box isInvalid={errors.desiredPrice}>
-                          <Input
+                        <div isInvalid={errors.desiredPrice}>
+                          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm rounded-md border border-tertiary p-1 w-full"
                             {...field}
                             type="number"
                             placeholder="$100.00"
-                            className="rounded-md border border-tertiary p-1 w-full"
+                           
                           />
                           <FormErrorMessage>
                             {errors.desiredPrice?.message}
                           </FormErrorMessage>
-                        </Box>
+                        </div>
                       )}
                     />
 
-                    <HStack margin="5px 0" justify="space-between">
-                      <Box marginTop="8px">5% Freelancer Service Fee</Box>
-                      <Box>
+                    <div className="flex flex-row items-center justify="space-between">
+                      <div>5% Freelancer Service Fee</div>
+                      <div>
                         $
                         {desiredPrice
                           ? (desiredPrice * 0.05).toFixed(2)
                           : "0.00"}
-                      </Box>
-                    </HStack>
+                      </div>
+                    </div>
 
-                    <HStack marginBottom="5px" justify="space-between">
-                      <Box fontWeight="semibold">You&apos;ll receive</Box>
-                      <Box fontWeight="semibold">
+                    <div className="flex flex-row items-center justify="space-between">
+                      <div>You&apos;ll receive</div>
+                      <div>
                         ${calculateServiceFee().toFixed(2)}
-                      </Box>
-                    </HStack>
-                  </Box>
-                </Box>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
 
               {/* Hourly Job Form */}
               {isHourlyJob && (
-                <Box className="border border-tertiary rounded-2xl p-5 sm:p-10 mb-4 bg-white">
-                  <Box fontWeight="semibold" mb={5} fontSize="xl">
+                <div className="border border-tertiary rounded-2xl p-5 sm:p-10 mb-4 bg-white">
+                  <div>
                     Select Proposal Rate
-                  </Box>
-                  <HStack justifyContent="space-between" fontSize="0.9rem">
-                    <Box>Your Profile Rate: ${hourly_rate}/hr</Box>
-                    <Box>Client Budget: ${details_new?.amount}/hr</Box>
-                  </HStack>
-
-                  <Box my={4}>What is your hourly rate for this job?</Box>
-                  <Controller
-                    name="hourlyRate"
+                  </div>
+                  <div className="flex flex-row items-center> <div>Your Profile Rate: ${hourly_rate}/hr</div> <div>Client Budget: ${details_new?.amount}/hr</div> </div> <div>What is your hourly rate for this job?</div> <Controller name="hourlyRate"
                     control={control}
                     render={({ field }) => (
-                      <Box isInvalid={errors.hourlyRate}>
-                        <Input
+                      <div isInvalid={errors.hourlyRate}>
+                        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm rounded-md border border-tertiary p-1 w-full"
                           {...field}
                           type="number"
-                          className="rounded-md border border-tertiary p-1 w-full"
+                         
                         />
                         <FormErrorMessage>
                           {errors.hourlyRate?.message}
                         </FormErrorMessage>
-                      </Box>
+                      </div>
                     )}
                   />
 
-                  <HStack justify="space-between" mt={4}>
-                    <Box fontWeight="semibold">5% Freelancer Service Fee</Box>
-                    <Box fontWeight="semibold">
+                  <div className="flex flex-row items-center justify="space-between">
+                    <div>5% Freelancer Service Fee</div>
+                    <div>
                       ${hourlyRate ? (hourlyRate * 0.05).toFixed(2) : "0.00"}
-                    </Box>
-                  </HStack>
+                    </div>
+                  </div>
 
-                  <HStack justify="space-between" mt={4}>
-                    <Box fontWeight="semibold">You&apos;ll Receive</Box>
-                    <Box fontWeight="semibold">
+                  <div className="flex flex-row items-center justify="space-between">
+                    <div>You&apos;ll Receive</div>
+                    <div>
                       ${calculateServiceFee().toFixed(2)}
-                    </Box>
-                  </HStack>
-                </Box>
+                    </div>
+                  </div>
+                </div>
               )}
 
               {/* Additional Details Section */}
-              <Box className="border border-tertiary rounded-2xl max-sm:px-2 p-10 bg-white">
-                <Box fontWeight="semibold" fontSize="xl" mb={2}>
+              <div className="border border-tertiary rounded-2xl max-sm:px-2 p-10 bg-white">
+                <div>
                   Additional Details
-                </Box>
-                <Box marginBottom="10px">Cover Letter</Box>
-                <Box width="full">
+                </div>
+                <div>Cover Letter</div>
+                <div>
                   <QuillToolbar />
                   <Controller
                     name="coverLetter"
                     control={control}
                     render={({ field }) => (
-                      <Box isInvalid={errors.coverLetter}>
+                      <div isInvalid={errors.coverLetter}>
                         <ReactQuill
                           theme="snow"
                           value={field.value}
@@ -492,20 +472,20 @@ const JobApply = ({ setPage, details }) => {
                         <FormErrorMessage>
                           {errors.coverLetter?.message}
                         </FormErrorMessage>
-                      </Box>
+                      </div>
                     )}
                   />
-                </Box>
+                </div>
 
-                <Box textAlign="right" color="gray.300" mt={4}>
+                <div>
                   ({coverLetterLength}/500)
-                </Box>
+                </div>
 
                 {/* File Upload Section */}
-                <Box fontWeight="semibold" mb={8}>
+                <div>
                   Attachment
-                </Box>
-                <Box className="max-w-xl">
+                </div>
+                <div className="max-w-xl">
                   {selectedFile ? (
                     <div className="bg-white w-full py-4 px-3 rounded-lg shadow relative">
                       <div className="flex items-center justify-start gap-3">
@@ -540,28 +520,26 @@ const JobApply = ({ setPage, details }) => {
                       />
                     </label>
                   )}
-                </Box>
+                </div>
 
                 {/* Submit Button */}
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Apply"
-                  colorScheme="primary"
                   type="submit"
                   spinner={<BtnSpinner />}
                   marginTop={10}
-                  rounded="full"
                   paddingBottom="3px"
                   paddingX="40px"
                 >
                   Apply
-                </Button>
-              </Box>
-            </Box>
+                </button>
+              </div>
+            </div>
           </form>
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

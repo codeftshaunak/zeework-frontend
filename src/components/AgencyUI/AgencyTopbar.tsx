@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button, HStack, Progress, VStack } from "@chakra-ui/react";
+
 import { useRouter } from "next/navigation";
 import { getAllJobs } from "../../helpers/APIs/jobApis";
 import JobCard from "../FindJobUi/JobCard";
@@ -28,14 +28,9 @@ const AgencyTopbar = () => {
     <div>
       <div className="w-[75%] py-5">
         <div className="flex justify-between w-full">
-          <HStack
-            border={"1px solid #D1D5DA"}
-            width={"32%"}
-            borderRadius={"10px"}
-            justifyContent={"center"}
-            cursor={"pointer"}
-            transition={"0.3s ease-in-out"}
-            padding={"1rem 0.5rem"}
+          <div
+            transition="0.3s ease-in-out"
+            className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
             _hover={{
               borderColor: "#22c55e",
             }}
@@ -54,15 +49,10 @@ const AgencyTopbar = () => {
                 Search & apply to your next
               </div>
             </div>
-          </HStack>
-          <HStack
-            border={"1px solid #D1D5DA"}
-            width={"32%"}
-            borderRadius={"10px"}
-            justifyContent={"center"}
-            cursor={"pointer"}
-            transition={"0.3s ease-in-out"}
-            padding={"1rem 0.5rem"}
+          </div>
+          <div
+            transition="0.3s ease-in-out"
+            className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
             _hover={{
               borderColor: "#22c55e",
             }}
@@ -79,15 +69,10 @@ const AgencyTopbar = () => {
                 Check your earnings & time spent working
               </div>
             </div>
-          </HStack>
-          <HStack
-            border={"1px solid #D1D5DA"}
-            width={"32%"}
-            borderRadius={"10px"}
-            justifyContent={"center"}
-            cursor={"pointer"}
-            transition={"0.3s ease-in-out"}
-            padding={"1rem 0.5rem"}
+          </div>
+          <div
+            transition="0.3s ease-in-out"
+            className="p-[1rem 0.5rem] flex flex-row items-center border w-full rounded justify-start cursor-pointer"
             _hover={{
               borderColor: "#22c55e",
             }}
@@ -104,7 +89,7 @@ const AgencyTopbar = () => {
                 View your active jobs & proposals
               </div>
             </div>
-          </HStack>
+          </div>
         </div>
         <div className="text-xl font-semibold mt-4 capitalize">
           Here are jobs for you

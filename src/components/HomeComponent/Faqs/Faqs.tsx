@@ -1,10 +1,10 @@
 "use client";
 
+import React from "react";
 import { useState } from "react";
 import {
   Accordion,
-  Box,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { FaPlus } from "react-icons/fa";
 import { FaSquareMinus } from "react-icons/fa6";
 const accordionData1 = [
@@ -43,11 +43,11 @@ const accordionData2 = [
 ];
 const Faqs = () => {
   const [expandedIndex, setExpandedIndex] = useState(0);
-  const [expanded2ndIndex, set2ndExpandedIndex] = useState(null);
-  const toggleAccordion = (index) => {
+  const [expanded2ndIndex, set2ndExpandedIndex] = useState<number | null>(null);
+  const toggleAccordion = (index: number) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
-  const toggle2ndAccordion = (index) => {
+  const toggle2ndAccordion = (index: number) => {
     set2ndExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
   return (
@@ -78,14 +78,9 @@ const Faqs = () => {
                     className="hover:cursor-pointer"
                     px={0}
                   >
-                    <Box
-                      as="span"
-                      flex="1"
-                      textAlign="left"
-                      className="text-lg font-poppins font-medium proxima-nova max-[480px]:text-sm"
-                    >
+                    <span className="flex-1 text-left text-lg font-poppins font-medium proxima-nova max-[480px]:text-sm">
                       {item.title}
-                    </Box>
+                    </span>
                     {expandedIndex === index ? (
                       <FaSquareMinus className="text-[30px] text-primary" />
                     ) : (
@@ -121,14 +116,9 @@ const Faqs = () => {
                     px={0}
                     className="hover:cursor-pointer"
                   >
-                    <Box
-                      as="span"
-                      flex="1"
-                      textAlign="left"
-                      className="text-lg font-poppins font-medium proxima-nova max-[480px]:text-sm"
-                    >
+                    <span className="flex-1 text-left text-lg font-poppins font-medium proxima-nova max-[480px]:text-sm">
                       {item.title}
-                    </Box>
+                    </span>
                     {expanded2ndIndex === index ? (
                       <FaSquareMinus className="text-[30px] text-primary" />
                     ) : (

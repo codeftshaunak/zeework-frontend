@@ -1,5 +1,6 @@
-import { Avatar } from "../ui/Avatar";
-import { Box, Flex, HStack, Text, AvatarBadge } from "@chakra-ui/react";
+
+import React from "react";
+
 import { useRouter } from "next/navigation";
 
 const MessageUserList = ({
@@ -12,7 +13,7 @@ const MessageUserList = ({
   const router = useRouter();
 
   return (
-    <Box
+    <div
       overflowY="auto"
       maxH="90vh"
       pb={20}
@@ -39,7 +40,7 @@ const MessageUserList = ({
           : user?.user_details?.profile_image;
 
         return (
-          <Box
+          <div
             key={user?.contract_details?.contract_ref}
             className={`relative h-[90px] w-full border rounded-2xl mt-[1rem] flex items-center cursor-pointer ${
               isActive ? "border-primary bg-green-100" : "bg-white"
@@ -53,58 +54,37 @@ const MessageUserList = ({
               if (handleOnClose) handleOnClose();
             }}
           >
-            <Flex align="center" justify="between" py={2} px={4}>
-              <Box className="w-[85px]">
+            <div className="flex justify="between">
+              <div className="w-[85px]">
                 <Avatar
                   size="md"
                   round="20px"
                   name={name}
                   src={photo}
-                  border="1px solid var(--primarycolor)"
                 >
-                  <AvatarBadge
-                    border="3.5px solid white"
-                    bg={`${
-                      user?.user_details?.activity === "online"
-                        ? "green"
-                        : "gray.300"
-                    }`}
+                  <AvatarBadge`}
                     boxSize="0.8em"
                     left={-2}
                     top={0}
                   />
                 </Avatar>
-              </Box>
-              <Box width="full">
-                <HStack justifyContent="space-between">
-                  <Text fontWeight="semibold" fontSize="13px">
-                    {name}
-                    {user?.user_details?.businessName &&
-                      ` | ${user?.user_details?.businessName}`}
-                  </Text>
-                </HStack>
-                <Text color="gray.600" fontSize="13px">
-                  {user?.contract_details?.title
-                    ? user?.contract_details?.title?.slice(0, 20)
-                    : "Unavailable contract"}
-                </Text>
-              </Box>
-            </Flex>
+              </div>
+              <div>
+                <div className="flex flex-row items-center> <span> {name} {user?.user_details?.businessName && ` | ${user?.user_details?.businessName}`} </span> </div> <span> {user?.contract_details?.title ? user?.contract_details?.title?.slice(0, 20) :"Unavailable contract"}
+                </span>
+              </div>
+            </div>
             {user?.contract_details?.contract_ref && !user?.isRead && (
-              <Box
-                width={2}
-                height={2}
-                rounded="full"
-                position="absolute"
+              <div
                 top={4}
                 right={4}
-                bgColor="tomato"
-              ></Box>
+               
+               className="absolute"></div>
             )}
-          </Box>
+          </div>
         );
       })}
-    </Box>
+    </div>
   );
 };
 

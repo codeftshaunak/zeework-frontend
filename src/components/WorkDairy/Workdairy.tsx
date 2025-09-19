@@ -8,7 +8,7 @@ import {
   Input,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import React, { useState } from "react";
 import CTAButton from "../CTAButton";
 import Select from "react-select";
@@ -57,31 +57,23 @@ const Workdairy = () => {
   };
 
   return (
-    <VStack width={"90%"} gap={"10"} alignItems={"start"} p={"2rem 0"}>
-      <HStack justifyContent={"space-between"} width={"full"}>
-        <Text fontWeight={"600"} fontSize={"3xl"}>
+    <div className="flex flex-col className= items-start"w-[90%]">
+      <div className="flex flex-row items-center className="justify-between w-full">
+        <span className="font-semibold">
           Work diary
-        </Text>
+        </span>
         <CTAButton
-          text={"Request Manual Time"}
-          size={"0.8rem"}
-          bg={"#22C55E"}
-          color={"#fff"}
-          p={"0.5rem 1rem"}
-          fontWeight={"500"}
+          text="Request Manual Time"
+          size="0.8rem"
+          p="0.5rem 1rem"
         />
-      </HStack>
-      <VStack
-        width={"full"}
-        gap={"10"}
-        position={"relative"}
-        border={"1px solid #DFDFDF"}
-        padding={"2rem 2rem"}
-        borderRadius={"10px"}
+      </div>
+      <div className="flex flex-col className= relative border p-[2rem 2rem] rounded"w-full"
+       
       >
-        <HStack justifyContent={"space-between"} width={"full"}>
+        <div className="flex flex-row items-center className="justify-between w-full">
           <Select options={options} styles={customStyles} />
-          <Box width={"243px"}>
+          <div className="w-[243px]">
             <Datepicker
               inputClassName="relative pl-2 pr-8 py-2 border border-gray-300 rounded-md w-60" // You can use w-40 or any other width className that suits your needs.
               primaryColor="yellow"
@@ -89,68 +81,57 @@ const Workdairy = () => {
               onChange={handleValueChange}
               showShortcuts={true}
             />
-          </Box>
-        </HStack>
-        <HStack justifyContent={"space-between"} width={"full"}>
-          <HStack>
-            <Text fontWeight={"600"} fontSize={"1.3rem"}>
+          </div>
+        </div>
+        <div className="flex flex-row items-center className="justify-between w-full">
+          <div className="flex flex-row items-center> <span className="font-semibold">
               Total:
-            </Text>
-            <Text fontWeight={"600"} fontSize={"1.3rem"}>
+            </span>
+            <span className="font-semibold">
               0:10 hrs
-            </Text>
-            <Text fontSize={"1rem"} fontWeight={"800"}>
-              {<AiOutlineReload color="#22C35E" fontWeight={"800"} />}
-            </Text>
+            </span>
+            <span className="text-base font-extrabold">
+              {<AiOutlineReload />}
+            </span>
             <ActiveIcon />
-            <Text fontSize={"0.9rem"} fontWeight={"light"}>
+            <span className="text-sm">
               Tracked (0:10 hrs)
-            </Text>
-          </HStack>
+            </span>
+          </div>
           <Select options={options_hr} styles={customStyles_hr} />
-        </HStack>
+        </div>
         <Divider></Divider>
-        <HStack width={"full"} justifyContent={"space-between"}>
-          <HStack>
-            <ActiveIcon />
-            <Text fontWeight={"600"} fontSize={"1.3rem"}>
+        <div className="flex flex-row items-center className="w-full justify-between">
+          <div className="flex flex-row items-center> <ActiveIcon /> <span className="font-semibold">
               7:00 PM - 8:00 PM (1:00 hrs)
-            </Text>
-          </HStack>
-          <Text fontSize={"1.4rem"}>{<CiCircleMore />}</Text>
-        </HStack>
-        <Text
-          fontSize={"0.9rem"}
-          fontWeight={"light"}
-          float={"left"}
-          width={"full"}
-        >
+            </span>
+          </div>
+          <span className="text-2xl">{<CiCircleMore />}</span>
+        </div>
+        <span
+          float="left"
+         className="w-full text-sm">
           Working On Mobile Responsiveness
-        </Text>
-        <HStack justifyContent={"start"} width={"full"} flexWrap={"wrap"}>
+        </span>
+        <div className="flex flex-row items-center className="justify-start w-full" flexWrap="wrap">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => {
             return (
-              <VStack alignItems={"start"} key={item}>
+              <div className="flex flex-col className="items-start" key={item}>
                 <Image
                   src="https://i.ibb.co/tmNpfvL/Screenshot-2023-10-30-at-11-16-14-PM.png"
                   style={customStyles_img}
                 />
-                <HStack>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
-                    <Box
-                      key={number}
-                      width={"11px"}
-                      height={"5px"}
-                      backgroundColor={"#22C35E"}
-                    ></Box>
+                <div className="flex flex-row items-center> {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => ( <div key={number} className="w-[11px] h-[5px]"
+                      backgroundColor="#22C35E"
+                    ></div>
                   ))}
-                </HStack>
-              </VStack>
+                </div>
+              </div>
             );
           })}
-        </HStack>
-      </VStack>
-    </VStack>
+        </div>
+      </div>
+    </div>
   );
 };
 

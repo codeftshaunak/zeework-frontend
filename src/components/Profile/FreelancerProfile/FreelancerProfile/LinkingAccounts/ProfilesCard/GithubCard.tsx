@@ -1,6 +1,8 @@
-"use client";
 
-import { Avatar } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa6";
 import { MdInsertLink } from "react-icons/md";
@@ -44,7 +46,7 @@ const GithubCard = ({ data, isPublic }) => {
           </div>
           {name && <p className="font-semibold text-gray-300">{name}</p>}
         </div>
-        {name && <Avatar size={"sm"} name={name} src={avatar_url} />}
+        {name && <Avatar size="sm" name={name} src={avatar_url} />}
       </div>
 
       {html_url ? (

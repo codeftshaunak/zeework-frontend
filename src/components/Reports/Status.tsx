@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Box,
@@ -16,7 +18,7 @@ import {
   Thead,
   Tr,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { agencyReports } from "../../helpers/APIs/agencyApis";
@@ -78,74 +80,59 @@ const Status = () => {
 
   return (
     <div className="w-full pb-24">
-      <h2 className="mt-8 mb-8  text-[25px] font-semibold">
+      <h2 className="mt-8 mb-8 text-[25px] font-semibold">
         Earnings Overview
       </h2>
 
       {isLoading ? (
         <HorizontalCardSkeleton />
       ) : (
-        <HStack justifyContent={"space-between"}>
-          <VStack
-            width={"400px"}
-            height={"10rem"}
-            backgroundColor={"#ffff"}
-            border={"1px solid #D1D5DA"}
-            borderRadius={"10px"}
-            cursor={"pointer"}
-            alignItems={"center"}
-            justifyContent={"center"}
+        <div className="flex flex-row items-center className="justify-between">
+          <divw-[400px] h-[10rem]"
+            backgroundColor="#ffff"
+            className="border rounded items-center justify-center"
+           
             _hover={{
               border: "1px solid var(--primarycolor)",
               transition: "0.3s ease-in-out",
             }}
-          >
+           className="flex flex-col className= cursor-pointer">
             <p className="font-semibold text-4xl">
               ${balance?.progress?.toFixed(2)}
             </p>
             <p className="text-lg capitalize">Work In Progress</p>
-          </VStack>
+          </div>
 
-          <VStack
-            width={"400px"}
-            height={"10rem"}
-            backgroundColor={"#ffff"}
-            border={"1px solid #D1D5DA"}
-            borderRadius={"10px"}
-            cursor={"pointer"}
-            alignItems={"center"}
-            justifyContent={"center"}
+          <divw-[400px] h-[10rem]"
+            backgroundColor="#ffff"
+            className="border rounded items-center justify-center"
+           
             _hover={{
               border: "1px solid var(--primarycolor)",
               transition: "0.3s ease-in-out",
             }}
-          >
+           className="flex flex-col className= cursor-pointer">
             <p className="font-semibold text-4xl">
               ${balance?.review?.toFixed(2)}
             </p>
             <p className="text-xl capitalize">In review</p>
-          </VStack>
+          </div>
 
-          <VStack
-            width={"400px"}
-            height={"10rem"}
-            backgroundColor={"#ffff"}
-            border={"1px solid #D1D5DA"}
-            borderRadius={"10px"}
-            cursor={"pointer"}
-            alignItems={"center"}
-            justifyContent={"center"}
+          <divw-[400px] h-[10rem]"
+            backgroundColor="#ffff"
+            className="border rounded items-center justify-center"
+           
             _hover={{
               border: "1px solid var(--primarycolor)",
               transition: "0.3s ease-in-out",
             }}
-          >
+           className="flex flex-col className= cursor-pointer">
             <p className="font-semibold text-4xl">
               ${balance?.available?.toFixed(2)}
             </p>
             <p className="text-lg">Available</p>
-          </VStack>
-        </HStack>
+          </div>
+        </div>
       )}
 
       <div className="my-3">
@@ -160,15 +147,14 @@ const Status = () => {
         {/* table */}
         <div className="my-3">
           <Card>
-            <CardBody paddingY={"2.5rem"}>
+            <CardBody paddingY="2.5rem">
               <TableContainer>
                 <Table variant="simple">
                   <Thead>
-                    <Tr maxWidth={"100%"}>
+                    <Tr maxWidth="100%">
                       <Th
-                        fontSize={"1.2rem"}
-                        textColor={"black"}
-                        marginBottom={"1.5rem"}
+                        textColor="black"
+                        className="mb-[1.5rem]"
                       >
                         Hourly Contracts
                       </Th>
@@ -233,21 +219,15 @@ const Status = () => {
       </div>
 
       <h2 className="mt-10 mb-8 text-[25px] font-semibold">General Stats</h2>
-      <HStack justify={"space-between"}>
+      <div className="flex flex-row items-center justify="space-between">
         {isLoading ? (
           <HorizontalCardSkeleton />
         ) : (
           stats?.map((data, index) => (
             <Card
               key={index}
-              width={"220px"}
-              height={"10rem"}
-              cursor={"pointer"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              boxShadow={"0"}
-              border={"1px solid #D1D5DA"}
-              borderRadius={"10px"}
+              className="items-center rounded"
+              boxShadow="0"
               _hover={{
                 border: "1px solid var(--primarycolor)",
                 transition: "0.3s ease-in-out",
@@ -258,7 +238,7 @@ const Status = () => {
             </Card>
           ))
         )}
-      </HStack>
+      </div>
 
       <OthersPayment />
     </div>
@@ -272,24 +252,19 @@ export const OthersPayment = () => {
         Further Information
       </h2>
       <div className="relative h-[25rem] border">
-        <HStack spacing="4" height={"100%"}>
+        <div className="flex flex-row items-center spacing= h-[100%]"4">
           {data.map((data) => (
             <Card
               key={data.id}
-              width="400px"
               backgroundColor="#F0FDF4"
-              height="10rem"
-              alignItems="center"
-              justifyContent="center"
             >
               <p className="font-semibold text-4xl mb-2">{data.number}</p>
               <p className="font-semibold text-lg capitalize">{data.title}</p>
             </Card>
           ))}
-        </HStack>
+        </div>
 
-        <Box
-          position="absolute"
+        <div
           top="0"
           left="0"
           right="0"
@@ -297,30 +272,27 @@ export const OthersPayment = () => {
           zIndex="100"
           background="rgba(255, 255, 255, 0.8)"
           backdropFilter="blur(10px)"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-        >
-          <VStack spacing="4" width={"700px"}>
-            <Image src="./images/zeework_logo.png" width={"250px"} />
-            <Text fontSize="2xl" fontWeight="bold">
+         
+         
+         
+         
+         className="absolute">
+          <div className="flex flex-col spacing= w-[700px]"4">
+            <img src="./images/zeework_logo.png" />
+            <span>
               Welcome to ZeeWork!
-            </Text>
-            <Text>
+            </span>
+            <span>
               We&apos;re excited to have you be a part of our brand new launch!
-            </Text>
-            <Text>
+            </span>
+            <span>
               Detailed reporting is coming shortly in further updates with the
               site. For anything you may require immediately for accounting
               purposes or otherwise, please feel free to ping our support
               department for a swift response.
-            </Text>
-            <Button
-              color="var(--secondarycolor)"
+            </span>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
               backgroundColor={"var(--primarycolor)"}
-              borderRadius={"20px"}
-              width={"150px"}
               _hover={{
                 color: "var(--primarytext)",
                 backgroundColor: "var(--secondarycolor)",
@@ -328,9 +300,9 @@ export const OthersPayment = () => {
               }}
             >
               Get In Touch
-            </Button>
-          </VStack>
-        </Box>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

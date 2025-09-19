@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -15,7 +16,7 @@ import {
   VStack,
   RadioGroup,
   Stack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import Select from "react-select";
 import { BiSearchAlt, BiXCircle } from "react-icons/bi";
 import UserProfileCard from "./UserCard";
@@ -33,36 +34,45 @@ import { setFindWorkData } from "../../redux/pagesSlice/pagesSlice";
 import { IoMdRefreshCircle } from "react-icons/io";
 import Pagination from "../utils/Pagination/Pagination";
 
-// const TopItem = ({ title, image, subTitle, redirect }) => {
-//   const router = useRouter();
+// Types
+interface Job {
+  _id: string;
+  title: string;
+  // Add other job properties as needed
+}
 
-//   return (
-//     <HStack
-//       border={"1px solid #D1D5DA"}
-//       width={"32%"}
-//       borderRadius={"10px"}
-//       justifyContent={"center"}
-//       cursor={"pointer"}
-//       transition={"0.3s ease-in-out"}
-//       padding={"1rem 0.5rem"}
-//       _hover={{
-//         borderColor: "#22c55e",
-//       }}
-//       backgroundColor={"#ffff"}
-//     >
-//       {" "}
-//       <img src={image} alt="proposals" />
-//       <div
-//         onClick={() => {
-//           router.push(`/${redirect}`);
-//         }}
-//       >
-//         <div className="text-sm font-semibold">{title}</div>
-//         <div className="text-sm text-gray-300">{subTitle}</div>
-//       </div>
-//     </HStack>
-//   );
-// };
+interface Category {
+  _id: string;
+  category_name: string;
+}
+
+interface CategoryOption {
+  value: string;
+  label: string;
+}
+
+interface JobsData {
+  data?: Job[];
+  totalLength?: number;
+}
+
+interface FilterProps {
+  handleContractTypeChange: (contractTypeValue: string) => void;
+  handleExperienceChange: (experienceLevel: string) => void;
+  handleCategoryChange: (value: CategoryOption[]) => void;
+  categoryOptions: CategoryOption[];
+  category: CategoryOption[];
+  handleHourlyRateChange: (value: string) => void;
+  handleFixedRateChange: (value: string) => void;
+  hourlyRateShow: boolean;
+  fixedRateShow: boolean;
+  setPaymentType: (type: string) => void;
+  paymentType: string;
+  setPage: (page: number) => void;
+  isLoading: boolean;
+  experience: string[];
+  handleResetFilters: () => void;
+}
 
 export const AllJobs = () => {
   const jobs = useSelector((state: any) => state.pages.findWork.jobsList);
@@ -92,12 +102,12 @@ export const AllJobs = () => {
 
   return (
     <div className="w-full max-w-[1200px]">
-      <div className="w-full py-6 flex justify-center">
+      <div className="flex justify-center w-full py-6">
         <div className="w-full lg:w-[75%]">
           <Banner />
           <Greetings />
-          <div className="hidden md:grid md:grid-cols-3 gap-5 mt-4">
-            <div className="max-xl:flex-wrap col-span-1 flex gap-2 items-center justify-start border rounded-xl hover:border-green-500 px-5 py-4 cursor-pointer transition bg-white">
+          <div className="hidden gap-5 mt-4 md:grid md:grid-cols-3">
+            <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
               <img
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
@@ -107,33 +117,33 @@ export const AllJobs = () => {
                   router.push("/search-job?page=1");
                 }}
               >
-                <div className="text-md font-semibold">Find A Job</div>
+                <div className="font-semibold text-md">Find A Job</div>
                 <div className="text-sm text-gray-300">
                   Search & apply to your next
                 </div>
               </div>
             </div>
-            <div className="max-xl:flex-wrap col-span-1 flex gap-2 items-center justify-start border rounded-xl hover:border-green-500 px-5 py-4 cursor-pointer transition bg-white">
+            <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
               <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
               <div
                 onClick={() => {
                   router.push("/my-stats");
                 }}
               >
-                <div className="text-md font-semibold">My Stats</div>
+                <div className="font-semibold text-md">My Stats</div>
                 <div className="text-sm text-gray-300">
                   Check your earnings & time spent working
                 </div>
               </div>
             </div>
-            <div className="max-xl:flex-wrap col-span-1 flex gap-2 items-center justify-start border rounded-xl hover:border-green-500 px-5 py-4 cursor-pointer transition bg-white">
+            <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
               <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
               <div
                 onClick={() => {
                   router.push("/my-jobs");
                 }}
               >
-                <div className="text-md font-semibold">My Jobs</div>
+                <div className="font-semibold text-md">My Jobs</div>
                 <div className="text-sm text-gray-300">
                   View your active jobs & proposals
                 </div>
@@ -141,19 +151,7 @@ export const AllJobs = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2 md:hidden">
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"100%"}
-              borderRadius={"10px"}
-              justifyContent={"left"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
-              background={"white"}
-              _hover={{
-                borderColor: "#22c55e",
-              }}
-            >
+            <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
               <img
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
@@ -168,20 +166,8 @@ export const AllJobs = () => {
                   Search & apply to your next
                 </div>
               </div>
-            </HStack>
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"100%"}
-              borderRadius={"10px"}
-              justifyContent={"left"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
-              background={"white"}
-              _hover={{
-                borderColor: "#22c55e",
-              }}
-            >
+            </div>
+            <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
               {" "}
               <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
               <div
@@ -194,20 +180,8 @@ export const AllJobs = () => {
                   Check your earnings & time spent working
                 </div>
               </div>
-            </HStack>
-            <HStack
-              border={"1px solid #D1D5DA"}
-              width={"100%"}
-              borderRadius={"10px"}
-              justifyContent={"left"}
-              cursor={"pointer"}
-              transition={"0.3s ease-in-out"}
-              padding={"1rem 0.5rem"}
-              background={"white"}
-              _hover={{
-                borderColor: "#22c55e",
-              }}
-            >
+            </div>
+            <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
               {" "}
               <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
               <div
@@ -220,10 +194,10 @@ export const AllJobs = () => {
                   View your active jobs & proposals
                 </div>
               </div>
-            </HStack>
+            </div>
           </div>
 
-          <div className="flex justify-between items-center gap-2 mt-3">
+          <div className="flex items-center justify-between gap-2 mt-3">
             <p className="text-xl font-bold capitalize">Latest Job Postings</p>
             <IoMdRefreshCircle
               className={`text-2xl sm:text-3xl text-primary hover:text-green-400 active:text-primary cursor-pointer ${
@@ -247,12 +221,13 @@ export const AllJobs = () => {
                 <img
                   src="/images/dashboard/zeework_button-drop.png"
                   className="pt-1"
+                  alt="dropdown"
                 />
               </button>
             </div>
           )}
         </div>
-        <div className="pl-6 hidden lg:block">
+        <div className="hidden pl-6 lg:block">
           {hasAgency && activeAgency ? (
             <>
               <AgencyUserCard />
@@ -273,51 +248,46 @@ export const AllJobs = () => {
   );
 };
 
-export const SearchJobPage = ({ isFreelancer }) => {
+export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   const pathname = usePathname();
   const searchParams = new URLSearchParams(location.search);
   const [searchTerm, setSearchTerm] = useState(
     searchParams?.get("searchTerm") || ""
   );
 
-  const [category, setCategory] = useState(null);
-  const [experience, setExperience] = useState([]);
-  const [contractType, setContractType] = useState([]);
+  const [category, setCategory] = useState<CategoryOption[]>([]);
+  const [experience, setExperience] = useState<string[]>([]);
+  const [contractType, setContractType] = useState<string[]>([]);
   const { hasAgency, activeAgency } = useContext(CurrentUserContext);
   const profile = useSelector((state: any) => state.profile);
 
-  const [jobsData, setJobsData] = useState({});
-  const [loading, setLoading] = useState();
+  const [jobsData, setJobsData] = useState<JobsData>({});
+  const [loading, setLoading] = useState<boolean>(false);
   const [showHighlightedSearchTerm, setShowHighlightedSearchTerm] =
     useState(false);
-  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
 
-  const [hourlyRateMin, setHourlyRateMin] = useState(null);
-  const [hourlyRateMax, setHourlyRateMax] = useState(null);
+  const [hourlyRateMin, setHourlyRateMin] = useState<number | null>(null);
+  const [hourlyRateMax, setHourlyRateMax] = useState<number | null>(null);
 
   const [hourlyRateShow, setHourlyRateShow] = useState(false);
   const [fixedRateShow, setFixedRateShow] = useState(false);
-  const [sQueryValue, setSQueryValue] = useState(null);
-  const [fixedRateMin, setFixedRateMin] = useState(null);
-  const [fixedRateMax, setFixRateMax] = useState(null);
+  const [sQueryValue, setSQueryValue] = useState<string | null>(null);
+  const [fixedRateMin, setFixedRateMin] = useState<number | null>(null);
+  const [fixedRateMax, setFixRateMax] = useState<number | null>(null);
   const router = useRouter();
   const [showFilter, setShowFilter] = useState(false);
 
   // pagination details
-  const totalPages = Math.ceil(jobsData?.totalLength / 20);
+  const totalPages = Math.ceil((jobsData?.totalLength || 0) / 20);
   const [page, setPage] = useState(1);
   const [paymentType, setPaymentType] = useState("none");
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-
     const searchTerm = searchParams.get("searchTerm");
     setSQueryValue(searchTerm);
-    setSearchTerm(searchTerm);
-    // If sQueryValue is not null, call handleSearch with sQueryValue
-    // if (searchTerm !== null) {
-    //   handleSearchWithSQuery(searchTerm);
-    // }
+    setSearchTerm(searchTerm || "");
   }, [location.search]);
 
   // Handle Category
@@ -325,10 +295,10 @@ export const SearchJobPage = ({ isFreelancer }) => {
     const { body, code } = await getCategories();
     if (code === 200)
       setCategoryOptions(
-        body?.map((item) => ({
+        body?.map((item: Category) => ({
           value: item._id,
           label: item.category_name,
-        }))
+        })) || []
       );
   };
   useEffect(() => {
@@ -336,7 +306,7 @@ export const SearchJobPage = ({ isFreelancer }) => {
   }, []);
 
   // lessen url every changes
-  const searchWithFilters = useCallback(async (params) => {
+  const searchWithFilters = useCallback(async (params: any) => {
     if (!params) return;
 
     try {
@@ -345,16 +315,16 @@ export const SearchJobPage = ({ isFreelancer }) => {
 
       // Append page in URL parameters
       if (params?.page) {
-        queryParams.set("page", params.page);
+        queryParams.set("page", params.page.toString());
       } else {
-        queryParams.set("page", 1);
+        queryParams.set("page", "1");
       }
 
       // Append category to URL parameters
       if (params?.category?.length) {
         queryParams.set(
           "category",
-          params.category.map((cat) => cat.value).join(",")
+          params.category.map((cat: CategoryOption) => cat.value).join(",")
         );
       } else {
         queryParams.delete("category");
@@ -396,30 +366,26 @@ export const SearchJobPage = ({ isFreelancer }) => {
 
       // Extract payload values from URL parameters
       const experience = queryParams.has("experience")
-        ? queryParams.get("experience").split(",")
-        : null;
+        ? queryParams.get("experience")?.split(",") || []
+        : [];
       const contractType = queryParams.has("contractType")
-        ? queryParams.get("contractType").split(",")
-        : null;
-      const searchTerm = queryParams.has("searchTerm")
-        ? queryParams.get("searchTerm")
-        : null;
-      const payment = queryParams.has("payment")
-        ? queryParams.get("payment")
-        : null;
+        ? queryParams.get("contractType")?.split(",") || []
+        : [];
+      const searchTerm = queryParams.get("searchTerm");
+      const payment = queryParams.get("payment");
 
       // Fetch jobs using the updated parameters
       const jobs = await getJobs(
         params.page,
         params.category,
-        searchTerm,
+        searchTerm || undefined,
         experience,
         contractType,
         params.hourlyRateMin,
         params.hourlyRateMax,
         params.fixedRateMin,
         params.fixedRateMax,
-        payment
+        payment || undefined
       );
 
       // Update state with fetched jobs
@@ -469,12 +435,12 @@ export const SearchJobPage = ({ isFreelancer }) => {
       });
   }, [page]);
 
-  const handleCategoryChange = (value) => {
+  const handleCategoryChange = (value: CategoryOption[]) => {
     setCategory(value);
     setPage(1);
   };
 
-  const handleExperienceChange = (experienceLevel) => {
+  const handleExperienceChange = (experienceLevel: string) => {
     setExperience((prev) => {
       const updatedExperience = prev.includes(experienceLevel)
         ? prev.filter((level) => level !== experienceLevel)
@@ -482,17 +448,16 @@ export const SearchJobPage = ({ isFreelancer }) => {
       setPage(1);
       return updatedExperience;
     });
-    // searchWithFilters({ experience: experience })
   };
 
   // handle Contract type
-  const handleContractTypeChange = (contractTypeValue) => {
+  const handleContractTypeChange = (contractTypeValue: string) => {
     if (contractTypeValue === "fixed") {
       setFixedRateShow(!fixedRateShow);
-      if (fixedRateShow) setFixedRateMin(null), setFixRateMax(null);
+      if (fixedRateShow) (setFixedRateMin(null), setFixRateMax(null));
     } else if (contractTypeValue === "hourly") {
       setHourlyRateShow(!hourlyRateShow);
-      if (hourlyRateShow) setHourlyRateMin(null), setHourlyRateMax(null);
+      if (hourlyRateShow) (setHourlyRateMin(null), setHourlyRateMax(null));
     }
 
     // Update contract type and navigate with filters
@@ -500,13 +465,12 @@ export const SearchJobPage = ({ isFreelancer }) => {
       const updatedContractType = prev.includes(contractTypeValue)
         ? prev.filter((type) => type !== contractTypeValue)
         : [...prev, contractTypeValue];
-      // searchWithFilters();
       setPage(1);
       return updatedContractType;
     });
   };
 
-  const handleHourlyRateChange = (value) => {
+  const handleHourlyRateChange = (value: string) => {
     // Update hourly rate values
     switch (value) {
       case "1":
@@ -535,7 +499,7 @@ export const SearchJobPage = ({ isFreelancer }) => {
     setPage(1);
   };
 
-  const handleFixedRateChange = (value) => {
+  const handleFixedRateChange = (value: string) => {
     // Update fixed rate values
     switch (value) {
       case "1":
@@ -566,7 +530,6 @@ export const SearchJobPage = ({ isFreelancer }) => {
 
   const clearSearch = () => {
     setSearchTerm("");
-    // fetchJobs();
     setShowHighlightedSearchTerm(false);
     router.push("/search-job", { replace: true });
   };
@@ -589,7 +552,7 @@ export const SearchJobPage = ({ isFreelancer }) => {
 
   return (
     <div className="w-full mx-auto">
-      <div className="py-6 flex w-full">
+      <div className="flex w-full py-6">
         <div className="w-[40%] pr-6 max-lg:hidden">
           {!profile?.agency?.isError && isFreelancer && (
             <div className="mb-6">
@@ -631,48 +594,31 @@ export const SearchJobPage = ({ isFreelancer }) => {
           <TimerDownloadCard />
         </div>
         <div className="w-full">
-          <HStack
-            width={"100%"}
-            justifyContent={"space-evenly"}
-            marginBottom={"0.9rem"}
-            borderRadius={"0.75rem"}
-            className="border border-tertiary overflow-hidden"
-          >
-            <Image src="/images/zeework_banner_bizzzy.jpg" />
-          </HStack>
-          <div className="text-xl font-semibold mb-4">
+          <div className="flex flex-row items-center w-full justify-space-evenly mb-[0.9rem] rounded border border-tertiary overflow-hidden">
+            <img src="/images/zeework_banner_bizzzy.jpg" alt="banner" />
+          </div>
+          <div className="mb-4 text-xl font-semibold">
             Search For Your Next Job
           </div>
-          <HStack
-            width={"100%"}
-            justifyContent={"space-evenly"}
-            marginX={"auto"}
-            marginBottom={"0.9rem"}
-          >
+          <div className="flex flex-row items-center w-full justify-space-evenly mx-[auto] mb-[0.9rem]">
             <div className="w-full flex gap-2 bg-white items-center border-[#D1D5DA] border rounded-md">
-              <Input
+              <input
+                className="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background !border-0"
                 placeholder="Search for open positions..."
-                bgColor={"white"}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
-                  setShowHighlightedSearchTerm(false); // or false, depending on your logic
+                  setShowHighlightedSearchTerm(false);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter")
                     searchWithFilters({ searchTerm: e.target.value });
                 }}
                 value={searchTerm}
-                className="!border-0"
               />
               {searchTerm && (
-                <Box
-                  as={BiXCircle}
-                  fontSize={"1.5rem"}
-                  cursor={"pointer"}
-                  color={"var(--primarycolor)"}
-                  transition={"0.3s ease-in-out"}
+                <BiXCircle
+                  className="text-var(--primarycolor) z-50 mx-2 text-1.5rem cursor-pointer"
                   onClick={clearSearch}
-                  className="z-50 mx-2"
                 />
               )}
             </div>
@@ -683,38 +629,12 @@ export const SearchJobPage = ({ isFreelancer }) => {
               }}
               className="lg:hidden"
             >
-              <Box
-                fontWeight={"800"}
-                fontSize={"1.5rem"}
-                border={"1px solid var(--primarycolor)"}
-                padding={"5px 10px"}
-                borderRadius={"5px"}
-                backgroundColor={"white"}
-                cursor={"pointer"}
-                color={"var(--primarycolor)"}
-                transition={"0.3s ease-in-out"}
-                _hover={{
-                  backgroundColor: "var(--primarycolor)",
-                  color: "#fff",
-                }}
-              >
+              <div className="text-var(--primarycolor) font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer transition-colors duration-300 hover:bg-var(--primarycolor) hover:text-white">
                 <CiFilter />
-              </Box>
+              </div>
             </button>
-            <Box
-              fontWeight={"800"}
-              fontSize={"1.5rem"}
-              border={"1px solid var(--primarycolor)"}
-              padding={"5px 10px"}
-              borderRadius={"5px"}
-              backgroundColor={"var(--primarycolor)"}
-              cursor={"pointer"}
-              color={"white"}
-              transition={"0.3s ease-in-out"}
-              _hover={{
-                backgroundColor: "#fff",
-                color: "#000",
-              }}
+            <div
+              className="bg-var(--primarycolor) text-white font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer transition-colors duration-300 hover:bg-white hover:text-black"
               onClick={() =>
                 searchWithFilters({
                   searchTerm: searchTerm,
@@ -722,9 +642,9 @@ export const SearchJobPage = ({ isFreelancer }) => {
               }
             >
               <BiSearchAlt />
-            </Box>
-          </HStack>
-          <div className={`lg:hidden ${showFilter === true ? "" : "hidden"}`}>
+            </div>
+          </div>
+          <div className={`lg:hidden ${showFilter ? "" : "hidden"}`}>
             <Filter
               handleCategoryChange={handleCategoryChange}
               handleContractTypeChange={handleContractTypeChange}
@@ -745,11 +665,11 @@ export const SearchJobPage = ({ isFreelancer }) => {
               paymentType={paymentType}
             />
           </div>
-          <div className="text-xl font-semibold mt-2">Latest Job Posts</div>
+          <div className="mt-2 text-xl font-semibold">Latest Job Posts</div>
           <div className="overflow-auto w-[100%]">
             <JobCard
               isLoading={loading}
-              jobs={loading ? [] : jobsData?.data}
+              jobs={loading ? [] : jobsData?.data || []}
               searchTerm={searchTerm}
               showHighlightedSearchTerm={showHighlightedSearchTerm}
             />
@@ -767,7 +687,7 @@ export const SearchJobPage = ({ isFreelancer }) => {
   );
 };
 
-export const Filter = ({
+export const Filter: React.FC<FilterProps> = ({
   handleContractTypeChange,
   handleExperienceChange,
   handleCategoryChange,
@@ -785,17 +705,10 @@ export const Filter = ({
   handleResetFilters,
 }) => {
   return (
-    <Box
-      alignItems={"start"}
-      gap={"5"}
-      display={"flex"}
-      justifyContent={"center"}
-    >
-      <Box className="w-full lg:w-[350px] bg-white p-7 rounded-2xl">
-        <HStack justifyContent={"space-between"}>
-          <Text fontWeight={"500"} fontSize={"1.5rem"} paddingBottom={"0rem"}>
-            Filters
-          </Text>
+    <div className="flex items-start justify-center p-5">
+      <div className="w-full lg:w-[350px] bg-white p-7 rounded-2xl">
+        <div className="flex flex-row items-center justify-between">
+          <span className="text-2xl font-medium">Filters</span>
 
           <IoMdRefreshCircle
             className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
@@ -805,9 +718,9 @@ export const Filter = ({
               if (!isLoading) handleResetFilters();
             }}
           />
-        </HStack>
-        <VStack alignItems={"flex-start"} w={"full"} marginY={5}>
-          <Text fontWeight={"600"}>Category</Text>
+        </div>
+        <div className="flex flex-col items-start w-full my-5">
+          <span className="font-semibold">Category</span>
           <Select
             placeholder="Select Your Category"
             className="w-full"
@@ -817,14 +730,10 @@ export const Filter = ({
             onChange={handleCategoryChange}
             value={category}
           />
-        </VStack>
-        <VStack
-          alignItems={"flex-start"}
-          justifyContent={"flex-start"}
-          marginY={6}
-        >
-          <Text fontWeight={"600"}>Experience Required</Text>
-          <VStack alignItems={"flex-start"}>
+        </div>
+        <div className="flex flex-col items-start justify-start my-6">
+          <span className="font-semibold">Experience Required</span>
+          <div className="flex flex-col items-start">
             <Checkbox
               colorScheme="primary"
               onChange={() => handleExperienceChange("Entry")}
@@ -846,19 +755,12 @@ export const Filter = ({
             >
               Expert
             </Checkbox>
-          </VStack>
-        </VStack>
-        <VStack
-          alignItems={"flex-start"}
-          justifyContent={"flex-start"}
-          marginY={6}
-        >
-          <Text fontWeight={"600"}>Contract Type</Text>
-          <VStack
-            alignItems={"flex-start"}
-            className="max-lg:!flex-row gap-4 max-[540px]:!flex-col"
-          >
-            <div className="min-w-max flex flex-col">
+          </div>
+        </div>
+        <div className="flex flex-col items-start justify-start my-6">
+          <span className="font-semibold">Contract Type</span>
+          <div className="flex flex-col items-start max-lg:!flex-row gap-4 max-[540px]:!flex-col">
+            <div className="flex flex-col min-w-max">
               <Checkbox
                 colorScheme="primary"
                 onChange={() => handleContractTypeChange("hourly")}
@@ -867,22 +769,21 @@ export const Filter = ({
                 Hourly Rate
               </Checkbox>
               {hourlyRateShow && (
-                <VStack
-                  alignItems={"flex-start"}
-                  justifyContent={"flex-start"}
-                  w={"full"}
-                  marginLeft={5}
-                >
+                <div className="flex flex-col items-start justify-start w-full ml-5">
                   <RadioGroup.Root
                     colorPalette="green"
                     defaultValue="1"
-                    onValueChange={(details) => handleHourlyRateChange(details.value)}
+                    onValueChange={(details) =>
+                      handleHourlyRateChange(details.value)
+                    }
                   >
-                    <Stack spacing={4} direction="column">
+                    <div className="flex flex-col gap-4">
                       <RadioGroup.Item value="1">
                         <RadioGroup.ItemHiddenInput />
                         <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>Any hourly rate</RadioGroup.ItemText>
+                        <RadioGroup.ItemText>
+                          Any hourly rate
+                        </RadioGroup.ItemText>
                       </RadioGroup.Item>
                       <RadioGroup.Item value="2">
                         <RadioGroup.ItemHiddenInput />
@@ -904,9 +805,9 @@ export const Filter = ({
                         <RadioGroup.ItemIndicator />
                         <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
                       </RadioGroup.Item>
-                    </Stack>
+                    </div>
                   </RadioGroup.Root>
-                </VStack>
+                </div>
               )}
             </div>
             <div>
@@ -918,18 +819,13 @@ export const Filter = ({
                 Fixed Price
               </Checkbox>
               {fixedRateShow && (
-                <VStack
-                  alignItems={"flex-start"}
-                  justifyContent={"flex-start"}
-                  w={"full"}
-                  marginLeft={5}
-                >
+                <div className="flex flex-col items-start justify-start w-full ml-5">
                   <RadioGroup.Root
                     colorScheme="primary"
                     defaultValue="1"
                     onValueChange={(value) => handleFixedRateChange(value)}
                   >
-                    <Stack spacing={4} direction="column">
+                    <div className="flex flex-col gap-4">
                       <RadioGroup.Item value="1">
                         <RadioGroup.ItemHiddenInput />
                         <RadioGroup.ItemIndicator />
@@ -955,19 +851,15 @@ export const Filter = ({
                         <RadioGroup.ItemIndicator />
                         <RadioGroup.ItemText>$1000 & above</RadioGroup.ItemText>
                       </RadioGroup.Item>
-                    </Stack>
+                    </div>
                   </RadioGroup.Root>
-                </VStack>
+                </div>
               )}
             </div>
-          </VStack>
-        </VStack>
-        <VStack
-          alignItems={"flex-start"}
-          justifyContent={"flex-start"}
-          marginY={6}
-        >
-          <Text fontWeight={"600"}>Client Info</Text>
+          </div>
+        </div>
+        <div className="flex flex-col items-start justify-start my-6">
+          <span className="font-semibold">Client Info</span>
           <Checkbox
             colorScheme="primary"
             onChange={(e) => {
@@ -979,8 +871,8 @@ export const Filter = ({
           >
             Payment Verified
           </Checkbox>
-        </VStack>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };

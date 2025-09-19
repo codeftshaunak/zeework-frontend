@@ -1,11 +1,13 @@
+
 "use client";
+import React from "react";
 
 import { BsInfoCircle } from "react-icons/bs";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdCheckmarkCircleOutline, IoMdClose } from "react-icons/io";
 import UniversalModal from "../Modals/UniversalModal";
-import { Box } from '@/components/ui/migration-helpers';
+
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { uploadImage } from "../../helpers/APIs/userApis";
 import { profileData } from "../../redux/authSlice/profileSlice";
@@ -159,7 +161,7 @@ const ProfilePhotoNotify = () => {
             className="absolute top-2 right-3 cursor-pointer rounded-full hover:bg-white/10"
             onClick={handleToastClose}
           >
-            <IoMdClose fontSize={"20px"} />
+            <IoMdClose />
           </div>
         </div>
       )}

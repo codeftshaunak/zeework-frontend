@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
 import { getFreelancerInfo } from "../../helpers/APIs/clientApis";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import SkillCard from "../Profile/SkillCard";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -66,11 +66,7 @@ const ViewFreelancerProfile = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toaster.create({
-      title: "Zeework Profile Copied.",
-      type: "success",
-      duration: 3000,
-    });
+    toast.success("Zeework Profile Copied.");
   };
 
   return (
@@ -84,8 +80,6 @@ const ViewFreelancerProfile = () => {
               <Avatar
                 src={profile_image}
                 name={firstName + " " + lastName}
-                width={"80px"}
-                height={"80px"}
               />
 
               <div className="flex flex-col justify-start">
@@ -106,7 +100,7 @@ const ViewFreelancerProfile = () => {
                 className="flex items-center cursor-pointer justify-center w-[36px] h-[36px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)]"
                 onClick={handleCopyProfileURL}
               >
-                <BsLink45Deg width={"20px"} height={"20px"} />
+                <BsLink45Deg />
               </div>
               {role == 2 && (
                 <button
@@ -126,12 +120,11 @@ const ViewFreelancerProfile = () => {
                   Freelance Stats
                 </p>
                 <VStack
-                  backgroundColor={"#f4f5f787"}
-                  height={"80px"}
-                  shadow={"sm"}
-                  justifyContent={"center"}
+                  backgroundColor="#f4f5f787"
+                  shadow="sm"
+                  className="justify-center"
                 >
-                  <Text fontWeight={"600"} top={"8rem"} textAlign={"center"}>
+                  <Text top="8rem" className="text-center font-semibold">
                     Updated Freelancer Stats <br /> Coming Soon
                   </Text>
                 </VStack>

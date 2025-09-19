@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { CiLocationOn } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -99,11 +99,7 @@ export const FreelancerProfile = ({ viewAs }) => {
     const profileURL = `${window.location.origin}/profile/f/${profile?.profile?.user_id}`;
     navigator.clipboard.writeText(profileURL);
 
-    toaster.create({
-      title: "Zeework Profile Copied.",
-      type: "success",
-      duration: 3000,
-    });
+    toast.success("Zeework Profile Copied.");
   };
 
   useEffect(() => {
@@ -145,8 +141,6 @@ export const FreelancerProfile = ({ viewAs }) => {
               profile_image === null ? (
                 <Avatar
                   name={firstName + " " + lastName}
-                  width={"60px"}
-                  height={"60px"}
                 />
               ) : (
                 <img
@@ -172,7 +166,7 @@ export const FreelancerProfile = ({ viewAs }) => {
               className="flex items-center cursor-pointer justify-center w-[36px] h-[36px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] max-sm:hidden"
               onClick={handleCopyProfileURL}
             >
-              <BsLink45Deg width={"20px"} height={"20px"} />
+              <BsLink45Deg />
             </div>
             {!viewAs && (
               <button
@@ -193,12 +187,11 @@ export const FreelancerProfile = ({ viewAs }) => {
                 Freelance Stats
               </p>
               <VStack
-                backgroundColor={"#f4f5f787"}
-                height={"80px"}
-                shadow={"sm"}
-                justifyContent={"center"}
+                backgroundColor="#f4f5f787"
+                shadow="sm"
+                className="justify-center"
               >
-                <Text fontWeight={"600"} top={"8rem"} textAlign={"center"}>
+                <Text top="8rem" className="text-center font-semibold">
                   Updated Freelancer Stats <br /> Coming Soon
                 </Text>
               </VStack>
@@ -411,8 +404,6 @@ export const FreelancerProfile = ({ viewAs }) => {
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
                         viewBox="0 0 16 16"
                         fill="none"
                       >

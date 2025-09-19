@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useRef, useState } from "react";
 import { getFreelancerGigs } from "../../../helpers/APIs/gigApis";
@@ -10,7 +12,7 @@ import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
 import "swiper/css";
 // import required modules
 import { Navigation } from "swiper/modules";
-import { Image } from "@chakra-ui/react";
+
 
 export const ProfileGigCards = () => {
   const [approvedGigs, setApprovedGigs] = useState([]);

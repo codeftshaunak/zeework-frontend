@@ -1,6 +1,8 @@
-"use client";
 
-import { Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
@@ -13,7 +15,7 @@ import {
   getSkills,
   getSubCategory,
 } from "../../../helpers/APIs/freelancerApis";
-import { Skeleton } from "@chakra-ui/react";
+
 
 // validation schema
 const schema = yup.object().shape({
@@ -166,8 +168,8 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title={"Gig Overview"} onBackward={onBack}>
-          <VStack alignItems={"start"}>
+        <GigCreateLayout title="Gig Overview" onBackward={onBack}>
+          <div className="flex flex-col className="items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Title
             </label>
@@ -182,22 +184,20 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 <>
                   <Skeleton
                     isLoaded={isEdit ? !!formValues?.title : true}
-                    width={"full"}
+                    className="w-full"
                     startColor="gray.100"
                     endColor="gray.300"
                   >
-                    <InputGroup
-                      bgColor={"white"}
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group
                       borderColor={"var(--bordersecondary)"}
                     >
-                      <InputLeftElement
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                         pointerEvents="none"
-                        width={"fit-content"}
                         paddingLeft={2}
                       >
                         I will
                       </InputLeftElement>
-                      <Input {...field} paddingLeft={"45px"} />
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" {...field} paddingLeft="45px" />
                     </InputGroup>
                   </Skeleton>
                   {fieldState.error && (
@@ -208,8 +208,8 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 </>
               )}
             />
-          </VStack>
-          <VStack alignItems={"start"}>
+          </div>
+          <div className="flex flex-col className="items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Category
             </label>
@@ -224,7 +224,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                   <>
                     <Skeleton
                       isLoaded={isEdit ? !!formValues?.title : true}
-                      width={"full"}
+                      className="w-full"
                       startColor="gray.100"
                       endColor="gray.300"
                     >
@@ -257,8 +257,8 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 );
               }}
             />
-          </VStack>
-          <VStack alignItems={"start"}>
+          </div>
+          <div className="flex flex-col className="items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Sub Category
             </label>
@@ -270,7 +270,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 <>
                   <Skeleton
                     isLoaded={isEdit ? !!formValues?.title : true}
-                    width={"full"}
+                    className="w-full"
                     startColor="gray.100"
                     endColor="gray.300"
                   >
@@ -299,8 +299,8 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 </>
               )}
             />
-          </VStack>
-          <VStack alignItems={"start"}>
+          </div>
+          <div className="flex flex-col className="items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Skills
             </label>
@@ -312,7 +312,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 <>
                   <Skeleton
                     isLoaded={isEdit ? !!formValues?.title : true}
-                    width={"full"}
+                    className="w-full"
                     startColor="gray.100"
                     endColor="gray.300"
                   >
@@ -337,7 +337,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                 </>
               )}
             />
-          </VStack>
+          </div>
         </GigCreateLayout>
       </form>
     </FormProvider>

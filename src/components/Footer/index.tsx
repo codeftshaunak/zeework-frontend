@@ -324,25 +324,25 @@ export const Footer = () => {
                 </p>
                 <div className="flex gap-4 text-[22px] py-3 flex-wrap max-[425px] justify-center md:justify-start">
 
-                <Link to={"/"} target="_blank">
+                <Link to="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaFacebookF className="text-[#35AD41] " />
                   </div>
                 </Link>
     
-                <Link to={"/"} target="_blank">
+                <Link to="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaTwitter />
                   </div>
                 </Link>
 
-                <Link to={"/"} target="_blank">
+                <Link to="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaLinkedinIn />
                   </div>
                 </Link>
            
-                  <Link to={"https://www.instagram.com/zeeworkco/"} target="_blank">
+                  <Link to="https://www.instagram.com/zeeworkco/" target="_blank">
                   <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaInstagram />
                   </div>

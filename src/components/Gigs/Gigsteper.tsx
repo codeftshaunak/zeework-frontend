@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Step,
@@ -11,7 +13,7 @@ import {
   Text,
   Stepper,
   useSteps,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { GigCreate } from "./GigCreate";
 import { useCallback } from "react";
 import { GigUpdate } from "./GigUpdate";
@@ -29,25 +31,21 @@ export const GigSteper = ({ activeStep }) => {
       size="lg"
       index={activeStep}
       colorScheme="primary"
-      width={"90%"}
-      justifyContent={"center"}
-      textAlign={"center"}
-      alignItems={"center"}
-      marginTop={10}
-      display={{ base: "none", md: "flex" }}
+      className="items-center"
+      marginTop={10}}
     >
       {steps.map((step, index) => (
         <Step key={index}>
-          <Box>
-            <StepIndicator bgColor={"white"}>
+          <div>
+            <StepIndicator>
               <StepStatus
                 complete={<StepIcon />}
                 incomplete={<StepNumber />}
                 active={<StepNumber />}
               />
             </StepIndicator>
-            <Text className="absolute pt-2 text-[0.9rem]">{step.title}</Text>
-          </Box>
+            <span className="absolute pt-2 text-[0.9rem]">{step.title}</span>
+          </div>
           <StepSeparator />
         </Step>
       ))}

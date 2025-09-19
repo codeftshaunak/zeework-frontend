@@ -1,3 +1,4 @@
+import React from "react";
 import {
   HStack,
   Card,
@@ -6,7 +7,7 @@ import {
   Button,
   VStack,
   Image,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 const data = [
   {
@@ -44,24 +45,19 @@ const Adjustment = () => {
         Further Information
       </h2>
       <div className="relative h-[25rem]">
-        <HStack spacing="4" height={"100%"} className="max-sm:!hidden">
+        <div className="flex flex-row items-center spacing= h-[100%] max-sm:!hidden"4">
           {data.map((data, index) => (
             <Card
               key={index}
-              width="400px"
               backgroundColor="#F0FDF4"
-              height="10rem"
-              alignItems="center"
-              justifyContent="center"
             >
               <p className="font-semibold text-4xl mb-2">{data.number}</p>
               <p className="font-semibold text-lg capitalize">{data.title}</p>
             </Card>
           ))}
-        </HStack>
+        </div>
 
-        <Box
-          position="absolute"
+        <div
           top="0"
           left="0"
           right="0"
@@ -69,34 +65,23 @@ const Adjustment = () => {
           zIndex="100"
           background="rgba(255, 255, 255, 0.8)"
           backdropFilter="blur(10px)"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-          height={"max-content"}
-          padding={"2rem 0"}
-          borderRadius={"10px"}
-          border={"1px solid #D1D5DA"}
-        >
-          <VStack spacing="4" width={"60%"} className="max-md:!w-[80%]">
-            <Image src="./images/zeework_logo.png" width={"250px"} />
-            <Text fontSize="2xl" fontWeight="bold">
+         className="h-[max-content] p-[2rem 0] rounded border absolute">
+          <div className="flex flex-col spacing= w-[60%] max-md:!w-[80%]"4">
+            <img src="./images/zeework_logo.png" />
+            <span>
               Welcome to ZeeWork!
-            </Text>
-            <Text>
+            </span>
+            <span>
               We&apos;re excited to have you be a part of our brand new launch!
-            </Text>
-            <Text>
+            </span>
+            <span>
               Detailed reporting is coming shortly in further updates with the
               site. For anything you may require immediately for accounting
               purposes or otherwise, please feel free to ping our support
               department for a swift response.
-            </Text>
-            <Button
-              color="var(--secondarycolor)"
+            </span>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
               backgroundColor={"var(--primarycolor)"}
-              borderRadius={"20px"}
-              width={"150px"}
               _hover={{
                 color: "var(--primarytext)",
                 backgroundColor: "var(--secondarycolor)",
@@ -105,9 +90,9 @@ const Adjustment = () => {
               onClick={() => router.push("/help")}
             >
               Get In Touch
-            </Button>
-          </VStack>
-        </Box>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

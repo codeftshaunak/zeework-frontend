@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -9,7 +11,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Box,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useDropzone } from "react-dropzone";
 import Cropper from "react-easy-crop";
@@ -176,7 +178,7 @@ const Photos = ({ setIsModal }) => {
                   onCropChange={isCropped ? undefined : setCrop}
                   onZoomChange={isCropped ? undefined : setZoom}
                   onCropComplete={onCropComplete}
-                  cropShape={"round"}
+                  cropShape="round"
                 />
               </div>
               <div className="flex flex-col items-center justify-center">
@@ -193,10 +195,10 @@ const Photos = ({ setIsModal }) => {
                     }}
                   >
                     <SliderTrack className="bg-slate-300">
-                      <SliderFilledTrack bg={"slategrey"} />
+                      <SliderFilledTrack />
                     </SliderTrack>
                     <SliderThumb boxSize={6}>
-                      <Box className="text-slate-500" as={TiZoom} />
+                      <div className="text-slate-500" as={TiZoom} />
                     </SliderThumb>
                   </Slider>
                   <TiPlus />
@@ -274,16 +276,15 @@ const Photos = ({ setIsModal }) => {
         </div>
         {imageSrc && (
           <div className="text-right mt-10">
-            <Button
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               isLoading={isLoading}
               loadingText="Uploading"
-              colorScheme="primary"
               onClick={uploadProfileImage}
               paddingX={7}
               spinner={<BtnSpinner />}
             >
               Upload
-            </Button>
+            </button>
           </div>
         )}
       </form>

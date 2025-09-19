@@ -6,7 +6,7 @@ export const ErrorState = ({
 }) => {
   return (
     <section
-      className={"w-full flex items-center justify-center min-h-[60vh] px-4"}
+      className="w-full flex items-center justify-center min-h-[60vh] px-4"
     >
       <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-8 max-w-md w-full text-center space-y-6">
         {/* Icon */}

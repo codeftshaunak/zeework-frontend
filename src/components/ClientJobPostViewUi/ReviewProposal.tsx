@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Box,
@@ -16,8 +18,8 @@ import {
   Avatar,
   StackDivider,
   AvatarBadge,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import { useRouter, usePathname } from "next/navigation";
 import { useContext, useState } from "react";
 import UniversalModal from "../Modals/UniversalModal";
@@ -133,18 +135,10 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
         dispatch(clearMessageState());
       }
 
-      toaster.create({
-        title: res.msg || res.response.data.msg,
-        status: res.code === 200 ? "success" : "warning",
-        duration: 2000,
-      });
+      toast.default(res.msg || res.response.data.msg);
     } catch (error) {
       console.log(error);
-      toaster.create({
-        title: error.response.data.msg,
-        type: "warning",
-        duration: 2000,
-      });
+      toast.warning(error.response.data.msg);
     }
     setMsgIsOpen(false);
     reset();
@@ -160,54 +154,40 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
 
   return (
     <>
-      <Box className="flex flex-col gap-8 md:flex-row w-full">
-        <Box className="overflow-hidden border rounded-lg basis-full bg-white">
+      <div className="flex flex-col gap-8 md:flex-row w-full">
+        <div className="overflow-hidden border rounded-lg basis-full bg-white">
           <Tabs.Root onChange={(index) => setTabIndex(index)} variant="unstyled">
             <Tabs.List className="px-6 pt-4 border-b">
               <Tabs.Trigger className="px-0 text-black">All Proposals</Tabs.Trigger>
               {/* <Tab>Messaged</Tabs.Trigger> */}
             </Tabs.List>
             <Tabs.Indicator
-              height="2px"
-              borderRadius="1px"
-              color={"#000"}
-              className=" bg-fg-brand"
+              className="bg-fg-brand"
             />
-            <Tabs.Content width={"100%"}>
-              <Tabs.Content p={0} width={"100%"}>
+            <Tabs.Content className="w-full">
+              <Tabs.Content p={0} className="w-full">
                 {isProposalsLoading ? (
-                  <Box padding={3}>
+                  <div>
                     <ReviewProposalSkeleton />
-                  </Box>
+                  </div>
                 ) : proposals?.length ? (
-                  <VStack
-                    divider={<StackDivider borderColor="gray.200" />}
+                  <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
                     spacing={4}
-                    align="stretch"
-                    bgColor={"#fafafa"}
+                    
                     padding={{ base: 5, sm: 8 }}
                   >
                     {proposals?.map((item, index) => {
                       const details = item.user_details;
 
                       return (
-                        <VStack
-                          key={index}
-                          className="h-auto w-full shadow-md p-4 sm:p-6 rounded-md"
-                          justifyContent={"start"}
-                          bgColor={"#ffff"}
-                          width={"100%"}
+                        <div className="flex flex-col key={index} h-auto w-full shadow-md p-4 sm:p-6 rounded-md justify-start bg-#ffff"
                         >
-                          <VStack width={{ base: "100%", sm: "95%" }}>
-                            <HStack
-                              justifyContent={"space-between"}
-                              width={"100%"}
-                              alignItems={"start"}
+                          <div className="flex flex-col}> <div className= justify-between w-full items-start"flex flex-row items-center
+                             
                             >
-                              <Box className="w-full sm:w-auto">
+                              <div className="w-full sm:w-auto">
                                 <Avatar
-                                  cursor={"pointer"}
-                                  size={"lg"}
+                                  size="lg"
                                   name={
                                     details?.agency_name
                                       ? details.agency_name
@@ -228,25 +208,17 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                                     )
                                   }
                                 >
-                                  <AvatarBadge
-                                    border="3.5px solid white"
-                                    bg={`${
-                                      details?.activity === "online"
-                                        ? "green"
-                                        : "gray.300"
-                                    }`}
+                                  <AvatarBadge`}
                                     boxSize="0.7em"
                                     left={-2}
                                     top={0}
                                   />
                                 </Avatar>
 
-                                <Box className="w-full space-y-3">
-                                  <Box>
-                                    <Text
-                                      className="font-semibold text-primary w-fit border-b border-transparent border-spacing-0 hover:border-primary"
-                                      cursor={"pointer"}
-                                      onClick={() =>
+                                <div className="w-full space-y-3">
+                                  <div>
+                                    <span
+                                      onClick={() = className="font-semibold text-primary w-fit border-b border-transparent border-spacing-0 hover:border-primary cursor-pointer">
                                         router.push(
                                           item.applied_by === "agency_member"
                                             ? `/profile/a/${item?.user_id}`
@@ -259,47 +231,36 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                                         : details?.firstName +
                                           " " +
                                           details?.lastName}
-                                    </Text>
-                                    <Box
-                                      display={{ base: "block", sm: "none" }}
+                                    </span>
+                                    <div}
                                     >
-                                      <HStack spacing={10}>
-                                        <Text className="font-bold text-[#101010] flex items-center">
+                                      <div className="flex flex-row items-center spacing={10}> <span className="font-bold text-[#101010] flex items-center">
                                           <FaDollarSign /> {item?.desired_price}
-                                        </Text>
-                                        <Text className="font-medium text-[#2a2a2a] flex items-center">
+                                        </span>
+                                        <span className="font-medium text-[#2a2a2a] flex items-center">
                                           <FaLocationDot className="text-gray-600" />{" "}
                                           {details?.location
                                             ? details?.location
                                             : details?.agency_officeLocation
                                                 ?.country || "Not Found"}
-                                        </Text>
-                                      </HStack>
+                                        </span>
+                                      </div>
                                       {item?.applied_by === "agency_member" && (
-                                        <Text className="text-white bg-gray-200 border border-green-100 px-2 rounded-full mb-2 text-sm w-fit">
+                                        <span className="text-white bg-gray-200 border border-green-100 px-2 rounded-full mb-2 text-sm w-fit">
                                           AGENCY
-                                        </Text>
+                                        </span>
                                       )}
-                                    </Box>
-                                    <Text className="text-sm font-medium text-[#6B7280]">
+                                    </div>
+                                    <span className="text-sm font-medium text-[#6B7280]">
                                       {details?.agency_name
                                         ? details?.agency_tagline
                                         : details?.professional_role}
-                                    </Text>
-                                  </Box>
-                                  <Box>
-                                    <HStack
-                                      spacing={4}
-                                      align="center"
-                                      flexDirection={{
-                                        base: "column",
-                                        sm: "row",
-                                      }}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <div className="flex flex-row items-center spacing={4}"}
                                     >
-                                      <Button
-                                        size="sm"
-                                        colorScheme="primary"
-                                        variant="outline"
+                                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         onClick={() => {
                                           setMsgIsOpen(true),
                                             setHireProfile(item);
@@ -308,66 +269,56 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                                         className="w-full sm:w-auto"
                                       >
                                         Invite For Interview
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        colorScheme="primary"
+                                      </button>
+                                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                         paddingX={5}
                                         onClick={() => handleHireReq(item)}
                                         className="w-full sm:w-auto"
                                       >
                                         Hire
-                                      </Button>
-                                    </HStack>
-                                  </Box>
-                                </Box>
-                              </Box>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
 
-                              <Box
-                                justifyContent={"flex-end"}
-                                alignItems={"flex-end"}
-                                flexDirection={"column"}
-                                display={{ base: "none", sm: "flex" }}
+                              <div
+                                className="justify-flex-end items-flex-end flex-column"}
                               >
                                 {item?.applied_by === "agency_member" && (
-                                  <Text className="text-white bg-gray-200 border border-green-100 px-3 rounded-full mb-2">
+                                  <span className="text-white bg-gray-200 border border-green-100 px-3 rounded-full mb-2">
                                     AGENCY
-                                  </Text>
+                                  </span>
                                 )}
-                                <HStack spacing={10}>
-                                  <Text className="text-lg font-bold text-[#101010] flex items-center">
+                                <div className="flex flex-row items-center spacing={10}> <span className="text-lg font-bold text-[#101010] flex items-center">
                                     <FaDollarSign /> {item?.desired_price}
-                                  </Text>
-                                  {/* <Text className="text-sm font-medium text-[#6B7280]">
+                                  </span>
+                                  {/* <span className="text-sm font-medium text-[#6B7280]">
                                     $3M+ earned
-                                  </Text> */}
-                                  {/* <Text className="text-sm font-medium text-[#6B7280] border-b-2 block border-fg-brand">
+                                  </span> */}
+                                  {/* <span className="text-sm font-medium text-[#6B7280] border-b-2 block border-fg-brand">
                                     100% job success
-                                  </Text> */}
-                                </HStack>
-                                <Box>
-                                  <Text className="text-md font-medium text-[#2a2a2a] flex items-center">
+                                  </span> */}
+                                </div>
+                                <div>
+                                  <span className="text-md font-medium text-[#2a2a2a] flex items-center">
                                     <FaLocationDot className="text-gray-600" />{" "}
                                     {details?.location
                                       ? details?.location
                                       : details?.agency_officeLocation
                                           ?.country || "Not Found"}
-                                  </Text>
-                                </Box>
-                              </Box>
-                            </HStack>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
 
-                            <VStack
-                              justifyContent={"start"}
-                              width={"100%"}
-                              alignItems={"start"}
+                            <div className="flex flex-col className="justify-start w-full items-start"
                             >
-                              <Box>
-                                <Text className="text-[15px] font-bold mb-2 border-b">
+                              <div>
+                                <span className="text-[15px] font-bold mb-2 border-b">
                                   Cover Letter
-                                </Text>
-                                <Text
-                                  mt={1}
+                                </span>
+                                <span
                                   className="mt-1 text-sm font-normal mb-4"
                                 >
                                   <div
@@ -375,56 +326,53 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                                       __html: item?.cover_letter,
                                     }}
                                   />
-                                </Text>
-                              </Box>
-                              <Stack
+                                </span>
+                              </div>
+                              <div className="flex"
                                 direction="row"
-                                align="center"
-                                flexWrap={"wrap"}
-                                gap={3}
+                                
+                                flexWrap="wrap"
                               >
                                 {details?.skills?.map((skill) => (
-                                  <Box
-                                    key={skill}
-                                    size={{ base: "xs", sm: "sm" }}
-                                    bgColor={"gray.200"}
-                                    textColor={"gray.600"}
+                                  <div
+                                    key={skill}}
+                                    className="bg-gray.200 rounded"
+                                    textColor="gray.600"
                                     paddingX={2}
                                     paddingY={{ sm: 1 }}
-                                    borderRadius={"3px"}
                                   >
                                     {skill}
-                                  </Box>
+                                  </div>
                                 ))}
-                              </Stack>
-                            </VStack>
-                          </VStack>
-                        </VStack>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       );
                     })}
-                  </VStack>
+                  </div>
                 ) : (
-                  <Box padding={8}>
-                    <Text>There are no proposals for this job!</Text>
-                  </Box>
+                  <div>
+                    <span>There are no proposals for this job!</span>
+                  </div>
                 )}
               </Tabs.Content>
               <Tabs.Content>
-                <Text>Messaged!</Text>
+                <span>Messaged!</span>
               </Tabs.Content>
             </Tabs.Content>
           </Tabs.Root>
-        </Box>
-      </Box>
+        </div>
+      </div>
 
       {/* Send Interview Request */}
       <UniversalModal
         isModal={msgIsOpen}
         setIsModal={setMsgIsOpen}
-        title={"Enter your message"}
+        title="Enter your message"
       >
         <form onSubmit={handleSubmit(handleInterviewRequest)}>
-          <div className="">
+          <div >
             <div className="my-5">
               <textarea
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
@@ -437,23 +385,22 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
               {errors.message && <ErrorMsg msg={errors.message.message} />}
             </div>
             <div className="flex justify-end mt-5">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => setMsgIsOpen(false)}
                 colorScheme="primary"
-                variant={"outline"}
+                variant="outline"
                 marginRight={5}
               >
                 Cancel
-              </Button>
-              <Button
-                colorScheme="primary"
+              </button>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 loadingText="Sending"
                 spinner={<BtnSpinner />}
                 type="submit"
                 isLoading={isLoading}
               >
                 Send
-              </Button>
+              </button>
             </div>
           </div>
         </form>
@@ -463,18 +410,18 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
       <UniversalModal
         isModal={open}
         setIsModal={setOpen}
-        title={"Are you sure?"}
+        title="Are you sure?"
       >
         <div className="flex justify-end mt-5">
-          <Button
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             onClick={() => setOpen(false)}
             colorScheme="primary"
-            variant={"outline"}
+            variant="outline"
             marginRight={5}
           >
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             onClick={() => handleSend()}
             colorScheme="primary"
             isLoading={isLoading}
@@ -482,7 +429,7 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
             spinner={<BtnSpinner />}
           >
             Sure
-          </Button>
+          </button>
         </div>
       </UniversalModal>
 

@@ -1,7 +1,9 @@
+
 "use client";
+import React from "react";
 
 import { useContext, useEffect, useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import {
   
   
@@ -9,7 +11,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useRouter, useParams } from "next/navigation";
 import { IoMdClose } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
@@ -106,8 +108,6 @@ const SingleContractDetails = () => {
         return (
           <iframe
             src={fileDetails.file}
-            width="100%"
-            height="600px"
             className="text-sm text-blue-500 font-semibold border px-2 py-1 rounded w-full"
             title="PDF Viewer"
           ></iframe>
@@ -223,11 +223,7 @@ const SingleContractDetails = () => {
         contract_ref: jobDetails._id,
       });
 
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200) {
         if (socket) {
           socket.emit(
@@ -278,11 +274,7 @@ const SingleContractDetails = () => {
         contract_ref: jobDetails._id,
       });
 
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200) {
         if (socket) {
           socket.emit(
@@ -333,9 +325,8 @@ const SingleContractDetails = () => {
           </h2>
         </div>
 
-        <div className="">
+        <div >
           <Tabs.Root
-            position="relative"
             variant="unstyled"
             onChange={(index) => setActiveTab(index)}
           >
@@ -349,9 +340,6 @@ const SingleContractDetails = () => {
             </Tabs.List>
             <Tabs.Indicator
               mt="1.5px"
-              height="2px"
-              bg="var(--primarytextcolor)"
-              borderRadius="1px"
             />
             <SmoothMotion key={activeTab}>
               <Tabs.Content>
@@ -367,7 +355,7 @@ const SingleContractDetails = () => {
                         <div className="col-span-1 w-full h-fit bg-white p-8 rounded-xl border border-[var(--bordersecondary)]">
                           <div className="flex gap-3 mb-4">
                             <Avatar
-                              size={"lg"}
+                              size="lg"
                               src={
                                 profile_image
                                   ? profile_image
@@ -419,11 +407,9 @@ const SingleContractDetails = () => {
                           </div>
 
                           {/* Send Message */}
-                          <Button
-                            mt={5}
-                            width={"full"}
-                            border={"1px"}
-                            borderColor={"green.200"}
+                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                           
+                            borderColor="green.200"
                             leftIcon={<LuMessagesSquare />}
                             onClick={() =>
                               router.push(
@@ -432,33 +418,27 @@ const SingleContractDetails = () => {
                             }
                           >
                             Message
-                          </Button>
+                          </button>
 
                           {/* Review Submitted Task */}
                           {jobDetails?.status === "task_submitted" &&
                             jobDetails?.job_type !== "hourly" && (
-                              <Button
-                                mt={3}
-                                width={"full"}
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                               
                                 onClick={() => {
                                   reset(),
                                     setModalType("review"),
                                     setReviewModal(true);
                                 }}
-                                border={"1px"}
-                                borderColor={"green.200"}
+                                borderColor="green.200"
                               >
                                 Review Submitted Task
-                              </Button>
+                              </button>
                             )}
 
                           {/* Send Feedback */}
                           {jobDetails?.status === "completed" && (
-                            <Button
-                              mt={5}
-                              width={"full"}
-                              colorScheme="primary"
-                              variant={"outline"}
+                            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                               onClick={() =>
                                 router.push(`/submit-review/${jobDetails._id}`, {
                                   state: {
@@ -472,16 +452,14 @@ const SingleContractDetails = () => {
                               {jobDetails?.client_review
                                 ? "Feedback Submitted"
                                 : "Send Feedback"}
-                            </Button>
+                            </button>
                           )}
 
                           {/* End Job Contract */}
                           {jobDetails?.status !== "completed" &&
                             jobDetails?.status !== "rejected" && (
-                              <Button
-                                mt={3}
-                                colorScheme="primary"
-                                width={"full"}
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                               
                                 onClick={() => {
                                   reset(),
                                     setModalType("endContract"),
@@ -496,7 +474,7 @@ const SingleContractDetails = () => {
                                 {jobDetails?.status === "completed"
                                   ? "Already Completed"
                                   : "End Contract"}
-                              </Button>
+                              </button>
                             )}
                         </div>
                       </div>
@@ -535,23 +513,18 @@ const SingleContractDetails = () => {
               <>
                 <Image
                   src="/images/zeework_end_contract.png"
-                  width={"200px"}
-                  margin={"auto"}
+                  className="m-[auto]"
                 />
-                <Text
-                  textAlign={"center"}
-                  fontSize={"1.4rem"}
-                  margin={"1rem 0"}
-                  fontWeight={"600"}
-                >
+                <span
+                 className="m-[1rem 0] text-2xl font-semibold text-center">
                   Are you sure you want to end this contract?
-                </Text>
+                </span>
                 <div className="mt-6 mx-auto flex gap-5 w-full">
                   <MainButtonRounded
                     noRounded={true}
                     variant="outline"
                     isDisable={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                     onClick={() => setModalType("refundRequest")}
                   >
                     Ask For Refund
@@ -560,7 +533,7 @@ const SingleContractDetails = () => {
                     type="submit"
                     noRounded={true}
                     isLoading={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                     onClick={() => setValue("action_type", "end_contract")}
                   >
                     End Contract & Pay Freelancer
@@ -597,7 +570,7 @@ const SingleContractDetails = () => {
                       reset(), setModalType("endContract");
                     }}
                     isDisable={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                   >
                     Back
                   </MainButtonRounded>
@@ -605,7 +578,7 @@ const SingleContractDetails = () => {
                     type="submit"
                     noRounded={true}
                     isLoading={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                     onClick={() => setValue("action_type", "refund")}
                   >
                     Submit Refund Request
@@ -622,7 +595,7 @@ const SingleContractDetails = () => {
         <UniversalModal
           isModal={reviewModal}
           setIsModal={setReviewModal}
-          title={"Review Task"}
+          title="Review Task"
         >
           <form onSubmit={handleSubmit(handleTaskApproveReject)}>
             {modalType === "review" && (
@@ -644,7 +617,7 @@ const SingleContractDetails = () => {
                     type="submit"
                     onClick={() => setValue("action_type", "approved")}
                     isLoading={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                   >
                     Approve Task & End Contract
                   </MainButtonRounded>
@@ -652,7 +625,7 @@ const SingleContractDetails = () => {
                     noRounded={true}
                     variant="outline"
                     isDisable={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                     onClick={() => setModalType("requestToChange")}
                   >
                     Request Changes
@@ -686,14 +659,14 @@ const SingleContractDetails = () => {
                     variant="outline"
                     onClick={() => setModalType("review")}
                     isDisable={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                   >
                     Back
                   </MainButtonRounded>
                   <MainButtonRounded
                     noRounded={true}
                     isLoading={isApiLoading}
-                    className={"w-full"}
+                    className="w-full"
                     type="submit"
                     onClick={() => setValue("action_type", "rejected")}
                   >
@@ -726,16 +699,12 @@ const SingleContractDetails = () => {
             other clients in making informed decisions.
           </div>
           <div className="w-full flex justify-between items-center gap-6 mt-8">
-            <Button
-              width={"full"}
-              variant={"outline"}
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
               onClick={() => router.push("/my-stats")}
             >
               View Letter
-            </Button>
-            <Button
-              width={"full"}
-              colorScheme="primary"
+            </button>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
               onClick={() =>
                 router.push(`/submit-review/${jobDetails._id}`, {
                   state: {
@@ -747,7 +716,7 @@ const SingleContractDetails = () => {
               }
             >
               Provide Feedback
-            </Button>
+            </button>
           </div>
         </div>
       </UniversalModal>

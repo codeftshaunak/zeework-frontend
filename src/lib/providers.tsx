@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { ChakraProvider, } from "@chakra-ui/react";
+
 import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 import { SocketProvider } from "../contexts/SocketContext";
 import { CurrentUserProvider } from "../contexts/CurrentUser";
 import { FormStateProvider } from "../contexts/FormContext";
-import theme from "./theme";
+import { Toaster } from "@/components/ui/sonner";
 import store from "../redux/store";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -24,10 +24,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <CurrentUserProvider>
           <SocketProvider>
             <FormStateProvider>
-              <ChakraProvider value={theme}>
-                {children}
-                <Toaster />
-              </ChakraProvider>
+
+              {children}
+              <Toaster />
+
             </FormStateProvider>
           </SocketProvider>
         </CurrentUserProvider>

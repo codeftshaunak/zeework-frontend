@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@chakra-ui/react";
+
 import { useCallback, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select/creatable";
@@ -171,11 +171,11 @@ export function AgencyUpdatedModal({
             <div className="flex flex-col gap-[16px]">
               <div className="flex flex-col">
                 <div className="flex flex-col gap-[2px]">
-                  <div className="w-[100%]  py-[2px] px-[12px] outline-none border-[1px] rounded-md">
+                  <div className="w-[100%] py-[2px] px-[12px] outline-none border-[1px] rounded-md">
                     <input
                       required
                       type="file"
-                      className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)] "
+                      className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
                       placeholder="Your Company Name"
                       name="agency_profileImage"
                       onChange={(e) => handleProfileImage(e)}
@@ -209,7 +209,7 @@ export function AgencyUpdatedModal({
           {/* -----------Left Side of Agency Profile */}
           {/* update overview */}
           {title === "Overview" && (
-            <div className="">
+            <div >
               <QuillToolbar />
               <ReactQuill
                 theme="snow"
@@ -419,15 +419,14 @@ export function AgencyUpdatedModal({
         </div>
 
         <div className="text-right mt-10">
-          <Button
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             isLoading={isLading}
             loadingText="Submit"
-            colorScheme="primary"
             type="submit"
             spinner={<BtnSpinner />}
           >
             Submit
-          </Button>
+          </button>
         </div>
       </form>
     </UniversalModal>

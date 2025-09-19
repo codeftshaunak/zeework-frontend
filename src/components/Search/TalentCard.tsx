@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { Link, useRouter } from "next/navigation";
 import {
@@ -8,11 +10,11 @@ import {
   Stack,
   Input,
   Textarea,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useContext, useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import FreelancerDetailsModal from "../Modals/FreelancerDetailsModal";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { sendAgencyInvitation } from "../../helpers/APIs/agencyApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { SocketContext } from "../../contexts/SocketContext";
@@ -70,17 +72,9 @@ const TalentCard = ({ freelancer }) => {
     // check input field
     if (!formData.member_position || !formData.message) {
       if (!formData.member_position) {
-        toaster.create({
-          title: "Please fill position field",
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning("Please fill position field");
       } else {
-        toaster.create({
-          title: "Please fill message field",
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning("Please fill message field");
       }
       return;
     }
@@ -118,30 +112,18 @@ const TalentCard = ({ freelancer }) => {
 
         dispatch(clearMessageState());
         setIsInvited(true);
-        toaster.create({
-          title: msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(msg);
 
         setFormData({
           message: "",
         });
         setIsOpenModal(false);
       } else {
-        toaster.create({
-          title: msg || message,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg || message);
       }
     } catch (error) {
       console.log(error);
-      toaster.create({
-        title: error?.response?.data?.msg || "Something wrong try again!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning(error?.response?.data?.msg || "Something wrong try again!");
     }
     setIsLoading(false);
     setFormData({});
@@ -158,31 +140,23 @@ const TalentCard = ({ freelancer }) => {
       <div className="flex gap-8 items-center py-7 w-full max-md:gap-2">
         <Avatar
           src={freelancer?.profile_image}
-          name={freelancer?.firstName + " " + freelancer?.lastName}
-          width={"80px"}
-          height={"80px"}
-          borderRadius={"50%"}
-          fontSize={"3rem"}
-          objectFit={"cover"}
-          className="max-md:!hidden cursor-pointer"
+          name={freelancer?.firstName + " " + freelancer?.lastName} className="rounded max-md:!hidden cursor-pointer"
+          objectFit="cover"
+         
           onClick={() => router.push(`/profile/f/${freelancer?.user_id}`)}
         />
 
-        <div className="w-full space-y-2 ">
+        <div className="w-full space-y-2">
           <div className="flex justify-between items-center max-md:flex-col max-md:gap-4">
             <div className="flex gap-3">
               <div>
-                <HStack className="max-[480px]:!flex-col !items-center">
+                <div className="flex flex-row items-center className="max-[480px]:!flex-col !items-center">
                   <div className="flex gap-2 items-center">
                     <Avatar
                       src={freelancer?.profile_image}
-                      name={freelancer?.firstName + " " + freelancer?.lastName}
-                      width={"40px"}
-                      height={"40px"}
-                      borderRadius={"50%"}
-                      fontSize={"3rem"}
-                      objectFit={"cover"}
-                      className="md:!hidden cursor-pointer"
+                      name={freelancer?.firstName + " " + freelancer?.lastName} className="rounded md:!hidden cursor-pointer"
+                      objectFit="cover"
+                     
                       onClick={() =>
                         router.push(`/profile/f/${freelancer?.user_id}`)
                       }
@@ -201,7 +175,7 @@ const TalentCard = ({ freelancer }) => {
                       Available Now
                     </div>
                   )}
-                </HStack>
+                </div>
                 <div className="flex flex-col max-md:flex-row max-md:gap-2">
                   <p className="font-medium text-[#6B7280] max-sm:font-normal">
                     {freelancer?.professional_role}
@@ -215,16 +189,13 @@ const TalentCard = ({ freelancer }) => {
             </div>
             {/* Navigation */}
             <div className="max-md:!w-full">
-              <Stack
+              <div className="flex max-md:!w-full justify-center"
                 direction="row"
                 spacing={4}
-                className="max-md:!w-full justify-center"
+               
               >
                 {hasAgency && activeAgency ? (
-                  <Button
-                    size="md"
-                    colorScheme="primary"
-                    variant="outline"
+                  <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                     onClick={() => handleSelectChange(freelancer)}
                     isDisabled={isInvited || isHired}
                   >
@@ -233,24 +204,20 @@ const TalentCard = ({ freelancer }) => {
                       : isHired
                       ? "Already Hired"
                       : "Invite To Agency"}
-                  </Button>
+                  </button>
                 ) : (
                   <Link
                     to={`/profile/f/${freelancer?.user_id}`}
                     className="max-md:!w-[70%] max-[480px]:!w-full"
                   >
-                    <Button
-                      size="md"
-                      colorScheme="#22C35E"
-                      variant="outline"
-                      color={"#22C35E"}
-                      className="max-md:!w-full"
+                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground max-md:!w-full"
+                     
                     >
                       View Profile
-                    </Button>
+                    </button>
                   </Link>
                 )}
-              </Stack>
+              </div>
             </div>
           </div>
         </div>
@@ -269,34 +236,24 @@ const TalentCard = ({ freelancer }) => {
             <div className="w-[150px] h-[150px]">
               <Avatar
                 name={selectedFreelancer?.firstName?.slice(0)}
-                src={selectedFreelancer?.profile_image}
-                width={"130px"}
-                height={"130px"}
-                borderRadius={"50%"}
-                fontSize={"3rem"}
-                objectFit={"cover"}
+                src={selectedFreelancer?.profile_image} className="rounded"
+                objectFit="cover"
               />
             </div>
             <div className="w-full space-y-2 pb-3">
-              <div className="flex justify-between ">
+              <div className="flex justify-between">
                 <div className="flex gap-3">
                   <div>
-                    <HStack>
-                      <h2 className="text-2xl font-semibold text-fg-brand">
+                    <div className="flex flex-row items-center> <h2 className="text-2xl font-semibold text-fg-brand">
                         {selectedFreelancer?.firstName}{" "}
                         {selectedFreelancer?.lastName}
                       </h2>
-                      <Button
-                        colorScheme="#22C35E"
-                        variant="outline"
-                        size={"xs"}
-                        color={"#22C35E"}
-                        marginLeft={"0.8rem"}
-                        height={"18px"}
+                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground ml-[0.8rem]"
+                       
                       >
                         Available now
-                      </Button>
-                    </HStack>
+                      </button>
+                    </div>
                     <div className="flex items-center">
                       <p className="text-lg font-medium text-[#6B7280]">
                         {selectedFreelancer?.professional_role}
@@ -311,8 +268,8 @@ const TalentCard = ({ freelancer }) => {
               </div>
               <div></div>
 
-              <div className="w-full space-y-2 ">
-                <div className="flex justify-between ">
+              <div className="w-full space-y-2">
+                <div className="flex justify-between">
                   <div className="flex gap-3">
                     <div>
                       <p className="font-bold">Professional At.</p>
@@ -358,7 +315,7 @@ const TalentCard = ({ freelancer }) => {
               </div>
               <br />
               <div className="w-full space-y-2 mb-3">
-                <div className="flex justify-between ">
+                <div className="flex justify-between">
                   <div className="flex gap-3 w-full">
                     <div className="w-full">
                       <p className="font-bold mb-2">
@@ -369,10 +326,9 @@ const TalentCard = ({ freelancer }) => {
                           <label className="font-medium mb-2">
                             Freelancer Position:
                           </label>
-                          <Input
+                          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                             placeholder="Frontend Web Application Developer"
                             name="member_position"
-                            width={"50%"}
                             defaultValue={formData.member_position}
                             onChange={handleChange}
                           />
@@ -381,13 +337,12 @@ const TalentCard = ({ freelancer }) => {
                           <label className="font-medium mb-2">
                             Message To Freelancer:
                           </label>
-                          <Textarea
+                          <spanarea
                             placeholder="Frontend Web Application Developer"
                             name="message"
-                            width={"50%"}
                             defaultValue={formData.message}
                             onChange={handleChange}
-                          />
+                          / className="w-1/2">
                         </div>
                       </div>
                     </div>
@@ -395,31 +350,25 @@ const TalentCard = ({ freelancer }) => {
                 </div>
               </div>
               <br />
-              <HStack alignItems="start" gap={5}>
-                <Button
+              <div className="flex flex-row items-center> <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Sending Invitation"
-                  colorScheme="primary"
                   type="submit"
                   spinner={<BtnSpinner />}
                   paddingX={5}
-                  rounded={"full"}
                   onClick={(e) => handleInvitation(e)}
                 >
                   Send Invitation
-                </Button>
-                <Button
-                  colorScheme="primary"
+                </button>
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   type="submit"
-                  variant="outline"
                   paddingX={5}
-                  rounded={"full"}
                   onClick={() => handleCancel()}
                   isDisabled={isLoading}
                 >
                   Cancel
-                </Button>
-              </HStack>
+                </button>
+              </div>
             </div>
           </div>
         </FreelancerDetailsModal>

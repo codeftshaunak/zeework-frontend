@@ -1,9 +1,11 @@
+
 "use client";
+import React from "react";
 
 import { useRef } from "react";
 import Title from "./Title";
 
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
@@ -21,76 +23,64 @@ const LeftSide = ({ details }) => {
   const nextRef = useRef(null);
 
   return (
-    <VStack
-      alignItems={"flex-start"}
-      width={{ base: "100%", lg: "70%" }}
+    <divitems-flex-start"}
       marginRight={{ lg: 5 }}
-      gap={"5"}
       borderRight={{ base: "none", lg: "0.1px solid gray" }}
-    >
+     className="flex flex-col className= p-5">
       <div>
         <Title>Overview</Title>
-        <article className="">
+        <article >
           <div dangerouslySetInnerHTML={{ __html: agency_overview }} />
         </article>
       </div>
-      <Box>
+      <div>
         <Title>Services</Title>
         <div className="flex gap-2 flex-wrap">
           {agency_services.category?.map((i) => (
-            <Text
+            <span
               key={i._id}
-              paddingX={"15px"}
-              paddingY={"4px"}
-              backgroundColor={"#E7F2EB"}
-              color={"#355741"}
-              borderRadius={"10px"}
-              display={"flex"}
-              alignItems={"center"}
-              gap={1}
+              paddingX="15px"
+              paddingY="4px"
+              backgroundColor="#E7F2EB"
+              className="items-center rounded flex"
             >
               <AiOutlineBorderlessTable /> {i.category_name}
-            </Text>
+            </span>
           ))}
         </div>
         <div className="flex gap-2 flex-wrap mt-4">
           {agency_services.subCategory?.map((d, i) => (
-            <Text
+            <span
               key={i}
-              paddingX={"15px"}
-              paddingY={"4px"}
-              backgroundColor={"#E7F2EB"}
-              color={"#355741"}
-              borderRadius={"10px"}
+              paddingX="15px"
+              paddingY="4px"
+              backgroundColor="#E7F2EB" className="rounded"
             >
               {d.sub_category_name}
-            </Text>
+            </span>
           ))}
         </div>
-      </Box>
+      </div>
       <div>
         {agency_skills?.length > 0 && (
           <>
             <Title>Skills</Title>
             <div className="flex gap-2 flex-wrap">
               {agency_skills?.map((item) => (
-                <Text
+                <span
                   key={item}
-                  textTransform={"capitalize"}
-                  paddingX={"15px"}
+                  paddingX="15px"
                   paddingY={{ base: "4px", md: "6px" }}
-                  backgroundColor={"#E7F2EB"}
-                  color={"#355741"}
-                  borderRadius={"10px"}
-                >
+                  backgroundColor="#E7F2EB"
+                 className="rounded capitalize">
                   {item}
-                </Text>
+                </span>
               ))}
             </div>
           </>
         )}
       </div>
-      <Box width={"100%"}>
+      <div className="w-full">
         <Title>Projects</Title>
         {agency_portfolio?.length > 0 ? (
           <div className="relative mt-3 z-0">
@@ -140,25 +130,19 @@ const LeftSide = ({ details }) => {
             )}
           </div>
         ) : (
-          <Box marginTop={"20px"}>
+          <div className="mt-[20px]">
             <Image
               src="/images/404not-added.png"
-              width={"150px"}
-              display={"block"}
-              margin={"auto"}
-            ></Image>
-            <Text
-              fontSize={"1.3rem"}
-              textAlign={"center"}
-              fontWeight={"600"}
-              marginTop={"1.5rem"}
-            >
+              className="m-[auto]"
+            ></img>
+            <span
+             className="mt-[1.5rem] font-semibold text-center">
               Haven&apos;t added any projects yet!
-            </Text>
-          </Box>
+            </span>
+          </div>
         )}
-      </Box>
-    </VStack>
+      </div>
+    </div>
   );
 };
 

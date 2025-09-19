@@ -1,48 +1,7 @@
+import React from "react";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import React from 'react';
 
-// Define Avatar component locally
-interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  src?: string;
-  name?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-}
-
-const Avatar: React.FC<AvatarProps> = ({
-  src,
-  name,
-  size = 'md',
-  className,
-  ...props
-}) => {
-  const sizeClasses = {
-    'sm': 'w-8 h-8 text-sm',
-    'md': 'w-12 h-12 text-base',
-    'lg': 'w-16 h-16 text-lg',
-    'xl': 'w-20 h-20 text-xl',
-    '2xl': 'w-24 h-24 text-2xl'
-  };
-
-  const initials = name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
-
-  return (
-    <div 
-      className={`relative inline-flex items-center justify-center rounded-full bg-gray-100 font-medium text-gray-600 ${sizeClasses[size]} ${className}`}
-      {...props}
-    >
-      {src ? (
-        <img
-          src={src}
-          alt={name}
-          className="w-full h-full object-cover rounded-full"
-        />
-      ) : (
-        <span>{initials}</span>
-      )}
-    </div>
-  );
-};
 
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
@@ -51,6 +10,7 @@ import UserCardSkeleton from "../Skeletons/UserCardSkeleton";
 import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";
 import { clearMessageState } from "../../redux/messageSlice/messageSlice";
 import { clearNotificationState } from "../../redux/notificationSlice/notificationSlice";
+import { Avatar } from "../ui/migration-helpers";
 
 const AgencyUserCard = () => {
   const router = useRouter();
@@ -78,7 +38,7 @@ const AgencyUserCard = () => {
       {userAgencyLoading ? (
         <UserCardSkeleton />
       ) : (
-        <div className="rounded-2xl w-full h-full m-auto">
+        <div className="w-full h-full m-auto rounded-2xl">
           <div className="flex flex-col items-center gap-1 pt-6 pb-4">
             <Avatar
               src={agency_profileImage}
@@ -93,8 +53,8 @@ const AgencyUserCard = () => {
               {agency_tagline == null
                 ? "No Services"
                 : agency_tagline.length > 30
-                ? `${agency_tagline.slice(0, 30)}...`
-                : agency_tagline}
+                  ? `${agency_tagline.slice(0, 30)}...`
+                  : agency_tagline}
             </div>
             {/* <div className="flex items-center">
               <div
@@ -133,7 +93,7 @@ const AgencyUserCard = () => {
             </div> */}
           </div>
 
-          <div className="p-4 flex">
+          <div className="flex p-4">
             {agency && hasAgency ? (
               <button
                 className="text-center w-[95%] text-white font-semibold py-2 rounded-md m-auto bg-[var(--primarycolor)]"

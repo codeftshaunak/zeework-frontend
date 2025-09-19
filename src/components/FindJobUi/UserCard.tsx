@@ -1,51 +1,10 @@
 "use client";
+import React from "react";
 
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
-import React from 'react';
 
-// Define Avatar component locally if import is problematic
-interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  src?: string;
-  name?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-}
-
-const Avatar: React.FC<AvatarProps> = ({
-  src,
-  name,
-  size = 'md',
-  className,
-  ...props
-}) => {
-  const sizeClasses = {
-    'sm': 'w-8 h-8 text-sm',
-    'md': 'w-12 h-12 text-base',
-    'lg': 'w-16 h-16 text-lg',
-    'xl': 'w-20 h-20 text-xl',
-    '2xl': 'w-24 h-24 text-2xl'
-  };
-
-  const initials = name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
-
-  return (
-    <div 
-      className={`relative inline-flex items-center justify-center rounded-full bg-gray-100 font-medium text-gray-600 ${sizeClasses[size]} ${className}`}
-      {...props}
-    >
-      {src ? (
-        <img
-          src={src}
-          alt={name}
-          className="w-full h-full object-cover rounded-full"
-        />
-      ) : (
-        <span>{initials}</span>
-      )}
-    </div>
-  );
-};
 import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import UserCardSkeleton from "../Skeletons/UserCardSkeleton";
@@ -54,6 +13,7 @@ import { clearMessageState } from "../../redux/messageSlice/messageSlice";
 import { clearNotificationState } from "../../redux/notificationSlice/notificationSlice";
 import { calculateProfileCompletion } from "../utils/constants";
 import StarRatings from "react-star-ratings";
+import { Avatar } from "../ui/migration-helpers";
 
 const UserProfileCard = () => {
   const router = useRouter();
@@ -86,7 +46,7 @@ const UserProfileCard = () => {
   return (
     <div className="border border-transparent bg-gradient-to-br from-[#EAF4ED] to-[#D7F4E1] rounded-2xl w-full xl:w-[350px] m-auto flex flex-col justify-evenly items-center">
       {userAgencyLoading ? (
-        <div className="pt-6 w-full h-full">
+        <div className="w-full h-full pt-6">
           <UserCardSkeleton />
         </div>
       ) : (
@@ -104,9 +64,14 @@ const UserProfileCard = () => {
               />
             </div>
             <div
-              className={`text-2xl text-[#072C15] font-medium capitalize ${!activeAgency && "cursor-pointer"
-                }`}
-              onClick={() => !activeAgency && router.push(`/profile/f/${user_id}`)}
+
+              className={`text-2xl text-[#072C15] font-medium capitalize ${
+                !activeAgency && "cursor-pointer"
+              }`}
+              onClick={() =>
+                !activeAgency && router.push(`/profile/f/${user_id}`)
+              }
+
             >
               {firstName + " " + lastName?.slice(0, 1) + "."}
             </div>
@@ -128,11 +93,11 @@ const UserProfileCard = () => {
             className={`relative w-[80%] xl:w-[300px] border border-transparent rounded-lg flex justify-center items-center bg-white/60 ${hasAgency && activeAgency ? "mb-0" : "mb-4"
               }`}
           >
-            <div className="p-4 w-full">
+            <div className="w-full p-4">
               <div className="text-xs xl:text-sm text-[#15181E]">
                 Complete your Profile
               </div>
-              <div className="flex gap-4 items-center mt-3">
+              <div className="flex items-center gap-4 mt-3">
                 <div className="w-[80%] h-[5px] bg-gradient-to-r from-[#a3ecbe00] to-[#1EAE53] rounded-2xl"></div>
                 <div className="text-xs text-[#16833E] font-semibold">
                   {completionData.percentage}%

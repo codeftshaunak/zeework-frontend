@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Avatar,
@@ -12,7 +14,7 @@ import {
   SliderTrack,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useCallback, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDropzone } from "react-dropzone";
@@ -184,47 +186,34 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
 
   return (
     <>
-      <VStack width={"100%"} position={"relative"}>
-        <VStack width={"100%"} position={"relative"}>
+      <div className="flex flex-col className="w-full relative">
+        <div className="flex flex-col className="w-full relative">
           {agency_coverImage ? (
             <Image
               src={agency_coverImage}
               alt="cover image"
-              className="shadow"
-              height={{ base: "150px", md: "250px", lg: "350px" }}
-              width={"100%"}
-              objectFit={"cover"}
-              filter={"brightness(80%)"}
-              borderRadius={"20px"}
+              className="shadow w-full"}
+             
+              objectFit="cover"
+              filter={"brightness(80%)"} className="rounded"
             />
           ) : (
             <Image
               src="/images/zeework_agency_cover.png"
               alt="cover image"
-              className="shadow"
-              height={{ base: "150px", md: "250px", lg: "350px" }}
-              width={"100%"}
-              objectFit={"cover"}
-              filter={"brightness(80%)"}
-              borderRadius={"10px"}
+              className="shadow w-full"}
+             
+              objectFit="cover"
+              filter={"brightness(80%)"} className="rounded"
             />
           )}
-          <HStack
-            fontSize={"2.5rem"}
-            position={"absolute"}
+          <divtext-2.5rem"
             transform={"translate(-50%, -50%)"}
-            top={"50%"}
-            left={"50%"}
-          >
-            <VStack
-              backgroundColor={"white"}
-              borderRadius={"50%"}
-              width={"50px"}
-              height={"50px"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              transition={"0.6s ease-in-out"}
-              cursor={"pointer"}
+            top="50%"
+            left="50%"
+           className="flex flex-row items-center className= absolute">
+            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[50px] h-[50px] items-center justify-center"
+              transition="0.6s ease-in-out"
               _hover={{
                 border: "2px solid var(--primarycolor)",
                 backgroundColor: "transparent",
@@ -232,91 +221,52 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
               }}
               onClick={() => handleUpdate("Cover Photo")}
             >
-              <RiEdit2Fill fontSize={"25px"} />
-            </VStack>
-            <VStack
-              backgroundColor={"white"}
-              borderRadius={"50%"}
-              width={"50px"}
-              height={"50px"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              transition={"0.6s ease-in-out"}
-              cursor={"pointer"}
+              <RiEdit2Fill />
+            </div>
+            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[50px] h-[50px] items-center justify-center"
+              transition="0.6s ease-in-out"
               _hover={{
                 border: "2px solid var(--primarycolor)",
                 backgroundColor: "transparent",
                 color: "var(--primarycolor)",
               }}
             >
-              <RiDeleteBin2Fill cursor={"pointer"} fontSize={"25px"} />
-            </VStack>
-          </HStack>
-        </VStack>
+              <RiDeleteBin2Fill />
+            </div>
+          </div>
+        </div>
 
         <AgencyBodyLayout>
-          <HStack
-            display={{ base: "grid", md: "flex" }}
-            justifyContent={"space-between"}
-            width={"100%"}
-            padding={{ base: "0px", lg: "10px" }}
+          <div className="flex flex-row items-center} className="justify-between w-full"}
           >
-            <HStack width={"100%"}>
-              <HStack position={"relative"}>
+            <div className="flex flex-row items-center className="w-full">
+              <div className="flex flex-row items-center className="relative">
                 <Avatar
                   src={agency_profileImage}
-                  name={agency_name}
-                  width={{ base: "70px", md: "80px", lg: "100px" }}
-                  height={{ base: "70px", md: "80px", lg: "100px" }}
-                  borderRadius={"10px"}
+                  name={agency_name}}} className="rounded"
                 />
 
-                <VStack
-                  backgroundColor={"white"}
-                  position={"absolute"}
-                  bottom={"0px"}
-                  right={"0px"}
-                  borderRadius={"50%"}
-                  width={"30px"}
-                  border={"1px solid var(--primarycolor)"}
-                  height={"30px"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  transition={"0.6s ease-in-out"}
-                  cursor={"pointer"}
+                <div className="bottom= rounded w-[30px] border h-[30px] items-center justify-center"0px"
+                  right="0px"
+                  transition="0.6s ease-in-out"
                   _hover={{
                     border: "2px solid var(--primarycolor)",
                     backgroundColor: "transparent",
                     color: "var(--primarycolor)",
                   }}
-                  onClick={() => handleUpdate("Profile Photo")}
+                  onClick={() = className="flex flex-col backgroundColor= cursor-pointer absolute"> handleUpdate("Profile Photo")}
                 >
-                  <RiEdit2Fill fontSize={"15px"} />
-                </VStack>
-              </HStack>
+                  <RiEdit2Fill />
+                </div>
+              </div>
 
-              <VStack
-                alignItems={"flex-start"}
-                lineHeight={"1.3rem"}
-                marginLeft={"1.1rem"}
+              <div className="flex flex-col className="items-flex-start ml-[1.1rem]"
               >
-                <HStack>
-                  <Text
-                    fontSize={{ base: "1.5rem", md: "1.7rem", lg: "2rem" }}
-                    fontWeight={"600"}
-                  >
+                <div className="flex flex-row items-center> <span} className="font-semibold">
                     {agency_name}
-                  </Text>
-                  <VStack
-                    backgroundColor={"white"}
-                    borderRadius={"50%"}
-                    width={"30px"}
-                    border={"1px solid var(--primarycolor)"}
-                    height={"30px"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    transition={"0.6s ease-in-out"}
-                    cursor={"pointer"}
+                  </span>
+                  <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
+                    transition="0.6s ease-in-out"
                     _hover={{
                       border: "2px solid var(--primarycolor)",
                       backgroundColor: "transparent",
@@ -324,24 +274,12 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                     }}
                     onClick={() => handleUpdate("Agency Name", agency_name)}
                   >
-                    <RiEdit2Fill fontSize={"15px"} />
-                  </VStack>
-                </HStack>
+                    <RiEdit2Fill />
+                  </div>
+                </div>
 
-                <HStack>
-                  <Text fontSize={{ base: "1rem", md: "1.1rem" }}>
-                    {agency_tagline}
-                  </Text>
-                  <VStack
-                    backgroundColor={"white"}
-                    borderRadius={"50%"}
-                    width={"30px"}
-                    border={"1px solid var(--primarycolor)"}
-                    height={"30px"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    transition={"0.6s ease-in-out"}
-                    cursor={"pointer"}
+                <div className="flex flex-row items-center> <span}> {agency_tagline} </span> <divwhite rounded w-[30px] border h-[30px] items-center justify-center flex flex-col backgroundColor= cursor-pointer"
+                    transition="0.6s ease-in-out"
                     _hover={{
                       border: "2px solid var(--primarycolor)",
                       backgroundColor: "transparent",
@@ -351,23 +289,17 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                       handleUpdate("Agency Tagline", agency_tagline)
                     }
                   >
-                    <RiEdit2Fill fontSize={"15px"} />
-                  </VStack>
-                </HStack>
-              </VStack>
-            </HStack>
+                    <RiEdit2Fill />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            <Button
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
               onClick={handleSwitchFreelancer}
-              backgroundColor={"var(--primarycolor)"}
-              width={{ base: "100%", md: "70%" }}
-              border={"2px solid white"}
-              color={"white"}
-              borderRadius={"10px"}
+              backgroundColor={"var(--primarycolor)"}}
               marginTop={{ base: "4px", md: "0px" }}
-              padding={"25px 0"}
-              transition={"0.6s ease-in-out"}
-              fontSize={"1.2rem"}
+              transition="0.6s ease-in-out"
               _hover={{
                 background: "transparent",
                 border: "2px solid var(--primarycolor)",
@@ -375,10 +307,10 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
               }}
             >
               Switch To Your Freelancer Profile
-            </Button>
-          </HStack>
+            </button>
+          </div>
         </AgencyBodyLayout>
-      </VStack>
+      </div>
 
       {/* Profile Updating Thing */}
       {isModal && (
@@ -418,11 +350,11 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                           />
 
                           {isDragActive ? (
-                            <p className="text-center ">
+                            <p className="text-center">
                               Drop the files here ...{" "}
                             </p>
                           ) : (
-                            <p className="text-center ">
+                            <p className="text-center">
                               Drag &apos;n&apos; drop image file here, or click
                               to select file
                             </p>
@@ -468,10 +400,10 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                             }}
                           >
                             <SliderTrack className="bg-slate-300">
-                              <SliderFilledTrack bg={"slategrey"} />
+                              <SliderFilledTrack />
                             </SliderTrack>
                             <SliderThumb boxSize={6}>
-                              <Box className="text-slate-500" as={TiZoom} />
+                              <div className="text-slate-500" as={TiZoom} />
                             </SliderThumb>
                           </Slider>
                           <TiPlus />
@@ -551,16 +483,15 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                 </div>
                 {imageSrc && (
                   <div className="text-right mt-10">
-                    <Button
+                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       isLoading={isLoading}
                       loadingText="Uploading"
-                      colorScheme="primary"
                       onClick={() => onSubmit()}
                       paddingX={7}
                       spinner={<BtnSpinner />}
                     >
                       Upload
-                    </Button>
+                    </button>
                   </div>
                 )}
               </>
@@ -588,15 +519,14 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
 
             {modalType !== "Profile Photo" && modalType !== "Cover Photo" && (
               <div className="text-right mt-10">
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Submit"
-                  colorScheme="primary"
                   type="submit"
                   spinner={<BtnSpinner />}
                 >
                   Submit
-                </Button>
+                </button>
               </div>
             )}
           </form>

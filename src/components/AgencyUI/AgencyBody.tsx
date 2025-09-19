@@ -1,4 +1,5 @@
-import { Box, VStack } from "@chakra-ui/react";
+import React from "react";
+
 import AgencyLeftbar from "./AgencyLeftbar";
 import AgencyMembers from "./AgencyMembers";
 import AgencyRightBar from "./AgencyRightBar";
@@ -6,23 +7,15 @@ import AgencyRightBar from "./AgencyRightBar";
 const AgencyBody = ({ agency, setAgency }) => {
   return (
     <AgencyBodyLayout>
-      <VStack width={"full"}>
-        <Box
-          display={{ lg: "flex" }}
-          width={"95%"}
-          paddingY={"20px"}
-          position={"relative"}
-        >
+      <div className="flex flex-col w-full">
+        <div className="lg:flex w-[95%] py-[20px] relative">
           <AgencyLeftbar agency={agency} setAgency={setAgency} />
           <AgencyRightBar agency={agency} setAgency={setAgency} />
-        </Box>
-        <Box display={{ lg: "flex" }}
-          width={"95%"}
-          paddingY={"20px"}
-          position={"relative"}>
+        </div>
+        <div className="lg:flex w-[95%] py-[20px] relative">
           <AgencyMembers setAgency={setAgency} />
-        </Box>
-      </VStack>
+        </div>
+      </div>
     </AgencyBodyLayout>
   );
 };
@@ -30,14 +23,11 @@ const AgencyBody = ({ agency, setAgency }) => {
 //  agency body layout
 export const AgencyBodyLayout = ({ children }) => {
   return (
-    <Box
-      width={"100%"}
-      display={"flex"}
-      justifyContent={"center"}
-      className="shadow-sm border p-4 bg-white"
+    <div
+      className="w-full flex justify-center shadow-sm border p-4 bg-white"
     >
       {children}
-    </Box>
+    </div>
   );
 };
 

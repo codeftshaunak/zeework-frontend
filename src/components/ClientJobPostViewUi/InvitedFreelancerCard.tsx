@@ -1,6 +1,7 @@
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Avatar } from "../ui/Avatar";
-import { Button, Stack, Box, AvatarBadge } from "@chakra-ui/react";
+
 import { IoLocation } from "react-icons/io5";
 
 const InvitedFreelancerCard = ({ profile }) => {
@@ -16,7 +17,7 @@ const InvitedFreelancerCard = ({ profile }) => {
             alt=""
           />
         </div> */}
-        <div className="w-full space-y-2 ">
+        <div className="w-full space-y-2">
           <div className="flex justify-between items-center">
             <div className="flex gap-5 items-center">
               <Avatar
@@ -26,9 +27,8 @@ const InvitedFreelancerCard = ({ profile }) => {
                   " " +
                   freelancer_details?.[0]?.lastName
                 }
-                border={"1px solid var(--primarycolor)"}
               >
-                <AvatarBadge boxSize="1em" bg="green.500" />{" "}
+                <AvatarBadge boxSize="1em" />{" "}
               </Avatar>
 
               <div className="flex flex-col gap-2">
@@ -45,25 +45,21 @@ const InvitedFreelancerCard = ({ profile }) => {
                 </div>
 
                 <div className="flex items-center justify-between gap-5">
-                  <Stack
-                    spacing={4}
+                  <div className="flex spacing={4}"
                     direction="row"
-                    align="center"
-                    flexWrap={"wrap"}
+                    
+                    flexWrap="wrap"
                   >
                     {freelancer_details?.[0]?.skills?.length &&
                       freelancer_details?.[0]?.skills?.map((skill, idx) => (
-                        <Box
+                        <div
                           key={idx}
-                          size="sm"
-                          bgColor={"gray.200"}
-                          paddingX={5}
-                          borderRadius={"10px"}
+                          paddingX={5} className="rounded bg-gray.200"
                         >
                           {skill}
-                        </Box>
+                        </div>
                       ))}
-                  </Stack>
+                  </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-1 text-sm">
@@ -74,23 +70,18 @@ const InvitedFreelancerCard = ({ profile }) => {
               </div>
             </div>
             <div className="flex gap-5">
-              <Button
-                colorScheme="primary"
-                size={"md"}
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 paddingX={5}
-                variant={"outline"}
                 onClick={() => router.push(`/profile/f/${receiver_id}`)}
               >
                 Profile
-              </Button>
-              <Button
-                colorScheme="primary"
-                size={"md"}
+              </button>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 paddingX={5}
                 onClick={() => router.push(`/message/${receiver_id}`)}
               >
                 Message
-              </Button>
+              </button>
             </div>
           </div>
         </div>

@@ -1,13 +1,13 @@
-import { Button, Image, Text, VStack, Avatar } from "@chakra-ui/react";
+import React from "react";
+
+
 const AgencyProfileCard = ({ data }) => {
   return (
-    <VStack color="var(--primarytext)" gap={"5"}>
+    <div className="flex flex-col className="gap-5">
       {/* {data?.profile_image ? (
                 <Image
                     src="./images/button.png"
                     alt="user"
-                    width="80px"
-                    borderRadius="full"
                 />
             ) : (
                 <Avatar name={data?.name} size="xl" />
@@ -15,31 +15,26 @@ const AgencyProfileCard = ({ data }) => {
       <Image
         src="./images/add_button.png"
         alt="user"
-        width="80px"
-        borderRadius="full"
+        w="80px"
       />
       {/*
-            <VStack gap={"0"}>
-                <Text fontSize="1.2rem" marginBottom={"2"} fontWeight={"bold"}>
+            <div className="flex flex-col>
+                <span className="mb-[2] font-bold">
                     {data?.name}
-                </Text>
-                <Text px={10} marginBottom={"0"} textAlign={"center"} fontSize={"sm"}>
+                </span>
+                <span className="mb-[0] text-sm text-center">
                     {data?.professional_role}
-                </Text>
-            </VStack> */}
-      <VStack gap={"0"} w="100%">
-        <Button
-          colorScheme="22C35E"
-          bg={"#22C35E"}
-          color={"#fff"}
-          size="sm"
-          fontSize={"sm"}
-          w={"100%"}
+                </span>
+            </div> */}
+      <divgap-0" className="flex flex-col className= w-full">
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-sm w-full"
+          backgroundColor="#22C35E"
+         
         >
           Add Team Member
-        </Button>
-      </VStack>
-    </VStack>
+        </button>
+      </div>
+    </div>
   );
 };
 

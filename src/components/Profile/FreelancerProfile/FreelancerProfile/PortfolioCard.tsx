@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { IoMdClose } from "react-icons/io";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import Select from "react-select";
@@ -141,25 +141,13 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
       const { body, code, msg } = await deleteFreelancerPortfolio(_id);
       if (code === 200) {
         dispatch(profileData({ profile: body }));
-        toaster.create({
-          title: msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(msg);
       } else {
-        toaster.create({
-          title: msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg);
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "Failed to delete portfolio!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Failed to delete portfolio!");
     }
     setIsLoading(false);
     setIsDeleteModal(false);
@@ -213,11 +201,7 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
 
       if (code === 200) dispatch(profileData({ profile: body }));
 
-      toaster.create({
-        title: code ? msg : message,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(code ? msg : message);
     } catch (error) {
       console.error(error);
     }
@@ -244,25 +228,19 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
         </p>
         {isHover && !viewAs && (
           <Box
-            transition={"0.6s ease-in-out"}
+            transition="0.6s ease-in-out"
             className="h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300 z-10"
           >
             <HStack
-              fontSize={"2.5rem"}
-              position={"absolute"}
               transform={"translate(-50%, -50%)"}
-              top={"50%"}
-              left={"50%"}
-            >
+              top="50%"
+              left="50%"
+             className="absolute">
               <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"40px"}
-                height={"40px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+                backgroundColor="white"
+                w="40px"
+                className="items-center justify-center rounded cursor-pointer"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   // backgroundColor: "transparent",
@@ -270,17 +248,13 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
                 }}
                 onClick={() => setIsDetails(true)}
               >
-                <BsFillInfoCircleFill cursor={"pointer"} fontSize={"20px"} />
+                <BsFillInfoCircleFill />
               </VStack>
               <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"40px"}
-                height={"40px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+                backgroundColor="white"
+                w="40px"
+                className="items-center justify-center rounded cursor-pointer"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   // backgroundColor: "transparent",
@@ -299,17 +273,13 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
                     setIsModal(true);
                 }}
               >
-                <RiEdit2Fill cursor={"pointer"} fontSize={"20px"} />
+                <RiEdit2Fill />
               </VStack>
               <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"40px"}
-                height={"40px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+                backgroundColor="white"
+                w="40px"
+                className="items-center justify-center rounded cursor-pointer"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   // backgroundColor: "transparent",
@@ -317,7 +287,7 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
                 }}
                 onClick={() => setIsDeleteModal(true)}
               >
-                <RiDeleteBin2Fill cursor={"pointer"} fontSize={"20px"} />
+                <RiDeleteBin2Fill />
               </VStack>
             </HStack>
           </Box>
@@ -459,13 +429,12 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
           <div className="flex justify-end mt-6">
             <Button
               loadingText="Updating"
-              colorScheme="primary"
               type="submit"
               isLoading={updateLoading}
               spinner={<BtnSpinner />}
             >
               Update
-            </Button>
+            </button>
           </div>
         </form>
       </UniversalModal>
@@ -483,23 +452,18 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
 
         <div className="flex gap-5 sm:gap-10 mt-8 sm:mt-20">
           <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
-            onClick={() => setIsDeleteModal(false)}
+            onClick={() = className="w-full"> setIsDeleteModal(false)}
           >
             No, I don&apos;t want to Delete
-          </Button>
+          </button>
           <Button
             isLoading={isLoading}
             loadingText="Deleting.."
-            colorScheme="primary"
-            width={"full"}
             spinner={<BtnSpinner />}
             onClick={handleDeletePortfolio}
           >
             Yes, I want to Delete
-          </Button>
+          </button>
         </div>
       </UniversalModal>
 

@@ -10,19 +10,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
@@ -38,19 +38,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img width={"20px"} src={select} />
+              <img src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>

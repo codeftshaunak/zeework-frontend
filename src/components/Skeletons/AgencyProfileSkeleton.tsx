@@ -1,4 +1,5 @@
-import { SkeletonText } from "@/components/ui/migration-helpers";
+import React from "react";
+
 
 const AgencyProfileSkeleton: React.FC = () => {
   return (

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Button,
@@ -8,7 +10,7 @@ import {
   Text,
   Textarea,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import {
@@ -97,8 +99,8 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title={"Gig Requirement & Steps"} onBackward={onBack}>
-          <VStack alignItems={"start"} width={"100%"}>
+        <GigCreateLayout title="Gig Requirement & Steps" onBackward={onBack}>
+          <div className="flex flex-col className="items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
@@ -106,34 +108,27 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               Information you need from the client before you start your project
             </label>
 
-            <VStack
-              backgroundColor={"white"}
-              width={"100%"}
-              padding={"1rem 1.5rem"}
-              marginTop={"1rem"}
+            <div className="flex flex-col backgroundColor= w-full p-[1rem 1.5rem] mt-[1rem]"white"
+             
             >
               {requirementFields.map((requirement, index) => (
-                <VStack
-                  key={index}
-                  alignItems={"start"}
-                  width={"100%"}
-                  marginBottom={"0.8rem"}
+                <div className="flex flex-col key={index} className="items-start w-full mb-[0.8rem]"
                 >
                   <label htmlFor="" className="font-semibold mb-0 pb-0">
                     Requirement
                   </label>
-                  <VStack alignItems={"start"} width={"100%"}>
+                  <div className="flex flex-col className="items-start w-full">
                     <Controller
                       name={`requirements[${index}].requirement`} // Use index to create unique names
                       control={control}
                       render={({ field, fieldState }) => (
                         <>
-                          <Textarea
+                          <spanarea
                             {...field}
                             placeholder="You will get a fantastic deliverable that drives impact"
-                            marginTop={"5px"}
+                            className="mt-[5px]"
                           />
-                          <HStack width={"100%"}>
+                          <div className="flex flex-row items-center className="w-full">
                             <Checkbox
                               colorScheme="green"
                               size="lg"
@@ -146,10 +141,10 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                                 );
                               }}
                             ></Checkbox>
-                            <Text fontSize={"1rem"}>
+                            <span className="text-base">
                               Client needs to answer before I can start working
-                            </Text>
-                          </HStack>
+                            </span>
+                          </div>
                           {fieldState.error && (
                             <p style={{ color: "red", marginTop: "5px" }}>
                               {fieldState.error.message}
@@ -158,46 +153,35 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                         </>
                       )}
                     />
-                  </VStack>
-                </VStack>
+                  </div>
+                </div>
               ))}
-            </VStack>
-            <HStack width={"100%"}>
-              <Button
-                color="#16a34a"
-                fontWeight={"600"}
-                cursor={"pointer"}
-                padding={"1rem 0"}
-                backgroundColor={"transparent"}
+            </div>
+            <div className="flex flex-row items-center className="w-full">
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                backgroundColor="transparent"
                 _hover={{
                   backgroundColor: "transparent",
                 }}
                 onClick={() => addRequirement()}
               >
-                <FiPlus size={"1.3rem"} /> <Text>Add a requirement</Text>
-              </Button>
-            </HStack>
-          </VStack>
+                <FiPlus size="1.3rem" /> <span>Add a requirement</span>
+              </button>
+            </div>
+          </div>
 
-          <VStack alignItems={"start"} width={"100%"}>
+          <div className="flex flex-col className="items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
             >
               Steps you&apos;ll take to get the project done
             </label>
-            <VStack
-              backgroundColor={"white"}
-              padding={"2rem 1.5rem"}
-              marginTop={"1rem"}
-              width={"100%"}
+            <div className="flex flex-col backgroundColor= p-[2rem 1.5rem] mt-[1rem] w-full"white"
+             
             >
               {stepFields.map((step, index) => (
-                <VStack
-                  key={index}
-                  alignItems={"start"}
-                  width={"100%"}
-                  className="shadow rounded-md p-3 mt-2"
+                <div className="flex flex-col key={index} className="items-start w-full shadow rounded-md p-3 mt-2"
                 >
                   <label htmlFor="" className="font-semibold">
                     Step {index + 1} title
@@ -208,10 +192,10 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     control={control}
                     render={({ field, fieldState }) => (
                       <>
-                        <Input
+                        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px]"
                           {...field}
                           placeholder="Enter step title"
-                          marginTop={"5px"}
+                         
                         />
                         {fieldState.error && (
                           <p style={{ color: "red", marginTop: "5px" }}>
@@ -230,10 +214,10 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     control={control}
                     render={({ field, fieldState }) => (
                       <>
-                        <Textarea
+                        <spanarea
                           {...field}
                           placeholder="Enter step description"
-                          marginTop={"5px"}
+                          className="mt-[5px]"
                         />
                         {fieldState.error && (
                           <p style={{ color: "red", marginTop: "5px" }}>
@@ -243,25 +227,21 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                       </>
                     )}
                   />
-                </VStack>
+                </div>
               ))}
-            </VStack>
-            <HStack width={"100%"}>
-              <Button
-                color="#16a34a"
-                fontWeight={"600"}
-                cursor={"pointer"}
-                padding={"1rem 0"}
-                backgroundColor={"transparent"}
+            </div>
+            <div className="flex flex-row items-center className="w-full">
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                backgroundColor="transparent"
                 onClick={() => addStep()}
                 _hover={{
                   backgroundColor: "transparent",
                 }}
               >
-                <FiPlus size={"1.3rem"} /> <Text>Add a step</Text>
-              </Button>
-            </HStack>
-          </VStack>
+                <FiPlus size="1.3rem" /> <span>Add a step</span>
+              </button>
+            </div>
+          </div>
         </GigCreateLayout>
       </form>
     </FormProvider>

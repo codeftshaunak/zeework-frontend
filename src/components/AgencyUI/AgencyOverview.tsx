@@ -10,7 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateAgencyProfile } from "../../helpers/APIs/agencyApis";
 import UniversalModal from "../Modals/UniversalModal";
-import { Button, HStack, Text, VStack } from "@chakra-ui/react";
+
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { RiEdit2Fill } from "react-icons/ri";
 import { FiPlus } from "react-icons/fi";
@@ -60,25 +60,13 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
   return (
     <>
       <div>
-        <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-          <Text
-            fontSize={{ base: "1.3rem", md: "1.7rem", lg: "2rem" }}
-            fontWeight={"600"}
-            marginBottom={"0"}
-          >
+        <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+          <span}
+           className="mb-[0] font-semibold">
             Overview
-          </Text>
-          <VStack
-            backgroundColor={"white"}
-            borderRadius={"50%"}
-            width={"20px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"20px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
-            mt={1}
+          </span>
+          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
@@ -89,11 +77,11 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
               setIsModal(true);
             }}
           >
-            {overviewValue ? <RiEdit2Fill /> : <FiPlus fontSize={"15px"} />}
-          </VStack>
-        </HStack>
+            {overviewValue ? <RiEdit2Fill /> : <FiPlus />}
+          </div>
+        </div>
         {overviewValue && (
-          <article className="">
+          <article >
             <div dangerouslySetInnerHTML={{ __html: overviewValue }} />
           </article>
         )}
@@ -107,7 +95,7 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
           title={`Update Profile Overview`}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="">
+            <div >
               <QuillToolbar />
               <Controller
                 name="agency_overview"
@@ -131,15 +119,14 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
               )}
             </div>
             <div className="text-right mt-10">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isLoading}
                 loadingText="Submit"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>

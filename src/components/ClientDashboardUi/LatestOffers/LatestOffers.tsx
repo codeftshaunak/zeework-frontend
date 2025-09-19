@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   
@@ -7,7 +9,7 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -83,9 +85,8 @@ const LatestOffers = ({ marketplace }) => {
     <>
       <Tabs.Root
         onChange={(index) => setTabIndex(index)}
-        position="relative"
         variant="unstyled"
-        paddingX={"16px"}
+        paddingX="16px"
       >
         {!marketplace && (
           <Tabs.List className="flex flex-wrap">
@@ -98,9 +99,7 @@ const LatestOffers = ({ marketplace }) => {
         {!marketplace && (
           <Tabs.Indicator
             mt="-1.5px"
-            height="2px"
             className="sm:bg-fg-brand"
-            borderRadius="1px"
           />
         )}
 

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useContext, useRef, useState } from "react";
 import { CiUser } from "react-icons/ci";
@@ -10,11 +12,13 @@ import {
   VStack,
   Flex,
   Input,
-  Skeleton,
+
   Button,
   Text,
-} from "@chakra-ui/react";
-// import { toaster } from "@/lib/providers"; // Disabled until proper toast API is implemented
+} from "@/components/ui/migration-helpers";
+import { cn } from "@/lib/utils";
+import { toast } from "@/lib/toast";
+
 import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
 import { signIn } from "../../../helpers/APIs/apiRequest";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -67,32 +71,22 @@ const Login = () => {
         const clientDetailsFound =
           data?.businessName?.length > 0 && data?.briefDescription?.length > 0;
 
-        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-        await delay(1500);
-        
-        console.log("Login successful:", response.msg);
-        // TODO: Implement proper toast notification
-        
-        if (detailsFound || clientDetailsFound) {
-          router.replace(from);
-        } else {
-          router.push("/onboarding");
-        }
-      } else if (response?.code === 403) {
-        console.warn("Login warning:", response?.msg);
-        // TODO: Implement proper toast notification
-      } else if (response?.code === 405) {
-        console.warn("Login warning:", response?.msg);
-        // TODO: Implement proper toast notification
-        router.push("/login");
+      const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      await delay(1500);
+      toast.success(response.msg);
+      if (detailsFound || clientDetailsFound) {
+        router.push(from, { replace: true });
+      } else {
+        router.push("/onboarding");
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      // TODO: Implement proper toast notification
-    } finally {
-      // Always ensure loading states are reset
-      setLoginBtnLoading(false);
+
       setLoading(false);
+    } else if (response?.code === 403) {
+      toast.warning(response?.msg);
+      setLoginBtnLoading(false);
+    } else if (response?.code === 405) {
+      toast.warning(response?.msg);
+      router.push("/login");
     }
   };
 
@@ -103,157 +97,129 @@ const Login = () => {
   return (
     <OnbardingCardLayout title="Log In to ZeeWork">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-        <VStack width="100%" gap={6} mt={6}>
-          {loading ? (
-            <Skeleton
-              width={"full"}
-              startColor="gray.100"
-              endColor="gray.300"
-            >
-              <div style={{ height: "50px", width: "100%" }}></div>
-            </Skeleton>
-          ) : (
-            <div>
-              <Flex
-                border="1px solid var(--bordersecondary)"
-                borderRadius="5px"
-                width="100%"
-                justifyContent="center"
-                alignItems="center"
-                overflow={"hidden"}
-              >
-                <CiUser
-                  style={{
-                    fontSize: "2rem",
-                    marginRight: "0.1rem",
-                    padding: "0.4rem",
-                  }}
-                />
-                <Input
-                  type="text"
-                  placeholder="Username Or Email"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Enter a valid email address",
-                    },
-                  })}
-                  fontSize="1rem"
-                  width="100%"
-                  border="none"
-                  variant="unstyled"
-                  padding="0.5rem 0.5rem"
-                  rounded={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      passwordRef.current?.focus();
-                    }
-                  }}
-                />
-              </Flex>
-              {errors.email && <ErrorMsg msg={errors.email.message} className="" />}
-            </div>
-          )}
-          {loading ? (
-            <Skeleton
-              width={"full"}
-              startColor="gray.100"
-              endColor="gray.300"
-            >
-              <div style={{ height: "50px", width: "100%" }}></div>
-            </Skeleton>
-          ) : (
-            <div>
-              <Flex
-                border="1px solid var(--bordersecondary)"
-                borderRadius="5px"
-                width="100%"
-                justifyContent="center"
-                alignItems="center"
-                overflow={"hidden"}
-              >
-                <MdPassword
-                  style={{
-                    fontSize: "2.1rem",
-                    marginRight: "0.1rem",
-                    padding: "0.5rem",
-                  }}
-                />
-                <Input
-                  ref={passwordRef}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  {...register("password", { required: "Password is required" })}
-                  variant="unstyled"
-                  fontSize="1rem"
-                  padding="0.5rem 0.5rem"
-                  border={"none"}
-                  rounded={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleSubmit(onSubmit)();
-                  }}
-                />
-                <button
-                  type="button"
-                  aria-label={showPassword ? "Hide Password" : "Show Password"}
-                  onClick={toggleShowPassword}
-                  className="p-2"
+
+        <div className="flex flex-col> <div className={cn("w-full", loading && "animate-pulse")}>
+            {loading ? (
+              <div className="h-12 bg-gray-200 rounded-md w-full"></div>
+            ) : (
+              <>
+                <div className="flex overflow-hidden"
+                 
+                 
+                 
+                 
+                 
+                 
                 >
-                  {showPassword ? <BsEyeSlash /> : <BsEye />}
-                </button>
-              </Flex>
-              {errors.password && <ErrorMsg msg={errors.password.message} className="" />}
-              <Text
-                fontWeight={500}
-                marginTop={3}
-                marginLeft={1}
-                color="var(--primarycolor)"
-                cursor={"pointer"}
-                onClick={() => router.push("/forget-password")}
+                  <CiUser
+                    style={{
+                      fontSize: "2rem",
+                      marginRight: "0.1rem",
+                      padding: "0.4rem",
+                    }}
+                  />
+                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm border-none text-base py-2 px-2 rounded-none focus:outline-none focus:ring-0"
+                    type="text"
+                    placeholder="Username Or Email"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                        message: "Enter a valid email address",
+                      },
+                    })}
+                   
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        passwordRef.current.focus();
+                      }
+                    }}
+                  />
+                </div>
+                {errors.email && <ErrorMsg msg={errors.email.message} />}
+              </>
+            )}
+          </div>
+          <div className={cn("w-full", loading && "animate-pulse")}>
+            {loading ? (
+              <div className="h-12 bg-gray-200 rounded-md w-full"></div>
+            ) : (
+              <>
+                <div className="flex overflow-hidden"
+                 
+                 
+                 
+                 
+                 
+                 
+                >
+                  <MdPassword
+                    style={{
+                      fontSize: "2.1rem",
+                      marginRight: "0.1rem",
+                      padding: "0.5rem",
+                    }}
+                  />
+                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm border-none text-base py-2 px-2 rounded-none focus:outline-none focus:ring-0 flex-1"
+                    ref={passwordRef}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    {...register("password", { required: "Password is required" })}
+                   
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSubmit(onSubmit)();
+                    }}
+                  />
+                  <button
+                    type="button"
+                    aria-label={showPassword ? "Hide Password" : "Show Password"}
+                    onClick={toggleShowPassword}
+                    className="p-2 hover:bg-gray-100 transition-colors rounded-none"
+                  >
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </button>
+                </div>
+                {errors.password && <ErrorMsg msg={errors.password.message} />}
+                <span
+                  marginTop={3}
+                  marginLeft={1}
+                 
+                  className="cursor-pointer"
+                  onClick={() => router.push("/forget-password")}
+                >
+                  Forget Your Password?
+                </span>
+              </>
+            )}
+          </div>
+          <div className={cn("w-full", loading && "animate-pulse")}>
+            {loading ? (
+              <div className="h-10 bg-gray-200 rounded-md w-full"></div>
+            ) : (
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                isLoading={loginBtnLoading}
+                type="submit"
+               
               >
-                Forget Your Password?
-              </Text>
-            </div>
-          )}
-          {loading ? (
-            <Skeleton
-              startColor="gray.100"
-              endColor="gray.300"
-            >
-              <div style={{ height: "40px", width: "200px" }}></div>
-            </Skeleton>
-          ) : (
-            <Button
-              loading={loginBtnLoading}
-              type="submit"
-              className="bg-primary text-white hover:bg-primary/90"
-            >
-              {loginBtnLoading ? "Verifying..." : "Continue with Email"}
-            </Button>
-          )}
+                {loginBtnLoading ? "Verifying..." : "Continue with Email"}
+              </button>
+            )}
+          </div>
           <Divider text="Don't have a ZeeWork account?" dwidth="60px" />
-        </VStack>
+        </div>
       </form>
       <br />
-      {loading ? (
-        <Skeleton
-          startColor="gray.100"
-          endColor="gray.300"
-          width={"full"}
-        >
-          <div style={{ height: "40px", width: "100%" }}></div>
-        </Skeleton>
-      ) : (
-        <CTAButton
-          fontSize="1rem"
-          text="Sign Up"
-          border="1px solid var(--bordersecondary)"
-          bg="var(--secondarycolor)"
-          width="full"
-          onClick={() => router.push("/signup")}
-        />
-      )}
+
+      <div className={cn("w-full", loading && "animate-pulse")}>
+        {loading ? (
+          <div className="h-10 bg-gray-200 rounded-md w-full"></div>
+        ) : (
+          <CTAButton
+            text="Sign Up"
+            onClick={() => router.push("/signup")}
+          />
+        )}
+      </div>
     </OnbardingCardLayout>
   );
 };
