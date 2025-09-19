@@ -16,9 +16,11 @@ import {
   Button,
   IconButton,
   InputGroup,
-  Checkbox,
+
   Stack,
   RadioGroup,
+
+
 } from "@/components/ui/migration-helpers";
 import { toast } from "@/lib/toast";
 import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
@@ -49,6 +51,7 @@ import {
   clientSignUpSchema,
   freelancerSignUpSchema,
 } from "../../../schemas/profile-create-schema";
+
 
 // Types
 interface Country {
@@ -82,8 +85,8 @@ export const SignUp = () => {
     selectedOption === "freelancer"
       ? "Apply as a freelancer"
       : selectedOption === "client"
-      ? "Join as a client"
-      : "Create An Account";
+        ? "Join as a client"
+        : "Create An Account";
 
   const handleButtonClick = () => {
     if (selectedOption === "freelancer") {
@@ -222,6 +225,7 @@ export const FreelancerSignUp = () => {
     try {
       const { body, code, msg } = await signUp(data);
       if (code === 200) {
+
         toast.success(msg);
         setVerifyShow(true);
         setCountdown(119);
@@ -241,6 +245,7 @@ export const FreelancerSignUp = () => {
     try {
       const { code, msg } = await resendEmailVerification({ email });
       if (code === 200) {
+
         toast.default(msg);
         setCountdown(119);
       }
@@ -271,6 +276,7 @@ export const FreelancerSignUp = () => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
+
 
   if (verifyShow) {
     return (
@@ -414,6 +420,7 @@ export const FreelancerSignUp = () => {
                   Yes, I understand & agree to the ZeeWork{" "}
                   <span className="font-semibold text-green-600">
                     Terms of Service
+
                   </span>
                 </span>
               </label>
@@ -497,6 +504,7 @@ export const ClientSignUp = () => {
     try {
       const response = await signUp(data);
       if (response.code === 200) {
+
         toast.success(response.msg);
         setVerifyShow(true);
         setCountdown(119);
@@ -516,6 +524,7 @@ export const ClientSignUp = () => {
     try {
       const { code, msg } = await resendEmailVerification({ email });
       if (code === 200) {
+
         toast.default(msg);
         setCountdown(119);
       }
@@ -546,6 +555,7 @@ export const ClientSignUp = () => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
+
 
   if (verifyShow) {
     return (

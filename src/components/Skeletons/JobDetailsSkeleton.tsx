@@ -1,6 +1,8 @@
+
 import React from "react";
 
 import { Link } from "next/navigation";
+
 
 const JobDetailsSkeleton = ({ hideNavigation }) => {
   return (

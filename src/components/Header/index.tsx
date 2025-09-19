@@ -1,6 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+
 
 import { Avatar } from "@/components/ui/migration-helpers";
 import { useRouter, usePathname } from "next/navigation";
@@ -8,7 +10,6 @@ import Link from "next/link";
 import CTAButton from "../CTAButton";
 import { RiArrowDropDownLine, RiSearchLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
-import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { LuSettings } from "react-icons/lu";
 import { BiExit, BiHelpCircle } from "react-icons/bi";
@@ -45,13 +46,7 @@ import useUserActivityListener from "../../hooks/useUserActivityListener";
 export const Header = () => {
   const router = useRouter();
   const [isSelectModal, setIsSelectModal] = useState(false);
-  const selectModalRef = useRef(null);
-  const boxStyle = {
-    display: "flex",
-    alignItems: "center",
-    color: "#374151",
-    fontSize: "1rem",
-  };
+  const selectModalRef = useRef<HTMLDivElement>(null);
 
   const navigation = [
     { title: "Find Talent", href: "/my-jobs" },
@@ -67,7 +62,9 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
+
   const btnRef = React.useRef<HTMLButtonElement>(null);
+
 
   // ======= search for jobs and talent
 
@@ -87,10 +84,10 @@ export const Header = () => {
   };
 
   // handle close select option when click on outside
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       selectModalRef.current &&
-      !selectModalRef.current.contains(event.target)
+      !selectModalRef.current.contains(event.target as Node)
     ) {
       setIsSelectModal(false);
     }
@@ -274,7 +271,7 @@ export const Header = () => {
                               handelSearch();
                             }
                           }}
-                          value={searchTerm || ""}
+                          value={searchTerm}
                         />
                       </div>
                       <p
@@ -319,7 +316,7 @@ export const Header = () => {
   );
 };
 
-export const AuthHeader = ({ role }) => {
+export const AuthHeader = ({ role }: { role: number }) => {
   const messageUsers = useSelector((state: any) => state.message.users);
   const notifications = useSelector((state: any) => state.notification.notification);
   const [openInfo, setOpenInfo] = useState(false);
@@ -331,7 +328,7 @@ export const AuthHeader = ({ role }) => {
   const pathname = usePathname();
   const isMessagePage = pathname.startsWith("/message");
   const activeAgency = cookie?.activeagency;
-  const selectModalRef = useRef(null);
+  const selectModalRef = useRef<HTMLDivElement>(null);
   const profile = useSelector((state: any) => state.profile);
   const {
     profile_image,
@@ -350,7 +347,6 @@ export const AuthHeader = ({ role }) => {
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
   const [isMenuRef, setIsMenuRef] = useState(false);
-  const btnRef = React.useRef();
 
   // Create a Set to store unique receiver_id values
   const unReadMsg = messageUsers?.filter((user) => {
@@ -366,7 +362,7 @@ export const AuthHeader = ({ role }) => {
     (notification) => !notification.isRead
   );
 
-  const handleProfileButton = (event) => {
+  const handleProfileButton = (event: React.MouseEvent) => {
     setOpenInfo(!openInfo);
     event.stopPropagation();
   };
@@ -411,7 +407,7 @@ export const AuthHeader = ({ role }) => {
 
   // ======= search for jobs and talent
 
-  const handelSelectedValue = (value) => {
+  const handelSelectedValue = (value: string) => {
     setSelectedRole(value);
     setIsSelectModal(false);
   };
@@ -435,10 +431,10 @@ export const AuthHeader = ({ role }) => {
   };
 
   // handle close select option when click on outside
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       selectModalRef.current &&
-      !selectModalRef.current.contains(event.target)
+      !selectModalRef.current.contains(event.target as Node)
     ) {
       setOpenInfo(false);
       setIsSelectModal(false);
@@ -457,7 +453,7 @@ export const AuthHeader = ({ role }) => {
     [
       {
         event: "receive_message",
-        handler: (data, cardDetails, newUser) => {
+        handler: (data: any, cardDetails: any, newUser: any) => {
           if (userId == data.receiver_id) {
             if (newUser) dispatch(setMessageUsers([...messageUsers, newUser]));
             if (!newUser)
@@ -488,7 +484,7 @@ export const AuthHeader = ({ role }) => {
       },
       {
         event: "saved_notification",
-        handler: (data) => {
+        handler: (data: any) => {
           if (userId == data.user_id) {
             dispatch(setNotification(data.notifications));
             hasUnreadNotifications = notifications?.some(
@@ -503,7 +499,7 @@ export const AuthHeader = ({ role }) => {
   );
 
   // update user activity of messages
-  useUserActivityListener((data) => {
+  useUserActivityListener((data: any) => {
     if (data && messageUsers?.length) {
       const isUser = messageUsers?.find(
         (i) =>
@@ -574,7 +570,7 @@ export const AuthHeader = ({ role }) => {
     }
   };
 
-  const getTimeDifference = (date) => {
+  const getTimeDifference = (date: any) => {
     if (!date) return "Invalid date";
 
     // Parse the date if it is a string
@@ -595,7 +591,7 @@ export const AuthHeader = ({ role }) => {
   };
 
   // slice any type of string
-  const truncateString = (str, num) => {
+  const truncateString = (str: string, num: number) => {
     if (!str || !num) return;
 
     if (str?.length <= num) {
@@ -849,7 +845,7 @@ export const AuthHeader = ({ role }) => {
                 </div>
                 <div
                   className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer"
-                  onClick={(e) => handleProfileButton(e)}
+                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                 >
                   {firstName || profile?.agency?.agency_name ? (
                     <Avatar
@@ -1030,7 +1026,7 @@ export const AuthHeader = ({ role }) => {
                                   src={profile_image}
                                   name={firstName + " " + lastName}
                                   boxSize="40px"
-                                  onClick={(e) => handleProfileButton(e)}
+                                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                                 />
                                 <div>
                                   <p className="font-medium text-lg">
@@ -1045,7 +1041,7 @@ export const AuthHeader = ({ role }) => {
                                   src={agency_profileImage}
                                   name={agency_name}
                                   boxSize="40px"
-                                  onClick={(e) => handleProfileButton(e)}
+                                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                                 />
                                 <div>
                                   <p className="font-medium text-lg">
@@ -1069,7 +1065,7 @@ export const AuthHeader = ({ role }) => {
                               src={profile_image}
                               name={firstName + " " + lastName}
                               boxSize="40px"
-                              onClick={(e) => handleProfileButton(e)}
+                              onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                             />
                             <div>
                               <p className="font-medium text-lg">
@@ -1093,8 +1089,9 @@ export const AuthHeader = ({ role }) => {
                     </div>
                     <div
                       className={
-                        openInfo &&
-                        "bg-white p-2 rounded-lg w-full transition-all mt-2"
+                        openInfo
+                          ? "bg-white p-2 rounded-lg w-full transition-all mt-2"
+                          : ""
                       }
                     >
                       <motion.div
@@ -1104,7 +1101,7 @@ export const AuthHeader = ({ role }) => {
                         className="overflow-hidden"
                       >
                         {openInfo && (
-                          <dev ref={selectModalRef} className="grid gap-1">
+                          <div ref={selectModalRef} className="grid gap-1">
                             <NavItem
                               title="Profile"
                               url={`/profile/${
@@ -1123,7 +1120,7 @@ export const AuthHeader = ({ role }) => {
                               Logout
                               <TbLogout />
                             </div>
-                          </dev>
+                          </div>
                         )}
                       </motion.div>
                     </div>

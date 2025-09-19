@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";
 import { getSingleJobDetails } from "../../helpers/APIs/jobApis";
 import StarRatings from "react-star-ratings";
@@ -19,9 +19,9 @@ import {
   Box,
   Button,
   Slider,
-  SliderFilledTrack,
   SliderThumb,
   SliderTrack,
+
 } from "@/components/ui/migration-helpers";
 import { toast } from "@/lib/toast";
 import BtnSpinner from "../Skeletons/BtnSpinner";
@@ -36,8 +36,10 @@ import { BiImages, BiSolidCrop } from "react-icons/bi";
 import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
 import Cropper from "react-easy-crop";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
+import { toaster } from "../ui/toaster";
+import { Link } from "../ui/migration-helpers";
 
-const JobDetails = ({ setPage, setDetails }) => {
+const JobDetails = ({ setPage = () => { }, setDetails = (details = []) => { } }) => {
   const profile = useSelector((state: any) => state.profile);
   const [cookies] = useCookies(["activeagency"]);
   const activeagency = cookies.activeagency;
@@ -86,8 +88,8 @@ const JobDetails = ({ setPage, setDetails }) => {
         const { code, body } =
           imgCode === 200
             ? await updateAgencyProfile({
-                agency_profileImage: imgBody.imageUrl,
-              })
+              agency_profileImage: imgBody.imageUrl,
+            })
             : {};
 
         if (code === 200) {
@@ -157,8 +159,8 @@ const JobDetails = ({ setPage, setDetails }) => {
     days > 0
       ? `${days} day${days !== 1 ? "s" : ""} ago`
       : hours > 0
-      ? `${hours} hour${hours !== 1 ? "s" : ""} ago`
-      : `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+        ? `${hours} hour${hours !== 1 ? "s" : ""} ago`
+        : `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
 
   const clientDetails = jobDetails[0]?.client_details[0] || {};
   const {
@@ -458,9 +460,8 @@ const JobDetails = ({ setPage, setDetails }) => {
                   {!imageSrc && (
                     <div
                       {...getRootProps()}
-                      className={`w-[100%] ${
-                        fileName ? "py-5" : "py-8"
-                      } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
+                      className={`w-[100%] ${fileName ? "py-5" : "py-8"
+                        } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
                     >
                       {!fileName && (
                         <RiUploadCloud2Fill className="text-green-300 text-6xl mx-auto" />
@@ -539,11 +540,10 @@ const JobDetails = ({ setPage, setDetails }) => {
                       <button
                         type="button"
                         disabled={isCropped}
-                        className={`flex items-center gap-1 ${
-                          isCropped
-                            ? "cursor-no-drop bg-slate-400"
-                            : "bg-slate-500"
-                        } rounded py-1 px-3 text-white w-fit mt-2`}
+                        className={`flex items-center gap-1 ${isCropped
+                          ? "cursor-no-drop bg-slate-400"
+                          : "bg-slate-500"
+                          } rounded py-1 px-3 text-white w-fit mt-2`}
                         onClick={() => {
                           document.getElementById("file-input").click();
                         }}
@@ -572,11 +572,10 @@ const JobDetails = ({ setPage, setDetails }) => {
                       <div className="flex items-center justify-center gap-5">
                         <button
                           type="button"
-                          className={`flex items-center gap-1 ${
-                            isCropped
-                              ? "cursor-no-drop bg-slate-400"
-                              : "bg-slate-500"
-                          } rounded py-1 px-3 text-white w-fit mt-2`}
+                          className={`flex items-center gap-1 ${isCropped
+                            ? "cursor-no-drop bg-slate-400"
+                            : "bg-slate-500"
+                            } rounded py-1 px-3 text-white w-fit mt-2`}
                           onClick={handleCrop}
                           disabled={isCropped}
                         >
@@ -592,11 +591,10 @@ const JobDetails = ({ setPage, setDetails }) => {
                         </button>
                         <button
                           type="button"
-                          className={`flex items-center gap-1 ${
-                            !isCropped
-                              ? "cursor-no-drop bg-slate-400"
-                              : "bg-slate-500"
-                          } rounded py-1 px-3 text-white w-fit mt-2`}
+                          className={`flex items-center gap-1 ${!isCropped
+                            ? "cursor-no-drop bg-slate-400"
+                            : "bg-slate-500"
+                            } rounded py-1 px-3 text-white w-fit mt-2`}
                           onClick={handleRevert}
                           disabled={!isCropped}
                         >

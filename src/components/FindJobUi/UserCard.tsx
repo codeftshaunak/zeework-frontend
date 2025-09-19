@@ -56,21 +56,22 @@ const UserProfileCard = () => {
               <Avatar
                 src={profile_image}
                 name={firstName + " " + lastName}
-                className={`h-[90px!important] w-[90px!important] object-cover border-2 ${
-                  !activeAgency && "cursor-pointer"
-                }`}
+                className={`!w-[90px] !h-[90px] border-2 ${!activeAgency && "cursor-pointer"
+                  }`}
                 onClick={() =>
                   !activeAgency && router.push(`/profile/f/${user_id}`)
                 }
               />
             </div>
             <div
+
               className={`text-2xl text-[#072C15] font-medium capitalize ${
                 !activeAgency && "cursor-pointer"
               }`}
               onClick={() =>
                 !activeAgency && router.push(`/profile/f/${user_id}`)
               }
+
             >
               {firstName + " " + lastName?.slice(0, 1) + "."}
             </div>
@@ -89,9 +90,8 @@ const UserProfileCard = () => {
             />
           </div>
           <div
-            className={`relative w-[80%] xl:w-[300px] border border-transparent rounded-lg flex justify-center items-center bg-white/60 ${
-              hasAgency && activeAgency ? "mb-0" : "mb-4"
-            }`}
+            className={`relative w-[80%] xl:w-[300px] border border-transparent rounded-lg flex justify-center items-center bg-white/60 ${hasAgency && activeAgency ? "mb-0" : "mb-4"
+              }`}
           >
             <div className="w-full p-4">
               <div className="text-xs xl:text-sm text-[#15181E]">

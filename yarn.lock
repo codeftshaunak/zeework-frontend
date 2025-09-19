@@ -196,7 +196,7 @@
 
 "@chakra-ui/react@^3.27.0":
   version "3.27.0"
-  resolved "https://registry.npmjs.org/@chakra-ui/react/-/react-3.27.0.tgz"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/react/-/react-3.27.0.tgz#d416204209e797a018779d7f4ddd8b266a6327f8"
   integrity sha512-M1WTAErI2cYM/PB4h5Kf5CCAg70g3HCzVvTEhcf5ty8QrG6QybPf3RdWSpBlIy7qpjuEnQYpHLxM0jnFLArBgA==
   dependencies:
     "@ark-ui/react" "^5.24.1"

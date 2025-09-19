@@ -4,7 +4,7 @@ import React from "react";
 
 import { useContext, useRef, useState } from "react";
 import { CiUser } from "react-icons/ci";
-import { BsEye, BsEyeSlash, BsInfoCircle } from "react-icons/bs";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { MdPassword } from "react-icons/md";
 import CTAButton from "../../CTAButton";
 import Divider from "../../Divider/Divider";
@@ -12,27 +12,27 @@ import {
   VStack,
   Flex,
   Input,
+
   Button,
   Text,
 } from "@/components/ui/migration-helpers";
 import { cn } from "@/lib/utils";
 import { toast } from "@/lib/toast";
+
 import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
 import { signIn } from "../../../helpers/APIs/apiRequest";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "../../../redux/authSlice/authSlice";
 import { getAllDetailsOfUser } from "../../../helpers/APIs/userApis";
 import { CurrentUserContext } from "../../../contexts/CurrentUser";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import { useForm } from "react-hook-form";
-import { HiOutlineInformationCircle } from "react-icons/hi";
 import ErrorMsg from "../../utils/Error/ErrorMsg";
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const from = searchParams.get('from') || "/";
   const { getUserDetails } = useContext(CurrentUserContext);
@@ -50,21 +50,26 @@ const Login = () => {
 
   const onSubmit = async (formData) => {
     setLoginBtnLoading(true);
-    const response = await signIn(formData);
-    setLoginBtnLoading(false);
-    if (response.code === 200) {
-      const { role, token } = response.body;
-      dispatch(setAuthData({ role: role, authtoken: token }));
-      getUserDetails();
-      setLoading(true);
-      const res = await getAllDetailsOfUser();
-      const data = res?.body;
-      const detailsFound =
-        data?.categories?.length > 0 &&
-        data?.skills?.length > 0 &&
-        data?.hourly_rate;
-      const clientDetailsFound =
-        data?.businessName?.length > 0 && data?.briefDescription?.length > 0;
+    setLoading(false); // Ensure skeleton is hidden initially
+    
+    try {
+      const response = await signIn(formData);
+      setLoginBtnLoading(false);
+      
+      if (response.code === 200) {
+        const { role, token } = response.body;
+        dispatch(setAuthData({ role: role, authtoken: token }));
+        getUserDetails();
+        setLoading(true); // Show skeleton only during user details loading
+        
+        const res = await getAllDetailsOfUser();
+        const data = res?.body;
+        const detailsFound =
+          data?.categories?.length > 0 &&
+          data?.skills?.length > 0 &&
+          data?.hourly_rate;
+        const clientDetailsFound =
+          data?.businessName?.length > 0 && data?.briefDescription?.length > 0;
 
       const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       await delay(1500);
@@ -83,8 +88,6 @@ const Login = () => {
       toast.warning(response?.msg);
       router.push("/login");
     }
-    setLoginBtnLoading(false);
-    setLoading(false);
   };
 
   const toggleShowPassword = () => {
@@ -94,6 +97,7 @@ const Login = () => {
   return (
     <OnbardingCardLayout title="Log In to ZeeWork">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+
         <div className="flex flex-col> <div className={cn("w-full", loading && "animate-pulse")}>
             {loading ? (
               <div className="h-12 bg-gray-200 rounded-md w-full"></div>
@@ -205,6 +209,7 @@ const Login = () => {
         </div>
       </form>
       <br />
+
       <div className={cn("w-full", loading && "animate-pulse")}>
         {loading ? (
           <div className="h-10 bg-gray-200 rounded-md w-full"></div>

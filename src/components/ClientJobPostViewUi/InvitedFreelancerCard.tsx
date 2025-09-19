@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { Avatar } from "../ui/Avatar";
 
 import { IoLocation } from "react-icons/io5";
 
