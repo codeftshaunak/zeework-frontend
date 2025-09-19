@@ -36,7 +36,8 @@ import BtnSpinner from "../../Skeletons/BtnSpinner";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import ErrorMsg from "../../utils/Error/ErrorMsg";
 import { CustomCheckbox } from "@/components/ui/CustomCheckbox";
-import { toaster } from "@/lib/providers";
+import { toaster } from "@/components/ui/toaster";
+
 
 
 

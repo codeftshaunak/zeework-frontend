@@ -20,7 +20,6 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import {
@@ -33,6 +32,7 @@ import { BiImages, BiSolidCrop } from "react-icons/bi";
 import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
 import Cropper from "react-easy-crop";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
+import { toaster } from "../ui/toaster";
 
 const JobDetails = ({ setPage, setDetails }) => {
   const profile = useSelector((state: any) => state.profile);
@@ -540,8 +540,8 @@ const JobDetails = ({ setPage, setDetails }) => {
                         type="button"
                         disabled={isCropped}
                         className={`flex items-center gap-1 ${isCropped
-                            ? "cursor-no-drop bg-slate-400"
-                            : "bg-slate-500"
+                          ? "cursor-no-drop bg-slate-400"
+                          : "bg-slate-500"
                           } rounded py-1 px-3 text-white w-fit mt-2`}
                         onClick={() => {
                           document.getElementById("file-input").click();
@@ -572,8 +572,8 @@ const JobDetails = ({ setPage, setDetails }) => {
                         <button
                           type="button"
                           className={`flex items-center gap-1 ${isCropped
-                              ? "cursor-no-drop bg-slate-400"
-                              : "bg-slate-500"
+                            ? "cursor-no-drop bg-slate-400"
+                            : "bg-slate-500"
                             } rounded py-1 px-3 text-white w-fit mt-2`}
                           onClick={handleCrop}
                           disabled={isCropped}
@@ -591,8 +591,8 @@ const JobDetails = ({ setPage, setDetails }) => {
                         <button
                           type="button"
                           className={`flex items-center gap-1 ${!isCropped
-                              ? "cursor-no-drop bg-slate-400"
-                              : "bg-slate-500"
+                            ? "cursor-no-drop bg-slate-400"
+                            : "bg-slate-500"
                             } rounded py-1 px-3 text-white w-fit mt-2`}
                           onClick={handleRevert}
                           disabled={!isCropped}
