@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Button,
@@ -6,7 +8,7 @@ import {
   Progress,
   StackDivider,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { IoMdRefreshCircle } from "react-icons/io";
@@ -189,11 +191,11 @@ const ClientDashboardComponent = () => {
             ) : (
               <div className="border border-[var(--bordersecondary)] mt-4 rounded-md bg-white w-full h-max">
                 <div className="flex justify-between border-b border-[var(--bordersecondary)] p-4">
-                  <div className=" text-2xl font-medium text-[#374151]">
+                  <div className="text-2xl font-medium text-[#374151]">
                     My Team
                   </div>
                 </div>
-                <div className=" lg:h-[200px] text-center py-4 h-max">
+                <div className="lg:h-[200px] text-center py-4 h-max">
                   <div className="w-[70%] m-auto flex flex-col justify-center items-center gap-2 h-full">
                     <h2 className="font-bold text-xl">Welcome to ZeeWork!</h2>
                     <p className="py-3">
@@ -202,13 +204,11 @@ const ClientDashboardComponent = () => {
                       more. Click below to make your first hire & bring your
                       project live.
                     </p>
-                    <Button
-                      colorScheme="primary"
-                      w={"12rem"}
+                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       onClick={() => router.push("/create-job")}
                     >
                       Post a new job
-                    </Button>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -216,7 +216,7 @@ const ClientDashboardComponent = () => {
             <div className="max-lg:hidden">
               <div className="border border-[var(--bordersecondary)] mt-4 rounded-md overflow-hidden w-[100%]">
                 <div className="flex justify-between border-b border-[var(--bordersecondary)] bg-white p-4">
-                  <div className=" text-2xl font-medium text-[#374151]">
+                  <div className="text-2xl font-medium text-[#374151]">
                     Latest Offers
                   </div>
                 </div>
@@ -226,8 +226,8 @@ const ClientDashboardComponent = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-6 border border-[var(--bordersecondary)]  rounded-md w-full bg-white overflow-hidden">
-                <div className=" flex items-center justify-between border-b border-[var(--bordersecondary)] p-4 ">
+              <div className="my-6 border border-[var(--bordersecondary)] rounded-md w-full bg-white overflow-hidden">
+                <div className="flex items-center justify-between border-b border-[var(--bordersecondary)] p-4">
                   <div
                     id="jobPostingsDiv"
                     className="text-2xl font-medium text-[#374151]"
@@ -245,27 +245,21 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="w-full">
                   {isLoading ? (
-                    <VStack
-                      divider={
-                        <StackDivider borderColor="var(--bordersecondary)" />
+                    <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
                       }
                       spacing={8}
-                      align="stretch"
-                      bgColor={"white"}
+                      
                       padding={5}
                     >
                       {[1, 2].map((item) => (
                         <ClientJobSkeleton key={item} />
                       ))}
-                    </VStack>
+                    </div>
                   ) : jobs?.length ? (
-                    <VStack
-                      divider={
-                        <StackDivider borderColor="var(--bordersecondary)" />
+                    <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
                       }
                       spacing={8}
-                      align="stretch"
-                      bgColor={"white"}
+                      
                       padding={5}
                     >
                       {visibleJobs.map((job, index) => {
@@ -278,16 +272,13 @@ const ClientDashboardComponent = () => {
                             className="flex items-center justify-between w-full max-[480px]:flex-col"
                             key={index}
                           >
-                            <VStack
-                              alignItems={"start"}
-                              justifyContent={"center"}
-                              cursor={"pointer"}
-                              onClick={() => {
+                            <divitems-start justify-center"
+                              onClick={() = className="flex flex-col className= cursor-pointer"> {
                                 router.push(`/client-jobDetails/${job?._id}`, {
                                   state: { jobDetails: job },
                                 });
                               }}
-                              w={"full"}
+                              w="full"
                             >
                               <h5 className="text-lg text-[#374151] font-medium capitalize">
                                 {job?.title}
@@ -298,17 +289,12 @@ const ClientDashboardComponent = () => {
                                 </div>
                                 <div>Posted {formattedDate} ago by you</div>
                               </div>
-                            </VStack>
+                            </div>
 
-                            <VStack
-                              width={"200px"}
-                              justifyContent={"space-between"}
-                              alignItems={"end"}
-                              className="max-[480px]:!items-center"
+                            <div className="flex flex-col className="w-[200px] justify-between items-end max-[480px]:!items-center"
                               marginTop={{ base: "1rem", sm: "0" }}
                             >
-                              <HStack>
-                                <div className=" text-[#6B7280] font-bold text-base">
+                              <div className="flex flex-row items-center> <div className=" text-[#6B7280] font-bold text-base">
                                   {job?.proposal_details?.length === 0
                                     ? "No"
                                     : job?.proposal_details?.filter(
@@ -317,16 +303,9 @@ const ClientDashboardComponent = () => {
                                       )?.length}{" "}
                                   New Applicants
                                 </div>
-                              </HStack>
-                              <Button
-                                colorScheme="22C35E"
-                                color={"#000"}
-                                border={"1px solid #22C35E"}
-                                size="sm"
-                                fontSize={"sm"}
-                                w={"10rem"}
-                                textTransform={"capitalize"}
-                                transition={"0.3s ease-in-out"}
+                              </div>
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                                transition="0.3s ease-in-out"
                                 _hover={{
                                   bg: "#22C35E",
                                   color: "#fff",
@@ -338,16 +317,9 @@ const ClientDashboardComponent = () => {
                                 }}
                               >
                                 Go to job post
-                              </Button>
-                              <Button
-                                colorScheme="22C35E"
-                                color={"#000"}
-                                border={"1px solid #22C35E"}
-                                size="sm"
-                                fontSize={"sm"}
-                                w={"10rem"}
-                                textTransform={"capitalize"}
-                                transition={"0.3s ease-in-out"}
+                              </button>
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                                transition="0.3s ease-in-out"
                                 _hover={{
                                   bg: "#22C35E",
                                   color: "#fff",
@@ -359,8 +331,8 @@ const ClientDashboardComponent = () => {
                                 }}
                               >
                                 Find Applicants
-                              </Button>
-                            </VStack>
+                              </button>
+                            </div>
                           </div>
                         );
                       })}
@@ -372,7 +344,7 @@ const ClientDashboardComponent = () => {
                         currentPage={page}
                         onPageChange={setPage}
                       />
-                    </VStack>
+                    </div>
                   ) : (
                     <div className="p-5 text-lg text-center py-10">
                       You haven&apos;t post any jobs yet!
@@ -383,36 +355,29 @@ const ClientDashboardComponent = () => {
             </div>
           </div>
           <div className="w-full lg:w-[300px]">
-            <VStack
-              gap={"5"}
-              className="w-full lg:w-[300px]"
-              height={"max-content"}
+            <div5"
+              className="w-full lg:w-[300px] h-[max-content] flex flex-col gap= p-5"
             >
-              <Button
-                colorScheme="primary"
-                w={"100%"}
-                fontSize={"1.3rem"}
-                padding={"30px 0"}
-                textTransform={"capitalize"}
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => {
                   router.push("/create-job");
                 }}
               >
                 Post a new job
-              </Button>
-              <div className=" w-full border border-[var(--bordersecondary)] bg-white rounded-md p-4 h-full">
+              </button>
+              <div className="w-full border border-[var(--bordersecondary)] bg-white rounded-md p-4 h-full">
                 <h4 className="text-[18px] mb-4 font-bold">
                   Tips For Getting Started
                 </h4>
-                <div className=" my-6">
-                  <Progress value={60} colorScheme="primary" size={"sm"} />
+                <div className="my-6">
+                  <Progress value={60} colorScheme="primary" size="sm" />
                 </div>
-                <div className=" flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
+                <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
                     <img
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
-                      className="w-[42px] "
+                      className="w-[42px]"
                     />
                   </div>
                   <p
@@ -424,7 +389,7 @@ const ClientDashboardComponent = () => {
                     Add Your Billing Method
                   </p>
                 </div>
-                <div className=" flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
+                <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
                     <img
                       src="images/dashboard/zeework_proposals.png"
@@ -440,7 +405,7 @@ const ClientDashboardComponent = () => {
                     Post Your First Job
                   </p>
                 </div>
-                <div className=" flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
+                <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
                     <img
                       src="images/dashboard/zeework_proposals.png"
@@ -456,7 +421,7 @@ const ClientDashboardComponent = () => {
                     Invite Talent To Apply
                   </p>
                 </div>
-                <div className=" flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
+                <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
                     <img
                       src="images/dashboard/zeework_proposals.png"
@@ -465,7 +430,7 @@ const ClientDashboardComponent = () => {
                   </div>
                   <p className="ml-3">Review Proposals</p>
                 </div>
-                <div className=" flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
+                <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
                     <img
                       src="images/dashboard/zeework_proposals.png"
@@ -475,13 +440,13 @@ const ClientDashboardComponent = () => {
                   <p className="ml-3">Hire Your Perfect Freelancer</p>
                 </div>
               </div>
-            </VStack>
+            </div>
           </div>
         </div>
         <div className="lg:hidden">
           <div className="border border-[var(--bordersecondary)] mt-4 rounded-md overflow-hidden">
             <div className="flex justify-between border-b border-[var(--bordersecondary)] bg-white p-4">
-              <div className=" text-2xl font-medium text-[#374151]">
+              <div className="text-2xl font-medium text-[#374151]">
                 Latest Offers
               </div>
             </div>
@@ -491,38 +456,32 @@ const ClientDashboardComponent = () => {
               </div>
             </div>
           </div>
-          <div className="my-6 border border-[var(--bordersecondary)]  rounded-md w-full bg-white overflow-hidden">
-            <div className=" flex items-center justify-between border-b border-[var(--bordersecondary)] p-4 ">
+          <div className="my-6 border border-[var(--bordersecondary)] rounded-md w-full bg-white overflow-hidden">
+            <div className="flex items-center justify-between border-b border-[var(--bordersecondary)] p-4">
               <div
                 id="jobPostingsDiv"
-                className=" text-2xl font-medium text-[#374151]"
+                className="text-2xl font-medium text-[#374151]"
               >
                 Your Job Postings
               </div>
             </div>
             <div className="w-full">
               {isLoading ? (
-                <VStack
-                  divider={
-                    <StackDivider borderColor="var(--bordersecondary)" />
+                <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
                   }
                   spacing={8}
-                  align="stretch"
-                  bgColor={"white"}
+                  
                   padding={5}
                 >
                   {[1, 2].map((item) => (
                     <ClientJobSkeleton key={item} />
                   ))}
-                </VStack>
+                </div>
               ) : jobs?.length ? (
-                <VStack
-                  divider={
-                    <StackDivider borderColor="var(--bordersecondary)" />
+                <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
                   }
                   spacing={8}
-                  align="stretch"
-                  bgColor={"white"}
+                  
                   padding={5}
                 >
                   {visibleJobs?.slice().map((job, index) => {
@@ -535,16 +494,13 @@ const ClientDashboardComponent = () => {
                         className="flex items-center justify-between w-full max-[480px]:flex-col"
                         key={index}
                       >
-                        <VStack
-                          alignItems={"start"}
-                          justifyContent={"center"}
-                          cursor={"pointer"}
-                          onClick={() => {
+                        <divitems-start justify-center"
+                          onClick={() = className="flex flex-col className= cursor-pointer"> {
                             router.push(`/client-jobDetails/${job?._id}`, {
                               state: { jobDetails: job },
                             });
                           }}
-                          w={"full"}
+                          w="full"
                         >
                           <h5 className="text-lg text-[#374151] font-medium capitalize">
                             {job?.title}
@@ -555,33 +511,21 @@ const ClientDashboardComponent = () => {
                             </div>
                             <div>Posted {formattedDate} ago by you</div>
                           </div>
-                        </VStack>
+                        </div>
 
-                        <VStack
-                          width={"200px"}
-                          justifyContent={"space-between"}
-                          alignItems={"end"}
-                          className="max-[480px]:!items-center"
+                        <div className="flex flex-col className="w-[200px] justify-between items-end max-[480px]:!items-center"
                           marginTop={{ base: "1rem", sm: "0" }}
                         >
-                          <HStack>
-                            <div className=" text-[#6B7280] font-bold text-base">
+                          <div className="flex flex-row items-center> <div className=" text-[#6B7280] font-bold text-base">
                               {job?.proposal_details?.length === 0
                                 ? "No"
                                 : job?.proposal_details?.length}{" "}
                               New
                             </div>
-                            <div className=" text-[#6B7280] text-base font-bold"></div>
-                          </HStack>
-                          <Button
-                            colorScheme="22C35E"
-                            color={"#000"}
-                            border={"1px solid #22C35E"}
-                            size="sm"
-                            fontSize={"sm"}
-                            w={"10rem"}
-                            textTransform={"capitalize"}
-                            transition={"0.3s ease-in-out"}
+                            <div className="text-[#6B7280] text-base font-bold"></div>
+                          </div>
+                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                            transition="0.3s ease-in-out"
                             _hover={{
                               bg: "#22C35E",
                               color: "#fff",
@@ -593,16 +537,9 @@ const ClientDashboardComponent = () => {
                             }}
                           >
                             Go to job post
-                          </Button>
-                          <Button
-                            colorScheme="22C35E"
-                            color={"#000"}
-                            border={"1px solid #22C35E"}
-                            size="sm"
-                            fontSize={"sm"}
-                            w={"10rem"}
-                            textTransform={"capitalize"}
-                            transition={"0.3s ease-in-out"}
+                          </button>
+                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                            transition="0.3s ease-in-out"
                             _hover={{
                               bg: "#22C35E",
                               color: "#fff",
@@ -614,8 +551,8 @@ const ClientDashboardComponent = () => {
                             }}
                           >
                             Find Applicants
-                          </Button>
-                        </VStack>
+                          </button>
+                        </div>
                       </div>
                     );
                   })}
@@ -627,7 +564,7 @@ const ClientDashboardComponent = () => {
                     currentPage={page}
                     onPageChange={setPage}
                   />
-                </VStack>
+                </div>
               ) : (
                 <div className="p-5 text-lg text-center py-10">
                   You haven&apos;t post any jobs yet!

@@ -1,4 +1,5 @@
-import { SkeletonText } from "@chakra-ui/react";
+import React from "react";
+
 const ReviewProposalSkeleton = () => {
   return (
     <div className="w-full px-5">

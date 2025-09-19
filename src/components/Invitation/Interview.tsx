@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import queryString from "query-string";
 import {
   acceptInvitation,
@@ -60,28 +60,15 @@ const Interview = () => {
       }
 
       if (code === 200) {
-        toaster.create({
-          title:
-            statusValue == 1
+        toast.default(statusValue == 1
               ? "You’ve accept the interview request"
-              : "You’ve reject the interview request",
-          duration: 3000,
-          type: "success",
-        });
+              : "You’ve reject the interview request");
         router.push("/");
       } else {
-        toaster.create({
-          title: msg,
-          duration: 3000,
-          type: "warning",
-        });
+        toast.default(msg);
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading({ isLoading: false, statusValue: null });
   };
@@ -131,12 +118,10 @@ const Interview = () => {
   const rejectInvite = () => performAction({ statusValue: "2" });
 
   return (
-    <Box width={"full"}>
-      <Text
-        fontWeight="500"
-        fontSize={{ base: "3xl", lg: "4xl" }}
+    <Box className="w-full">
+      <Text}
         marginTop={{ base: 3, sm: 5, lg: 10 }}
-      >
+       className="font-medium">
         Invitation to Interview
       </Text>
       {loading ? (

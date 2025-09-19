@@ -105,7 +105,7 @@ const SearchedMarketplace = () => {
     <div className="pb-10 w-full">
       {isLoading ? (
         <div className="mt-10">
-          <HorizontalCardSkeleton className={"border-slate-200"} />
+          <HorizontalCardSkeleton className="border-slate-200" />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-full mt-10">
             {[1, 2, 3].map((i) => (
               <GigCardSkeleton key={i} />

@@ -1,5 +1,6 @@
-import { Text } from "@chakra-ui/react";
-import { Button, Avatar } from "@chakra-ui/react";
+import React from "react";
+
+
 import StarRatings from "react-star-ratings";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
@@ -26,57 +27,49 @@ export const ClientDetailsSection = ({
   return (
     <div className="bg-white p-8 rounded-xl border border-[var(--bordersecondary)] h-fit">
       {offer ? (
-        <Text fontSize="sm">Accept Job Offer For Start Your Contract!</Text>
+        <span>Accept Job Offer For Start Your Contract!</span>
       ) : (
-        <Text fontSize="sm">Interested in discussing this job</Text>
+        <span>Interested in discussing this job</span>
       )}
 
       <div className="flex flex-col md:flex-row lg:flex-col gap-5 mt-5">
         {offer ? (
           <>
-            <Button
-              colorScheme="primary"
-              width={"full"}
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+             
               onClick={() => setOpenModal(true)}
               isDisabled={status !== "pending" || isLoading}
               isLoading={statusValue == 1 && isLoading}
             >
               Accept Offer
-            </Button>
-            <Button
-              colorScheme="primary"
-              width={"full"}
-              variant={"outline"}
+            </button>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
               onClick={() => rejectInvite()}
               isDisabled={status !== "pending" || isLoading}
               isLoading={statusValue == 2 && isLoading}
               spinner={<BtnSpinner />}
             >
               Decline Offer
-            </Button>
+            </button>
           </>
         ) : (
           <>
-            <Button
-              colorScheme="primary"
-              width={"full"}
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+             
               onClick={() => setOpenModal(true)}
               isDisabled={status == 1 || status == 2 || isLoading}
               isLoading={statusValue == 1 && isLoading}
             >
               Accept Interview
-            </Button>
-            <Button
-              colorScheme="primary"
-              width={"full"}
-              variant={"outline"}
+            </button>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
               onClick={() => rejectInvite()}
               isDisabled={status == 1 || status == 2 || isLoading}
               isLoading={statusValue == 2 && isLoading}
               spinner={<BtnSpinner />}
             >
               Decline Interview
-            </Button>
+            </button>
           </>
         )}
       </div>
@@ -87,7 +80,7 @@ export const ClientDetailsSection = ({
         </p>
         <hr />
         <div className="flex gap-3 mt-3">
-          <Avatar size={"lg"} name={firstName + " " + lastName} />{" "}
+          <Avatar size="lg" name={firstName + " " + lastName} />{" "}
           <div>
             <p className="text-xl lg:text-2xl font-semibold">
               {firstName + " " + lastName}
@@ -115,19 +108,17 @@ export const ClientDetailsSection = ({
           </p>
         </div>
       </div>
-      {/* <VStack width="100%" marginTop="0.8rem">
-                <Text textAlign="left" width="full" fontWeight="600" mb={"0"}>About the client</Text>
-                <HStack justifyContent="left" width="100%" gap={"0"}>
-                    <HStack gap={"0"}>
-                        {[1, 2, 3, 4, 5].map((index) => <Text key={index}> <IoMdStar fontSize="20px" /></Text>)}
-                    </HStack>
-                    <Text>(5.00) {clientDetails?.reviews?.length !== 0 ? clientDetails?.reviews?.length : ""} Reviews</Text>
-                </HStack>
-                <VStack justifyContent="left" width="full" alignItems="start" gap="0">
-                    <Text fontWeight="bold" textAlign="left">Location</Text>
-                    <Text textAlign="left" marginBottom="0">{clientDetails?.location}</Text>
-                </VStack>
-            </VStack> */}
+      {/* <div className="flex flex-col> <span>About the client</span> <div className="flex flex-row items-center>
+                    <div className="flex flex-row items-center>
+                        {[1, 2, 3, 4, 5].map((index) => <span key={index}> <IoMdStar /></span>)}
+                    </div>
+                    <span>(5.00) {clientDetails?.reviews?.length !== 0 ? clientDetails?.reviews?.length : ""} Reviews</span>
+                </div>
+                <div className="flex flex-col>
+                    <span>Location</span>
+                    <span>{clientDetails?.location}</span>
+                </div>
+            </div> */}
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import { HStack, Text, Box, VStack } from "@chakra-ui/react";
+import React from "react";
+
 import { MdLocationPin } from "react-icons/md";
 import Title from "./Title";
 const RightSide = ({ details }) => {
@@ -13,93 +14,81 @@ const RightSide = ({ details }) => {
 
   return (
     <>
-      <VStack
-        width={{ base: "full", md: "250px", xl: "300px" }}
-        alignItems={"flex-start"}
-        justifyContent={"right"}
+      <div className="flex flex-col} className="items-flex-start justify-right"
         marginX={{ xl: "auto" }}
         marginTop={{ base: 10, lg: 0 }}
       >
-        <Text fontSize={"1.3rem"} fontWeight={"600"}>
+        <span className="font-semibold">
           Agency Activity
-        </Text>
-        <Box position={"relative"} mb={"1rem"}>
-          <Text marginBottom={"0.5rem"} fontSize={"1rem"} fontWeight={"500"}>
+        </span>
+        <div className="relative">
+          <span className="mb-[0.5rem] text-base font-medium">
             Hourly Rate
-          </Text>
-          <Text fontSize={"1.3rem"} marginBottom={"0.5rem"} fontWeight={"600"}>
+          </span>
+          <span className="mb-[0.5rem] font-semibold">
             ${agency_hourlyRate}
-          </Text>
-        </Box>
+          </span>
+        </div>
 
-        <Box position={"relative"} mb={"1rem"}>
-          <Text fontSize={"1.3rem"} fontWeight={"600"} marginBottom={"0.51rem"}>
+        <div className="relative">
+          <span className="mb-[0.51rem] font-semibold">
             Total Completed Job
-          </Text>
-          <Text fontSize={"1.3rem"} fontWeight={"600"}>
+          </span>
+          <span className="font-semibold">
             {agency_totalJob}
-          </Text>
-        </Box>
+          </span>
+        </div>
 
-        <Box position={"relative"} mb={{ base: "0.8rem", md: "2rem" }}>
-          <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-            <Text fontSize={"1.3rem"} fontWeight={"600"} marginBottom={"0"}>
+        <div className="relative"}>
+          <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+            <span className="mb-[0] font-semibold">
               Office Location
-            </Text>
-          </HStack>
+            </span>
+          </div>
 
-          <Box>
+          <div>
             {!!agency_officeLocation?.country && (
-              <HStack>
-                <MdLocationPin fontSize={"1.2rem"} />
-                <Text>
-                  {agency_officeLocation?.street},{" "}
+              <div className="flex flex-row items-center> <MdLocationPin /> <span> {agency_officeLocation?.street},{" "}
                   {agency_officeLocation?.state}
-                </Text>
-              </HStack>
+                </span>
+              </div>
             )}
-          </Box>
-        </Box>
+          </div>
+        </div>
 
-        <VStack gap={"10px"} alignItems={"flex-start"}>
-          <Text fontSize={"1.3rem"} fontWeight={"600"} marginBottom={"0.51rem"}>
+        <div className="flex flex-col gap= items-flex-start"10px">
+          <span className="mb-[0.51rem] font-semibold">
             Company Information
-          </Text>
+          </span>
 
-          <VStack gap={"10px"} alignItems={"flex-start"}>
-            <HStack alignItems={"start"}>
+          <div className="flex flex-col gap= items-flex-start"10px">
+            <div className="flex flex-row items-center className="items-start">
               {agency_size && (
-                <Box marginBottom={"1rem"} marginLeft={"0.57rem"}>
-                  <Text
-                    fontSize={"1rem"}
-                    fontWeight={"500"}
-                    marginBottom={"0.5rem"}
-                  >
+                <div className="mb-[1rem] ml-[0.57rem]">
+                  <span
+                   className="mb-[0.5rem] text-base font-medium">
                     Agency Size:
-                  </Text>
-                  <Text>{agency_size}</Text>
-                </Box>
+                  </span>
+                  <span>{agency_size}</span>
+                </div>
               )}
-            </HStack>
-            <HStack alignItems={"start"}>
+            </div>
+            <div className="flex flex-row items-center className="items-start">
               {agency_foundedYear && (
-                <Box marginBottom={"1rem"} marginLeft={"0.57rem"}>
-                  <Text
-                    fontSize={"1rem"}
-                    fontWeight={"500"}
-                    marginBottom={"0.5rem"}
-                  >
+                <div className="mb-[1rem] ml-[0.57rem]">
+                  <span
+                   className="mb-[0.5rem] text-base font-medium">
                     Agency Founded:
-                  </Text>
-                  <Text>{agency_foundedYear}</Text>
-                </Box>
+                  </span>
+                  <span>{agency_foundedYear}</span>
+                </div>
               )}
-            </HStack>
-            <HStack alignItems={"start"}>
-              <Box>
+            </div>
+            <div className="flex flex-row items-center className="items-start">
+              <div>
                 {/* {agency_focus?.length(
-                  <Box marginBottom={"1rem"}>
-                    <Title size={"sm"}>Agency Focus:</Title>
+                  <div className="mb-[1rem]">
+                    <Title size="sm">Agency Focus:</Title>
                     <ul className="flex gap-1 flex-wrap mt-1">
                       {agency_focus.map((item, index) => (
                         <li key={index} className="border px-2 rounded-full">
@@ -107,21 +96,21 @@ const RightSide = ({ details }) => {
                         </li>
                       ))}
                     </ul>
-                  </Box>
+                  </div>
                 )} */}
-              </Box>
-            </HStack>
-            <HStack alignItems={"start"}>
+              </div>
+            </div>
+            <div className="flex flex-row items-center className="items-start">
               {agency_language && (
-                <Box marginBottom={"1rem"} marginLeft={"0.56rem"}>
-                  <Title size={"sm"}>Language:</Title>
-                  <Text>{agency_language}</Text>
-                </Box>
+                <div className="mb-[1rem] ml-[0.56rem]">
+                  <Title size="sm">Language:</Title>
+                  <span>{agency_language}</span>
+                </div>
               )}
-            </HStack>
-          </VStack>
-        </VStack>
-      </VStack>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

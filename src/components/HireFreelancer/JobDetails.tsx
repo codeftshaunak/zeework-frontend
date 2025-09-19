@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Heading,
@@ -6,7 +8,7 @@ import {
   Box,
   Select,
   Input,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getClientJobs } from "../../helpers/APIs/clientApis";
@@ -54,25 +56,21 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
       : profile?.name;
 
   return (
-    <Box
-      mt={4}
-      width="100%"
-      border="1px solid"
+    <div
+     
+     
       borderColor="gray.200"
-      borderRadius="xl"
-      py={6}
-      px={10}
-      bg="white"
+     
     >
       <Heading as="h4" size="md" mb={6}>
         Job Details
       </Heading>
 
       {/* Hiring Team Section */}
-      <Box mb={8}>
-        <Text fontWeight="bold" mb={2} mb={2}>
+      <div>
+        <span mb={2}>
           Hiring Team
-        </Text>
+        </span>
         <Select
           placeholder="Select Team"
           maxWidth="2xl"
@@ -83,24 +81,19 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
         >
           <option value={`${teamName}'s Team`}>{teamName}&apos;s Team</option>
         </Select>
-      </Box>
+      </div>
 
       {/* Related Job Posting Section */}
-      <Box mb={8}>
-        <Text
-          fontWeight="bold"
-          mb={2}
-          display="flex"
-          alignItems="center"
-          gap={1}
+      <div>
+        <span
          mb={2}>
           Related Job Posting
           {jobInfo && (
-            <Text color="gray.500" fontSize="sm">
+            <span>
               (Optional)
-            </Text>
+            </span>
           )}
-        </Text>
+        </span>
         <Select
           placeholder="Select an open job post"
           maxWidth="2xl"
@@ -114,14 +107,14 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
             </option>
           ))}
         </Select>
-      </Box>
+      </div>
 
       {/* Contract Title Section */}
-      <Box>
-        <Text fontWeight="bold" mb={2} mb={2}>
+      <div>
+        <span mb={2}>
           Contract Title
-        </Text>
-        <Input
+        </span>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           placeholder="Enter contract title"
           maxWidth="2xl"
           value={formData?.contract_title}
@@ -131,11 +124,11 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
           required
           focusBorderColor="green.500"
         />
-        <Text fontSize="sm" color="gray.500" mt={1}>
+        <span>
           {formData?.contract_title?.length || 0}/50 characters
-        </Text>
-      </Box>
-    </Box>
+        </span>
+      </div>
+    </div>
   );
 };
 

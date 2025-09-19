@@ -1,4 +1,5 @@
-import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
+import React from "react";
+
 import { Link, useRouter } from "next/navigation";
 
 const ContractCard = ({ job }) => {
@@ -8,14 +9,9 @@ const ContractCard = ({ job }) => {
   return (
     <div>
       {" "}
-      <VStack
-        className="border p-4 m-2 rounded lg:max-w-[380px] lg:h-[200px] md:h-[180px] md:max-w-[360px] max-w-[520px] h-[240px] my-auto mx-auto relative bg-white border-[var(--bordersecondary)] relative"
+      <div
         borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        alignItems={"center"}
-        justifyContent={"center"}
-        cursor={"pointer"}
+        className="items-center justify-center flex flex-col border p-4 m-2 rounded lg:max-w-[380px] lg:h-[200px] md:h-[180px] md:max-w-[360px] max-w-[520px] h-[240px] my-auto mx-auto relative bg-white border-[var(--bordersecondary)] overflow-hidden cursor-pointer"
         onClick={() => {
           router.push(`/assigned-contract/${_id}`, { state: { job } });
         }}
@@ -32,10 +28,10 @@ const ContractCard = ({ job }) => {
         >
           {status === "task_submitted" ? "Task Submited" : "Active"}
         </span>
-        <Flex flexFlow={"column"} alignItems="center" justifyContent="center">
-          <Image src="./images/active_job.png" width={"50px"} height={"50px"} />
-        </Flex>
-        <Box textAlign="center" my={2}>
+        <div className="flex flexFlow="column">
+          <img src="./images/active_job.png" />
+        </div>
+        <div>
           <Link
             to={`/assigned-contract/${_id}`}
             className="text-[1.2rem] font-bold capitalize"
@@ -45,36 +41,28 @@ const ContractCard = ({ job }) => {
               : contract_title}
           </Link>
 
-          <VStack
-            justifyContent={"space-around"}
-            width={"200px"}
-            margin={"auto"}
-            gap={"1px"}
+          <div className="flex flex-col className="justify-space-around w-[200px] m-[auto]"
           >
-            <Text
-              fontSize="1rem"
-              color="gray.700"
-              fontWeight={"600"}
-              marginBottom={"0"}
-            >
+            <span
+             className="mb-[0] font-semibold">
               Job Type:{" "}
               {job_type == "fixed"
                 ? "Fixed"
                 : job_type == "hourly"
                 ? "Hourly"
                 : ""}
-            </Text>
-            <Text fontSize="1rem" color="gray.700" fontWeight={"600"}>
+            </span>
+            <span className="font-semibold">
               {job_type === "fixed"
                 ? `Budget: $${budget}`
                 : `Rate/Hr: $${hourly_rate}`}
-            </Text>
-          </VStack>
-        </Box>
-        {/* <Box position={"absolute"} fontWeight={"600"} backgroundColor={"var(--primarycolor)"} padding={"1px 8px"} color={"white"} top={"10px"} borderRadius={"5px"} right={"10px"}>
-      <Text>{experience}</Text>
-    </Box> */}
-      </VStack>
+            </span>
+          </div>
+        </div>
+        {/* <div backgroundColor={"var(--primarycolor)"} className="p-[1px 8px] text-white rounded" top="10px" right="10px" className="font-600 absolute">
+      <span>{experience}</span>
+    </div> */}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import {
@@ -11,7 +13,7 @@ import {
   
   VStack,
   StackDivider,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { getFreelancerGigs } from "../../helpers/APIs/gigApis";
 import SingleGig from "./SingleGig/SingleGig";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
@@ -50,28 +52,23 @@ const GigStatus = () => {
     <Tabs.Root
       variant="unstyled"
       size="md"
-      width={"100%"}
-      height={"100%"}
-      position={"relative"}
+      className="w-full relative"
+     
       onChange={(index) => setActiveTab(index)}
     >
-      <Tabs.List height={"3.5rem"}>
+      <Tabs.List>
         <Tab>Approve ({approvedGigs?.length || 0})</Tabs.Trigger>
         <Tab>Under Review ({pendingGigs?.length || 0})</Tabs.Trigger>
       </Tabs.List>
       <Tabs.Indicator
-        height="2px"
-        borderRadius="1px"
-        color={"#000"}
-        className=" bg-fg-brand"
+        className="bg-fg-brand"
       />
       <SmoothMotion key={activeTab}>
-        <Tabs.Content width={"100%"} height={"100%"}>
-          <Tabs.Content width={"100%"}>
-            <VStack
-              divider={<StackDivider borderColor="var(--bordersecondary)" />}
+        <Tabs.Content className="w-full">
+          <Tabs.Content className="w-full">
+            <div className="flex flex-col divider={<div className="flexDivider borderColor="var(--bordersecondary)" />}
               spacing={3}
-              align="stretch"
+              
             >
               {isLoading ? (
                 <SingleGigSkeleton />
@@ -80,17 +77,16 @@ const GigStatus = () => {
                   <SingleGig key={gig._id} gig={gig} getAllGigs={getAllGigs} />
                 ))
               ) : (
-                <Text textAlign={"center"} paddingY={"30px"}>
+                <span paddingY="30px" className="text-center">
                   Currently you haven&apos;t any approved gigs.
-                </Text>
+                </span>
               )}
-            </VStack>
+            </div>
           </Tabs.Content>
           <Tabs.Content>
-            <VStack
-              divider={<StackDivider borderColor="var(--bordersecondary)" />}
+            <div className="flex flex-col divider={<div className="flexDivider borderColor="var(--bordersecondary)" />}
               spacing={3}
-              align="stretch"
+              
             >
               {isLoading ? (
                 <SingleGigSkeleton />
@@ -99,11 +95,11 @@ const GigStatus = () => {
                   <SingleGig key={gig._id} gig={gig} getAllGigs={getAllGigs} />
                 ))
               ) : (
-                <Text textAlign={"center"}>
+                <span className="text-center">
                   Currently you haven&apos;t any pending gigs.
-                </Text>
+                </span>
               )}
-            </VStack>
+            </div>
           </Tabs.Content>
         </Tabs.Content>
       </SmoothMotion>

@@ -1,7 +1,9 @@
+
 "use client";
+import React from "react";
 
 import { useContext, useEffect, useState } from "react";
-import { Avatar, Button } from "@chakra-ui/react";
+
 import {
   
   
@@ -9,9 +11,9 @@ import {
   
   
   Tabs,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useParams, useRouter } from "next/navigation";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import StarRatings from "react-star-ratings";
 import { FaLocationDot } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
@@ -93,11 +95,7 @@ const AssignedContractDetails = () => {
       formData.append("contract_ref", jobDetails._id);
 
       const { code, msg } = await submitTask(formData);
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200) {
         if (socket) {
           socket.emit(
@@ -143,9 +141,8 @@ const AssignedContractDetails = () => {
             </h2>
           </div>
 
-          <div className="">
+          <div >
             <Tabs.Root
-              position="relative"
               variant="unstyled"
               onChange={(index) => setActiveTab(index)}
             >
@@ -159,9 +156,6 @@ const AssignedContractDetails = () => {
               </Tabs.List>
               <Tabs.Indicator
                 mt="1.5px"
-                height="2px"
-                bg="var(--primarytextcolor)"
-                borderRadius="1px"
               />
               <SmoothMotion key={activeTab}>
                 <Tabs.Content>
@@ -174,7 +168,7 @@ const AssignedContractDetails = () => {
                         <div className="lg:col-span-1 w-full h-fit bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
                           <div className="flex gap-3 mb-4">
                             <Avatar
-                              size={"lg"}
+                              size="lg"
                               name={`${clientDetails?.firstName} ${clientDetails?.lastName}`}
                             />
                             <div>
@@ -216,34 +210,27 @@ const AssignedContractDetails = () => {
                             </p>
                           </div>
 
-                          <Button
-                            mt={10}
-                            width={"full"}
-                            border={"1px"}
-                            borderColor={"green.200"}
+                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                           
+                            borderColor="green.200"
                             leftIcon={<LuMessagesSquare />}
                             onClick={() =>
                               router.push(`/message/${jobDetails.client_id}`)
                             }
                           >
                             Message
-                          </Button>
+                          </button>
                           {/* for freelancer */}
                           {jobDetails?.status === "completed" ? (
-                            <Button
-                              width={"full"}
-                              border={"1px"}
-                              borderColor={"yellow.200"}
-                              mt={3}
+                            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                              borderColor="yellow.200"
                             >
                               Job Already Completed
-                            </Button>
+                            </button>
                           ) : (
                             jobDetails?.job_type === "fixed" && (
-                              <Button
-                                width={"full"}
-                                border={"1px"}
-                                borderColor={"green.200"}
+                              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                                borderColor="green.200"
                                 onClick={() => {
                                   if (jobDetails?.status !== "task_submitted")
                                     reset(), setIsSubmitTask(true);
@@ -253,7 +240,7 @@ const AssignedContractDetails = () => {
                                 {jobDetails?.status === "task_submitted"
                                   ? "Already Submitted"
                                   : "Submit Work"}
-                              </Button>
+                              </button>
                             )
                           )}
                         </div>
@@ -289,7 +276,7 @@ const AssignedContractDetails = () => {
         <UniversalModal
           isModal={isSubmitTask}
           setIsModal={setIsSubmitTask}
-          title={"Send completed task"}
+          title="Send completed task"
         >
           <form onSubmit={handleSubmit(handleSubmitTask)}>
             <div className="grid gap-5">
@@ -329,15 +316,14 @@ const AssignedContractDetails = () => {
               </div>
             </div>
             <div className="text-right mt-10">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isSubmitLoading}
                 loadingText="Submitting"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>

@@ -1,6 +1,8 @@
-"use client";
 
-import { VStack, Text, Button, Box, Image } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
 
@@ -47,56 +49,43 @@ const CompletedJobs = ({ completedJobs, loading }) => {
                 >
                   {completedJobs.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <VStack
-                        key={index}
-                        className="border p-4 sm:py-10 m-2 rounded w-[280px] my-auto mx-auto relative cursor-pointer bg-white"
+                      <div className="flex flex-col key={index} border p-4 sm:py-10 m-2 rounded w-[280px] my-auto mx-auto relative cursor-pointer bg-white"
                         onClick={() => router.push(`/job/complete/${item?._id}`)}
                       >
                         <Image
                           src="./images/complete_job.png"
-                          width="50px"
-                          height="50px"
                         />
-                        <Box textAlign="center" my={2} width="100%">
-                          <Text
-                            width="100%"
-                            fontSize="1rem"
-                            fontWeight={500}
-                            lineHeight={"1"}
+                        <div>
+                          <span
                           >
                             {item?.contract_title}
-                          </Text>
-                          <VStack
-                            justifyContent="space-around"
-                            width="200px"
-                            margin="auto"
-                            gap="1px"
+                          </span>
+                          <div className="flex flex-col"
                           >
-                            <Text
-                              fontSize="0.8rem"
-                              color="gray.700"
-                              fontWeight="600"
+                            <span
+                             
+                             
+                             
                             >
                               Budget: $
                               {item.job_type === "hourly"
                                 ? `${item?.hourly_rate}/hr`
                                 : item?.budget}
-                            </Text>
-                          </VStack>
-                        </Box>
-                        <Box
-                          position="absolute"
-                          fontWeight="600"
+                            </span>
+                          </div>
+                        </div>
+                        <div
+                         
                           backgroundColor="var(--primarycolor)"
                           paddingX={4}
-                          color="white"
+                         
                           top="10px"
-                          borderRadius="5px"
+                         
                           right="10px"
-                        >
-                          <Text>Completed</Text>
-                        </Box>
-                      </VStack>
+                         className="absolute">
+                          <span>Completed</span>
+                        </div>
+                      </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -118,25 +107,20 @@ const CompletedJobs = ({ completedJobs, loading }) => {
               </div>
             </div>
           ) : (
-            <VStack
-              alignItems="center"
-              justifyContent="center"
-              height="10rem"
-              className="border border-[var(--bordersecondary)] rounded-lg bg-white"
+            <div className="flex flex-col border border-[var(--bordersecondary)] rounded-lg bg-white"
+             
+             
+             
+             
             >
-              <Text
-                fontSize="1.2rem"
-                mb={"1.2rem"}
-                textTransform="capitalize"
-                fontWeight="600"
+              <span
+               
+               
               >
                 No Jobs Are Currently Complete
-              </Text>
-              <Button
-                borderRadius="25px"
-                fontWeight="500"
+              </span>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 backgroundColor="var(--primarycolor)"
-                color="white"
                 _hover={{
                   border: "1px solid var(--primarycolor)",
                   backgroundColor: "white",
@@ -145,8 +129,8 @@ const CompletedJobs = ({ completedJobs, loading }) => {
                 onClick={() => router.push("/find-job")}
               >
                 Find Jobs Now
-              </Button>
-            </VStack>
+              </button>
+            </div>
           )}
         </>
       )}

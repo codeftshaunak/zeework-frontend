@@ -1,8 +1,10 @@
-"use client";
 
-import { toaster } from "@/lib/providers";
+"use client";
+import React from "react";
+
+import { toast } from "@/lib/toast";
 import { useState } from "react";
-import { HStack } from "@chakra-ui/react";
+
 import Complete from "../../JobCreate/Completed";
 import FinalStep from "../../JobCreate/FinalStep";
 import FirstStep from "../../JobCreate/FirstStep";
@@ -44,19 +46,11 @@ const JobPost = () => {
     if (response?.code === 200)
       dispatch(setDashboard({ jobs: [...jobs, response.body] }));
     if (response.success) {
-      toaster.create({
-        title: "Job post created successfully",
-        type: "success",
-        duration: 3000,
-      });
+      toast.success("Job post created successfully");
 
       setStep(4);
     } else {
-      toaster.create({
-        title: "Failed to create job post!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Failed to create job post!");
     }
     setIsLoading(false);
   };
@@ -65,12 +59,8 @@ const JobPost = () => {
     <HomeLayout displaydir="row">
       <FormStateProvider>
         {step < 4 ? (
-          <HStack
-            justifyContent={"space-around"}
-            width={"full"}
-            alignItems={"flex-start"}
-            marginTop={10}
-            flexDirection={{ base: "column", md: "row" }}
+          <div className="flex flex-row items-center className="justify-space-around w-full items-flex-start"
+            marginTop={10}}
           >
             <Steps step={step} setStep={setStep} />
             {step === 1 && <FirstStep setStep={setStep} />}
@@ -83,7 +73,7 @@ const JobPost = () => {
               />
             )}
             <Preview />
-          </HStack>
+          </div>
         ) : null}
         {step === 4 && <Complete setStep={setStep} />}
       </FormStateProvider>

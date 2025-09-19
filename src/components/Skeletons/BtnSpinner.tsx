@@ -7,8 +7,6 @@ interface BtnSpinnerProps {
 const BtnSpinner: React.FC<BtnSpinnerProps> = ({ size }) => {
   return (
     <svg
-      width={size ? size : "20"}
-      height={size ? size : "20"}
       fill="currentColor"
       className="mr-2 animate-spin"
       viewBox="0 0 1792 1792"

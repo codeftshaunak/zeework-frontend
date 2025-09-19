@@ -11,8 +11,8 @@ import {
   Text,
   Textarea,
   VStack,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import {
@@ -86,11 +86,7 @@ const Process = () => {
     try {
       const { code, msg } = await updateFreelancerProfile(body);
 
-      toaster.create({
-        title: msg,
-        type: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
 
       if (code === 200 && role == 1) {
         reset();
@@ -256,26 +252,22 @@ const Process = () => {
       <>
         {/* Welcome Page */}
         {(page === 0 || page === 1) && (
-          <VStack
-            justifyContent="start"
-            alignItems="start"
-            width="530px"
-            gap="10"
-            color="var(--primarytext)"
+          <div className="flex flex-col"
+           
           >
-            <Box>
-              <Text
-                fontSize="40px"
-                fontWeight="500"
+            <div>
+              <span
+               
+               
                 className="max-[480px]:!text-center"
               >
                 Hey {userName && userName.split(" ").slice(0, 1)?.[0] + "."}{" "}
                 Ready for your next big opportunity?
-              </Text>
-            </Box>
-            <HStack width={"100%"} justifyContent={"space-evenly"}>
-              {/* <TbUser color="var(--primarycolor)" fontSize="1.8rem" /> */}
-              <Text fontWeight="400" fontSize="1rem">
+              </span>
+            </div>
+            <div className="flex flex-row items-center className="w-full justify-space-evenly">
+              {/* <TbUser /> */}
+              <span>
                 Join the worlds newest Freelance platform dedicated to building
                 the Future of Work. On ZeeWork, we’re excited to give you
                 everything you need to build the business and career of your
@@ -283,28 +275,16 @@ const Process = () => {
                 <br /> We’re committed to providing a best-in-class user
                 experience for all clients and freelancers. Let’s build the
                 future, together!
-              </Text>
-            </HStack>
-            {/* <HStack>
-              <TbClick color="var(--primarycolor)" fontSize="1.4rem" />
-              <Text fontWeight="400" fontSize="1rem">
-                Apply for open roles or list services for clients to buy
-              </Text>
-            </HStack> */}
-            {/* <HStack>
-              <TbReceipt color="var(--primarycolor)" fontSize="1.4rem" />
-              <Text fontWeight="400" fontSize="1rem">
+              </span>
+            </div>
+            {/* <div className="flex flex-row items-center> <TbClick /> <span> Apply for open roles or list services for clients to buy </span> </div> */} {/* <div className="flex flex-row items-center>
+              <TbReceipt />
+              <span>
                 Get paid safely and know we’re there to help
-              </Text>
-            </HStack> */}
-            <Button
-              fontWeight="500"
-              color="#fff"
-              fontSize="1rem"
-              bg="var(--primarycolor)"
-              height="2.5rem"
-              border={"1px solid var(--primarycolor)"}
-              transition={"0.3s ease-in-out"}
+              </span>
+            </div> */}
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+              transition="0.3s ease-in-out"
               _hover={{
                 backgroundColor: "var(--primarysoftbg)",
                 color: "var(--primarytext)",
@@ -312,8 +292,8 @@ const Process = () => {
               onClick={() => setPage(2)}
             >
               Get Started
-            </Button>
-          </VStack>
+            </button>
+          </div>
         )}
 
         {/* Role Wise Onboarding Processing Pages */}
@@ -322,35 +302,28 @@ const Process = () => {
             {(role == 1 && (
               <>
                 {page === 2 && (
-                  <VStack
-                    justifyContent="start"
-                    alignItems="start"
-                    width="630px"
-                    gap={5}
-                    color="var(--primarytext)"
-                    className="max-[480px]:!text-center"
-                    paddingBottom={"40px"}
+                  <div className="flex flex-col max-[480px]:!text-center"
+                   
+                   
+                    paddingBottom="40px"
                   >
-                    <Text fontSize="40px" fontWeight="500">
+                    <span>
                       How would you like to tell us about yourself?
-                    </Text>
+                    </span>
 
-                    <Box>
-                      <Text fontSize="15px" fontWeight="400">
+                    <div>
+                      <span>
                         We need to get a sense of your education, experience and
                         categories. It’s quickest to import your information,
                         you can edit it before your profile goes live.
-                      </Text>
-                    </Box>
+                      </span>
+                    </div>
 
-                    <VStack
-                      className="lg:w-[400px] w-full"
-                      alignItems={"start"}
-                      gap={0}
+                    <div className="flex flex-col lg:w-[400px] w-full items-start"
                     >
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                      <span className="font-medium">
                         Select Category
-                      </Text>
+                      </span>
                       <Select
                         placeholder="Select Your Category"
                         closeMenuOnSelect={selectedOptions?.length === 2}
@@ -376,15 +349,12 @@ const Process = () => {
                       {errors.category && (
                         <ErrorMsg msg={errors.category.message} />
                       )}
-                    </VStack>
-                    <VStack
-                      className="lg:w-[400px] w-full"
-                      alignItems={"start"}
-                      gap={0}
+                    </div>
+                    <div className="flex flex-col lg:w-[400px] w-full items-start"
                     >
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                      <span className="font-medium">
                         Select a Sub Category
-                      </Text>
+                      </span>
                       <Select
                         placeholder="Select Your Sub Category"
                         closeMenuOnSelect={false}
@@ -409,40 +379,34 @@ const Process = () => {
                       {errors.sub_categories && (
                         <ErrorMsg msg={errors.sub_categories.message} />
                       )}
-                    </VStack>
-                  </VStack>
+                    </div>
+                  </div>
                 )}
                 {page === 3 && (
-                  <VStack
-                    justifyContent="start"
-                    alignItems="start"
-                    width="630px"
-                    gap="30px"
-                    color="var(--primarytext)"
-                    className="max-[480px]:!text-center"
-                    paddingBottom={"40px"}
+                  <div className="flex flex-col max-[480px]:!text-center"
+                   
+                   
+                    paddingBottom="40px"
                   >
-                    <Text fontSize="40px" fontWeight="500">
+                    <span>
                       How would you like to tell us about yourself?
-                    </Text>
-                    <Box>
-                      <Text fontSize="15px" fontWeight="400">
+                    </span>
+                    <div>
+                      <span>
                         We need to get a sense of your education, experience and
                         categories. It’s quickest to import your information,
                         you can edit it before your profile goes live.
-                      </Text>
-                    </Box>
-                    <VStack width={"full"} alignItems={"start"} gap={0}>
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                      </span>
+                    </div>
+                    <div className="flex flex-col className="w-full items-start">
+                      <span className="font-medium">
                         {"Your Professional Role"}
-                      </Text>
-                      <Input
-                        variant="outline"
+                      </span>
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="Professional Virtual Assistant"
                         _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
-                        width={"100%"}
-                        bgColor={"white"}
+                       
                         onChange={(e) => {
                           setValue("professional_role", e.target.value);
                           trigger("professional_role");
@@ -451,19 +415,17 @@ const Process = () => {
                       {errors.professional_role && (
                         <ErrorMsg msg={errors.professional_role.message} />
                       )}
-                    </VStack>
-                    <VStack width={"full"} alignItems={"start"} gap={0}>
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                    </div>
+                    <div className="flex flex-col className="w-full items-start">
+                      <span className="font-medium">
                         {"Your Hourly Rate"}
-                      </Text>
-                      <Input
-                        variant="outline"
+                      </span>
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="$ Your Hourly Rate"
                         borderColor={"var(--bordersecondary)"}
                         _placeholder={{ color: "gray.500" }}
-                        width={"100%"}
+                       
                         type="number"
-                        bgColor={"white"}
                         onChange={(e) => {
                           const value =
                             e.target.value === ""
@@ -476,12 +438,12 @@ const Process = () => {
                       {errors.hourly_rate && (
                         <ErrorMsg msg={errors.hourly_rate.message} />
                       )}
-                    </VStack>
+                    </div>
 
-                    <VStack width={"full"} alignItems={"start"} gap={0}>
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                    <div className="flex flex-col className="w-full items-start">
+                      <span className="font-medium">
                         {"Profile Overview"}
-                      </Text>
+                      </span>
 
                       <div className="bg-white w-full">
                         <QuillToolbar />
@@ -502,31 +464,27 @@ const Process = () => {
                       {errors.description && (
                         <ErrorMsg msg={errors.description.message} />
                       )}
-                    </VStack>
-                  </VStack>
+                    </div>
+                  </div>
                 )}
                 {page === 4 && (
-                  <VStack
-                    justifyContent="start"
-                    alignItems="start"
-                    width="630px"
-                    gap="10"
-                    color="var(--primarytext)"
-                    className="max-[480px]:!text-center"
+                  <div className="flex flex-col max-[480px]:!text-center"
+                   
+                   
                   >
-                    <Box>
-                      <Text fontSize="40px" fontWeight="500">
+                    <div>
+                      <span>
                         Tell us more about your Skills.
-                      </Text>
-                    </Box>
-                    <Box>
-                      <Text fontSize="15px" fontWeight="400">
+                      </span>
+                    </div>
+                    <div>
+                      <span>
                         We need to get a sense of your skills, experience and
                         categories. It’s quickest to import your information,
                         you can edit it before your profile goes live.
-                      </Text>
-                    </Box>
-                    <Box className="mb-10">
+                      </span>
+                    </div>
+                    <div className="mb-10">
                       <Select
                         placeholder="Select Your Skills"
                         className="lg:w-[400px] w-full"
@@ -548,35 +506,29 @@ const Process = () => {
                       {errors.skills && (
                         <ErrorMsg msg={errors.skills.message} />
                       )}
-                    </Box>
-                  </VStack>
+                    </div>
+                  </div>
                 )}
               </>
             )) || (
               <>
                 {role == 2 && page == 2 && (
-                  <VStack
-                    justifyContent="start"
-                    alignItems="start"
-                    width="630px"
-                    gap="20px"
-                    color="var(--primarytext)"
+                  <div className="flex flex-col"
+                   
                   >
-                    <Text fontSize="30px" fontWeight="600">
+                    <span>
                       How would you like to tell us about yourself?
-                    </Text>
+                    </span>
 
-                    <VStack width={"full"} alignItems={"start"} gap={0}>
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                    <div className="flex flex-col className="w-full items-start">
+                      <span className="font-medium">
                         {"Write Your Business Name"}
-                      </Text>
-                      <Input
-                        variant="outline"
+                      </span>
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="Write Your Business Name"
                         _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
-                        width={"100%"}
-                        bgColor={"white"}
+                       
                         accept="image/*"
                         onChange={(e) => {
                           setValue("business_name", e.target.value);
@@ -586,22 +538,19 @@ const Process = () => {
                       {errors.business_name && (
                         <ErrorMsg msg={errors.business_name.message} />
                       )}
-                    </VStack>
+                    </div>
 
-                    <VStack width={"full"} alignItems={"start"} gap={0} mb={10}>
-                      <Text mb={2} fontWeight={"500"} fontSize={"15px"}>
+                    <div className="flex flex-col className="w-full items-start">
+                      <span className="font-medium">
                         {"Write Your Business Details"}
-                      </Text>
-                      <Textarea
-                        variant="outline"
+                      </span>
+                      <spanarea
                         placeholder="Write Your Business Details"
                         _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
-                        width={"100%"}
                         style={{ resize: "none" }}
                         rows={5}
-                        bgColor={"white"}
-                        onChange={(e) => {
+                        onChange={(e) = className="w-full bg-white"> {
                           setValue("brief_description", e.target.value);
                           trigger("brief_description");
                         }}
@@ -609,21 +558,15 @@ const Process = () => {
                       {errors.brief_description && (
                         <ErrorMsg msg={errors.brief_description.message} />
                       )}
-                    </VStack>
-                  </VStack>
+                    </div>
+                  </div>
                 )}
               </>
             )}
-            <Button
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               isLoading={isLoading}
               loadingText="Save & Continue"
-              fontWeight="500"
-              color="#fff"
-              fontSize="1rem"
-              bg="var(--primarycolor)"
-              height="2.5rem"
-              border={"1px solid var(--primarycolor)"}
-              transition={"0.3s ease-in-out"}
+              transition="0.3s ease-in-out"
               _hover={{
                 backgroundColor: "var(--primarysoftbg)",
                 color: "var(--primarytext)",
@@ -633,7 +576,7 @@ const Process = () => {
               className="max-sm:w-full mb-10"
             >
               Save & Continue
-            </Button>
+            </button>
           </form>
         )}
       </>

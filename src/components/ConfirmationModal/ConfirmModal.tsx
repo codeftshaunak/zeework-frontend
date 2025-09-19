@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
 import { endJobContract } from "../../helpers/APIs/jobApis";
 import { useState } from "react";
@@ -24,11 +24,7 @@ const ConfirmModal = ({
         job_id: jobDetails?.job_id,
         user_id: receiverDetails?.user_id,
       });
-      toaster.create({
-        title: msg,
-        type: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
       if (code === 200)
         router.push(`/submit-review/${job_id}`, {
           state: {
@@ -43,41 +39,34 @@ const ConfirmModal = ({
   };
   return (
     <UniversalModal isModal={openModal} setIsModal={setOpenModal}>
-      {/* <Text fontWeight={"600"} fontSize={"1.4rem"} margin={"1rem 0"}>
+      {/* <Text className="m-[1rem 0] text-2xl font-semibold">
         Share Your Feedback
       </Text> */}
       <Image
         src="/images/zeework_end_contract.png"
-        width={"200px"}
-        margin={"auto"}
+        className="m-[auto]"
       />
       <Text
-        textAlign={"center"}
-        fontSize={"1.4rem"}
-        margin={"1rem 0"}
-        fontWeight={"600"}
+        className="m-[1rem 0] text-center text-2xl font-semibold"
       >
         Are you sure you want to end this contract?
       </Text>
-      <HStack justifyContent={"right"} marginTop={"2rem"}>
+      <HStack className="mt-[2rem]">
         <Button
-          backgroundColor={"white"}
-          color={"var(--primarytextcolor)"}
+          backgroundColor="white"
           _hover={{}}
           onClick={() => setOpenModal(false)}
         >
           Cancel
-        </Button>
+        </button>
         <Button
           isLoading={isLoading}
           loadingText="End Contract"
-          colorScheme="primary"
-          rounded="full"
           spinner={<BtnSpinner />}
           onClick={handleEndContract}
         >
           End Contract
-        </Button>
+        </button>
       </HStack>
     </UniversalModal>
   );

@@ -1,5 +1,7 @@
-import { toaster } from "@/lib/providers";
+
 "use client";
+import React from "react";
+import { toast } from "@/lib/toast";
 
 import {
   Box,
@@ -7,7 +9,7 @@ import {
   Input,
   InputGroup,
   Text,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -91,11 +93,7 @@ export const PayPalCardForm = ({ set setCard }) => {
       };
       const { code, msg, body } = await addPaymentMethods(reqBody);
 
-      toaster.create({
-        title: msg,
-        status: code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+      toast.default(msg);
 
       if (code === 200) {
         sessionStorage.setItem("paymentNotify", "true");
@@ -109,11 +107,7 @@ export const PayPalCardForm = ({ set setCard }) => {
         reset();
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Something went wrong!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning(error?.response?.data?.msg || "Something went wrong!");
     }
     setIsLoading(false);
 
@@ -121,114 +115,98 @@ export const PayPalCardForm = ({ set setCard }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Text fontSize="lg" fontWeight="semibold" mb={4}>
+      <span>
         Card Details
-      </Text>
+      </span>
 
-      <Box
-        gap={5}
-        display={"grid"}
-        border="1px solid var(--bordersecondary)"
-        padding={5}
-        rounded="lg"
-        bgColor="var(--secondarycolor)"
+      <div
+        className="grid"
+       
+       
       >
-        <InputGroup display="grid">
-          <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <span>
             Card Number
-          </Text>
-          <Input
+          </span>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             {...register("card_number")}
             placeholder="1234 5678 9012 3456"
             maxLength={19}
             onChange={formatCardNumber}
-            border="1px solid var(--bordersecondary)"
-            bgColor="white"
           />
           {errors.card_number && <ErrorMsg msg={errors.card_number.message} />}
         </InputGroup>
 
-        <InputGroup gap={5} flexDir={{ base: "column", md: "row" }}>
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", md: "row" }}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               Expiration Date
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("expiry")}
               placeholder="MM/YYYY"
               maxLength={7}
               onChange={handleExpiryChange}
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.expiry && <ErrorMsg msg={errors.expiry.message} />}
           </InputGroup>
 
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               CVV/CVC
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("security_code")}
               placeholder="123"
               type="password"
               maxLength={4}
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.security_code && (
               <ErrorMsg msg={errors.security_code.message} />
             )}
           </InputGroup>
         </InputGroup>
-      </Box>
+      </div>
 
       {errors.general && <ErrorMsg msg={errors.general.message} />}
 
-      <Text fontSize="lg" fontWeight="semibold" mt={10} mb={4}>
+      <span>
         Billing Address
-      </Text>
+      </span>
 
-      <Box
-        gap={5}
-        display={"grid"}
-        border="1px solid var(--bordersecondary)"
-        padding={5}
-        rounded="lg"
-        bgColor="var(--secondarycolor)"
+      <div
+        className="grid"
+       
+       
       >
-        <InputGroup gap={5} flexDir={{ base: "column", xl: "row" }}>
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               First Name
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("first_name")}
               placeholder="First Name"
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.first_name && <ErrorMsg msg={errors.first_name.message} />}
           </InputGroup>
 
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               Last Name
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("last_name")}
               placeholder="Last Name"
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.last_name && <ErrorMsg msg={errors.last_name.message} />}
           </InputGroup>
         </InputGroup>
 
-        <Box>
-          <Text fontWeight="semibold" mb={2}>
+        <div>
+          <span>
             Country
-          </Text>
+          </span>
           <Select
             placeholder="Select Country"
             options={countries}
@@ -240,89 +218,76 @@ export const PayPalCardForm = ({ set setCard }) => {
           {errors.country_code && (
             <ErrorMsg msg={errors.country_code.message} />
           )}
-        </Box>
+        </div>
 
-        <InputGroup gap={5} flexDir={{ base: "column", xl: "row" }}>
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               City
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("city")}
               placeholder="City"
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.city && <ErrorMsg msg={errors.city.message} />}
           </InputGroup>
 
-          <InputGroup display="grid">
-            <Text fontWeight="semibold" mb={2}>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <span>
               Postal Code
-            </Text>
-            <Input
+            </span>
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               {...register("zip")}
               placeholder="Postal Code"
-              border="1px solid var(--bordersecondary)"
-              bgColor="white"
             />
             {errors.zip && <ErrorMsg msg={errors.zip.message} />}
           </InputGroup>
         </InputGroup>
 
-        <InputGroup display="grid">
-          <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <span>
             State / Province
-          </Text>
-          <Input
+          </span>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             {...register("state")}
             placeholder="State"
-            border="1px solid var(--bordersecondary)"
-            bgColor="white"
           />
           {errors.state && <ErrorMsg msg={errors.state.message} />}
         </InputGroup>
 
-        <InputGroup display="grid">
-          <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <span>
             Address Line 1
-          </Text>
-          <Input
+          </span>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             {...register("address_line1")}
             placeholder="Address Line 1"
-            border="1px solid var(--bordersecondary)"
-            bgColor="white"
           />
           {errors.address_line1 && (
             <ErrorMsg msg={errors.address_line1.message} />
           )}
         </InputGroup>
 
-        <InputGroup display="grid">
-          <Text fontWeight="semibold" mb={2}>
+        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <span>
             Address Line 2 <span>(Optional)</span>
-          </Text>
-          <Input
+          </span>
+          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             {...register("address_line2")}
             placeholder="Address Line 2"
-            border="1px solid var(--bordersecondary)"
-            bgColor="white"
           />
         </InputGroup>
-      </Box>
+      </div>
 
-      <Button
+      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         isLoading={isLoading}
         type="submit"
-        rounded="full"
-        mt={6}
-        colorScheme="primary"
         paddingX={isLoading ? 5 : 10}
         loadingText="Adding Card"
         spinner={<BtnSpinner />}
       >
         Save Details
-      </Button>
+      </button>
     </form>
   );
 };

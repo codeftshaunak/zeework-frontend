@@ -78,13 +78,13 @@ export function chakraPropsToTailwind(props: Record<string, any>): string {
   if (props.pl) classes.push(`pl-${props.pl}`);
   if (props.pr) classes.push(`pr-${props.pr}`);
 
-  if (props.m) classes.push(`m-${props.m}`);
+  if (props.m || props.margin) classes.push(`m-${props.m || props.margin}`);
   if (props.mx) classes.push(`mx-${props.mx}`);
   if (props.my) classes.push(`my-${props.my}`);
-  if (props.mt) classes.push(`mt-${props.mt}`);
-  if (props.mb) classes.push(`mb-${props.mb}`);
-  if (props.ml) classes.push(`ml-${props.ml}`);
-  if (props.mr) classes.push(`mr-${props.mr}`);
+  if (props.mt || props.marginTop) classes.push(`mt-${props.mt || props.marginTop}`);
+  if (props.mb || props.marginBottom) classes.push(`mb-${props.mb || props.marginBottom}`);
+  if (props.ml || props.marginLeft) classes.push(`ml-${props.ml || props.marginLeft}`);
+  if (props.mr || props.marginRight) classes.push(`mr-${props.mr || props.marginRight}`);
 
   if (props.w) classes.push(`w-${props.w}`);
   if (props.h) classes.push(`h-${props.h}`);

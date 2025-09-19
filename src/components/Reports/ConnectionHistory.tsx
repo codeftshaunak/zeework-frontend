@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Button,
@@ -11,7 +13,7 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { getAllJobsProposal } from "../../helpers/APIs/jobApis";
 
@@ -77,22 +79,16 @@ const ConnectionHistory = () => {
               <h2 className="text-2xl font-medium text-[#374151]">
                 106 Connects
               </h2>
-              <Button
-                colorScheme="22C35E"
-                bg={"#22C35E"}
-                color={"#fff"}
-                size="sm"
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 Buy Connects
-              </Button>
+              </button>
             </div>
             <div className="mt-auto">
               <div className="w-[120px] h-[110px]">
                 <Image
                   src="./images/report_card.png"
                   alt="user"
-                  width="100%"
-                  height={"100%"}
                 />
               </div>
             </div>
@@ -100,25 +96,23 @@ const ConnectionHistory = () => {
         </div>
         <div className="col-span-12 md:col-span-4 my-auto">
           <div className="space-y-3">
-            <div className="">
+            <div >
               <label className="text-sm font-medium"> Statement Period </label>
               <Select
                 placeholder="Select option"
-                size={"sm"}
-                borderRadius={"lg"}
+                size="sm" className="rounded"
               >
                 <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
                 <option value="option3">Option 3</option>
               </Select>
             </div>
-            <div className="">
+            <div >
               <label className="text-sm font-medium">Day Period</label>
               <Select
                 placeholder="Select option"
-                className="mb-2"
-                size={"sm"}
-                borderRadius={"lg"}
+                className="mb-2 rounded"
+                size="sm"
               >
                 <option value="option1">Last 7 Days</option>
                 <option value="option2">Last 20</option>

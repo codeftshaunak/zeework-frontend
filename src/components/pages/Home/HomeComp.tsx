@@ -23,8 +23,6 @@ function WorkTeamCard({ title, description, icon }) {
         <div className="w-9 h-9 left-[6px] top-[6px] absolute origin-top-left ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="52"
-            height="52"
             viewBox="0 0 52 52"
             fill="none"
           >
@@ -128,8 +126,6 @@ function HomeComp() {
                       <div className="w-5 h-5 relative">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
                           viewBox="0 0 20 20"
                           fill="none"
                         >
@@ -166,8 +162,6 @@ function HomeComp() {
                       <div className="w-5 h-5 relative">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
                           viewBox="0 0 20 20"
                           fill="none"
                         >
@@ -222,15 +216,13 @@ function HomeComp() {
             </div>
             <div className="flex gap-5">
               <WorkTeamCard
-                title={"Flexibility"}
+                title="Flexibility"
                 description={
                   "Ramp up and down, from short-term engagemennnts to full-time teams"
                 }
                 icon={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="163"
-                    height="158"
                     viewBox="0 0 163 158"
                     fill="none"
                   >
@@ -259,15 +251,13 @@ function HomeComp() {
                 }
               />
               <WorkTeamCard
-                title={"Cost Saving"}
+                title="Cost Saving"
                 description={
                   "Pay only for hours worked. Hourly rates fit any budget."
                 }
                 icon={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="158"
-                    height="158"
                     viewBox="0 0 158 158"
                     fill="none"
                   >
@@ -294,13 +284,11 @@ function HomeComp() {
                 }
               />
               <WorkTeamCard
-                title={"Access to Talent"}
-                description={"Hire the best from around the world."}
+                title="Access to Talent"
+                description="Hire the best from around the world."
                 icon={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="158"
-                    height="158"
                     viewBox="0 0 158 158"
                     fill="none"
                   >
@@ -336,8 +324,6 @@ function HomeComp() {
             <div className="absolute top-2 right-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="462"
-                height="95"
                 viewBox="0 0 462 95"
                 fill="none"
               >
@@ -370,8 +356,6 @@ function HomeComp() {
                 <div className="w-5 h-5 relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
                     viewBox="0 0 20 20"
                     fill="none"
                   >
@@ -399,8 +383,6 @@ function HomeComp() {
               <div className="absolute right-0 top-20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="341"
-                  height="139"
                   viewBox="0 0 341 139"
                   fill="none"
                 >
@@ -425,8 +407,6 @@ function HomeComp() {
                 <div className="w-5 h-5 relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
                     viewBox="0 0 20 20"
                     fill="none"
                   >
@@ -454,8 +434,6 @@ function HomeComp() {
               <div className="absolute right-0 top-20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="341"
-                  height="139"
                   viewBox="0 0 341 139"
                   fill="none"
                 >
@@ -572,8 +550,6 @@ function HomeComp() {
                 <div className="w-5 h-5 relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="21"
-                    height="20"
                     viewBox="0 0 21 20"
                     fill="none"
                   >
@@ -602,8 +578,6 @@ function HomeComp() {
             <div className="absolute right-0" style={{ zIndex: "-1" }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="462"
-                height="95"
                 viewBox="0 0 462 95"
                 fill="none"
               >
@@ -644,8 +618,6 @@ function HomeComp() {
                   <div className="w-8 h-8 left-[14px] top-[14px] absolute">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
                       viewBox="0 0 32 32"
                       fill="none"
                     >
@@ -677,7 +649,7 @@ function HomeComp() {
                       </g>
                       <defs>
                         <clipPath id="clip0_3925_6643">
-                          <rect width="32" height="32" fill="white" />
+                          <rect fill="white" />
                         </clipPath>
                       </defs>
                     </svg>
@@ -688,8 +660,6 @@ function HomeComp() {
                   <div className="w-8 h-8 left-[46px] top-[46px] absolute origin-top-left -rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
                       viewBox="0 0 32 32"
                       fill="none"
                     >
@@ -721,7 +691,7 @@ function HomeComp() {
                       </g>
                       <defs>
                         <clipPath id="clip0_3925_6643">
-                          <rect width="32" height="32" fill="white" />
+                          <rect fill="white" />
                         </clipPath>
                       </defs>
                     </svg>
@@ -759,31 +729,31 @@ function HomeComp() {
 
           <div className="flex flex-wrap gap-5 mt-[2.63rem]">
             <FAQCard
-              question={"What services does your business offer?"}
+              question="What services does your business offer?"
               answer={`We create visually appealing and user-friendly websites and dashboards
             that effectively convey our clients' brand messages and enhance their
             online presence.`}
             />
             <FAQCard
-              question={"Can you optimize websites for search engines?"}
+              question="Can you optimize websites for search engines?"
               answer={`Yes, Optimizing your website for search engines helps improve its visibility and rankings, driving organic traffic and potential customers to your business.`}
             />
             <FAQCard
-              question={"Why is a well-designed website important?"}
+              question="Why is a well-designed website important?"
               answer={
                 "A well-designed website enhances online presence, attracts visitors, and drives conversions."
               }
             />
             <FAQCard
-              question={"What is your design process?"}
+              question="What is your design process?"
               answer={`We understand requirements, research, create designs, refine based on feedback, develop, test, and launch.`}
             />
             <FAQCard
-              question={"Do you offer ongoing support?"}
+              question="Do you offer ongoing support?"
               answer={`We take a deep dive into your technical & cultural requirements, and your long term goals.`}
             />
             <FAQCard
-              question={"How can I get started?"}
+              question="How can I get started?"
               answer={`Contact us through our website or provided contact information for an initial consultation.`}
             />
           </div>

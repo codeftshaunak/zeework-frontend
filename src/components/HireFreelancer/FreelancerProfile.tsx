@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Avatar,
   Box,
@@ -5,7 +6,7 @@ import {
   Heading,
   Skeleton,
   SkeletonCircle,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 
 const FreelancerProfile = ({ profile }) => {
   const isLoading = !profile; // When profile is not passed yet
@@ -19,16 +20,13 @@ const FreelancerProfile = ({ profile }) => {
   } = profile || {};
 
   return (
-    <Flex
-      marginTop="25"
-      width="100%"
-      gap="3"
-      border="1px solid lightgray"
-      rounded="xl"
-      paddingY="6"
-      paddingX="10"
-      bgColor={"white"}
-      alignItems="center"
+    <div
+     
+     
+     
+     
+      className="bg-white flex p-3"
+     
     >
       {/* Avatar or Skeleton */}
       {isLoading ? (
@@ -41,10 +39,10 @@ const FreelancerProfile = ({ profile }) => {
         />
       )}
 
-      <Box>
+      <div>
         {/* Name */}
         {isLoading ? (
-          <Skeleton height="16px" width="150px" mb="2" />
+          <Skeleton />
         ) : (
           <Heading as="h4" size="md" className="text-green-600">
             {firstName ? `${firstName} ${lastName}` : agency_name}
@@ -53,7 +51,7 @@ const FreelancerProfile = ({ profile }) => {
 
         {/* Role */}
         {isLoading ? (
-          <Skeleton height="14px" width="120px" />
+          <Skeleton />
         ) : (
           <Heading as="h5" size="sm" className="text-gray-600 tracking-wide">
             {firstName ? professional_role : "Agency Member"}
@@ -61,15 +59,15 @@ const FreelancerProfile = ({ profile }) => {
         )}
 
         {/* Optional Location Box */}
-        <Box display="flex" gap="100px" marginTop="4px">
+        <div>
           {isLoading ? (
-            <Skeleton height="12px" width="100px" />
+            <Skeleton />
           ) : (
-            <Box>{profile?.location || profile?.agency_location?.name}</Box>
+            <div>{profile?.location || profile?.agency_location?.name}</div>
           )}
-        </Box>
-      </Box>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useCallback, useState } from "react";
 import { createGig } from "../../helpers/APIs/freelancerApis";
 import Step0 from "./Steps/Step0";
@@ -130,17 +130,9 @@ export const GigCreate = ({
 
       if (code === 200) {
         await handleUpload(body._id);
-        toaster.create({
-          title: msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(msg);
       } else {
-        toaster.create({
-          title: msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg);
       }
     } catch (error) {
       console.log(error);
@@ -217,8 +209,6 @@ export const GigCreate = ({
               <div className="w-[72px] h-[72px] flex items-center justify-center bg-green-50 rounded-full mx-auto">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
                   viewBox="0 0 48 48"
                   fill="none"
                 >
@@ -357,34 +347,29 @@ export const GigCreateLayout = ({
 }) => {
   return (
     <div className="sm:w-full lg:w-[60%]">
-      <Text
-        fontSize={{ base: "2rem", md: "2.5rem" }}
-        fontWeight={"600"}
-        textAlign={"left"}
-      >
+      <Text}
+       className="text-left font-semibold">
         {title}
       </Text>
       <br />
       <div className="w-full flex flex-col gap-5">{children}</div>
       <HStack marginTop={10}>
         <Button
-          colorScheme="primary"
           marginRight={5}
           onClick={onBackward}
           isDisabled={isLoading}
         >
           {backwardBtnText}
-        </Button>
+        </button>
         <Button
           isLoading={isLoading}
           loadingText={forwardBtnText}
-          colorScheme="primary"
           type="submit"
           spinner={<BtnSpinner />}
           onClick={onForward}
         >
           {forwardBtnText}
-        </Button>
+        </button>
       </HStack>
     </div>
   );

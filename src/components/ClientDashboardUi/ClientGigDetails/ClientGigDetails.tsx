@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 // import required modules
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
 import { SocketContext } from "../../../contexts/SocketContext";
@@ -146,21 +146,12 @@ const ClientGigDetails = () => {
         dispatch(clearMessageState());
       }
 
-      toaster.create({
-        title:
-          res?.msg ||
+      toast.default(res?.msg ||
           res.response.data.msg ||
           res.response.data.message ||
-          "Something went wrong!",
-        status: res?.code === 200 ? "success" : "warning",
-        duration: 3000,
-      });
+          "Something went wrong!");
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Something went wrong!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning(error?.response?.data?.msg || "Something went wrong!");
       console.error(error);
     }
     setIsLoading(false);
@@ -244,7 +235,7 @@ const ClientGigDetails = () => {
                                     ref={videoRef}
                                     src={video}
                                     alt="Video Review"
-                                    className="h-[600px] w-full "
+                                    className="h-[600px] w-full"
                                     controls={false}
                                   />
                                   <div
@@ -324,17 +315,15 @@ const ClientGigDetails = () => {
                             {role == 2 &&
                               (profile?.payment_verified ? (
                                 <Button
-                                  colorScheme="primary"
                                   paddingX={10}
                                   onClick={() => setIsModal(true)}
                                   className="tracking-wide capitalize"
                                   isDisabled={status !== "approved"}
                                 >
                                   {status !== "approved" ? status : "Purchases"}
-                                </Button>
+                                </button>
                               ) : (
                                 <Button
-                                  colorScheme="primary"
                                   paddingX={10}
                                   className={`sm:tracking-wide capitalize text-xs`}
                                   onClick={() =>
@@ -342,17 +331,14 @@ const ClientGigDetails = () => {
                                   }
                                 >
                                   Verify Payment Method
-                                </Button>
+                                </button>
                               ))}
                             <Button
-                              variant="outline"
-                              colorScheme="primary"
                               paddingX={10}
                               onClick={handleBackward}
-                              className="tracking-wide"
-                            >
+                             className="tracking-wide">
                               Back
-                            </Button>
+                            </button>
                           </div>
                         </div>
                         <div className="border rounded-md px-10 py-3 mt-5 bg-slate-50">
@@ -363,11 +349,10 @@ const ClientGigDetails = () => {
                             <Avatar
                               src={profile_image}
                               name={firstName + " " + lastName}
-                              size={"md"}
+                              size="md"
                               onClick={() =>
                                 router.push(`/profile/f/${freelancer_id}`)
                               }
-                              cursor={"pointer"}
                             />
                             <div>
                               <p
@@ -471,7 +456,7 @@ const ClientGigDetails = () => {
         <UniversalModal
           isModal={isModal}
           setIsModal={setIsModal}
-          title={"Enter your purchases message"}
+          title="Enter your purchases message"
         >
           <div>
             <div>
@@ -489,23 +474,22 @@ const ClientGigDetails = () => {
                   setIsModal(false), setMessage("");
                 }}
                 colorScheme="primary"
-                variant={"outline"}
+                variant="outline"
                 marginRight={5}
                 isDisabled={isLoading}
               >
                 Cancel
-              </Button>
+              </button>
               <Button
                 isLoading={isLoading}
                 loadingText="Confirm"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
                 isDisabled={!message}
                 onClick={() => handlePurchase()}
               >
                 Confirm
-              </Button>
+              </button>
             </div>
           </div>
         </UniversalModal>

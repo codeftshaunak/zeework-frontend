@@ -10,8 +10,6 @@ const PaymentMethod = () => {
       {/* <button className="text-[14px] w-[250px] items-center gap-[8px] flex bg-[#22C35E] text-[#fff] font-[500]  py-[4px] px-[20px] rounded-md ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
           viewBox="0 0 16 16"
           fill="none"
         >

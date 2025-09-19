@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@chakra-ui/react";
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ClientProfileCard from "./ProfileCard";
@@ -73,11 +73,11 @@ const AgencyDashboard = () => {
           ) : (
             <div className="border-2 mt-4 rounded-md">
               <div className="flex justify-between border-b border-[var(--bordersecondary)] p-4">
-                <div className=" text-2xl font-medium text-[#374151]">
+                <div className="text-2xl font-medium text-[#374151]">
                   My Team
                 </div>
               </div>
-              <div className=" h-[200px] bg-[#f4f5f787] text-center py-4">
+              <div className="h-[200px] bg-[#f4f5f787] text-center py-4">
                 <div className="w-[70%] m-auto flex flex-col justify-center items-center gap-2 h-full">
                   <h2 className="font-bold text-xl">Welcome to ZeeWork!</h2>
                   <p className="py-3">
@@ -86,22 +86,15 @@ const AgencyDashboard = () => {
                     more. Click below to make your first hire & bring your
                     project live.
                   </p>
-                  <Button
-                    bg={"#22C35E"}
-                    color={"#fff"}
-                    border={"1px solid #22C35E"}
-                    fontSize={"sm"}
-                    height={"2rem"}
-                    w={"12rem"}
-                    textTransform={"capitalize"}
-                    transition={"0.3s ease-in-out"}
+                  <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                    transition="0.3s ease-in-out"
                     _hover={{
                       bg: "#36af63",
                       color: "#fff",
                     }}
                   >
                     Post a new job
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -109,11 +102,11 @@ const AgencyDashboard = () => {
 
           <div className="border-2 mt-4 rounded-md">
             <div className="flex justify-between border-b border-[var(--bordersecondary)] p-4">
-              <div className=" text-2xl font-medium text-[#374151]">
+              <div className="text-2xl font-medium text-[#374151]">
                 Your Packages
               </div>
             </div>
-            <div className=" h-[200px] bg-[#f4f5f787] text-center py-4">
+            <div className="h-[200px] bg-[#f4f5f787] text-center py-4">
               <div className="w-[70%] m-auto flex flex-col justify-center items-center gap-2 h-full">
                 <h2 className="font-bold text-xl">Remumber Packages</h2>
                 <p className="py-3">
@@ -122,22 +115,15 @@ const AgencyDashboard = () => {
                   more. Click below to make your first hire & bring your project
                   live.
                 </p>
-                <Button
-                  bg={"#22C35E"}
-                  color={"#fff"}
-                  border={"1px solid #22C35E"}
-                  fontSize={"sm"}
-                  height={"2rem"}
-                  w={"12rem"}
-                  textTransform={"capitalize"}
-                  transition={"0.3s ease-in-out"}
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                  transition="0.3s ease-in-out"
                   _hover={{
                     bg: "#36af63",
                     color: "#fff",
                   }}
                 >
                   Post a new job
-                </Button>
+                </button>
               </div>
             </div>
           </div>
@@ -148,12 +134,12 @@ const AgencyDashboard = () => {
           <br />
           <UserProfileCard />
           <button
-            className="bg-[#22C35E] text-[#fff] border-2 border-[#22C35E] text-md w-[90%] text-center mt-4  rounded-md font-semibold py-1"
+            className="bg-[#22C35E] text-[#fff] border-2 border-[#22C35E] text-md w-[90%] text-center mt-4 rounded-md font-semibold py-1"
             onClick={() => router.push("/search-freelancers")}
           >
             Invite Freelancer To Your Agency
           </button>
-          <button className="bg-[#ebebeb] text-[#2c2c2c] border border-[#707070] text-md w-[90%] text-center mt-4  rounded-md font-semibold py-1">
+          <button className="bg-[#ebebeb] text-[#2c2c2c] border border-[#707070] text-md w-[90%] text-center mt-4 rounded-md font-semibold py-1">
             Your Agency Settings
           </button>
         </div>

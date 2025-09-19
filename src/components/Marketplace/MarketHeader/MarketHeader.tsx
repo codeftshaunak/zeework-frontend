@@ -1,7 +1,9 @@
+
 "use client";
+import React from "react";
 
 import { useState } from "react";
-import { Box, HStack, Image, Input, VStack } from "../../ui/migration-helpers";
+
 import { BiSearchAlt } from "react-icons/bi";
 import { CiFilter } from "react-icons/ci";
 
@@ -28,13 +30,8 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
   };
 
   return (
-    <HStack
-      width={"full"}
-      justifyContent={"space-between"}
-      alignItems={"start"}
-      marginTop={"10px"}
+    <div className="flex flex-row items-center className="w-full justify-between items-start mt-[10px]"
       marginBottom={5}
-      gap={5}
     >
       <SearchFilter
         categoryOptions={category}
@@ -44,26 +41,22 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
         routeCategory={routeCategory}
       />
       <div className="hidden lg:flex justify-between flex-wrap gap-3">
-        <HStack
-          width="100%"
-          justifyContent="space-evenly"
-          borderRadius="0.75rem"
-          className="border border-tertiary overflow-hidden"
+        <div className="flex flex-row items-center border border-tertiary overflow-hidden"
+         
+         
+         
+         
         >
           <Image
             src="/images/marketplace.png"
             className="w-[100%] object-cover h-[360px]"
           />
-        </HStack>
+        </div>
 
-        <VStack width="100%" justifyContent="space-evenly" marginX="auto">
-          <div className="w-full flex gap-2 items-center rounded-md">
-            <Input
+        <div className="flex flex-col> <div className="w-full flex gap-2 items-center rounded-md">
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               placeholder="Find your perfect gig ..."
-              bgColor="white"
-              height="50px"
               paddingLeft="1rem"
-              fontSize="1.2rem"
               value={searchText}
               onChange={handleSearchTextChange}
               onKeyDown={(event) => {
@@ -74,46 +67,44 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
             />
 
             <button type="button" className="lg:hidden">
-              <Box
-                fontWeight="800"
-                fontSize="1.5rem"
-                border="1px solid var(--primarycolor)"
-                padding="5px 10px"
-                borderRadius="5px"
+              <div
+               
+               
+               
+               
+               
                 backgroundColor="white"
-                cursor="pointer"
-                color="var(--primarycolor)"
+               
                 transition="0.3s ease-in-out"
                 _hover={{
                   backgroundColor: "var(--primarycolor)",
                   color: "#fff",
                 }}
-              >
+               className="cursor-pointer">
                 <CiFilter />
-              </Box>
+              </div>
             </button>
-            <Box
-              fontWeight="800"
-              fontSize="1.8rem"
-              border="1px solid var(--primarycolor)"
-              padding="8px 15px"
-              borderRadius="5px"
+            <div
+             
+             
+             
+             
+             
               backgroundColor="var(--primarycolor)"
-              cursor="pointer"
-              color="white"
+             
               transition="0.3s ease-in-out"
               _hover={{
                 backgroundColor: "#fff",
                 color: "#000",
               }}
               onClick={handleSearch}
-            >
+             className="cursor-pointer">
               <BiSearchAlt />
-            </Box>
+            </div>
           </div>
-        </VStack>
+        </div>
       </div>
-    </HStack>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ const MyReports = () => {
         <div className="border flex justify-between rounded-lg p-4">
           <div>
             <Link
-              to={"#"}
+              to="#"
               className="text-fg-brand text-sm font-medium hover:underline"
             >
               Weekly summary

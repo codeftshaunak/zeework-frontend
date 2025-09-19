@@ -1,9 +1,10 @@
 "use client";
+import React from "react";
 
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
-import { Avatar } from "@chakra-ui/react";
+
 import { useRouter } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import UserCardSkeleton from "../Skeletons/UserCardSkeleton";
@@ -12,6 +13,7 @@ import { clearMessageState } from "../../redux/messageSlice/messageSlice";
 import { clearNotificationState } from "../../redux/notificationSlice/notificationSlice";
 import { calculateProfileCompletion } from "../utils/constants";
 import StarRatings from "react-star-ratings";
+import { Avatar } from "../ui/migration-helpers";
 
 const UserProfileCard = () => {
   const router = useRouter();
@@ -44,7 +46,7 @@ const UserProfileCard = () => {
   return (
     <div className="border border-transparent bg-gradient-to-br from-[#EAF4ED] to-[#D7F4E1] rounded-2xl w-full xl:w-[350px] m-auto flex flex-col justify-evenly items-center">
       {userAgencyLoading ? (
-        <div className="pt-6 w-full h-full">
+        <div className="w-full h-full pt-6">
           <UserCardSkeleton />
         </div>
       ) : (
@@ -66,13 +68,15 @@ const UserProfileCard = () => {
               className={`text-2xl text-[#072C15] font-medium capitalize ${
                 !activeAgency && "cursor-pointer"
               }`}
-              onClick={() => !activeAgency && router.push(`/profile/f/${user_id}`)}
+              onClick={() =>
+                !activeAgency && router.push(`/profile/f/${user_id}`)
+              }
             >
               {firstName + " " + lastName?.slice(0, 1) + "."}
             </div>
             <div className="text-sm text-[#072C15] text-center capitalize">
-              {professional_role.length > 40
-                ? `${professional_role.slice(0, 40)}...`
+              {professional_role?.length > 40
+                ? `${professional_role?.slice(0, 40)}...`
                 : professional_role}
             </div>
 
@@ -89,11 +93,11 @@ const UserProfileCard = () => {
               hasAgency && activeAgency ? "mb-0" : "mb-4"
             }`}
           >
-            <div className="p-4 w-full">
+            <div className="w-full p-4">
               <div className="text-xs xl:text-sm text-[#15181E]">
                 Complete your Profile
               </div>
-              <div className="flex gap-4 items-center mt-3">
+              <div className="flex items-center gap-4 mt-3">
                 <div className="w-[80%] h-[5px] bg-gradient-to-r from-[#a3ecbe00] to-[#1EAE53] rounded-2xl"></div>
                 <div className="text-xs text-[#16833E] font-semibold">
                   {completionData.percentage}%

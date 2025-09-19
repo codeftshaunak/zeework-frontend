@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   HStack,
@@ -9,7 +11,7 @@ import {
   Tabs,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useContext, useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useRouter } from "next/navigation";
@@ -25,24 +27,11 @@ const AgencyMembers = () => {
   return (
     <div className="w-full mt-5" id="agencyMember">
       <div className="full">
-        <HStack>
-          <Text
-            fontSize={{ base: "1.3rem", md: "1.7rem", lg: "2.3rem" }}
-            fontWeight={"600"}
-            marginBottom={"0px"}
-          >
+        <div className="flex flex-row items-center> <span} className="mb-[0px] font-semibold">
             Your Agency Members
-          </Text>
-          <VStack
-            backgroundColor={"white"}
-            borderRadius={"50%"}
-            width={"30px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"30px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
+          </span>
+          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
@@ -50,9 +39,9 @@ const AgencyMembers = () => {
             }}
             onClick={() => router.push("/search-freelancers")}
           >
-            <FiPlus fontSize={"25px"} />
-          </VStack>
-        </HStack>
+            <FiPlus />
+          </div>
+        </div>
         <br />
         <AgencyManagerCard />
       </div>
@@ -94,26 +83,23 @@ export const AgencyAllInvitations = () => {
   return (
     <>
       {memburs?.pendingInvitations && (
-        <Tabs.Root marginTop={"1.5rem"} flexWrap={"wrap"} colorScheme="primary">
-          <Tabs.List flexWrap={"wrap"}>
-            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
+        <Tabs.Root className="mt-[1.5rem]" flexWrap="wrap" colorScheme="primary">
+          <Tabs.List flexWrap="wrap">
+            <Tabs.Trigger>
               Active Members
             </Tabs.Trigger>
-            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
+            <Tabs.Trigger>
               Pending Members
             </Tabs.Trigger>
-            <Tabs.Trigger fontSize={"1.1rem"} fontWeight={"semibold"}>
+            <Tabs.Trigger>
               Rejected Members
             </Tabs.Trigger>
           </Tabs.List>
           {/* <Tabs.Indicator
-            height="2px"
-            borderRadius="1px"
-            color={"#000"}
-            className=" bg-fg-brand"
+            className="bg-fg-brand"
           /> */}
-          <Tabs.Content marginTop={"5"}>
-            <Tabs.Content display={"flex"} gap={12} flexWrap={"wrap"}>
+          <Tabs.Content className="mt-[5]">
+            <Tabs.Content gap={12} flexWrap="wrap">
               {acceptInvitation && acceptInvitation?.length > 0 ? (
                 acceptInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -126,7 +112,7 @@ export const AgencyAllInvitations = () => {
                 <h2 className="text-center text-lg">No Active Members.</h2>
               )}
             </Tabs.Content>
-            <Tabs.Content display={"flex"} gap={5} flexWrap={"wrap"}>
+            <Tabs.Content gap={5} flexWrap="wrap">
               {pandingInvitation && pandingInvitation?.length > 0 ? (
                 pandingInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -141,7 +127,7 @@ export const AgencyAllInvitations = () => {
                 </h2>
               )}
             </Tabs.Content>
-            <Tabs.Content display={"flex"} gap={5} flexWrap={"wrap"}>
+            <Tabs.Content gap={5} flexWrap="wrap">
               {rejectInvitation && rejectInvitation?.length > 0 ? (
                 rejectInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard details={invitation} key={index} />

@@ -36,7 +36,7 @@ const CardVerificationNotify = () => {
             className="absolute top-2 right-2 lg:right-3 cursor-pointer rounded-full hover:bg-white/10"
             onClick={() => dispatch(hideToast())}
           >
-            <IoMdClose fontSize={"20px"} />
+            <IoMdClose />
           </div>
         </div>
       )}

@@ -1,8 +1,10 @@
+
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
-import { Button, Image } from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+
+import { toast } from "@/lib/toast";
 
 const Timer = () => {
   const [downloadLink, setDownloadLink] = useState("");
@@ -30,11 +32,7 @@ const Timer = () => {
     if (downloadLink) {
       window.location.href = downloadLink;
     } else {
-      toaster.create({
-        title: "Sorry, the timer is not available for your current platform.",
-        type: "info",
-        duration: 3000,
-      });
+      toast.default("Sorry);
     }
   };
 
@@ -48,7 +46,7 @@ const Timer = () => {
           </span>{" "}
           Timer
         </p>
-        <p className=" mt-3 text-3xl sm:text-4xl lg:text-5xl text-gray-700 font-semibold font-poppins tracking-wide">
+        <p className="mt-3 text-3xl sm:text-4xl lg:text-5xl text-gray-700 font-semibold font-poppins tracking-wide">
           for Your {platformText}
         </p>
         <p className="mt-5 sm:mt-10 font-medium text-lg tracking-wide font-redHat">
@@ -62,16 +60,14 @@ const Timer = () => {
           >
             <option value={appVersion}>Version {appVersion}</option>
           </select>
-          <Button
-            colorScheme="primary"
-            rounded={"full"}
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full lg:w-fit"
             paddingX={{ base: 10, md: 16 }}
             onClick={handleDownload}
             disabled={!downloadLink}
-            className="w-full lg:w-fit"
+           
           >
             Download
-          </Button>
+          </button>
         </div>
         <p className="text-lg font-semibold mt-3">
           Download for {platformText}
@@ -84,8 +80,6 @@ const Timer = () => {
       <div className="col-span-1 bg-gray-300 w-full flex justify-center items-end p-5 pb-0 sm:pt-10 md:pt-14">
         <Image
           src="/images/timer_preview.png"
-          width={"350px"}
-          height={"fit-content"}
         />
       </div>
     </div>

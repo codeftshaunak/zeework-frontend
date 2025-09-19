@@ -1,20 +1,20 @@
-import { Box, Button, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, HStack, Text, VStack } from '@/components/ui/migration-helpers';
 import React from 'react';
 import { FaCircleDot } from 'react-icons/fa6';
 import { GrAdd } from 'react-icons/gr';
 
 const Report = () => {
     return (
-        <VStack alignItems={"start"} width={"90%"}>
+        <VStack  w="90%">
             <HStack>
-                <Image src='./images/user.jpeg' width="70px" borderRadius="50%" />
+                <img src='./images/user.jpeg' className="w-[70px] h-[70px] rounded-full object-cover" />
                 <Box>
-                    <Text fontWeight={"600"} fontSize={"1.5rem"}>Shahzaib Y.</Text>
+                    <Text className="text-2xl font-semibold">Shahzaib Y.</Text>
                     <Text>Lahore, Pakistan - 9:00 pm local time</Text>
                 </Box>
             </HStack>
-            <VStack alignItems={"left"} width={"full"}>
-                <Text fontSize={"1.5rem"} fontWeight={"500"}>
+            <VStack  className="w-full">
+                <Text className="text-2xl font-medium">
                     Data Cleaning
                 </Text>
                 <HStack>
@@ -24,17 +24,17 @@ const Report = () => {
                     <Text>Details</Text>
                 </HStack>
             </VStack>
-            <HStack width={"full"}>
-                <VStack width={"full"}>
-                    <VStack border={"1px solid #DFDFDF"} width={"full"} padding={"0.7rem 1rem"} borderRadius={"10px"}>
-                        <HStack width={"full"} justifyContent={'space-between'}>
-                            <Text display={'flex'} alignItems={"center"} justifyContent={"space-between"} fontSize={"1.2rem"} fontWeight={"500"} width={"90px"}>To-dos {<FaCircleDot color='#0EA5E9' />}</Text>
-                            <Button border={"1px solid #22C55E"} width={"90px"} bg={"#fff"} display="flex" justifyContent="space-between" borderRadius="50px" color="#000"><><GrAdd /> New</></Button>
+            <HStack className="w-full">
+                <VStack className="w-full">
+                    <VStack className="w-full p-4 border border-gray-300">
+                        <HStack className="justify-between w-full">
+                            <Text w="90px" className="flex items-center justify-between text-xl font-medium">To-dos {<FaCircleDot color='#0EA5E9' />}</Text>
+                            <Button w="90px" className="flex justify-between"><><GrAdd /> New</></button>
                         </HStack>
                     </VStack>
-                    <HStack border={"1px solid #DFDFDF"}></HStack>
+                    <HStack className="border border-gray-300"></HStack>
                 </VStack>
-                <VStack border={"1px solid #DFDFDF"} width={"full"}>
+                <VStack className="w-full border border-gray-300">
 
                 </VStack>
             </HStack>

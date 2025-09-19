@@ -9,22 +9,22 @@ const DreamsInto = () => {
       <div className="w-full mx-[auto] h-[292px] rounded-xl relative bg-primary z-10 flex items-center px-16  max-[425px]:px-8">
         <img
           className="absolute top-0 left-0 z-10 opacity-20 max-xl:hidden"
-          src={"images/DreamSectionImg1.svg"}
+          src="images/DreamSectionImg1.svg"
           alt=""
         />
         <img
           className="absolute top-0 left-[320px] z-10 opacity-20 max-xl:hidden"
-          src={"images/DreamSectionImg2.svg"}
+          src="images/DreamSectionImg2.svg"
           alt=""
         />
         <img
           className="absolute top-0 right-0 z-10 opacity-40 max-[520px]:hidden"
-          src={"images/DreamSectionImg3.svg"}
+          src="images/DreamSectionImg3.svg"
           alt=""
         />
         <img
           className="absolute top-0 right-[7.5%] z-10 max-[520px]:hidden"
-          src={"images/DreamSectionImg4.png"}
+          src="images/DreamSectionImg4.png"
           alt=""
         />
         <div className="w-full flex flex-col z-20">
@@ -36,7 +36,7 @@ const DreamsInto = () => {
           </p>
           <div>
             <CommonButton
-              children={"Join Us"}
+              children="Join Us"
               onClick={() => router.push("/signup")}
             />
           </div>

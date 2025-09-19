@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateFreelancer,
@@ -131,21 +131,12 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
 
       if (response.code === 200) {
         if (response.body.experience) profileDispatch(response.body);
-        toaster.create({
-          title:
-            type === "Add Experience"
+        toast.success(type === "Add Experience"
               ? "Experience Added Successfully"
-              : "Experience Updated Successfully",
-          type: "success",
-          duration: 3000,
-        });
+              : "Experience Updated Successfully");
         setIsModal(false);
       } else {
-        toaster.create({
-          title: response.msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(response.msg);
       }
     } catch (error) {
       console.error(error);
@@ -169,27 +160,15 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
         newProfile.experience = existProfile.experience?.filter(
           (item) => item._id !== defaultValue._id
         );
-        toaster.create({
-          title: msg,
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(msg);
         dispatch(profileData({ profile: newProfile }));
         setIsModal(false);
       } else {
-        toaster.create({
-          title: msg || "Something gonna wrong!",
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(msg || "Something gonna wrong!");
       }
     } catch (error) {
       console.error(error);
-      toaster.create({
-        title: "Something gonna wrong!",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Something gonna wrong!");
     }
 
     setIsLoading(false);
@@ -229,7 +208,7 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
                 </div>
               </div>
               <br />
-              <HStack justifyContent={"space-between"}>
+              <HStack className="justify-between">
                 <div className="flex flex-col gap-[2px] w-[49%]">
                   <p className="font-[500] text-[#374151]">Start Year</p>
                   <div>
@@ -322,18 +301,16 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-end gap-2 pt-5 w-full border-t-[#F3F4F6] ">
+          <div className="flex items-center justify-end gap-2 pt-5 w-full border-t-[#F3F4F6]">
             <Button
               isLoading={isLoading}
               loadingText={type === "Add Experience" ? "Adding" : "Updating"}
-              colorScheme="primary"
               type="submit"
-              fontSize={"0.9rem"}
               spinner={<BtnSpinner />}
               paddingX={8}
             >
               {type === "Add Experience" ? "Add" : "Update"}
-            </Button>
+            </button>
           </div>
         </form>
       )}
@@ -350,23 +327,19 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
 
           <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
             <Button
-              variant={"outline"}
-              colorScheme="primary"
               onClick={() => setIsModal(false)}
-              width="full"
             >
               No, cancel
-            </Button>
+            </button>
             <Button
               isLoading={isLoading}
               loadingText="Deleting.."
-              colorScheme="primary"
               spinner={<BtnSpinner />}
               onClick={handleDelete}
-              width={"full"}
+              className="w-full"
             >
               Yes, delete it
-            </Button>
+            </button>
           </div>
         </div>
       )}

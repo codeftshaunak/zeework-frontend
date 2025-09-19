@@ -54,7 +54,7 @@ const AgencyContractAssign = () => {
         <>
           <HorizontalCardSkeleton />
 
-          <HorizontalCardSkeleton className={"mt-10"} />
+          <HorizontalCardSkeleton className="mt-10" />
         </>
       ) : (
         <div className="w-full">
@@ -95,7 +95,7 @@ const AgencyContractAssign = () => {
                     <MainButtonRounded
                       noRounded
                       onClick={() => router.push("/search-freelancers")}
-                      className={"mt-10"}
+                      className="mt-10"
                     >
                       Invite Freelancer To Join{" "}
                       {agency?.agency_name || "Your Agency"}

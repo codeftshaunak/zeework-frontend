@@ -1,6 +1,8 @@
-"use client";
 
-import { HStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import UserCard from "../../UserCard";
 
 interface OnboardingProcessProps {
@@ -11,25 +13,15 @@ interface OnboardingProcessProps {
 
 const OnboardingProcess: React.FC<OnboardingProcessProps> = (props) => {
   return (
-    <HStack
-      width="100%"
-      marginTop={"5%"}
-      gap={props.gap && props.gap}
-      justifyContent={"space-around"}
-      position={"relative"}
+    <div className="flex flex-row items-center mt-[5%]"
+      className="justify-space-around relative"
     >
       {props.children}
-      <HStack
-        width={props.width ? props.width : "450px"}
-        border={"1px solid var(--bordersecondary)"}
-        padding={"1.5rem 1.3rem"}
-        borderRadius={"10px"}
-        bgColor={"white"}
-        className="max-lg:!hidden"
+      <div className="flex flex-row items-center className="border p-[1.5rem 1.3rem] rounded bg-white max-lg:!hidden"
       >
         <UserCard />
-      </HStack>
-    </HStack>
+      </div>
+    </div>
   );
 };
 

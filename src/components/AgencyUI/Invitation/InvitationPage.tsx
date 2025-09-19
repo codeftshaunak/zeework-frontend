@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import {
   acceptAgencyInvitation,
   acceptInvitation,
@@ -42,11 +42,11 @@ const InterviewPage = () => {
   //         });
   //         if (response.code === 200) {
   //             const message = statusValue === "1" ? "Invitation Accepted Successfully!!!" : "You've Rejected Interview!!!";
-  //             toaster.create({ title: message, duration: '3000', colorScheme: statusValue === "1" ? 'green' : 'warning', position: 'top-right' });
+  //             toast.default(message);
   //             router.push("/message");
   //         }
   //     } catch (error) {
-  //         toaster.create({ title: "Error performing action", duration: '3000', position: 'top-right', status: 'warning', isClosable: true });
+  //         toast.default("Error performing action");
   //     }
   // };
 
@@ -81,15 +81,13 @@ const InterviewPage = () => {
   // }, [socket, jobDetails]);
 
   return (
-    <Box width="90%" padding="1rem 0">
-      <Text fontWeight="500" fontSize="3xl" textAlign="left">
+    <Box padding="1rem 0">
+      <Text className="font-medium text-left">
         Agency Invitation
       </Text>
       <HStack
-        justifyContent="space-between"
         padding="2rem 0"
-        alignItems="start"
-      >
+       className="justify-between items-start">
         <AgencyDetails />
       </HStack>
     </Box>

@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import SkillCard from "../../Profile/FreelancerProfile/FreelancerProfile/SkillCard";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -80,11 +80,7 @@ const ViewFreelancerProfile = () => {
     const profileURL = window.location.href;
     navigator.clipboard.writeText(profileURL);
 
-    toaster.create({
-      title: "Freelancer Profile Copied.",
-      type: "success",
-      duration: 3000,
-    });
+    toast.success("Freelancer Profile Copied.");
   };
 
   return (
@@ -98,8 +94,6 @@ const ViewFreelancerProfile = () => {
               <Avatar
                 src={profile_image}
                 name={firstName + " " + lastName}
-                width={"80px"}
-                height={"80px"}
               />
 
               <div className="flex flex-col justify-start">
@@ -120,7 +114,7 @@ const ViewFreelancerProfile = () => {
                 className="flex items-center cursor-pointer justify-center w-[36px] h-[36px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)]"
                 onClick={handleCopyProfileURL}
               >
-                <BsLink45Deg width={"20px"} height={"20px"} />
+                <BsLink45Deg />
               </div>
               {role == 2 && (
                 <button
@@ -135,17 +129,16 @@ const ViewFreelancerProfile = () => {
           <div className="flex gap-[24px] w-full">
             <div className="flex w-[30%] gap-[24px] flex-col max-lg:hidden">
               {/* ==================== Freelance Stats ====================== */}
-              <div className="w-full flex py-6 bg-white  relative flex-col gap-[24px] border-[1px] px-[24px] border-[var(--bordersecondary)] rounded-lg">
+              <div className="w-full flex py-6 bg-white relative flex-col gap-[24px] border-[1px] px-[24px] border-[var(--bordersecondary)] rounded-lg">
                 <p className="text-[20px] text-[#374151] font-[600]">
                   Freelance Stats
                 </p>
                 <VStack
-                  backgroundColor={"#f4f5f787"}
-                  height={"80px"}
-                  shadow={"sm"}
-                  justifyContent={"center"}
+                  backgroundColor="#f4f5f787"
+                  shadow="sm"
+                  className="justify-center"
                 >
-                  <Text fontWeight={"600"} top={"8rem"} textAlign={"center"}>
+                  <Text top="8rem" className="text-center font-semibold">
                     Updated Freelancer Stats <br /> Coming Soon
                   </Text>
                 </VStack>
@@ -186,7 +179,7 @@ const ViewFreelancerProfile = () => {
 
               {/* ==================== Experience ====================== */}
               {experience?.length > 0 && (
-                <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg  bg-white">
+                <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
                   <div className="flex items-center justify-between">
                     <p className="text-[20px] text-[#374151] font-[600]">
                       Experience
@@ -233,7 +226,7 @@ const ViewFreelancerProfile = () => {
                   <VStack
                     divider={<StackDivider borderColor="gray.200" />}
                     spacing={4}
-                    align="stretch"
+                    
                     className="bg-slate-50 rounded-md p-3"
                   >
                     {linked_accounts.map((item) => (
@@ -248,7 +241,7 @@ const ViewFreelancerProfile = () => {
               ) : null}
             </div>
             <div className="w-full lg:w-[70%] flex flex-col gap-[24px]">
-              <div className="flex flex-col gap-5  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
+              <div className="flex flex-col gap-5 border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                 <div className="flex gap-[16px] justify-between">
                   <p className="text-[20px] text-[#374151] font-[600] w-[480px]">
                     {professional_role}
@@ -282,7 +275,7 @@ const ViewFreelancerProfile = () => {
                 </div>
               </div>
               {/* ===================== skills ============= */}
-              <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
+              <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                 <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
                   {skills?.length > 0 &&
                     skills?.map((skill, idx) => {
@@ -293,7 +286,7 @@ const ViewFreelancerProfile = () => {
               {/* ======================= portfolio =============== */}
               {portfolio.length ? (
                 <>
-                  <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
+                  <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                     <div className="flex items-center justify-between">
                       <p className="text-[20px] text-[#374151] font-[600]">
                         Portfolio
@@ -334,7 +327,7 @@ const ViewFreelancerProfile = () => {
                 </>
               ) : null}
 
-              {/* <div className="flex flex-col gap-[24px]  border-[1px] pt-[20px] px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
+              {/* <div className="flex flex-col gap-[24px] border-[1px] pt-[20px] px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
               <div>
                 <hr />
                 <div className="mt-10 w-full"><ProfileGigCards /></div>
@@ -344,7 +337,7 @@ const ViewFreelancerProfile = () => {
             </div> */}
 
               {/* ================= work history ====================== */}
-              <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
+              <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                 <div className="flex items-center justify-between">
                   <p className="text-[20px] text-[#374151] font-[600]">
                     Work History

@@ -5,7 +5,7 @@ import ContractTerms from "./ContractTerms";
 import FreelancerProfile from "./FreelancerProfile";
 import JobDetails from "./JobDetails";
 import { sendHireFreelancer } from "../../helpers/APIs/clientApis";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useRouter, usePathname } from "next/navigation";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { SocketContext } from "../../contexts/SocketContext";
@@ -55,29 +55,17 @@ const HireFreelancerPage = () => {
     const { job_type, hourly_rate, budget, accept_terms_condition } = formData;
 
     if (!accept_terms_condition) {
-      toaster.create({
-        title: "Please accept the terms and conditions",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Please accept the terms and conditions");
       return false;
     }
 
     if (job_type === "hourly" && Number(hourly_rate) < 1) {
-      toaster.create({
-        title: "Please enter a valid hourly rate (minimum $1)",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Please enter a valid hourly rate (minimum $1)");
       return false;
     }
 
     if (job_type === "fixed" && Number(budget) < 1) {
-      toaster.create({
-        title: "Please enter a valid budget (minimum $1)",
-        type: "warning",
-        duration: 3000,
-      });
+      toast.warning("Please enter a valid budget (minimum $1)");
       return false;
     }
 
@@ -122,29 +110,16 @@ const HireFreelancerPage = () => {
         }
 
         dispatch(clearMessageState());
-        toaster.create({
-          title: res?.msg || "Offer sent successfully!",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success(res?.msg || "Offer sent successfully!");
 
         router.push("/client-dashboard");
       } else {
-        toaster.create({
-          title: res?.msg || res?.response?.data?.msg || "Failed to send offer",
-          type: "error",
-          duration: 3000,
-        });
+        toast.error(res?.msg || res?.response?.data?.msg || "Failed to send offer");
       }
     } catch (error) {
       console.error("Error sending hire request:", error);
-      toaster.create({
-        title:
-          error?.response?.data?.msg ||
-          "An error occurred while sending the offer",
-        type: "error",
-        duration: 3000,
-      });
+      toast.error(error?.response?.data?.msg ||
+          "An error occurred while sending the offer");
     } finally {
       setIsSubmitting(false);
     }

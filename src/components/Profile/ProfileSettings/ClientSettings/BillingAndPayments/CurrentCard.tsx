@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { useState } from "react";
 import {
   FaCcAmex,
@@ -51,21 +51,13 @@ const CurrentCard = ({ data, setData, setTab }) => {
     setIsLoading(true);
     try {
       const res = await deleteBankDetails({ type: "card", ref_id: id });
-      toaster.create({
-        title: res.msg || "Error performing action",
-        duration: 3000,
-        status: res.code === 200 ? "success" : "warning",
-      });
+      toast.default(res.msg || "Error performing action");
       if (res.code === 200) {
         setData({}), setIsModal(false);
         dispatch(showToast());
       }
     } catch (error) {
-      toaster.create({
-        title: error?.response?.data?.msg || "Error performing action",
-        duration: 3000,
-        type: "warning",
-      });
+      toast.default(error?.response?.data?.msg || "Error performing action");
     }
     setIsLoading(false);
 
@@ -124,23 +116,18 @@ const CurrentCard = ({ data, setData, setTab }) => {
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
           <Button
-            colorScheme="primary"
-            variant={"outline"}
-            width={"full"}
-            onClick={() => setIsModal(false)}
+            onClick={() = className="w-full"> setIsModal(false)}
           >
             No, I don&apos;t want
-          </Button>
+          </button>
           <Button
             isLoading={isLoading}
             loadingText=" Yes, I want to removed"
-            colorScheme="primary"
-            width={"full"}
             spinner={<BtnSpinner />}
             onClick={() => removeCard()}
           >
             Yes, I want to removed
-          </Button>
+          </button>
         </div>
       </UniversalModal>
     </>

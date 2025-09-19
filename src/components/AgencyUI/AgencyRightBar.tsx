@@ -1,6 +1,8 @@
-"use client";
 
-import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FiPlus } from "react-icons/fi";
@@ -69,72 +71,51 @@ const AgencyRightBar = ({ agency, setAgency }) => {
 
   return (
     <>
-      <VStack
-        width={{ base: "full", md: "250px", xl: "300px" }}
-        alignItems={"flex-start"}
-        justifyContent={"right"}
+      <div className="flex flex-col} className="items-flex-start justify-right"
         marginX={{ xl: "auto" }}
         marginTop={{ base: 10, lg: 0 }}
       >
-        <Text fontSize={"1.3rem"} fontWeight={"600"}>
+        <span className="font-semibold">
           Your Agency Activity
-        </Text>
-        <Box position={"relative"} mb={"1rem"}>
-          <Text marginBottom={"0.5rem"} fontSize={"1rem"} fontWeight={"500"}>
+        </span>
+        <div className="relative">
+          <span className="mb-[0.5rem] text-base font-medium">
             Hourly Rate
-          </Text>
-          <Text fontSize={"1.3rem"} marginBottom={"0.5rem"} fontWeight={"600"}>
+          </span>
+          <span className="mb-[0.5rem] font-semibold">
             ${agency_hourlyRate}
-          </Text>
-          <VStack
-            backgroundColor={"white"}
-            position={"absolute"}
-            top={"0"}
-            right={"-10"}
-            borderRadius={"50%"}
-            width={"20px"}
-            border={"1px solid var(--primarycolor)"}
-            height={"20px"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            transition={"0.6s ease-in-out"}
-            cursor={"pointer"}
+          </span>
+          <div className="top= rounded w-[20px] border h-[20px] items-center justify-center"0"
+            right="-10"
+            transition="0.6s ease-in-out"
             _hover={{
               border: "2px solid var(--primarycolor)",
               backgroundColor: "transparent",
               color: "var(--primarycolor)",
             }}
-            onClick={() => handleUpdate("Hourly Rate", agency_hourlyRate)}
+            onClick={() = className="flex flex-col backgroundColor= cursor-pointer absolute"> handleUpdate("Hourly Rate", agency_hourlyRate)}
           >
-            <RiEdit2Fill fontSize={"10px"} />
-          </VStack>
-        </Box>
+            <RiEdit2Fill />
+          </div>
+        </div>
 
-        <Box position={"relative"} mb={"1rem"}>
-          <Text fontSize={"1.3rem"} fontWeight={"600"} marginBottom={"0.51rem"}>
+        <div className="relative">
+          <span className="mb-[0.51rem] font-semibold">
             Total Completed Jobs
-          </Text>
-          <Text fontSize={"1.3rem"} fontWeight={"600"}>
+          </span>
+          <span className="font-semibold">
             {agency_totalJob}
-          </Text>
-        </Box>
+          </span>
+        </div>
 
-        <Box position={"relative"} mb={{ base: "0.8rem", md: "2rem" }}>
-          <HStack marginBottom={"0.5rem"} marginTop={"1rem"}>
-            <Text fontSize={"1.3rem"} fontWeight={"600"} marginBottom={"0"}>
+        <div className="relative"}>
+          <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
+            <span className="mb-[0] font-semibold">
               Office Location
-            </Text>
+            </span>
             {
-              <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"20px"}
-                border={"1px solid var(--primarycolor)"}
-                height={"20px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+              <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   backgroundColor: "transparent",
@@ -143,88 +124,61 @@ const AgencyRightBar = ({ agency, setAgency }) => {
                 onClick={() => handleUpdate("Office Location")}
               >
                 {agency_officeLocation?.country ? (
-                  <RiEdit2Fill fontSize={"10px"} />
+                  <RiEdit2Fill />
                 ) : (
-                  <FiPlus fontSize={"25px"} />
+                  <FiPlus />
                 )}
-              </VStack>
+              </div>
             }
-          </HStack>
+          </div>
 
-          <Box>
+          <div>
             {!!agency_officeLocation?.country &&
               agency_officeLocation?.street &&
               agency_officeLocation?.state && (
-                <HStack>
-                  <MdLocationPin fontSize={"1.2rem"} />
-                  <Text>
-                    {agency_officeLocation?.street},{" "}
+                <div className="flex flex-row items-center> <MdLocationPin /> <span> {agency_officeLocation?.street},{" "}
                     {agency_officeLocation?.state}
-                  </Text>
-                </HStack>
+                  </span>
+                </div>
               )}
-            {/* <HStack>
-              <IoTime />
-              <Text>6:00 Am, 23 Jan 2024</Text>
-            </HStack> */}
-          </Box>
-        </Box>
+            {/* <div className="flex flex-row items-center> <IoTime /> <span>6:00 Am, 23 Jan 2024</span> </div> */"
+          </div>
+        </div>
 
-        <VStack gap={"10px"} alignItems={"flex-start"}>
+        <div className="flex flex-col gap= items-flex-start"10px">
           <AgencyTitle noAdded={true} isSmall={true}>
             Company Information
           </AgencyTitle>
-          <VStack gap={"10px"} alignItems={"flex-start"}>
-            <HStack alignItems={"start"}>
-              <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"20px"}
-                border={"1px solid var(--primarycolor)"}
-                height={"20px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+          <div className="flex flex-col gap= items-flex-start"10px">
+            <div className="flex flex-row items-center className="items-start">
+              <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   backgroundColor: "transparent",
                   color: "var(--primarycolor)",
                 }}
-                mt={1}
                 onClick={() => handleUpdate("Agency Size", agency_size)}
               >
-                {agency_size ? <RiEdit2Fill /> : <FiPlus fontSize={"15px"} />}
-              </VStack>
+                {agency_size ? <RiEdit2Fill /> : <FiPlus />}
+              </div>
               {agency_size ? (
-                <Box marginBottom={"1rem"} marginLeft={"0.57rem"}>
-                  <Text
-                    fontSize={"1rem"}
-                    fontWeight={"500"}
-                    marginBottom={"0.5rem"}
-                  >
+                <div className="mb-[1rem] ml-[0.57rem]">
+                  <span
+                   className="mb-[0.5rem] text-base font-medium">
                     Agency Size:
-                  </Text>{" "}
-                  <Text>{agency_size}</Text>
-                </Box>
+                  </span>{" "}
+                  <span>{agency_size}</span>
+                </div>
               ) : (
-                <Text fontSize={"1rem"} fontWeight={"500"}>
+                <span className="text-base font-medium">
                   Add Your Agency Size
-                </Text>
+                </span>
               )}
-            </HStack>
-            <HStack alignItems={"start"}>
-              <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"20px"}
-                border={"1px solid var(--primarycolor)"}
-                height={"20px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
-                mt={1}
+            </div>
+            <div className="flex flex-row items-center className="items-start">
+              <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   backgroundColor: "transparent",
@@ -235,38 +189,26 @@ const AgencyRightBar = ({ agency, setAgency }) => {
                 {agency_foundedYear ? (
                   <RiEdit2Fill />
                 ) : (
-                  <FiPlus fontSize={"15px"} />
+                  <FiPlus />
                 )}
-              </VStack>
+              </div>
               {agency_foundedYear ? (
-                <Box marginBottom={"1rem"} marginLeft={"0.57rem"}>
-                  <Text
-                    fontSize={"1rem"}
-                    marginBottom={"0.5rem"}
-                    fontWeight={"500"}
-                  >
+                <div className="mb-[1rem] ml-[0.57rem]">
+                  <span
+                   className="mb-[0.5rem] text-base font-medium">
                     Agency Founded:
-                  </Text>{" "}
-                  <Text>{agency_foundedYear}</Text>
-                </Box>
+                  </span>{" "}
+                  <span>{agency_foundedYear}</span>
+                </div>
               ) : (
-                <Text fontSize={"1rem"} fontWeight={"500"}>
+                <span className="text-base font-medium">
                   Add Year Agency Founded
-                </Text>
+                </span>
               )}
-            </HStack>
-            <HStack alignItems={"start"}>
-              <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"20px"}
-                border={"1px solid var(--primarycolor)"}
-                height={"20px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
-                mt={1}
+            </div>
+            <div className="flex flex-row items-center className="items-start">
+              <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   backgroundColor: "transparent",
@@ -277,20 +219,17 @@ const AgencyRightBar = ({ agency, setAgency }) => {
                 {agency_focus?.length ? (
                   <RiEdit2Fill />
                 ) : (
-                  <FiPlus fontSize={"15px"} />
+                  <FiPlus />
                 )}
-              </VStack>
+              </div>
 
-              <Box>
+              <div>
                 {agency_focus?.length ? (
-                  <Box marginBottom={"1rem"}>
-                    <Text
-                      fontSize={"1rem"}
-                      marginBottom={"0.5rem"}
-                      fontWeight={"500"}
-                    >
+                  <div className="mb-[1rem]">
+                    <span
+                     className="mb-[0.5rem] text-base font-medium">
                       Agency Focus:
-                    </Text>
+                    </span>
                     <ul className="flex gap-1 flex-wrap mt-1">
                       {agency_focus.map((item, index) => (
                         <li key={index} className="border px-2 rounded-full">
@@ -298,59 +237,47 @@ const AgencyRightBar = ({ agency, setAgency }) => {
                         </li>
                       ))}
                     </ul>
-                  </Box>
+                  </div>
                 ) : (
-                  <Text fontSize={"1rem"} fontWeight={"500"}>
+                  <span className="text-base font-medium">
                     Add Your Client Focus
-                  </Text>
+                  </span>
                 )}
-              </Box>
-            </HStack>
-            <HStack alignItems={"start"}>
-              <VStack
-                backgroundColor={"white"}
-                borderRadius={"50%"}
-                width={"20px"}
-                border={"1px solid var(--primarycolor)"}
-                height={"20px"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                transition={"0.6s ease-in-out"}
-                cursor={"pointer"}
+              </div>
+            </div>
+            <div className="flex flex-row items-center className="items-start">
+              <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
+                transition="0.6s ease-in-out"
                 _hover={{
                   border: "2px solid var(--primarycolor)",
                   backgroundColor: "transparent",
                   color: "var(--primarycolor)",
                 }}
-                mt={1}
                 onClick={() => handleUpdate("Language")}
               >
                 {agency_language ? (
                   <RiEdit2Fill />
                 ) : (
-                  <FiPlus fontSize={"15px"} />
+                  <FiPlus />
                 )}
-              </VStack>
+              </div>
               {agency_language ? (
-                <Box marginBottom={"1rem"} marginLeft={"0.56rem"}>
-                  <Text
-                    fontSize={"1rem"}
-                    marginBottom={"0.5rem"}
-                    fontWeight={"500"}
-                  >
+                <div className="mb-[1rem] ml-[0.56rem]">
+                  <span
+                   className="mb-[0.5rem] text-base font-medium">
                     Language:
-                  </Text>{" "}
-                  <Text>{agency_language}</Text>
-                </Box>
+                  </span>{" "}
+                  <span>{agency_language}</span>
+                </div>
               ) : (
-                <Text fontSize={"1rem"} fontWeight={"500"}>
+                <span className="text-base font-medium">
                   Add Languages
-                </Text>
+                </span>
               )}
-            </HStack>
-          </VStack>
-        </VStack>
-      </VStack>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* {isModal && (
         <AgencyUpdatedModal
           isModal={isModal}
@@ -486,15 +413,14 @@ const AgencyRightBar = ({ agency, setAgency }) => {
             {modalType === "Language" && <p>Coming Soon</p>}
 
             <div className="text-right mt-10">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isLading}
                 loadingText="Submit"
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </UniversalModal>

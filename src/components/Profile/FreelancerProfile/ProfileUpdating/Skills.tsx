@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -94,18 +94,10 @@ const Skills = ({ setIsModal }) => {
       });
 
       if (response.code == 405) {
-        toaster.create({
-          title: response.msg,
-          type: "warning",
-          duration: 3000,
-        });
+        toast.warning(response.msg);
         setIsModal(false);
       } else if (response.code === 200) {
-        toaster.create({
-          title: "Skills Added Successfully",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Skills Added Successfully");
         dispatch(
           profileData({
             profile: response?.body,
@@ -154,13 +146,11 @@ const Skills = ({ setIsModal }) => {
             <Button
               isLoading={isLoading}
               loadingText="Updating"
-              colorScheme="primary"
               type="submit"
-              fontSize={"0.9rem"}
               spinner={<BtnSpinner />}
             >
               Update
-            </Button>
+            </button>
           </div>
         </form>
       </>

@@ -1,6 +1,8 @@
-"use client";
 
-import { toaster } from "@/lib/providers";
+"use client";
+import React from "react";
+
+import { toast } from "@/lib/toast";
 import {
   Avatar,
   Badge,
@@ -9,7 +11,7 @@ import {
   HStack,
   Text,
   VStack,
-} from "@chakra-ui/react";
+} from "@/components/ui/migration-helpers";
 import { useEffect, useRef, useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useSelector } from "react-redux";
@@ -24,39 +26,35 @@ export const AgencyManagerCard = () => {
   const { lastName, firstName, profile_image, professional_role } =
     profile.profile || [];
   return (
-    <VStack
-      marginTop={{ base: "0px", md: "10px" }}
-      className="shadow border p-4 sm:p-6 rounded-md"
-      lineHeight={"20px"}
-      position={"relative"}
-      maxWidth={"300px"}
+    <div className="flex flex-col marginTop={{ base: shadow border p-4 sm:p-6 rounded-md relative"0px", md: "10px" }}
+     
+      maxWidth="300px"
     >
       {/* {profile_image ? (
-        <Image src={profile_image} width={"90px"} borderRadius={"50%"} />
+        <img src={profile_image} className="rounded" />
       ) : (
         <Avatar name={firstName + " " + lastName} />
       )} */}
       <Avatar
         src={profile_image}
         name={firstName + " " + lastName}
-        size={"lg"}
+        size="lg"
       />
-      <Text fontSize={{ base: "1.1rem", md: "1.4rem" }} fontWeight={"semibold"}>
+      <span} className="font-semibold">
         {firstName + " " + lastName}
-      </Text>
-      <Text fontSize={"1rem"} textAlign={"center"}>
+      </span>
+      <span className="text-base text-center">
         {professional_role}
-      </Text>
+      </span>
       <Badge
         variant="solid"
         colorScheme="green"
-        position={"absolute"}
-        right={"10px"}
-        top={"10px"}
+        right="10px"
+        top="10px"
       >
         Manager
       </Badge>
-    </VStack>
+    </div>
   );
 };
 
@@ -117,11 +115,7 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
           )
         );
 
-      toaster.create({
-        title: msg,
-        type: "success",
-        duration: 3000,
-      });
+      toast.success(msg);
     } catch (error) {
       console.error(error);
     }
@@ -148,42 +142,28 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
 
   return (
     <>
-      <VStack
-        marginTop={"10px"}
-        paddingY={"25px"}
-        className="shadow border p-4 rounded-md"
-        lineHeight={"20px"}
-        position={"relative"}
-        width={"300px"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        gap={"3"}
-      >
+      <divmt-[10px] py-[25px] shadow border p-4 rounded-md relative w-[300px] items-center justify-center"
+       className="flex flex-col className= p-3">
         <Avatar
           src={profile_image}
           name={firstName + " " + lastName}
-          size={"lg"}
-          marginTop={"30px"}
+          size="lg"
+          className="mt-[30px]"
         />
-        <Text fontSize={"1.3rem"} fontWeight={"semibold"}>
+        <span className="font-semibold">
           {firstName + " " + lastName}
-        </Text>
-        <Text
-          fontSize={"1rem"}
-          textAlign={"center"}
-          overflow={"hidden"}
-          width={"100%"}
-        >
+        </span>
+        <span
+         className="w-full text-base text-center overflow-hidden">
           {professional_role.length > 34
             ? professional_role.slice(0, 34)
             : professional_role}
-        </Text>
+        </span>
         <Badge
           variant="solid"
           colorScheme="green"
-          position={"absolute"}
-          right={"10px"}
-          top={"10px"}
+          right="10px"
+          top="10px"
         >
           {member_position?.length > 50
             ? member_position.slice(0, 50) + "..."
@@ -192,7 +172,7 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
         <MainButtonRounded onClick={() => handleClick(user_id)}>
           Visit Profile
         </MainButtonRounded>
-        <Box>
+        <div>
           <BiDotsVerticalRounded
             className="absolute top-1 left-1 text-2xl text-gray-400 rounded-full bg-slate-100 hover:bg-slate-300 transition cursor-pointer z-0"
             onClick={(e) => {
@@ -200,7 +180,7 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
               setIsMenu(!isMenu);
             }}
           />
-        </Box>
+        </div>
         {isMenu && (
           <div
             className="bg-black/5 w-full h-full absolute top-0 left-0"
@@ -225,7 +205,7 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
             </div>
           </div>
         )}
-      </VStack>
+      </div>
 
       {isModal && (
         <UniversalModal
@@ -238,33 +218,23 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
             <div className="w-[150px] h-[150px]">
               <Avatar
                 name={firstName + " " + lastName}
-                src={profile_image}
-                width={"130px"}
-                height={"130px"}
-                borderRadius={"50%"}
-                fontSize={"3rem"}
-                objectFit={"cover"}
+                src={profile_image} className="rounded"
+                objectFit="cover"
               />
             </div>
-            <div className="w-full space-y-2 ">
-              <div className="flex justify-between ">
+            <div className="w-full space-y-2">
+              <div className="flex justify-between">
                 <div className="flex gap-3">
                   <div>
-                    <HStack>
-                      <h2 className="text-2xl font-semibold text-fg-brand">
+                    <div className="flex flex-row items-center> <h2 className="text-2xl font-semibold text-fg-brand">
                         {firstName} {lastName}
                       </h2>
-                      <Button
-                        colorScheme="#22C35E"
-                        variant="outline"
-                        size={"xs"}
-                        color={"#22C35E"}
-                        marginLeft={"0.8rem"}
-                        height={"18px"}
+                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground ml-[0.8rem]"
+                       
                       >
                         Available now
-                      </Button>
-                    </HStack>
+                      </button>
+                    </div>
 
                     <p className="text-sm font-medium text-[#6B7280]">
                       {professional_role}
@@ -278,8 +248,8 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
                 </p>
               </div>
 
-              <div className="w-full space-y-2 ">
-                <div className="flex justify-between ">
+              <div className="w-full space-y-2">
+                <div className="flex justify-between">
                   <div className="flex gap-3">
                     <div>
                       <p className="font-bold">Professional At.</p>
@@ -318,8 +288,8 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
                 </div>
               </div>
               <br />
-              <div className="w-full space-y-2 ">
-                <div className="flex justify-between ">
+              <div className="w-full space-y-2">
+                <div className="flex justify-between">
                   <div className="flex gap-3 w-full">
                     <div className="w-full">
                       <p className="font-bold mb-1">
@@ -336,29 +306,26 @@ export const AgencyFreelancerCard = ({ details, setRemainingMembers }) => {
               </div>
 
               <div className="flex gap-5 pt-6">
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Removing"
-                  colorScheme="primary"
                   type="submit"
                   spinner={<BtnSpinner />}
                   onClick={handleRemoved}
-                  rounded="full"
                   paddingX={10}
                 >
                   Remove
-                </Button>
-                <Button
+                </button>
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   onClick={() => {
                     setIsModal(false);
                   }}
                   variant="outline"
                   colorScheme="primary"
-                  rounded="full"
                   paddingX={10}
                 >
                   Cancel
-                </Button>
+                </button>
               </div>
             </div>
           </div>

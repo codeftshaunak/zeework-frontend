@@ -1,6 +1,8 @@
-"use client";
 
-import { VStack } from "@chakra-ui/react";
+"use client";
+import React from "react";
+
+
 import { useSelector } from "react-redux";
 import { AuthHeader, Header } from "../../Header";
 import Notifications from "../../NotifyToast/Notifications";
@@ -17,18 +19,13 @@ const HomeLayout: React.FC<HomeLayoutProps> = (props) => {
   const role = useSelector((state: any) => state.auth.role);
 
   return (
-    <VStack width={"full"} spacing={0} gap={props.gap ? props.gap : 0}>
+    <div className="flex flex-col w-full">
       {token ? <AuthHeader role={role} /> : <Header />}
       <Notifications />
-      <VStack
-        width={props.width ? props.width : "85%"}
-        gap={props.gap ? props.gap : "60px"}
-        bg={props.bg}
-        maxW={"1200px"}
-      >
+      <div className="flex flex-col max-w-[1200px] mx-auto">
         {props.children}
-      </VStack>
-    </VStack>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,9 @@
+
 "use client";
+import React from "react";
 
 import { useState } from "react";
-import { Button } from "@chakra-ui/react";
+
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import UniversalModal from "../Modals/UniversalModal";
 
@@ -23,7 +25,7 @@ const Modal = ({
     <UniversalModal
       isModal={openModal}
       setIsModal={setOpenModal}
-      title={"Enter your message to client"}
+      title="Enter your message to client"
     >
       <div className="my-5">
         <textarea
@@ -39,17 +41,16 @@ const Modal = ({
       </div>
 
       <div className="flex justify-end gap-5 mt-2">
-        <Button
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
           onClick={() => setOpenModal(false)}
           colorScheme="primary"
           variant="outline"
         >
           Cancel
-        </Button>
-        <Button
+        </button>
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
           isLoading={isLoading}
           loadingText={offer ? "Accept Offer" : "Accept Interview"}
-          colorScheme="primary"
           type="submit"
           spinner={<BtnSpinner />}
           onClick={() => {
@@ -57,7 +58,7 @@ const Modal = ({
           }}
         >
           {offer ? "Accept Offer" : "Accept Interview"}
-        </Button>
+        </button>
       </div>
     </UniversalModal>
   );

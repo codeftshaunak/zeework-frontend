@@ -1,6 +1,6 @@
 "use client";
 
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -117,11 +117,7 @@ const PortfolioProject = ({ type, setIsModal }) => {
       const response = await updateFreelancerProfile(formData);
 
       if (response.code === 200) {
-        toaster.create({
-          title: "Portfolio Added Successfully",
-          type: "success",
-          duration: 3000,
-        });
+        toast.success("Portfolio Added Successfully");
         dispatch(profileData({ profile: response?.body }));
         setIsModal(false);
       }
@@ -265,13 +261,11 @@ const PortfolioProject = ({ type, setIsModal }) => {
               <Button
                 isLoading={isLoading}
                 loadingText="Adding Project"
-                colorScheme="primary"
                 type="submit"
-                fontSize={"0.9rem"}
                 spinner={<BtnSpinner />}
               >
                 Add Project
-              </Button>
+              </button>
             </div>
           </form>
         </>

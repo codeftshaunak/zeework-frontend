@@ -1,4 +1,5 @@
-import { Button, Text, HStack } from "@/components/ui/migration-helpers";
+import React from "react";
+
 import { MainButtonRounded } from "../Button/MainButton";
 import UniversalModal from "../Modals/UniversalModal";
 
@@ -19,34 +20,26 @@ const ConfirmModalCommon: React.FC<ConfirmModalCommonProps> = ({
 }) => {
   return (
     <UniversalModal isModal={openModal} setIsModal={setOpenModal}>
-      <Text
-        textAlign={"center"}
-        fontSize={"1.4rem"}
-        margin={"1rem 0"}
-        fontWeight={"600"}
-      >
+      <span
+       className="m-[1rem 0] text-2xl font-semibold text-center">
         Are You Sure You Want To {title}?
-      </Text>
-      <HStack justifyContent={"center"} marginTop={"2rem"}>
-        <Button
-          backgroundColor={"white"}
-          color={"var(--primarytextcolor)"}
+      </span>
+      <div className="flex flex-row items-center className="justify-center mt-[2rem]">
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          backgroundColor="white"
           _hover={{}}
           onClick={() => setOpenModal(false)}
         >
           Cancel
-        </Button>
+        </button>
         <MainButtonRounded
           isLoading={isLoading?.isLoading}
           onClick={() => handleSubmit()}
-          className={"m-0"}
+          className="m-0"
         >
           Submit
         </MainButtonRounded>
-        {/* <Button
-          borderRadius={"25px"}
-          border={"1px solid var(--primarycolor)"}
-          color={"var(--secondarycolor)"}
+        {/* <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
           backgroundColor={"var(--primarytextcolor)"}
           _hover={{
             color: "var(--primarytextcolor)",
@@ -55,8 +48,8 @@ const ConfirmModalCommon: React.FC<ConfirmModalCommonProps> = ({
           onClick={() => handleSubmit()}
         >
           Submit
-        </Button> */}
-      </HStack>
+        </button> */}
+      </div>
     </UniversalModal>
   );
 };

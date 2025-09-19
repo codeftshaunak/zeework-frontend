@@ -64,19 +64,19 @@ const HomeComponent = () => {
       >
         <img
           className="absolute left-[calc(50%-362px)] -z-10 max-sm:hidden"
-          src={"./images/Illustration.svg"}
+          src="./images/Illustration.svg"
         />
         <img
           className="absolute left-12 lg:left-[calc(50%-520px)]  2xl:top-[calc(50%-280px)] top-20 -z-10 max-sm:hidden"
-          src={"./images/TeamsSectionImg1.svg"}
+          src="./images/TeamsSectionImg1.svg"
         />
         <img
           className="absolute left-0 -top-[300px] max-lg:hidden"
-          src={"./images/LeftBadgeBg.svg"}
+          src="./images/LeftBadgeBg.svg"
         />
         <img
           className="absolute right-0 -top-[350px] max-lg:hidden"
-          src={"./images/RightBadgeBg.svg"}
+          src="./images/RightBadgeBg.svg"
         />
         <WorkteamsSection />
       </div>

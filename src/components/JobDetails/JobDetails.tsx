@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "next/navigation";
@@ -20,8 +22,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import {
@@ -220,11 +222,7 @@ const JobDetails = ({ setPage, setDetails }) => {
   const handleCopyLink = () => {
     const jobUrl = `${window.location.origin}/find-job/${jobDetails[0]._id}`;
     navigator.clipboard.writeText(jobUrl).then(() => {
-      toaster.create({
-        title: "Link copied to clipboard",
-        type: "success",
-        duration: 2000,
-      });
+      toast.success("Link copied to clipboard");
     });
   };
 
@@ -236,13 +234,13 @@ const JobDetails = ({ setPage, setDetails }) => {
       <div className="w-full">
         <div className="py-2 w-full">
           <div className="flex gap-2 py-6">
-            <Link to={"/"}>
+            <Link to="/">
               <img src="/icons/home.svg" alt="home" />
             </Link>
             <img src="/icons/chevron-right.svg" alt="arrow right" />
             <div className="capitalize">{jobDetails[0]?.title}</div>
           </div>
-          <div className="w-full border border-tertiary rounded-2xl p-6 mb-4 bg-white ">
+          <div className="w-full border border-tertiary rounded-2xl p-6 mb-4 bg-white">
             <div className="flex justify-between items-center max-sm:flex-col max-sm:gap-2">
               <div className="flex flex-col gap-2 max-[570px]:flex-col max-sm:flex-row max-sm:items-center">
                 <div className="flex max-[380px]:flex-col max-[380px]:items-center max-xl:flex-col">
@@ -269,7 +267,7 @@ const JobDetails = ({ setPage, setDetails }) => {
                 </div>
               </div>
               {isAlreadyApplied ? (
-                <button className=" bg-[#22c55e] text-secondary max-lg:text-[12px] font-semibold rounded h-[36px] px-4 disabled cursor-not-allowed leading-3">
+                <button className="bg-[#22c55e] text-secondary max-lg:text-[12px] font-semibold rounded h-[36px] px-4 disabled cursor-not-allowed leading-3">
                   You have already applied
                 </button>
               ) : (
@@ -427,7 +425,7 @@ const JobDetails = ({ setPage, setDetails }) => {
               <div className="my-3">
                 <hr />
               </div>
-              <div className="">
+              <div >
                 <h2 className="text-[#374151] text-lg font-semibold">
                   Job link
                 </h2>
@@ -481,9 +479,9 @@ const JobDetails = ({ setPage, setDetails }) => {
                       />
 
                       {isDragActive ? (
-                        <p className="text-center ">Drop the files here ... </p>
+                        <p className="text-center">Drop the files here ... </p>
                       ) : (
-                        <p className="text-center ">
+                        <p className="text-center">
                           Drag &apos;n&apos; drop image file here, or click to
                           select file
                         </p>
@@ -512,7 +510,7 @@ const JobDetails = ({ setPage, setDetails }) => {
                       onCropChange={isCropped ? undefined : setCrop}
                       onZoomChange={isCropped ? undefined : setZoom}
                       onCropComplete={onCropComplete}
-                      cropShape={"round"}
+                      cropShape="round"
                     />
                   </div>
                   <div className="flex flex-col items-center justify-center">
@@ -529,10 +527,10 @@ const JobDetails = ({ setPage, setDetails }) => {
                         }}
                       >
                         <SliderTrack className="bg-slate-300">
-                          <SliderFilledTrack bg={"slategrey"} />
+                          <SliderFilledTrack />
                         </SliderTrack>
                         <SliderThumb boxSize={6}>
-                          <Box className="text-slate-500" as={TiZoom} />
+                          <div className="text-slate-500" as={TiZoom} />
                         </SliderThumb>
                       </Slider>
                       <TiPlus />
@@ -612,16 +610,15 @@ const JobDetails = ({ setPage, setDetails }) => {
             </div>
             {imageSrc && (
               <div className="text-right mt-10">
-                <Button
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isImgLoading}
                   loadingText="Uploading"
-                  colorScheme="primary"
                   onClick={() => handleUploadPhoto()}
                   paddingX={7}
                   spinner={<BtnSpinner />}
                 >
                   Upload
-                </Button>
+                </button>
               </div>
             )}
           </div>

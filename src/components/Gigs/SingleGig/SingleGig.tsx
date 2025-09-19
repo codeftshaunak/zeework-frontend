@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { toaster } from "@/lib/providers";
+import { toast } from "@/lib/toast";
 import { IoIosMore, IoMdClose } from "react-icons/io";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { deleteFreelancerGig } from "../../../helpers/APIs/gigApis";
@@ -32,11 +32,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
       try {
         const response = await deleteFreelancerGig(gig._id);
         if (response?.code === 200) {
-          toaster.create({
-            title: response.msg,
-            duration: 3000,
-            type: "success",
-          });
+          toast.default(response.msg);
           setIsModal(false);
           getAllGigs();
         }
@@ -83,7 +79,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
 
               {isMenu && (
                 <div
-                  className="absolute right-9 -top-11 bg-white  z-30"
+                  className="absolute right-9 -top-11 bg-white z-30"
                   onMouseEnter={() => {
                     setIsMenu(true);
                   }}
@@ -141,7 +137,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
                 No, Keep it.
               </button>
               <Button
-                colorScheme="unstyled"
+                
                 onClick={() => handleDelete("delete")}
                 loadingText="Deleting"
                 className="w-full px-5 py-1 justify-center bg-green-500 hover:bg-green-600 transition rounded-md text-white"
@@ -149,7 +145,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
                 spinner={<BtnSpinner />}
               >
                 Yes, Delete!
-              </Button>
+              </button>
             </div>
           </div>
         </UniversalModal>

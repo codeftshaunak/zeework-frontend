@@ -1,4 +1,6 @@
+
 "use client";
+import React from "react";
 
 import {
   Avatar,
@@ -16,8 +18,8 @@ import {
   Tabs,
   Tooltip,
   VStack,
-} from "@chakra-ui/react";
-import { toaster } from "@/lib/providers";
+} from "@/components/ui/migration-helpers";
+import { toast } from "@/lib/toast";
 import { useContext, useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -223,20 +225,12 @@ const InviteFreelancer = ({ appliedUsers }) => {
             closeModal();
             setMessage("");
           }
-          toaster.create({
-            title: res.msg || res.response.data.msg,
-            status: res.code === 200 ? "success" : "warning",
-            duration: 2000,
-          });
+          toast.default(res.msg || res.response.data.msg);
         } catch (error) {
           setOpen(false);
           setMessage("");
           const message = error?.response?.data?.msg;
-          toaster.create({
-            title: message,
-            type: "error",
-            duration: 3000,
-          });
+          toast.error(message);
         }
       }
     }
@@ -268,26 +262,18 @@ const InviteFreelancer = ({ appliedUsers }) => {
               {/* <Tabs.Trigger className="px-0 text-black">My bg-green-100</Tabs.Trigger> */}
             </Tabs.List>
             <Tabs.Indicator
-              height="2px"
-              borderRadius="1px"
-              color={"#000"}
-              className=" bg-fg-brand"
+              className="bg-fg-brand"
             />
             <SmoothMotion key={activeTab}>
               <Tabs.Content>
                 <Tabs.Content p={0}>
                   <div className="h-auto pt-5 pb-4">
-                    <HStack
-                      width={"100%"}
-                      justifyContent={"space-evenly"}
-                      marginX={"auto"}
-                      marginBottom={"0.9rem"}
+                    <div className="flex flex-row items-center className="w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
                       paddingX={5}
                     >
-                      <Input
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                         name="searchText"
                         placeholder="Search for open positions..."
-                        bgColor={"white"}
                         onChange={(e) => setSearchText(e.target.value)}
                         value={searchText}
                         onKeyDown={(e) => {
@@ -302,32 +288,24 @@ const InviteFreelancer = ({ appliedUsers }) => {
                         disabled={loading}
                         onClick={fetchData}
                       >
-                        <Box
-                          fontWeight={"800"}
-                          fontSize={"1.5rem"}
-                          border={"2px solid var(--primarycolor)"}
-                          padding={"5px 40px"}
-                          borderRadius={"5px"}
+                        <div
                           backgroundColor={"var(--primarycolor)"}
-                          cursor={"pointer"}
-                          color={"white"}
-                          transition={"0.3s ease-in-out"}
+                          className="text-white font-800 text-1.5rem border p-[5px 40px] rounded cursor-pointer"
+                          transition="0.3s ease-in-out"
                           _hover={{
                             backgroundColor: "#fff",
                             color: "#000",
                           }}
                         >
                           <BiSearchAlt />
-                        </Box>
+                        </div>
                       </button>
-                    </HStack>
+                    </div>
                     {loading ? (
                       <ReviewProposalSkeleton />
                     ) : searchResults?.data?.length ? (
-                      <VStack
-                        spacing={5}
-                        align="stretch"
-                        rounded={"2xl"}
+                      <div className="flex flex-col spacing={5}"
+                        
                         paddingX={5}
                       >
                         {searchResults?.data?.map((searchResult) => {
@@ -343,20 +321,15 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                   name={
                                     searchResult?.firstName +
                                     searchResult?.lastName
-                                  }
-                                  width={"80px"}
-                                  height={"80px"}
-                                  borderRadius={"50%"}
-                                  fontSize={"3rem"}
-                                  objectFit={"cover"}
+                                  } className="rounded"
+                                  objectFit="cover"
                                 />
 
                                 <div className="w-full">
                                   <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 justify-between items-center">
                                     <div className="flex gap-3">
                                       <div>
-                                        <HStack>
-                                          <h2 className="text-lg font-semibold text-[var(--primarycolor)]">
+                                        <div className="flex flex-row items-center> <h2 className="text-lg font-semibold text-[var(--primarycolor)]">
                                             {searchResult?.firstName}{" "}
                                             {searchResult?.lastName}
                                           </h2>
@@ -366,7 +339,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                                 Available Now
                                               </div>
                                             )}
-                                        </HStack>
+                                        </div>
 
                                         <p className="text-md">
                                           {searchResult?.professional_role}
@@ -378,33 +351,27 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                       </div>
                                     </div>
                                     <div>
-                                      <Stack
+                                      <div className="flex"
                                         direction="row"
                                         spacing={4}
-                                        align="center"
+                                        
                                       >
-                                        <Button
-                                          size="md"
-                                          colorScheme="primary"
-                                          variant="outline"
+                                        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                           onClick={() =>
                                             handleHireFreelancer(searchResult)
                                           }
                                         >
                                           Hire
-                                        </Button>
+                                        </button>
                                         <Tooltip
                                           hasArrow
                                           // label={
                                           //   "Freelancer already applied for this job"
                                           // }
-                                          bg="gray.500"
                                           placement="top"
                                           isDisabled={!alreadyApplied}
                                         >
-                                          <Button
-                                            colorScheme="primary"
-                                            size={"md"}
+                                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                             isDisabled={alreadyApplied}
                                             onClick={() =>
                                               HandleOpenModal(
@@ -417,32 +384,28 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                               0
                                               ? "Invited"
                                               : "Invite to Job"}
-                                          </Button>
+                                          </button>
                                         </Tooltip>
-                                      </Stack>
+                                      </div>
                                     </div>
                                   </div>
 
                                   <div className="flex items-center justify-between">
-                                    <Stack
-                                      spacing={4}
+                                    <div className="flex spacing={4}"
                                       direction="row"
-                                      align="center"
+                                      
                                     >
                                       {searchResult?.length > 0 &&
                                         searchResult?.skills.map(
                                           (skill, idx) => (
-                                            <Button
+                                            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                                               key={idx}
-                                              size="sm"
-                                              colorScheme="gray"
-                                              color={"#6B7280"}
                                             >
                                               {skill}
-                                            </Button>
+                                            </button>
                                           )
                                         )}
-                                    </Stack>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -456,7 +419,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                           currentPage={page}
                           onPageChange={setPage}
                         />
-                      </VStack>
+                      </div>
                     ) : (
                       <div className="p-5 text-center">
                         Haven&apos;t match any profile!
@@ -464,20 +427,18 @@ const InviteFreelancer = ({ appliedUsers }) => {
                     )}
                   </div>
                 </Tabs.Content>
-                <Tabs.Content p={0} bg={"#F3F4F6"}>
+                <Tabs.Content p={0}>
                   {/* Invited freelancer */}
-                  <Tabs.Content p={0} bg={"#F3F4F6"}>
+                  <Tabs.Content p={0}>
                     <div className="h-auto p-3 bg-white">
                       {loading ? (
                         <ReviewProposalSkeleton />
                       ) : invitedFreelancers?.filter(
                         (profile) => profile?.job_id === id
                       )?.length ? (
-                        <VStack
-                          divider={<StackDivider borderColor="gray.200" />}
+                        <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
                           spacing={4}
-                          align="stretch"
-                          bgColor={"white"}
+                          
                           padding={5}
                         >
                           {invitedFreelancers
@@ -488,7 +449,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                 profile={profile}
                               />
                             ))}
-                        </VStack>
+                        </div>
                       ) : (
                         <>You haven&apos;t invited freelancer!</>
                       )}
@@ -525,24 +486,21 @@ const InviteFreelancer = ({ appliedUsers }) => {
               </div>
             )}
             <div className="flex justify-end mt-5">
-              <Button
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={closeModal}
-                colorScheme="primary"
-                variant={"outline"}
                 marginRight={5}
               >
                 Cancel
-              </Button>
-              <Button
+              </button>
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 isLoading={isLoadingInvite}
                 loadingText={isHire ? "Sure" : "Send"}
-                colorScheme="primary"
                 type="submit"
                 spinner={<BtnSpinner />}
                 onClick={() => handleSend()}
               >
                 {isHire ? "Sure" : "Send"}
-              </Button>
+              </button>
             </div>
           </div>
         </UniversalModal>

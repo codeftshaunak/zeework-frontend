@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useFormState } from "../../contexts/FormContext";
 import { thirdStepSchema } from "../../schemas/job-create-schema";
-import { Button } from "@chakra-ui/react";
+
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import ErrorMsg from "../utils/Error/ErrorMsg";
 
@@ -101,16 +101,15 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
               Save & Continue
             </div>
           </div> */}
-          <Button
+          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
             isLoading={isLoading}
             loadingText="Posting"
-            colorScheme="primary"
             type="submit"
             spinner={<BtnSpinner />}
             paddingX={5}
           >
             Post Job
-          </Button>
+          </button>
         </div>
       </form>
     </>

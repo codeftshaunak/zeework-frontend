@@ -20,11 +20,8 @@ const ProfileSettingTemplate = () => {
         <div className="flex gap-[16px] items-center w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
             viewBox="0 0 20 20"
             fill="none"
-            cursor={"pointer"}
             onClick={() => router.push("/")}
           >
             <path
@@ -63,21 +60,21 @@ const ProfileSettingTemplate = () => {
         <div className="grid md:grid-cols-4 gap-5 min-h-[calc(80vh)]">
           <div className="md:col-span-1 border-[1px]  border-[var(--bordersecondary)] rounded-lg bg-white">
             <SettingsNav
-              title={"Profile Settings"}
+              title="Profile Settings"
               active={step === "password"}
-              step={"password"}
+              step="password"
               setStep={setStep}
             />
             <SettingsNav
-              title={"Billing and Payment"}
+              title="Billing and Payment"
               active={step === "billing-payments"}
-              step={"billing-payments"}
+              step="billing-payments"
               setStep={setStep}
             />
             <SettingsNav
-              title={"Contact Info"}
+              title="Contact Info"
               active={step === "contact-info"}
-              step={"contact-info"}
+              step="contact-info"
               setStep={setStep}
             />
           </div>
