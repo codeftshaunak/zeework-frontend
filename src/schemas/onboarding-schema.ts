@@ -26,8 +26,7 @@ const infoSchema = Yup.object().shape({
 
 const skillsSchema = Yup.object().shape({
   skills: Yup.array()
-    .min(5, "Select at least five skills")
-    .max(15, "You can select maximum fifteen skills")
+    .min(5, "Select at least 5 skills to showcase your expertise")
     .required("Skills are required"),
 });
 

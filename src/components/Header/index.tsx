@@ -7,8 +7,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Avatar } from "@/components/ui/migration-helpers";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import CTAButton from "../CTAButton";
-import { RiArrowDropDownLine, RiSearchLine } from "react-icons/ri";
+import { RiSearchLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
 import { useCookies } from "react-cookie";
 import { LuSettings } from "react-icons/lu";
@@ -37,7 +36,7 @@ import {
   setNotification,
 } from "../../redux/notificationSlice/notificationSlice";
 import { getMessageUsers } from "../../helpers/APIs/messageApis";
-import { HiMenu, HiOutlineX, HiOutlineXCircle } from "react-icons/hi";
+import { HiMenu, HiOutlineX } from "react-icons/hi";
 import { TbLogout } from "react-icons/tb";
 import { GoArrowSwitch } from "react-icons/go";
 import { motion } from "framer-motion";
@@ -45,273 +44,133 @@ import useUserActivityListener from "../../hooks/useUserActivityListener";
 
 export const Header = () => {
   const router = useRouter();
-  const [isSelectModal, setIsSelectModal] = useState(false);
-  const selectModalRef = useRef<HTMLDivElement>(null);
 
   const navigation = [
-    { title: "Find Talent", href: "/my-jobs" },
+    { title: "Find Talent", href: "/marketplace" },
     { title: "Find Work", href: "/find-job" },
-    { title: "Why ZeeWork", href: "/my-stats" },
+    { title: "Why ZeeWork", href: "#about" },
   ];
 
-  const [selectedRole, setSelectedRole] = useState("job");
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  // Manage mobile menu and search
-  const [isMenuRef, setIsMenuRef] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const onOpen = () => setIsOpen(true);
-  const onClose = () => setIsOpen(false);
-
-  const btnRef = React.useRef<HTMLButtonElement>(null);
-
-
-  // ======= search for jobs and talent
-
-  const handelSelectedValue = (value) => {
-    setSelectedRole(value);
-    setIsSelectModal(false);
-  };
-
-  const handelSearch = () => {
-    onClose();
-    const searchTermEncoded = encodeURIComponent(searchTerm);
-    if (selectedRole === "job") {
-      router.push(`/search-job?squery=${searchTermEncoded}`);
-    } else if (selectedRole === "talent") {
-      router.push(`/search-freelancers?squery=${searchTermEncoded}`);
-    }
-  };
-
-  // handle close select option when click on outside
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      selectModalRef.current &&
-      !selectModalRef.current.contains(event.target as Node)
-    ) {
-      setIsSelectModal(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isSelectModal]);
 
   return (
-    <nav className="bg-white shadow-slate-700 fixed lg:sticky w-full z-50 ">
-      <div className="mx-auto w-[85%] max-w-[1200px]">
-        <div className=" flex items-center sm:justify-between h-16 mx-auto">
-          <div className=" inset-y-0 left-0 flex flex-1 items-center min-[840px]:hidden">
-            {/* <!-- Mobile menu button--> */}
-            {isMenuRef && isOpen ? (
-              <button
-                onClick={() => {
-                  setIsMenuRef(false), onClose();
-                }}
-              >
-                <HiOutlineX className="text-3xl text-gray-600" />
-              </button>
-            ) : (
-              <button
-                ref={btnRef}
-                onClick={() => {
-                  setIsMenuRef(true), onOpen();
-                }}
-              >
-                <HiMenu className="text-3xl text-gray-600" />
-              </button>
-            )}
-          </div>
-          <div className="flex items-center justify-center min-[840px]:justify-start flex-1">
-            <div className="flex justify-evenly gap-x-5">
-              <div className="flex-shrink-0">
-                <p
-                  className="text-[22px] font-bold text-green-500 cursor-pointer text-right"
-                  onClick={() => router.push("/")}
-                >
-                  <img
-                    src="/images/zeework_logo.png"
-                    style={{
-                      width: "100px",
-                      marginTop: "3px",
-                    }}
-                  />
-                </p>
-              </div>
+    <nav className="bg-white/95 backdrop-blur-md fixed w-full z-50 shadow-sm">
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <div
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={() => router.push("/")}
+            >
+              <img
+                src="/images/zeework_logo.png"
+                alt="ZeeWork"
+                className="h-8 w-auto"
+              />
             </div>
           </div>
-          <div className="hidden min-[840px]:block ">
-            <div className="flex gap-[50px]">
-              {navigation &&
-                navigation?.length > 0 &&
-                navigation.map((item, i) => (
-                  <div key={i} className="flex items-center gap-1">
-                    <NavItem key={i} title={item.title} url={item.href} />
-                    <RiArrowDropDownLine className="h-8" />
+          {/* Desktop Navigation */}
+          <nav className="hidden min-[840px]:flex items-center space-x-8">
+            {navigation.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => router.push(item.href)}
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 relative group"
+              >
+                {item.title}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-200 group-hover:w-full"></span>
+              </button>
+            ))}
+          </nav>
+          {/* Auth Buttons */}
+          <div className="flex items-center space-x-4">
+            {/* Search Button - Mobile (placeholder for future search functionality) */}
+            <button
+              onClick={() => {
+                // TODO: Implement search functionality
+                console.log("Search clicked");
+              }}
+              className="min-[840px]:hidden p-2 text-gray-600 hover:text-green-600 transition-colors duration-200"
+            >
+              <RiSearchLine className="w-5 h-5" />
+            </button>
+
+            {/* Desktop Auth Buttons */}
+            <div className="hidden min-[840px]:flex items-center space-x-3">
+              <button
+                onClick={() => router.push("/login")}
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 px-4 py-2"
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => router.push("/signup")}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="min-[840px]:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-green-600 transition-colors duration-200"
+            >
+              {isOpen ? <HiOutlineX className="w-6 h-6" /> : <HiMenu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+          {/* Mobile menu */}
+          {isOpen && (
+            <div className="fixed inset-0 z-40 bg-white min-[840px]:hidden">
+              <div className="px-4 pt-20 pb-8">
+                <div className="space-y-6">
+                  {/* Mobile Navigation Links */}
+                  <div className="space-y-1">
+                    {navigation.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          router.push(item.href);
+                          setIsOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-3 text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                      >
+                        {item.title}
+                      </button>
+                    ))}
                   </div>
-                ))}
-            </div>
-          </div>
-          <div className="right-0 flex justify-end items-center flex-1 sm:static sm:inset-auto sm:ml-6">
-            <div className="flex gap-1 whitespace-no-wrap items-center justify-center my-2 py-2 border border-transparent text-base leading-6 font-medium rounded-md  focus:outline-none focus:shadow-outline-indigo transition ease-in-out duration-150">
-              <div className="mt-3 sm:mt-2">
-                <button
-                  onClick={() => {
-                    setIsMenuRef(false), onOpen();
-                  }}
-                >
-                  <RiSearchLine className="text-2xl text-gray-600" />
-                </button>
-              </div>
-              <div className="hidden sm:flex whitespace-no-wrap items-center justify-center my-2 py-2 border border-transparent text-base leading-6 font-medium rounded-md focus:shadow-outline-indigo transition ease-in-out duration-150 w-[210px]">
-                <CTAButton
-                  onClick={() => router.push("/login")}
-                  text="Log In"
-                  className="mr-2"
-                ></CTAButton>
-                <CTAButton
-                  onClick={() => router.push("/signup")}
-                  text="Sign Up"
-                ></CTAButton>
-              </div>
-            </div>
 
-            {/* <!-- Profile dropdown --> */}
-            {/* <div className="ml-3 relative">
-              {openSearch && (
-                <div className="mt-2 w-full left-0 top-0 rounded-md md:hidden">
-                  <div className="flex mt-2">
-                    <div className="flex items-center  rounded-lg border-[var(--bordersecondary)] border-[1px] py-1 px-2 justify-between">
-                      <div className="flex items-center gap-4">
-                        <BsSearch />
-                        <input
-                          placeholder="Search here..."
-                          type="text"
-                          className=" border-none outline-none text-[#9CA3AF] text-[14px] "
-                        />
-                      </div>
-
-                      <BsCommand />
-                    </div>
+                  {/* Mobile Auth Buttons */}
+                  <div className="pt-6 space-y-3 border-t border-gray-200">
+                    <button
+                      onClick={() => {
+                        router.push("/login");
+                        setIsOpen(false);
+                      }}
+                      className="block w-full text-center py-3 text-lg font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
+                    >
+                      Log In
+                    </button>
+                    <button
+                      onClick={() => {
+                        router.push("/signup");
+                        setIsOpen(false);
+                      }}
+                      className="block w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-medium transition-colors duration-200"
+                    >
+                      Sign Up
+                    </button>
                   </div>
                 </div>
-              )}
-            </div> */}
-          </div>
-
-          {/* Mobile menu for /home route */}
-          {isOpen && (
-            <div className={cn(
-              "fixed inset-0 z-50 bg-white",
-              isMenuRef ? "" : "mt-16"
-            )}>
-              <div className="p-4">
-                {isMenuRef ? (
-                  <div className="md:block lg:hidden">
-                    <div className="px-2 pt-2 pb-3 flex justify-center items-center flex-col">
-                      {navigation.map(({ href, title }) => (
-                        <a
-                          href={href}
-                          className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
-                          key={title}
-                        >
-                          {title}
-                        </a>
-                      ))}
-                      <div className="gap-4 w-full sm:hidden flex justify-center">
-                        <div className="mt-3 ml-2 flex items-center justify-between w-[210px] text-gray-600 text-base">
-                          <CTAButton
-                            onClick={() => router.push("/login")}
-                            text="Log In"
-                          ></CTAButton>
-                          <CTAButton
-                            onClick={() => router.push("/signup")}
-                            text="Sign Up"
-                          ></CTAButton>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div className="flex items-center gap-1 mt-5">
-                      <button
-                        onClick={() => {
-                          setIsMenuRef(false), onClose();
-                        }}
-                      >
-                        <FiChevronLeft className="text-3xl text-gray-600" />
-                      </button>
-                      <div className="border-b font-semibold">
-                        <button
-                          className="px-0 text-black mr-4 pb-2 border-b-2 border-transparent hover:border-black transition"
-                          onClick={() => handelSelectedValue("talent")}
-                        >
-                          Talent
-                        </button>
-                        <button
-                          className="px-0 text-black pb-2 border-b-2 border-transparent hover:border-black transition"
-                          onClick={() => handelSelectedValue("job")}
-                        >
-                          Jobs
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center border-[var(--bordersecondary)] border-[1px] py-2 pl-4 rounded-full justify-between w-full mt-4">
-                      <div className="flex items-center gap-4">
-                        <input
-                          placeholder="Search"
-                          type="text"
-                          className="border-none outline-none text-[13px] w-full"
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              handelSearch();
-                            }
-                          }}
-                          value={searchTerm}
-                        />
-                      </div>
-                      <p
-                        className="px-3 capitalize cursor-pointer flex items-center gap-2"
-                        onClick={() => {
-                          setSearchTerm("");
-                        }}
-                      >
-                        {searchTerm && <HiOutlineXCircle />}
-                      </p>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           )}
-
-          {/* <div className="md:hidden mt-2">
-            <button
-              onClick={() => {
-                setOpenSearch(!openSearch);
-              }}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div> */}
-        </div>
-      </div>
     </nav>
   );
 };
@@ -606,7 +465,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   }, [activeAgency]);
 
   return (
-    <nav className="bg-white w-full shadow-slate-700 border-b-[1px] items-center">
+    <nav className="bg-white w-full shadow-slate-700 items-center">
       <div className="w-[90%] mx-auto sm:py-1 justify-between max-w-[1200px]">
         <div className=" flex m-auto items-center md:justify-between justify-between h-16">
           <div className="inset-y-0 left-0 flex items-center sm:hidden">

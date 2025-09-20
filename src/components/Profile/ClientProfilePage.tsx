@@ -6,6 +6,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import ProfileContainer from "./ProfileContainer";
 import { BsLink45Deg } from "react-icons/bs";
 import {
+  Avatar,
   Box,
   Button,
   Slider,
@@ -15,6 +16,34 @@ import {
   Text,
   VStack,
 } from "@/components/ui/migration-helpers";
+
+// TypeScript interfaces
+interface ProfileState {
+  firstName: string;
+  lastName: string;
+  location: string;
+  profile_image: string;
+  briefDescription: string;
+  businessName: string;
+}
+
+interface FormData {
+  briefDescription: string;
+  businessName: string;
+}
+
+interface RootState {
+  profile: {
+    profile: ProfileState;
+  };
+  auth: {
+    role: string;
+  };
+}
+
+interface WorkHistoryItem {
+  [key: string]: any;
+}
 import ReviewCard from "./FreelancerProfile/FreelancerProfile/ReviewCard";
 
 import { getAllDetailsOfUser, uploadImage } from "../../helpers/APIs/userApis";
@@ -39,11 +68,11 @@ import ErrorMsg from "../utils/Error/ErrorMsg";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 import EditButton from "../Button/EditButton";
 
-export const ClientProfilePage = () => {
-  const profile = useSelector((state: any) => state.profile.profile);
-  const [workHistory, setWorkHistory] = useState([]);
+export const ClientProfilePage: React.FC = () => {
+  const profile = useSelector((state: RootState) => state.profile.profile);
+  const [workHistory, setWorkHistory] = useState<WorkHistoryItem[]>([]);
   const router = useRouter();
-  const role = useSelector((state: any) => state.auth.role);
+  const role = useSelector((state: RootState) => state.auth.role);
   const [isModal, setIsModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -62,13 +91,13 @@ export const ClientProfilePage = () => {
 
   // include drag and drop with photo cropping features
   const [fileName, setFileName] = useState("");
-  const [imageSrc, setImageSrc] = useState(null);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const [fullImage, setFullImage] = useState(null);
-  const [croppedImage, setCroppedImage] = useState(null);
+  const [fullImage, setFullImage] = useState<File[] | null>(null);
+  const [croppedImage, setCroppedImage] = useState<File[] | null>(null);
   const [isCropped, setIsCropped] = useState(false);
 
   const {
@@ -79,7 +108,7 @@ export const ClientProfilePage = () => {
     briefDescription,
     businessName,
   } = profile || {};
-  const [localTime, setLocalTime] = useState();
+  const [localTime, setLocalTime] = useState<string>();
 
   async function getCurrentTimeAndLocation() {
     try {
@@ -115,7 +144,7 @@ export const ClientProfilePage = () => {
     toast.success("Zeework Profile Copied.");
   };
 
-  const handleOpenModal = (type) => {
+  const handleOpenModal = (type: string) => {
     setModalType(type);
     setIsModal(true);
     setImageSrc(null);
@@ -140,7 +169,7 @@ export const ClientProfilePage = () => {
   };
 
   // Update client profile info
-  const handleUpdateProfile = async (data) => {
+  const handleUpdateProfile = async (data?: FormData) => {
     setIsLoading(true);
     let response;
     try {
@@ -172,7 +201,7 @@ export const ClientProfilePage = () => {
   };
 
   // handle photo drag 'n' drop with photo cropping
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     setFullImage(acceptedFiles);
     setFileName(acceptedFiles[0].name);
     setErrorMessage("");
@@ -192,7 +221,7 @@ export const ClientProfilePage = () => {
     multiple: false,
   });
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
@@ -229,6 +258,7 @@ export const ClientProfilePage = () => {
         <div className="w-full sm:w-[100%] flex flex-col gap-[24px] m-auto">
           <div className="w-full flex items-center justify-between border-2 py-[20px] px-[24px] border-[var(--primarycolor)] bg-green-50 rounded-xl max-sm:flex-col max-sm:gap-4">
             <div className="flex gap-[14px] items-center">
+              <div className="relative">
                 <div
                   style={{
                     top: "0px",
@@ -256,7 +286,7 @@ export const ClientProfilePage = () => {
                     onClick={() => handleOpenModal("Business Name")}
                   />
                 </div>
-                <div className="flex flex-row items-center className="text-[16px] text-[#374151] font-[400]">
+                <div className="flex flex-row items-center text-[16px] text-[#374151] font-[400]">
                   <CiLocationOn />{" "}
                   <p className="capitalize">
                     {" "}
@@ -286,12 +316,8 @@ export const ClientProfilePage = () => {
                 <p className="text-[20px] text-[#374151] font-[600]">
                   Client Stats
                 </p>
-                <div className="flex flex-col backgroundColor= h-[80px]"#f4f5f787"
-                 
-                  shadow="sm"
-                  className="justify-center"
-                >
-                  <span top="8rem" className="font-semibold text-center">
+                <div className="flex flex-col justify-center h-[80px] bg-gray-100 shadow-sm">
+                  <span className="font-semibold text-center">
                     Updated Client Stats <br /> Coming Soon
                   </span>
                 </div>
@@ -299,7 +325,7 @@ export const ClientProfilePage = () => {
             </div>
             <div className="flex-[2] flex flex-col gap-[24px]">
               <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] bg-white rounded-xl">
-                <div >
+                <div>
                   <div className="flex gap-[16px] justify-between">
                     <p className="text-[20px] text-[#374151] font-[600]">
                       Client Description
@@ -419,7 +445,7 @@ export const ClientProfilePage = () => {
                             min={1}
                             max={3}
                             step={0.1}
-                            onChange={(val) => {
+                            onChange={(val: number) => {
                               !isCropped && setZoom(val);
                             }}
                           >
@@ -452,8 +478,8 @@ export const ClientProfilePage = () => {
                             type="file"
                             {...getInputProps()}
                             style={{ display: "none" }}
-                            onChange={(e) => {
-                              const file = e.target.files[0];
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                              const file = e.target.files?.[0];
                               if (file) {
                                 setFileName(file.name);
                                 setFullImage([file]);
@@ -461,7 +487,7 @@ export const ClientProfilePage = () => {
                                 const reader = new FileReader();
                                 reader.readAsDataURL(file);
                                 reader.onload = () => {
-                                  setImageSrc(reader.result);
+                                  setImageSrc(reader.result as string);
                                 };
                               }
                             }}
@@ -507,14 +533,20 @@ export const ClientProfilePage = () => {
                 </div>
                 {imageSrc && (
                   <div className="text-right mt-10">
-                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                      isLoading={isLoading}
-                      loadingText="Uploading"
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-7 py-2 bg-blue-600 text-white disabled:opacity-50"
                       onClick={() => handleUpdateProfile()}
-                      paddingX={7}
-                      spinner={<BtnSpinner />}
                     >
-                      Upload
+                      {isLoading ? (
+                        <>
+                          <BtnSpinner />
+                          <span className="ml-2">Uploading</span>
+                        </>
+                      ) : (
+                        "Upload"
+                      )}
                     </button>
                   </div>
                 )}
@@ -532,7 +564,7 @@ export const ClientProfilePage = () => {
                   })}
                 />
                 {errors.businessName && (
-                  <ErrorMsg msg={errors.businessName.message} />
+                  <ErrorMsg msg={errors.businessName.message as string} />
                 )}
               </div>
             )}
@@ -540,15 +572,15 @@ export const ClientProfilePage = () => {
             {modalType === "Brief Description" && (
               <div>
                 <textarea
-                  type="text"
                   className="w-full p-1 outline-none text-[#000] font-[400] border border-[var(--bordersecondary)] rounded"
                   placeholder="Description..."
+                  rows={3}
                   {...register("briefDescription", {
                     required: "Please enter brief description!",
                   })}
                 ></textarea>
                 {errors.briefDescription && (
-                  <ErrorMsg msg={errors.briefDescription.message} />
+                  <ErrorMsg msg={errors.briefDescription.message as string} />
                 )}
               </div>
             )}
@@ -556,14 +588,19 @@ export const ClientProfilePage = () => {
             {/* On Submit Button */}
             {modalType !== "Profile Photo" && (
               <div className="text-right mt-5">
-                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isLoading={isLoading}
-                  loadingText="Updating"
+                <button
                   type="submit"
-                  paddingX={7}
-                  spinner={<BtnSpinner />}
+                  disabled={isLoading}
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-7 py-2 bg-blue-600 text-white disabled:opacity-50"
                 >
-                  Update
+                  {isLoading ? (
+                    <>
+                      <BtnSpinner />
+                      <span className="ml-2">Updating</span>
+                    </>
+                  ) : (
+                    "Update"
+                  )}
                 </button>
               </div>
             )}

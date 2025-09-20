@@ -53,17 +53,11 @@ const EarningsOverview = ({ balance, isLoading }) => {
       {isLoading ? (
         <HorizontalCardSkeleton />
       ) : (
-        <div className="flex flex-row items-center className="max-md:!flex-col justify-between">
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-            className="max-md:!w-full"
-            onClick={() = className="flex flex-col className= cursor-pointer"> onClick({ theme: "in-progress" })}
+        <div className="flex flex-row items-center max-md:!flex-col justify-between">
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer max-md:!w-full"
+            style={{ backgroundColor: "#ffff" }}
+            onClick={() => onClick({ theme: "in-progress" })}
           >
             <p className="font-semibold text-4xl">
               ${balance?.progress?.toFixed(2) || "0.00"}
@@ -71,16 +65,10 @@ const EarningsOverview = ({ balance, isLoading }) => {
             <p className="text-lg capitalize">Work In Progress</p>
           </div>
 
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-            className="max-md:!w-full"
-            onClick={() = className="flex flex-col className= cursor-pointer"> onClick({ theme: "in-review" })}
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer max-md:!w-full"
+            style={{ backgroundColor: "#ffff" }}
+            onClick={() => onClick({ theme: "in-review" })}
           >
             <p className="font-semibold text-4xl">
               ${balance?.review?.toFixed(2) || "0.00"}
@@ -88,16 +76,10 @@ const EarningsOverview = ({ balance, isLoading }) => {
             <p className="text-xl capitalize">Work In review</p>
           </div>
 
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-            className="max-md:!w-full"
-            onClick={() = className="flex flex-col className= cursor-pointer"> onClick({ theme: "in-progress" })}
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer max-md:!w-full"
+            style={{ backgroundColor: "#ffff" }}
+            onClick={() => onClick({ theme: "in-progress" })}
           >
             <p className="font-semibold text-4xl">
               ${balance?.pending?.toFixed(2) || "0.00"}
@@ -105,15 +87,10 @@ const EarningsOverview = ({ balance, isLoading }) => {
             <p className="text-lg capitalize">Processing</p>
           </div>
 
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff" className="rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-            className="max-md:!w-full"
-            onClick={() = className="flex flex-col className= cursor-pointer"> onClick({ theme: "available" })}
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer max-md:!w-full"
+            style={{ backgroundColor: "#ffff" }}
+            onClick={() => onClick({ theme: "available" })}
           >
             <p className="font-semibold text-4xl">
               ${truncateToTwoDecimals(activeagency ? balance?.available : availableBalance)}

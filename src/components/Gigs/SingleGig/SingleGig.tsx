@@ -136,15 +136,19 @@ const SingleGig = ({ gig, getAllGigs }) => {
               >
                 No, Keep it.
               </button>
-              <Button
-                
+              <button
                 onClick={() => handleDelete("delete")}
-                loadingText="Deleting"
-                className="w-full px-5 py-1 justify-center bg-green-500 hover:bg-green-600 transition rounded-md text-white"
-                isLoading={isLoading}
-                spinner={<BtnSpinner />}
+                disabled={isLoading}
+                className="w-full px-5 py-1 justify-center bg-green-500 hover:bg-green-600 transition rounded-md text-white disabled:opacity-50"
               >
-                Yes, Delete!
+                {isLoading ? (
+                  <>
+                    <BtnSpinner />
+                    <span className="ml-2">Deleting</span>
+                  </>
+                ) : (
+                  "Yes, Delete!"
+                )}
               </button>
             </div>
           </div>

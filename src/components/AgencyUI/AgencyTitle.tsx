@@ -1,57 +1,55 @@
 "use client";
 
-import React, { useState } from "react";
-
+import React, { useState, ReactNode } from "react";
 import { RiEdit2Fill } from "react-icons/ri";
 import { FiPlus } from "react-icons/fi";
 // import { AgencyUpdatedModal } from "./ProfileUpdated";
 
-const AgencyTitle = ({
+interface AgencyTitleProps {
+  children: ReactNode;
+  isValue?: boolean;
+  data?: []; // Replace `any` with a proper type once you know the shape
+  setAgency?: (value: []) => void; // Replace `any` with the right type
+  noAdded?: boolean;
+  isSmall?: boolean;
+}
+
+const AgencyTitle: React.FC<AgencyTitleProps> = ({
   children,
-  isValue,
+  isValue = false,
   data,
   setAgency,
-  noAdded,
-  isSmall,
+  noAdded = false,
+  isSmall = false,
 }) => {
   const [isModal, setIsModal] = useState(false);
 
   return (
     <>
-      <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
-        <span : "1.3rem"
-          }
-         className="mb-[0] font-semibold">
+      <div className="flex flex-row items-center mt-4 mb-2">
+        <span className={`font-semibold ${isSmall ? "text-sm" : "text-lg"}`}>
           {children}
         </span>
+
         {isValue && (
-          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
-            transition="0.6s ease-in-out"
-            _hover={{
-              border: "2px solid var(--primarycolor)",
-              backgroundColor: "transparent",
-              color: "var(--primarycolor)",
-            }}
+          <div
+            className="flex items-center justify-center w-5 h-5 ml-2 transition duration-200 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
             onClick={() => setIsModal(true)}
           >
-            <RiEdit2Fill />
+            <RiEdit2Fill size={14} />
           </div>
         )}
-        {noAdded ||
-          (!isValue && (
-            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
-              transition="0.6s ease-in-out"
-              _hover={{
-                border: "2px solid var(--primarycolor)",
-                backgroundColor: "transparent",
-                color: "var(--primarycolor)",
-              }}
-              onClick={() => setIsModal(true)}
-            >
-              <FiPlus />
-            </div>
-          ))}
+
+        {!isValue && noAdded && (
+          <div
+            className="flex items-center justify-center ml-2 transition duration-200 border rounded cursor-pointer h-7 w-7 hover:border-primary hover:bg-transparent hover:text-primary"
+            onClick={() => setIsModal(true)}
+          >
+            <FiPlus size={16} />
+          </div>
+        )}
       </div>
+
       {/* {isModal && (
         <AgencyUpdatedModal
           isModal={isModal}

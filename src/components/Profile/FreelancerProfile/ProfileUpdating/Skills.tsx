@@ -14,11 +14,34 @@ import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { getSkills } from "../../../../helpers/APIs/freelancerApis";
 import { skillsSchema } from "../../../../schemas/freelancer-profile-schema";
 
-const Skills = ({ setIsModal }) => {
-  const userProfileInfo = useSelector((state: any) => state.profile.profile);
+// TypeScript interfaces
+interface SkillsProps {
+  setIsModal: (isOpen: boolean) => void;
+}
+
+interface SkillOption {
+  label: string;
+  value: string;
+}
+
+interface FormData {
+  skills: SkillOption[];
+}
+
+interface RootState {
+  profile: {
+    profile: {
+      categories: any[];
+      skills: string[];
+    };
+  };
+}
+
+const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
+  const userProfileInfo = useSelector((state: RootState) => state.profile.profile);
   const [isLoading, setIsLoading] = useState(false);
   const animatedComponents = makeAnimated();
-  const [options, setOptions] = useState(null);
+  const [options, setOptions] = useState<SkillOption[] | null>(null);
   const [optionsLoading, setOptionsLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -36,7 +59,7 @@ const Skills = ({ setIsModal }) => {
   });
 
   // Get skills of profile categories
-  const getCategorySkills = async (categoryIds) => {
+  const getCategorySkills = async (categoryIds: any[]) => {
     try {
       if (!categoryIds) {
         console.error("No category IDs provided.");
@@ -84,7 +107,7 @@ const Skills = ({ setIsModal }) => {
     }
   }, [userProfileInfo]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
       const selectedCategories = data.skills.map((skill) => skill.value);
@@ -143,13 +166,19 @@ const Skills = ({ setIsModal }) => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <Button
-              isLoading={isLoading}
-              loadingText="Updating"
+            <button
+              disabled={isLoading}
               type="submit"
-              spinner={<BtnSpinner />}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
             >
-              Update
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">Updating</span>
+                </>
+              ) : (
+                "Update"
+              )}
             </button>
           </div>
         </form>

@@ -16,8 +16,31 @@ import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { profileData } from "../../../../redux/authSlice/profileSlice";
 import { basicInfoSchema } from "../../../../schemas/freelancer-profile-schema";
 
-const BasicInfo = ({ setIsModal }) => {
-  const existProfile = useSelector((state: any) => state.profile.profile);
+// TypeScript interfaces
+interface BasicInfoProps {
+  setIsModal: (isOpen: boolean) => void;
+}
+
+interface ProfileState {
+  professional_role: string;
+  hourly_rate: number;
+  description: string;
+}
+
+interface RootState {
+  profile: {
+    profile: ProfileState;
+  };
+}
+
+interface FormData {
+  professional_role: string;
+  hourly_rate: string;
+  description: string;
+}
+
+const BasicInfo: React.FC<BasicInfoProps> = ({ setIsModal }) => {
+  const existProfile = useSelector((state: RootState) => state.profile.profile);
   const { professional_role, hourly_rate, description } = existProfile || {};
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -40,12 +63,12 @@ const BasicInfo = ({ setIsModal }) => {
   useEffect(() => {
     if (existProfile) {
       setValue("professional_role", professional_role);
-      setValue("hourly_rate", hourly_rate);
+      setValue("hourly_rate", Number(hourly_rate) || 0);
       setValue("description", description);
     }
   }, [existProfile, setValue]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
       const response = await updateFreelancerProfile({
@@ -68,7 +91,7 @@ const BasicInfo = ({ setIsModal }) => {
     }
   };
 
-  const removeTrailingEmptyTags = (html) => {
+  const removeTrailingEmptyTags = (html: string) => {
     const cleanedHtml = html.replace(
       /(<p(?: class="ql-align-justify")?\s*>\s*<br\s*\/?>\s*<\/p>\s*)+$/,
       ""
@@ -140,13 +163,19 @@ const BasicInfo = ({ setIsModal }) => {
           </div>
         </div>
         <div className="flex items-center justify-end gap-2 pt-5 w-full">
-          <Button
-            isLoading={isLoading}
-            loadingText="Updating"
+          <button
+            disabled={isLoading}
             type="submit"
-            spinner={<BtnSpinner />}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
           >
-            Update Info
+            {isLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Updating</span>
+              </>
+            ) : (
+              "Update Info"
+            )}
           </button>
         </div>
       </form>

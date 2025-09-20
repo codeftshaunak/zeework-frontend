@@ -129,9 +129,8 @@ const PurchasedGigDetails = () => {
                 To increase your earnings accept the purchase offer
               </p>
               <div className="grid gap-5 mt-5">
-                <Button
-                  spinner={<BtnSpinner />}
-                  isDisabled={
+                <button
+                  disabled={
                     gigInfo?.status === "reject" ||
                     gigInfo?.status === "accept" ||
                     resLoading
@@ -139,17 +138,18 @@ const PurchasedGigDetails = () => {
                   onClick={() => {
                     setModalType("accept"), setIsModal(true);
                   }}
+                  className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition disabled:opacity-50"
                 >
                   {gigInfo?.status === "accept"
                     ? "Offer Accepted"
                     : "Accept Offer"}
                 </button>
-                <Button
-                  spinner={<BtnSpinner />}
-                  isDisabled={gigInfo?.status === "reject" || resLoading}
+                <button
+                  disabled={gigInfo?.status === "reject" || resLoading}
                   onClick={() => {
                     setModalType("reject"), setIsModal(true);
                   }}
+                  className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition disabled:opacity-50"
                 >
                   {gigInfo?.status === "reject"
                     ? "Offer Declined"
@@ -221,20 +221,28 @@ const PurchasedGigDetails = () => {
           Are you sure you want to {modalType}?
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-          <Button
-            onClick={() = className="w-full"> {
+          <button
+            onClick={() => {
               setIsModal(false), setModalType("");
             }}
-            isDisabled={resLoading}
+            disabled={resLoading}
+            className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
           >
             No, I don&apos;t want
           </button>
-          <Button
-            isLoading={resLoading}
-            spinner={<BtnSpinner />}
+          <button
+            disabled={resLoading}
             onClick={() => handleGigPurchasesRequest(modalType)}
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Yes, I want to {modalType}
+            {resLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Yes, I want to {modalType}</span>
+              </>
+            ) : (
+              `Yes, I want to ${modalType}`
+            )}
           </button>
         </div>
       </UniversalModal>

@@ -27,16 +27,12 @@ const AgencyMembers = () => {
   return (
     <div className="w-full mt-5" id="agencyMember">
       <div className="full">
-        <div className="flex flex-row items-center> <span} className="mb-[0px] font-semibold">
+        <div className="flex flex-row items-center">
+          <span className="mb-[0px] font-semibold">
             Your Agency Members
           </span>
-          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
-            transition="0.6s ease-in-out"
-            _hover={{
-              border: "2px solid var(--primarycolor)",
-              backgroundColor: "transparent",
-              color: "var(--primarycolor)",
-            }}
+          <div
+            className="flex flex-col cursor-pointer rounded w-[30px] border h-[30px] items-center justify-center ml-2 hover:border-[var(--primarycolor)] hover:bg-transparent hover:text-[var(--primarycolor)] transition-all duration-300"
             onClick={() => router.push("/search-freelancers")}
           >
             <FiPlus />

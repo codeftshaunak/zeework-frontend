@@ -20,10 +20,44 @@ import {
 import Select from "react-select";
 import { experienceSchema } from "../../../../schemas/freelancer-profile-schema";
 
-const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
+// TypeScript interfaces
+interface ExperienceProps {
+  type: string;
+  defaultValue: any;
+  setIsModal: (isOpen: boolean) => void;
+  setDefaultValue: (value: any) => void;
+}
+
+interface ExperienceFormData {
+  company_name: string;
+  start_date: string;
+  end_date: string;
+  position: string;
+  job_location: string;
+  job_description: string;
+}
+
+interface Country {
+  _id: string;
+  name: string;
+  label: string;
+  value: string;
+}
+
+interface ProfileState {
+  experience: any[];
+}
+
+interface RootState {
+  profile: {
+    profile: ProfileState;
+  };
+}
+
+const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const existProfile = useSelector((state: any) => state.profile.profile);
-  const [countries, setCountries] = useState([]);
+  const existProfile = useSelector((state: RootState) => state.profile.profile);
+  const [countries, setCountries] = useState<Country[]>([]);
   const [countryLoading, setCountryLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -59,7 +93,7 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
     setCountryLoading(false);
   };
 
-  const formatDate = (date) => {
+  const formatDate = (date: string | Date) => {
     if (!date) return null;
     const d = new Date(date);
     const month = `${d.getMonth() + 1}`.padStart(2, "0");
@@ -68,7 +102,7 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   };
 
   // Update new information
-  const profileDispatch = (data) => {
+  const profileDispatch = (data: any) => {
     if (type === "Add Experience") {
       dispatch(profileData({ profile: data }));
     } else {
@@ -92,7 +126,7 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   };
 
   // Add or Updating the experience
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ExperienceFormData) => {
     setIsLoading(true);
 
     // Format dates to 'YYYY-MM-DD' before sending
@@ -302,14 +336,19 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full border-t-[#F3F4F6]">
-            <Button
-              isLoading={isLoading}
-              loadingText={type === "Add Experience" ? "Adding" : "Updating"}
+            <button
+              disabled={isLoading}
               type="submit"
-              spinner={<BtnSpinner />}
-              paddingX={8}
+              className="px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
             >
-              {type === "Add Experience" ? "Add" : "Update"}
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">{type === "Add Experience" ? "Adding" : "Updating"}</span>
+                </>
+              ) : (
+                type === "Add Experience" ? "Add" : "Update"
+              )}
             </button>
           </div>
         </form>
@@ -326,19 +365,25 @@ const Experience = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
           </p>
 
           <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-            <Button
+            <button
               onClick={() => setIsModal(false)}
+              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
             >
               No, cancel
             </button>
-            <Button
-              isLoading={isLoading}
-              loadingText="Deleting.."
-              spinner={<BtnSpinner />}
+            <button
+              disabled={isLoading}
               onClick={handleDelete}
-              className="w-full"
+              className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
             >
-              Yes, delete it
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">Deleting..</span>
+                </>
+              ) : (
+                "Yes, delete it"
+              )}
             </button>
           </div>
         </div>

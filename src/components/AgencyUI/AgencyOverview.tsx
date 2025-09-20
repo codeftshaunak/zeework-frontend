@@ -60,18 +60,12 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
   return (
     <>
       <div>
-        <div className="flex flex-row items-center className="mb-[0.5rem] mt-[1rem]">
-          <span}
-           className="mb-[0] font-semibold">
+        <div className="flex flex-row items-center mb-[0.5rem] mt-[1rem]">
+          <span className="mb-[0] font-semibold">
             Overview
           </span>
-          <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[20px] border h-[20px] items-center justify-center"
-            transition="0.6s ease-in-out"
-            _hover={{
-              border: "2px solid var(--primarycolor)",
-              backgroundColor: "transparent",
-              color: "var(--primarycolor)",
-            }}
+          <div
+            className="flex flex-col cursor-pointer rounded w-[20px] border h-[20px] items-center justify-center transition-all duration-300 hover:border-2 hover:border-green-500 hover:bg-transparent hover:text-green-500"
             onClick={() => {
               reset({ agency_overview: overviewValue });
               setIsModal(true);

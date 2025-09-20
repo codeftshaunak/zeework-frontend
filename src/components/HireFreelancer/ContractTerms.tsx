@@ -55,7 +55,7 @@ const ContractTerms = ({ formData, setFormData, loading }) => {
         pey for the work you
       </p> */}
       <div className="mt-5">
-        <div className="flex className="items-center">
+        <div className="flex items-center">
           Payment Option <FaQuestionCircle className="cursor-pointer" />
         </div>
 

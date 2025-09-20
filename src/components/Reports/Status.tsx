@@ -87,46 +87,31 @@ const Status = () => {
       {isLoading ? (
         <HorizontalCardSkeleton />
       ) : (
-        <div className="flex flex-row items-center className="justify-between">
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-           className="flex flex-col className= cursor-pointer">
+        <div className="flex flex-row items-center justify-between">
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer"
+            style={{ backgroundColor: "#ffff" }}
+          >
             <p className="font-semibold text-4xl">
               ${balance?.progress?.toFixed(2)}
             </p>
             <p className="text-lg capitalize">Work In Progress</p>
           </div>
 
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-           className="flex flex-col className= cursor-pointer">
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer"
+            style={{ backgroundColor: "#ffff" }}
+          >
             <p className="font-semibold text-4xl">
               ${balance?.review?.toFixed(2)}
             </p>
             <p className="text-xl capitalize">In review</p>
           </div>
 
-          <divw-[400px] h-[10rem]"
-            backgroundColor="#ffff"
-            className="border rounded items-center justify-center"
-           
-            _hover={{
-              border: "1px solid var(--primarycolor)",
-              transition: "0.3s ease-in-out",
-            }}
-           className="flex flex-col className= cursor-pointer">
+          <div
+            className="w-[400px] h-[10rem] border rounded items-center justify-center flex flex-col cursor-pointer"
+            style={{ backgroundColor: "#ffff" }}
+          >
             <p className="font-semibold text-4xl">
               ${balance?.available?.toFixed(2)}
             </p>
@@ -219,7 +204,7 @@ const Status = () => {
       </div>
 
       <h2 className="mt-10 mb-8 text-[25px] font-semibold">General Stats</h2>
-      <div className="flex flex-row items-center justify="space-between">
+      <div className="flex flex-row items-center justify-between">
         {isLoading ? (
           <HorizontalCardSkeleton />
         ) : (
@@ -252,11 +237,11 @@ export const OthersPayment = () => {
         Further Information
       </h2>
       <div className="relative h-[25rem] border">
-        <div className="flex flex-row items-center spacing= h-[100%]"4">
+        <div className="flex flex-row items-center gap-4 h-[100%]">
           {data.map((data) => (
             <Card
               key={data.id}
-              backgroundColor="#F0FDF4"
+              style={{ backgroundColor: "#F0FDF4" }}
             >
               <p className="font-semibold text-4xl mb-2">{data.number}</p>
               <p className="font-semibold text-lg capitalize">{data.title}</p>
@@ -277,7 +262,7 @@ export const OthersPayment = () => {
          
          
          className="absolute">
-          <div className="flex flex-col spacing= w-[700px]"4">
+          <div className="flex flex-col gap-4 w-[700px]">
             <img src="./images/zeework_logo.png" />
             <span>
               Welcome to ZeeWork!
@@ -291,13 +276,9 @@ export const OthersPayment = () => {
               purposes or otherwise, please feel free to ping our support
               department for a swift response.
             </span>
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
-              backgroundColor={"var(--primarycolor)"}
-              _hover={{
-                color: "var(--primarytext)",
-                backgroundColor: "var(--secondarycolor)",
-                border: "1px solid var(--primarytextcolor)",
-              }}
+            <button
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
+              style={{ backgroundColor: "var(--primarycolor)" }}
             >
               Get In Touch
             </button>

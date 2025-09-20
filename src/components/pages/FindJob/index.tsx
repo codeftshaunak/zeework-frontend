@@ -19,15 +19,12 @@ export const FindJob = () => {
     } else {
       router.push("/login");
     }
-  }, [role, navigate]);
+  }, [role, router]);
 
   return (
     <HomeLayout>
       {role == 1 && (
-        <div className="flex flex-col className= w-full justify-center"p-[0]"
-         
-         
-        >
+        <div className="flex flex-col w-full justify-center p-0">
           <AllJobs />
         </div>
       )}
@@ -40,7 +37,7 @@ export const SearchPage = () => {
 
   return (
     <HomeLayout>
-      <div className="flex flex-col className="p-[0] w-full">
+      <div className="flex flex-col p-0 w-full">
         <SearchJobPage isFreelancer={!!role === 1} />
       </div>
     </HomeLayout>

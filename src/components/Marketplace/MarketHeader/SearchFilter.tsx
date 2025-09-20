@@ -119,8 +119,8 @@ export const SearchFilter = ({
 
   return (
     <div className="w-full lg:w-[450px] bg-white px-7 py-5 rounded-2xl border border-[var(--bordersecondary)]">
-      <div className="flex flex-row items-center className="justify-between">
-        <span paddingBottom="0rem" className="text-2xl font-medium">
+      <div className="flex flex-row items-center justify-between">
+        <span className="text-2xl font-medium pb-0">
           Filters
         </span>
 
@@ -134,7 +134,7 @@ export const SearchFilter = ({
         />
       </div>
       {!routeCategory && (
-        <divitems-flex-start" className="mt-[10px] flex flex-col className= w-full">
+        <div className="mt-[10px] flex flex-col items-start w-full">
           <span className="font-semibold">
             Category
           </span>
@@ -149,7 +149,7 @@ export const SearchFilter = ({
           />
         </div>
       )}
-      <divitems-flex-start" className="mt-[10px] flex flex-col className= w-full">
+      <div className="mt-[10px] flex flex-col items-start w-full">
         <span className="font-semibold">
           Technology
         </span>
@@ -165,24 +165,21 @@ export const SearchFilter = ({
           isLoading={isLoading}
         />
       </div>
-      <div className="flex flex-col className="items-flex-start justify-flex-start"
-        marginTop={5}
+      <div className="flex flex-col items-start justify-start mt-5"
       >
         <span className="font-semibold">
           Price Range
         </span>
-        <div className="flex flex-col className="items-flex-start max-lg:!flex-row gap-4 max-[540px]:!flex-col"
+        <div className="flex flex-col items-start max-lg:!flex-row gap-4 max-[540px]:!flex-col"
         >
           <div className="min-w-max flex flex-col">
-            <divitems-flex-start justify-flex-start"
-              marginLeft={5}
-             className="flex flex-col className= w-full">
+            <div className="flex flex-col items-start justify-start ml-5 w-full">
               <RadioGroup.Root
                 colorScheme="primary"
                 value={selectedPrice}
                 onValueChange={(value) => setSelectedPrice(value)}
               >
-                <div className="flex spacing={2} direction="column">
+                <div className="flex flex-col gap-2">
                   <RadioGroup.Item value="">
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />

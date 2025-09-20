@@ -30,6 +30,49 @@ import {
 import { agencyData } from "../../redux/authSlice/profileSlice";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
+// TypeScript interfaces
+interface ProjectInfo {
+  project_name: string;
+  project_images: string[];
+  project_description: string;
+  technologies: string[];
+  _id: string;
+}
+
+interface SkillOption {
+  label: string;
+  value: string;
+}
+
+interface ImageFile {
+  file?: File;
+  preview: string;
+}
+
+interface FormData {
+  project_name: string;
+  project_description: string;
+  technologies: SkillOption[];
+  project_images: ImageFile[];
+}
+
+interface ProjectCardProps {
+  info: ProjectInfo;
+  setIsDeleteAgencyId: (id: string) => void;
+  isPrivate: boolean;
+  skills: any;
+}
+
+interface RootState {
+  profile: {
+    agency: {
+      agency_services: {
+        category: Array<{ _id: string }>;
+      };
+    };
+  };
+}
+
 const validationSchema = Yup.object().shape({
   project_name: Yup.string().required("Project Name is required"),
   project_description: Yup.string().required("Project Description is required"),
@@ -39,7 +82,7 @@ const validationSchema = Yup.object().shape({
     .required("Image is required"),
 });
 
-const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
   const {
     project_name,
     project_images,
@@ -53,9 +96,9 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [skillList, setSkillList] = useState([]);
+  const [skillList, setSkillList] = useState<SkillOption[]>([]);
   const agency_services = useSelector(
-    (state) => state.profile.agency.agency_services
+    (state: RootState) => state.profile.agency.agency_services
   );
 
   const dispatch = useDispatch();
@@ -91,7 +134,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
     setShowFullDescription(!showFullDescription);
   };
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files);
     const newImages = [
       ...selectedImages,
@@ -101,7 +144,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
     setValue("project_images", newImages, { shouldValidate: true });
   };
 
-  const handleImageDelete = (index) => {
+  const handleImageDelete = (index: number) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
     setValue("project_images", updatedImages, {
@@ -133,7 +176,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
       const imagesUrl = await uploadImages();
@@ -163,18 +206,19 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
 
   const getAllSkills = async () => {
     try {
-      const skillsPromises = agency_services?.category?.map((c) =>
+      const skillsPromises = agency_services?.category?.map((c: { _id: string }) =>
         getSkills(c._id)
       );
       const skillsResponses = await Promise.all(skillsPromises);
-      const skills = skillsResponses?.flatMap(({ code, body }) => {
+      const skills = skillsResponses?.flatMap(({ code, body }: any) => {
         if (code === 200) {
-          return body?.map((item) => ({
+          return body?.map((item: any) => ({
             label: item.skill_name,
             value: item.skill_name,
           }));
         }
-      });
+        return [];
+      }).filter(Boolean);
 
       setSkillList(skills);
     } catch (error) {
@@ -200,41 +244,21 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
             className="h-40 sm:h-48 w-full bg-cover object-cover rounded-md"
           />
           {isHover && (
-            <Box
-              transition="0.6s ease-in-out"
-              className="h-40 sm:h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300"
-            >
-              <HStack
-                transform={"translate(-50%, -50%)"}
-                top="50%"
-                left="50%"
-               className="absolute">
-                <VStack
-                  backgroundColor="white"
-                  w="40px"
-                  className="items-center justify-center rounded cursor-pointer"
-                  transition="0.6s ease-in-out"
-                  _hover={{
-                    border: "2px solid var(--primarycolor)",
-                    color: "var(--primarycolor)",
-                  }}
+            <div className="h-40 sm:h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-2">
+                <div
+                  className="w-10 h-10 bg-white flex items-center justify-center rounded cursor-pointer hover:border-2 hover:border-[var(--primarycolor)] hover:text-[var(--primarycolor)] transition-all duration-300"
                   onClick={() => {
-                    setModalType("details"), setIsModal(true);
+                    setModalType("details");
+                    setIsModal(true);
                   }}
                 >
                   <RiInformationFill />
-                </VStack>
+                </div>
                 {!isPrivate && (
                   <>
-                    <VStack
-                      backgroundColor="white"
-                      w="40px"
-                      className="items-center justify-center rounded cursor-pointer"
-                      transition="0.6s ease-in-out"
-                      _hover={{
-                        border: "2px solid var(--primarycolor)",
-                        color: "var(--primarycolor)",
-                      }}
+                    <div
+                      className="w-10 h-10 bg-white flex items-center justify-center rounded cursor-pointer hover:border-2 hover:border-[var(--primarycolor)] hover:text-[var(--primarycolor)] transition-all duration-300"
                       onClick={() => {
                         reset({
                           project_name: project_name || "",
@@ -246,30 +270,23 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                             })) || [],
                           project_images:
                             project_images?.map((i) => ({ preview: i })) || [],
-                        }),
-                          setModalType("update"),
-                          setIsModal(true);
+                        });
+                        setModalType("update");
+                        setIsModal(true);
                       }}
                     >
                       <RiEdit2Fill />
-                    </VStack>
-                    <VStack
-                      backgroundColor="white"
-                      w="40px"
-                      className="items-center justify-center rounded cursor-pointer"
-                      transition="0.6s ease-in-out"
-                      _hover={{
-                        border: "2px solid var(--primarycolor)",
-                        color: "var(--primarycolor)",
-                      }}
+                    </div>
+                    <div
+                      className="w-10 h-10 bg-white flex items-center justify-center rounded cursor-pointer hover:border-2 hover:border-[var(--primarycolor)] hover:text-[var(--primarycolor)] transition-all duration-300"
                       onClick={() => setIsDeleteAgencyId(_id)}
                     >
                       <RiDeleteBin2Fill />
-                    </VStack>
+                    </div>
                   </>
                 )}
-              </HStack>
-            </Box>
+              </div>
+            </div>
           )}
         </div>
         <h4 className="text-lg sm:text-xl font-semibold capitalize text-gray-800 mt-1 sm:h-12">
@@ -288,8 +305,8 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
             {project_name}
           </p>
           <div
-            onScroll={(e) => {
-              setIsScrolled(e.target.scrollTop !== 0);
+            onScroll={(e: React.UIEvent<HTMLDivElement>) => {
+              setIsScrolled((e.target as HTMLDivElement).scrollTop !== 0);
             }}
             className={`overflow-y-scroll h-[600px] bg-white}`}
             style={{
@@ -399,7 +416,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                       {...register("project_name")}
                     />
                     {errors.project_name && (
-                      <ErrorMsg msg={errors.project_name.message} />
+                      <ErrorMsg msg={errors.project_name.message as string} />
                     )}
                   </div>
                   <br />
@@ -418,7 +435,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                     />
                     {errors.project_description && (
                       <ErrorMsg
-                        msg={errors.project_description.message}
+                        msg={errors.project_description.message as string}
                         className="-mt-1"
                       />
                     )}
@@ -445,7 +462,7 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                       )}
                     />
                     {errors.technologies && (
-                      <ErrorMsg msg={errors.technologies.message} />
+                      <ErrorMsg msg={errors.technologies.message as string} />
                     )}
                   </div>
                 </div>
@@ -514,19 +531,25 @@ const ProjectCard = ({ info, setIsDeleteAgencyId, isPrivate, skills }) => {
                     </div>
                   </div>
                   {errors.project_images && (
-                    <ErrorMsg msg={errors.project_images.message} />
+                    <ErrorMsg msg={errors.project_images.message as string} />
                   )}
                 </div>
               </div>
             </div>
             <div className="text-right mt-10">
-              <Button
-                isLoading={isLoading}
-                loadingText="Submit"
+              <button
+                disabled={isLoading}
                 type="submit"
-                spinner={<BtnSpinner />}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
               >
-                Submit
+                {isLoading ? (
+                  <>
+                    <BtnSpinner />
+                    <span className="ml-2">Submit</span>
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
           </form>

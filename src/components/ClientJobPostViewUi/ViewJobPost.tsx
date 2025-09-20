@@ -219,18 +219,25 @@ const ViewJobPost = () => {
             </p>
 
             <div className="flex gap-5 mt-5">
-              <Button
+              <button
                 onClick={() => setIsModalType(null)}
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
               >
                 Cancel
               </button>
-              <Button
-                isLoading={isLoading}
-                loadingText=" Yes, I want to Delete"
-                spinner={<BtnSpinner />}
+              <button
+                disabled={isLoading}
                 onClick={handleDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition disabled:opacity-50"
               >
-                Proceed
+                {isLoading ? (
+                  <>
+                    <BtnSpinner />
+                    <span className="ml-2">Yes, I want to Delete</span>
+                  </>
+                ) : (
+                  "Proceed"
+                )}
               </button>
             </div>
           </div>
@@ -242,22 +249,29 @@ const ViewJobPost = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 mt-8 sm:mt-20">
-              <Button
-                onClick={() = className="w-full"> setIsModalType(null)}
+              <button
+                onClick={() => setIsModalType(null)}
+                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
               >
                 No, I don&apos;t want to Update
               </button>
-              <Button
-                isLoading={isLoading}
-                loadingText=" Yes, I want to Update"
-                spinner={<BtnSpinner />}
+              <button
+                disabled={isLoading}
                 onClick={() =>
                   router.push(`/client-job-update/${_id}`, {
                     state: { jobDetails: jobDetails },
                   })
                 }
+                className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
               >
-                Yes, I want to Update
+                {isLoading ? (
+                  <>
+                    <BtnSpinner />
+                    <span className="ml-2">Yes, I want to Update</span>
+                  </>
+                ) : (
+                  "Yes, I want to Update"
+                )}
               </button>
             </div>
           </>

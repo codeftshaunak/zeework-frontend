@@ -74,6 +74,10 @@ interface FilterProps {
   handleResetFilters: () => void;
 }
 
+export { default as ModernAllJobs } from "./ModernAllJobs";
+export { default as ModernSearchPage } from "./ModernSearchPage";
+export { default as ModernJobCard } from "./ModernJobCard";
+
 export const AllJobs = () => {
   const jobs = useSelector((state: any) => state.pages.findWork.jobsList);
   const latestJobs = jobs?.slice(0, 4);

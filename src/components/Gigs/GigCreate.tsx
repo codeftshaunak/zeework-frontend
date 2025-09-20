@@ -347,30 +347,35 @@ export const GigCreateLayout = ({
 }) => {
   return (
     <div className="sm:w-full lg:w-[60%]">
-      <Text}
-       className="text-left font-semibold">
+      <div className="text-left font-semibold text-lg">
         {title}
-      </Text>
+      </div>
       <br />
       <div className="w-full flex flex-col gap-5">{children}</div>
-      <HStack marginTop={10}>
-        <Button
-          marginRight={5}
+      <div className="mt-10 flex gap-4">
+        <button
           onClick={onBackward}
-          isDisabled={isLoading}
+          disabled={isLoading}
+          className="mr-5 px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
         >
           {backwardBtnText}
         </button>
-        <Button
-          isLoading={isLoading}
-          loadingText={forwardBtnText}
+        <button
+          disabled={isLoading}
           type="submit"
-          spinner={<BtnSpinner />}
           onClick={onForward}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
         >
-          {forwardBtnText}
+          {isLoading ? (
+            <>
+              <BtnSpinner />
+              <span className="ml-2">{forwardBtnText}</span>
+            </>
+          ) : (
+            forwardBtnText
+          )}
         </button>
-      </HStack>
+      </div>
     </div>
   );
 };

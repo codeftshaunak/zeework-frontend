@@ -22,7 +22,7 @@ import SingleGigSkeleton from "../Skeletons/SingleGigSkeleton";
 const GigStatus = () => {
   const [approvedGigs, setApprovedGigs] = useState([]);
   const [pendingGigs, setPendingGigs] = useState([]);
-  const [active setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllGigs = async () => {
@@ -57,8 +57,8 @@ const GigStatus = () => {
       onChange={(index) => setActiveTab(index)}
     >
       <Tabs.List>
-        <Tab>Approve ({approvedGigs?.length || 0})</Tabs.Trigger>
-        <Tab>Under Review ({pendingGigs?.length || 0})</Tabs.Trigger>
+        <Tabs.Trigger>Approve ({approvedGigs?.length || 0})</Tabs.Trigger>
+        <Tabs.Trigger>Under Review ({pendingGigs?.length || 0})</Tabs.Trigger>
       </Tabs.List>
       <Tabs.Indicator
         className="bg-fg-brand"
@@ -66,10 +66,7 @@ const GigStatus = () => {
       <SmoothMotion key={activeTab}>
         <Tabs.Content className="w-full">
           <Tabs.Content className="w-full">
-            <div className="flex flex-col divider={<div className="flexDivider borderColor="var(--bordersecondary)" />}
-              spacing={3}
-              
-            >
+            <div className="flex flex-col gap-3">
               {isLoading ? (
                 <SingleGigSkeleton />
               ) : approvedGigs?.length > 0 ? (
@@ -77,17 +74,14 @@ const GigStatus = () => {
                   <SingleGig key={gig._id} gig={gig} getAllGigs={getAllGigs} />
                 ))
               ) : (
-                <span paddingY="30px" className="text-center">
+                <span className="py-[30px] text-center">
                   Currently you haven&apos;t any approved gigs.
                 </span>
               )}
             </div>
           </Tabs.Content>
           <Tabs.Content>
-            <div className="flex flex-col divider={<div className="flexDivider borderColor="var(--bordersecondary)" />}
-              spacing={3}
-              
-            >
+            <div className="flex flex-col gap-3">
               {isLoading ? (
                 <SingleGigSkeleton />
               ) : pendingGigs?.length > 0 ? (
