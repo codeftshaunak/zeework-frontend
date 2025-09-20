@@ -111,18 +111,25 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
           <span className="font-bold">{first_name + " " + last_name}</span>?
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-          <Button
-            onClick={() = className="w-full"> setIsModal(false)}
+          <button
+            onClick={() => setIsModal(false)}
+            className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
           >
             No, I don&apos;t want
           </button>
-          <Button
-            isLoading={isLoading}
-            loadingText="Yes, I want to assign"
-            spinner={<BtnSpinner />}
+          <button
+            disabled={isLoading}
             onClick={() => handleEndContract()}
+            className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition disabled:opacity-50"
           >
-            End Contract
+            {isLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Yes, I want to assign</span>
+              </>
+            ) : (
+              "End Contract"
+            )}
           </button>
         </div>
       </UniversalModal>

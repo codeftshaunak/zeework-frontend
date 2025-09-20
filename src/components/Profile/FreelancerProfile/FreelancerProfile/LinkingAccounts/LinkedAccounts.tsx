@@ -18,10 +18,24 @@ import { IoLogoGithub, IoLogoStackoverflow } from "react-icons/io5";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import { profileData } from "../../../../../redux/authSlice/profileSlice";
 
-const LinkedAccounts = () => {
+// TypeScript interfaces
+interface LinkedAccount {
+  user_id: string;
+  [key: string]: any;
+}
+
+interface RootState {
+  profile: {
+    profile: {
+      linked_accounts?: LinkedAccount[];
+    };
+  };
+}
+
+const LinkedAccounts: React.FC = () => {
   const dispatch = useDispatch();
   const linkedAccounts =
-    useSelector((state: any) => state.profile.profile.linked_accounts) || [];
+    useSelector((state: RootState) => state.profile.profile.linked_accounts) || [];
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isStackOverflowLoading, setIsStackOverflowLoading] = useState(false);
@@ -108,11 +122,7 @@ const LinkedAccounts = () => {
           </div>
         </div>
         {linkedAccounts.length > 0 && (
-          <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
-            spacing={4}
-            
-            className="bg-slate-50 rounded-md p-3"
-          >
+          <div className="flex flex-col gap-4 bg-slate-50 rounded-md p-3">
             {linkedAccounts.map((item) => (
               <ProfilesCard key={item.user_id} data={item} />
             ))}
@@ -125,27 +135,39 @@ const LinkedAccounts = () => {
           Select Your Account
         </p>
         <div className="flex gap-10 flex-wrap justify-center py-10 px-5 bg-slate-100 rounded-md">
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl"
-            leftIcon={<IoLogoGithub />}
+          <button
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl bg-black text-white px-4 py-2 disabled:opacity-50"
             onClick={handleConnectGithub}
-            _hover={{ bgColor: "#262626" }}
-            textColor="white"
-            isLoading={isLoading}
-            loadingText="Connect"
-            spinner={<BtnSpinner />}
+            disabled={isLoading}
           >
-            Connect
+            {isLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Connecting...</span>
+              </>
+            ) : (
+              <>
+                <IoLogoGithub className="mr-2" />
+                <span>Connect GitHub</span>
+              </>
+            )}
           </button>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl"
-            leftIcon={<IoLogoStackoverflow />}
+          <button
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl bg-[#f48024] text-white px-4 py-2 disabled:opacity-50"
             onClick={handleConnectStackOverflow}
-            _hover={{ bgColor: "##cf8748" }}
-            textColor="white"
-            isLoading={isStackOverflowLoading}
-            loadingText="Connect"
-            spinner={<BtnSpinner />}
+            disabled={isStackOverflowLoading}
           >
-            Connect
+            {isStackOverflowLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Connecting...</span>
+              </>
+            ) : (
+              <>
+                <IoLogoStackoverflow className="mr-2" />
+                <span>Connect StackOverflow</span>
+              </>
+            )}
           </button>
         </div>
       </UniversalModal>

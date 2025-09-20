@@ -73,10 +73,8 @@ const AuthFormField = React.forwardRef<HTMLInputElement, AuthFormFieldProps>(
 
           {/* Password Toggle */}
           {type === 'password' && (
-            <Button
+            <button
               type="button"
-              variant="ghost"
-              size="sm"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-100"
               onClick={onTogglePassword}
               tabIndex={-1}
@@ -86,7 +84,7 @@ const AuthFormField = React.forwardRef<HTMLInputElement, AuthFormFieldProps>(
               ) : (
                 <Eye className="h-4 w-4 text-gray-400" />
               )}
-            </Button>
+            </button>
           )}
         </div>
 

@@ -1,10 +1,8 @@
-
 "use client";
 import React from "react";
 
 import { useRef } from "react";
 import Title from "./Title";
-
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,64 +13,83 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import ProjectCard from "../../AgencyUI/ProjectCard";
 import { AiOutlineBorderlessTable } from "react-icons/ai";
+import Image from "next/image";
 
-const LeftSide = ({ details }) => {
+// Types
+interface AgencyServiceCategory {
+  _id: string;
+  category_name: string;
+}
+
+interface AgencyServiceSubCategory {
+  sub_category_name: string;
+}
+
+interface AgencyServices {
+  category?: AgencyServiceCategory[];
+  subCategory?: AgencyServiceSubCategory[];
+}
+
+interface PortfolioItem {
+  _id: string;
+  [key: string]: any;
+}
+
+interface AgencyDetails {
+  agency_overview?: string;
+  agency_services?: AgencyServices;
+  agency_skills?: string[];
+  agency_portfolio?: PortfolioItem[];
+}
+
+interface LeftSideProps {
+  details: AgencyDetails;
+}
+
+const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
   const { agency_overview, agency_services, agency_skills, agency_portfolio } =
     details;
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <divitems-flex-start"}
-      marginRight={{ lg: 5 }}
-      borderRight={{ base: "none", lg: "0.1px solid gray" }}
-     className="flex flex-col className= p-5">
+    <div className="flex flex-col p-5">
       <div>
         <Title>Overview</Title>
-        <article >
-          <div dangerouslySetInnerHTML={{ __html: agency_overview }} />
+        <article>
+          <div dangerouslySetInnerHTML={{ __html: agency_overview || "" }} />
         </article>
       </div>
       <div>
         <Title>Services</Title>
-        <div className="flex gap-2 flex-wrap">
-          {agency_services.category?.map((i) => (
+        <div className="flex flex-wrap gap-2">
+          {agency_services?.category?.map((i) => (
             <span
               key={i._id}
-              paddingX="15px"
-              paddingY="4px"
-              backgroundColor="#E7F2EB"
-              className="items-center rounded flex"
+              className="px-4 py-1 bg-[#E7F2EB] rounded flex items-center"
             >
               <AiOutlineBorderlessTable /> {i.category_name}
             </span>
           ))}
         </div>
-        <div className="flex gap-2 flex-wrap mt-4">
-          {agency_services.subCategory?.map((d, i) => (
-            <span
-              key={i}
-              paddingX="15px"
-              paddingY="4px"
-              backgroundColor="#E7F2EB" className="rounded"
-            >
+        <div className="flex flex-wrap gap-2 mt-4">
+          {agency_services?.subCategory?.map((d, index) => (
+            <span key={index} className="px-4 py-1 bg-[#E7F2EB] rounded">
               {d.sub_category_name}
             </span>
           ))}
         </div>
       </div>
       <div>
-        {agency_skills?.length > 0 && (
+        {agency_skills && agency_skills.length > 0 && (
           <>
             <Title>Skills</Title>
-            <div className="flex gap-2 flex-wrap">
-              {agency_skills?.map((item) => (
+            <div className="flex flex-wrap gap-2">
+              {agency_skills.map((item, index) => (
                 <span
-                  key={item}
-                  paddingX="15px"
-                  paddingY={{ base: "4px", md: "6px" }}
-                  backgroundColor="#E7F2EB"
-                 className="rounded capitalize">
+                  key={index}
+                  className="px-4 py-1 md:py-1.5 bg-[#E7F2EB] rounded capitalize"
+                >
                   {item}
                 </span>
               ))}
@@ -82,8 +99,8 @@ const LeftSide = ({ details }) => {
       </div>
       <div className="w-full">
         <Title>Projects</Title>
-        {agency_portfolio?.length > 0 ? (
-          <div className="relative mt-3 z-0">
+        {agency_portfolio && agency_portfolio.length > 0 ? (
+          <div className="relative z-0 mt-3">
             <Swiper
               modules={[Navigation]}
               navigation={{
@@ -95,7 +112,6 @@ const LeftSide = ({ details }) => {
                   width: 640,
                   slidesPerView: 1,
                 },
-
                 768: {
                   width: 768,
                   slidesPerView: 2,
@@ -104,7 +120,7 @@ const LeftSide = ({ details }) => {
               spaceBetween={30}
             >
               {agency_portfolio
-                ?.slice()
+                .slice()
                 .reverse()
                 .map((item) => (
                   <SwiperSlide key={item._id}>
@@ -112,31 +128,33 @@ const LeftSide = ({ details }) => {
                   </SwiperSlide>
                 ))}
             </Swiper>
-            {agency_portfolio?.length > 1 && (
+            {agency_portfolio.length > 1 && (
               <>
                 <button
                   ref={prevRef}
-                  className="absolute top-1/2 -left-2 z-20 bg-green-100 rounded-full shadow -mt-4"
+                  className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -left-2"
                 >
-                  <IoArrowBack className="text-4xl p-2 text-green-500" />
+                  <IoArrowBack className="p-2 text-4xl text-green-500" />
                 </button>
                 <button
                   ref={nextRef}
-                  className="absolute top-1/2 -right-2 z-20 bg-green-100 rounded-full shadow -mt-4"
+                  className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -right-2"
                 >
-                  <IoArrowForwardSharp className="text-4xl p-2 text-green-500" />
+                  <IoArrowForwardSharp className="p-2 text-4xl text-green-500" />
                 </button>
               </>
             )}
           </div>
         ) : (
-          <div className="mt-[20px]">
+          <div className="mt-[20px] text-center">
             <Image
               src="/images/404not-added.png"
-              className="m-[auto]"
-            ></img>
-            <span
-             className="mt-[1.5rem] font-semibold text-center">
+              alt="No projects added"
+              width={200}
+              height={200}
+              className="mx-auto"
+            />
+            <span className="mt-[1.5rem] font-semibold text-center block">
               Haven&apos;t added any projects yet!
             </span>
           </div>

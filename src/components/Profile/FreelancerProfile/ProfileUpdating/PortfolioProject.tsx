@@ -17,13 +17,44 @@ import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { compressImageToWebP } from "../../../../helpers/manageImages/imageCompressed";
 import { portfolioSchema } from "../../../../schemas/freelancer-profile-schema";
 
-const PortfolioProject = ({ type, setIsModal }) => {
-  const existProfile = useSelector((state: any) => state.profile.profile);
+// TypeScript interfaces
+interface PortfolioProjectProps {
+  type: string;
+  setIsModal: (isOpen: boolean) => void;
+}
+
+interface SkillOption {
+  label: string;
+  value: string;
+}
+
+interface ImageFile {
+  file?: File;
+  preview: string;
+}
+
+interface FormData {
+  project_name: string;
+  project_description: string;
+  technologies: SkillOption[];
+  attachements: ImageFile[];
+}
+
+interface RootState {
+  profile: {
+    profile: {
+      categories: any[];
+    };
+  };
+}
+
+const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal }) => {
+  const existProfile = useSelector((state: RootState) => state.profile.profile);
   const [isLoading, setIsLoading] = useState(false);
   const animatedComponents = makeAnimated();
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<SkillOption[]>([]);
   const [optionsLoading, setOptionsLoading] = useState(true);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState<ImageFile[]>([]);
   const dispatch = useDispatch();
 
   const {
@@ -38,7 +69,7 @@ const PortfolioProject = ({ type, setIsModal }) => {
   });
 
   // get skills of profile categories
-  const getCategorySkills = async (categoryIds) => {
+  const getCategorySkills = async (categoryIds: any[]) => {
     try {
       if (!categoryIds) {
         console.error("No category IDs provided.");
@@ -80,14 +111,14 @@ const PortfolioProject = ({ type, setIsModal }) => {
     }
   }, []);
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files);
     const newImages = [...selectedImages, ...files].slice(0, 3);
     setSelectedImages(newImages);
     setValue("images", newImages, { shouldValidate: true });
   };
 
-  const handleImageDelete = (indexToRemove) => {
+  const handleImageDelete = (indexToRemove: number) => {
     const updatedImages = selectedImages.filter(
       (_, index) => index !== indexToRemove
     );
@@ -95,7 +126,7 @@ const PortfolioProject = ({ type, setIsModal }) => {
     setValue("images", updatedImages, { shouldValidate: true });
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
     const formData = new FormData();
@@ -258,13 +289,19 @@ const PortfolioProject = ({ type, setIsModal }) => {
               </div>
             </div>
             <div className="flex items-center justify-end gap-2 pt-5 w-full">
-              <Button
-                isLoading={isLoading}
-                loadingText="Adding Project"
+              <button
+                disabled={isLoading}
                 type="submit"
-                spinner={<BtnSpinner />}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
               >
-                Add Project
+                {isLoading ? (
+                  <>
+                    <BtnSpinner />
+                    <span className="ml-2">Adding Project</span>
+                  </>
+                ) : (
+                  "Add Project"
+                )}
               </button>
             </div>
           </form>

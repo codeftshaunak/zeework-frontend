@@ -29,7 +29,7 @@ const Report = () => {
                     <VStack className="w-full p-4 border border-gray-300">
                         <HStack className="justify-between w-full">
                             <Text w="90px" className="flex items-center justify-between text-xl font-medium">To-dos {<FaCircleDot color='#0EA5E9' />}</Text>
-                            <Button w="90px" className="flex justify-between"><><GrAdd /> New</></button>
+                            <button className="w-[90px] flex justify-between"><><GrAdd /> New</></button>
                         </HStack>
                     </VStack>
                     <HStack className="border border-gray-300"></HStack>

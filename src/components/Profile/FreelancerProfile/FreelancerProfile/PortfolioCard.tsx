@@ -31,6 +31,33 @@ import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { uploadSingleImage } from "../../../../helpers/APIs/agencyApis";
 import { compressImageToWebP } from "../../../../helpers/manageImages/imageCompressed";
 
+// TypeScript interfaces
+interface Portfolio {
+  project_name: string;
+  attachements: string[];
+  project_description: string;
+  technologies: string[];
+  _id: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface PortfolioCardProps {
+  portfolio: Portfolio;
+  categories: Category[];
+  viewAs?: boolean;
+}
+
+interface FormData {
+  project_name: string;
+  project_description: string;
+  technologies: { label: string; value: string }[];
+  attachements: { file?: File; preview: string }[];
+}
+
 const validationSchema = yup.object().shape({
   project_name: yup.string().required("Project Name is required"),
   project_description: yup.string().required("Project Description is required"),
@@ -42,7 +69,7 @@ const validationSchema = yup.object().shape({
     .required("Image is required"),
 });
 
-const PortfolioCard = ({ portfolio, categories, viewAs }) => {
+const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, viewAs }) => {
   const { project_name, attachements, project_description, technologies, _id } =
     portfolio;
 
@@ -88,7 +115,7 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
   };
 
   // Handle Media Image Uploaded
-  const handleImageUpload = (event) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files);
     const newImages = [
       ...selectedImages,
@@ -97,7 +124,7 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
     setValue("attachements", newImages, { shouldValidate: true });
   };
 
-  const handleImageDelete = (index) => {
+  const handleImageDelete = (index: number) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
     setValue("attachements", updatedImages, { shouldValidate: true });
@@ -181,7 +208,7 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     setUpdateLoading(true);
     try {
       const imagesUrl = await uploadImages();
@@ -427,13 +454,19 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
             </div>
           </div>
           <div className="flex justify-end mt-6">
-            <Button
-              loadingText="Updating"
+            <button
               type="submit"
-              isLoading={updateLoading}
-              spinner={<BtnSpinner />}
+              disabled={updateLoading}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
             >
-              Update
+              {updateLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">Updating</span>
+                </>
+              ) : (
+                "Update"
+              )}
             </button>
           </div>
         </form>
@@ -451,18 +484,25 @@ const PortfolioCard = ({ portfolio, categories, viewAs }) => {
         </p>
 
         <div className="flex gap-5 sm:gap-10 mt-8 sm:mt-20">
-          <Button
-            onClick={() = className="w-full"> setIsDeleteModal(false)}
+          <button
+            onClick={() => setIsDeleteModal(false)}
+            className="w-full px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
           >
             No, I don&apos;t want to Delete
           </button>
-          <Button
-            isLoading={isLoading}
-            loadingText="Deleting.."
-            spinner={<BtnSpinner />}
+          <button
+            disabled={isLoading}
             onClick={handleDeletePortfolio}
+            className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
           >
-            Yes, I want to Delete
+            {isLoading ? (
+              <>
+                <BtnSpinner />
+                <span className="ml-2">Deleting..</span>
+              </>
+            ) : (
+              "Yes, I want to Delete"
+            )}
           </button>
         </div>
       </UniversalModal>

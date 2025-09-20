@@ -16,9 +16,34 @@ import { deleteEducation } from "../../../../helpers/APIs/freelancerApis";
 import { MdDelete } from "react-icons/md";
 import { educationSchema } from "../../../../schemas/freelancer-profile-schema";
 
-const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
+// TypeScript interfaces
+interface EducationProps {
+  type: string;
+  defaultValue: any;
+  setIsModal: (isOpen: boolean) => void;
+  setDefaultValue: (value: any) => void;
+}
+
+interface EducationData {
+  institution: string;
+  degree_name: string;
+  start_date: string;
+  end_date: string;
+}
+
+interface ProfileState {
+  education: any[];
+}
+
+interface RootState {
+  profile: {
+    profile: ProfileState;
+  };
+}
+
+const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const existProfile = useSelector((state: any) => state.profile.profile);
+  const existProfile = useSelector((state: RootState) => state.profile.profile);
   const dispatch = useDispatch();
 
   const {
@@ -77,7 +102,7 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: EducationData) => {
     setIsLoading(true);
 
     const formattedData = {
@@ -223,14 +248,19 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
             </HStack>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <Button
-              isLoading={isLoading}
-              loadingText={type === "Add Education" ? "Adding" : "Updating"}
+            <button
+              disabled={isLoading}
               type="submit"
-              spinner={<BtnSpinner />}
-              paddingX={8}
+              className="px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
             >
-              {type === "Add Education" ? "Add" : "Update"}
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">{type === "Add Education" ? "Adding" : "Updating"}</span>
+                </>
+              ) : (
+                type === "Add Education" ? "Add" : "Update"
+              )}
             </button>
           </div>
         </form>
@@ -247,19 +277,25 @@ const Education = ({ type, defaultValue, setIsModal, setDefaultValue }) => {
           </p>
 
           <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-            <Button
+            <button
               onClick={() => setIsModal(false)}
+              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
             >
               No, cancel
             </button>
-            <Button
-              isLoading={isLoading}
-              loadingText="Deleting.."
-              spinner={<BtnSpinner />}
+            <button
+              disabled={isLoading}
               onClick={handleDelete}
-              className="w-full"
+              className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
             >
-              Yes, delete it
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  <span className="ml-2">Deleting..</span>
+                </>
+              ) : (
+                "Yes, delete it"
+              )}
             </button>
           </div>
         </div>
