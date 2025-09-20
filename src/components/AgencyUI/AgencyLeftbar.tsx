@@ -8,10 +8,7 @@ import AgencyWorkHistory from "./AgencyWorkHistory";
 const AgencyLeftbar = ({ agency, setAgency }) => {
   const { agency_overview } = agency || {};
   return (
-    <divitems-flex-start"}
-      marginRight={{ lg: 5 }}
-      borderRight={{ base: "none", lg: "0.1px solid gray" }}
-     className="flex flex-col className= p-5">
+    <div className="flex flex-col p-5 border-r border-gray-300 lg:mr-5">
       <AgencyOverview overview={agency_overview} setAgency={setAgency} />
       <br />
       <AgencyServices agency={agency} setAgency={setAgency} />

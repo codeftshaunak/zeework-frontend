@@ -26,10 +26,7 @@ export const AgencyManagerCard = () => {
   const { lastName, firstName, profile_image, professional_role } =
     profile.profile || [];
   return (
-    <div className="flex flex-col marginTop={{ base: shadow border p-4 sm:p-6 rounded-md relative"0px", md: "10px" }}
-     
-      maxWidth="300px"
-    >
+    <div className="flex flex-col shadow border p-4 sm:p-6 rounded-md relative mt-0 md:mt-2.5 max-w-[300px]">
       {/* {profile_image ? (
         <img src={profile_image} className="rounded" />
       ) : (
@@ -40,7 +37,7 @@ export const AgencyManagerCard = () => {
         name={firstName + " " + lastName}
         size="lg"
       />
-      <span} className="font-semibold">
+      <span className="font-semibold">
         {firstName + " " + lastName}
       </span>
       <span className="text-base text-center">

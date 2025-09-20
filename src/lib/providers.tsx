@@ -9,7 +9,6 @@ import { CurrentUserProvider } from "../contexts/CurrentUser";
 import { FormStateProvider } from "../contexts/FormContext";
 import { Toaster } from "@/components/ui/sonner";
 import store from "../redux/store";
-import { Toaster } from "@/components/ui/toaster";
 
 // export const toaster = createToaster({
 //   placement: "top",

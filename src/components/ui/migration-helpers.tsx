@@ -1307,3 +1307,183 @@ export const Accordion = {
   ItemTrigger: AccordionItemTrigger,
   ItemContent: AccordionItemContent,
 };
+
+// Slider Components
+interface SliderProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: number[];
+  defaultValue?: number[];
+  min?: number;
+  max?: number;
+  step?: number;
+  onValueChange?: (value: number[]) => void;
+  colorScheme?: string;
+}
+
+interface SliderContextType {
+  value: number[];
+  min: number;
+  max: number;
+  step: number;
+  onValueChange: (value: number[]) => void;
+}
+
+const SliderContext = React.createContext<SliderContextType | null>(null);
+
+export const Slider: React.FC<SliderProps> = ({
+  children,
+  className,
+  value,
+  defaultValue = [0],
+  min = 0,
+  max = 100,
+  step = 1,
+  onValueChange,
+  ...props
+}) => {
+  const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const currentValue = value !== undefined ? value : internalValue;
+
+  const handleChange = (newValue: number[]) => {
+    if (value === undefined) {
+      setInternalValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
+  return (
+    <SliderContext.Provider
+      value={{ value: currentValue, min, max, step, onValueChange: handleChange }}
+    >
+      <div className={cn("relative w-full", className)} {...props}>
+        {children}
+      </div>
+    </SliderContext.Provider>
+  );
+};
+
+export const SliderTrack: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <div
+      className={cn(
+        "relative w-full h-2 bg-gray-200 rounded-full",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const SliderFilledTrack: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => {
+  const context = React.useContext(SliderContext);
+  if (!context) {
+    throw new Error("SliderFilledTrack must be used within Slider");
+  }
+
+  const percentage = ((context.value[0] - context.min) / (context.max - context.min)) * 100;
+
+  return (
+    <div
+      className={cn("absolute h-full bg-blue-500 rounded-full", className)}
+      style={{ width: `${percentage}%` }}
+      {...props}
+    />
+  );
+};
+
+export const SliderThumb: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => {
+  const context = React.useContext(SliderContext);
+  if (!context) {
+    throw new Error("SliderThumb must be used within Slider");
+  }
+
+  const percentage = ((context.value[0] - context.min) / (context.max - context.min)) * 100;
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const rect = (e.currentTarget as HTMLElement).parentElement?.getBoundingClientRect();
+      if (!rect) return;
+
+      const x = moveEvent.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      const newValue = context.min + (percentage / 100) * (context.max - context.min);
+      const steppedValue = Math.round(newValue / context.step) * context.step;
+
+      context.onValueChange([steppedValue]);
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  return (
+    <div
+      className={cn(
+        "absolute w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer transform -translate-y-1/2 -translate-x-1/2 top-1/2",
+        className
+      )}
+      style={{ left: `${percentage}%` }}
+      onMouseDown={handleMouseDown}
+      {...props}
+    />
+  );
+};
+
+// Tabs Components (basic implementation)
+interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+}
+
+interface TabsContextType {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+const TabsContext = React.createContext<TabsContextType | null>(null);
+
+export const Tabs: React.FC<TabsProps> = ({
+  children,
+  className,
+  value,
+  defaultValue = "",
+  onValueChange,
+  ...props
+}) => {
+  const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const currentValue = value !== undefined ? value : internalValue;
+
+  const handleChange = (newValue: string) => {
+    if (value === undefined) {
+      setInternalValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
+  return (
+    <TabsContext.Provider value={{ value: currentValue, onValueChange: handleChange }}>
+      <div className={className} {...props}>
+        {children}
+      </div>
+    </TabsContext.Provider>
+  );
+};

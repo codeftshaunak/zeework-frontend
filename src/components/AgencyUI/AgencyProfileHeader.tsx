@@ -186,25 +186,27 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
 
   return (
     <>
-      <div className="flex flex-col className="w-full relative">
-        <div className="flex flex-col className="w-full relative">
+      <div className="flex flex-col w-full relative">
+        <div className="flex flex-col w-full relative">
           {agency_coverImage ? (
             <Image
               src={agency_coverImage}
               alt="cover image"
-              className="shadow w-full"}
-             
-              objectFit="cover"
-              filter={"brightness(80%)"} className="rounded"
+              className="shadow w-full rounded"
+              style={{
+                objectFit: "cover",
+                filter: "brightness(80%)"
+              }}
             />
           ) : (
             <Image
               src="/images/zeework_agency_cover.png"
               alt="cover image"
-              className="shadow w-full"}
-             
-              objectFit="cover"
-              filter={"brightness(80%)"} className="rounded"
+              className="shadow w-full rounded"
+              style={{
+                objectFit: "cover",
+                filter: "brightness(80%)"
+              }}
             />
           )}
           <divtext-2.5rem"
