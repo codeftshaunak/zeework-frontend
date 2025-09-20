@@ -1,9 +1,14 @@
 import { HiOutlineInformationCircle } from "react-icons/hi";
-import PropTypes from "prop-types";
 import { cn } from "@/lib/utils";
 
-const ErrorMsg = ({ msg, className }) => {
-  if (!msg) return;
+interface ErrorMsgProps {
+  msg: string;
+  className?: string;
+}
+
+const ErrorMsg: React.FC<ErrorMsgProps> = ({ msg, className }) => {
+  if (!msg) return null;
+
   return (
     <span
       className={cn(
@@ -15,11 +20,6 @@ const ErrorMsg = ({ msg, className }) => {
       {msg}
     </span>
   );
-};
-
-ErrorMsg.propTypes = {
-  msg: PropTypes.string.isRequired,
-  className: PropTypes.string,
 };
 
 export default ErrorMsg;

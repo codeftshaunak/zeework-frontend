@@ -1,17 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { RiEdit2Fill } from "react-icons/ri";
 import { FiPlus } from "react-icons/fi";
 // import { AgencyUpdatedModal } from "./ProfileUpdated";
 
-const AgencyTitle = ({
+interface AgencyTitleProps {
+  children: ReactNode;
+  isValue?: boolean;
+  data?: []; // Replace `any` with a proper type once you know the shape
+  setAgency?: (value: []) => void; // Replace `any` with the right type
+  noAdded?: boolean;
+  isSmall?: boolean;
+}
+
+const AgencyTitle: React.FC<AgencyTitleProps> = ({
   children,
-  isValue,
+  isValue = false,
   data,
   setAgency,
-  noAdded,
-  isSmall,
+  noAdded = false,
+  isSmall = false,
 }) => {
   const [isModal, setIsModal] = useState(false);
 
