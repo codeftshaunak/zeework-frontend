@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import HomeLayout from "../../Layouts/HomeLayout";
-import Process from "./Process";
+import ModernProcess from "./ModernProcess";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -28,9 +28,9 @@ const Onboarding = () => {
     } else if (isComplete) {
       router.push("/");
     }
-  }, [isAuth, isComplete, navigate]);
+  }, [isAuth, isComplete, router]);
 
-  return <HomeLayout>{isAuth && !isComplete && <Process />}</HomeLayout>;
+  return <>{isAuth && !isComplete && <ModernProcess />}</>;
 };
 
 export default Onboarding;

@@ -4,42 +4,20 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Select from "react-select";
 
 // UI Components
-import {
-  HStack,
-  Input,
-  Text,
-  VStack,
-  Box,
-  Button,
-  IconButton,
-  InputGroup,
-
-  Stack,
-  RadioGroup,
-
-
-} from "@/components/ui/migration-helpers";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/lib/toast";
-import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
-import CTAButton from "../../CTAButton";
-import Divider from "../../Divider/Divider";
-import BtnSpinner from "../../Skeletons/BtnSpinner";
-import ErrorMsg from "../../utils/Error/ErrorMsg";
+import AuthLayout from "../../auth/AuthLayout";
+import AuthFormField from "../../auth/AuthFormField";
 
 // Icons
-import {
-  BsFacebook,
-  BsApple,
-  BsEyeSlash,
-  BsEye,
-  BsBriefcase,
-  BsPerson
-} from "react-icons/bs";
-import { FcGoogle } from "react-icons/fc";
-import { HiOutlineMail } from "react-icons/hi";
+import { Users, Briefcase, Loader2, Mail, CheckCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // API Functions
 import { signUp } from "../../../helpers/APIs/apiRequest";
@@ -86,7 +64,7 @@ export const SignUp = () => {
       ? "Apply as a freelancer"
       : selectedOption === "client"
         ? "Join as a client"
-        : "Create An Account";
+        : "Get started";
 
   const handleButtonClick = () => {
     if (selectedOption === "freelancer") {
@@ -102,75 +80,98 @@ export const SignUp = () => {
     <>
       {(isFreelancer && <FreelancerSignUp />) ||
         (isClient && <ClientSignUp />) || (
-          <OnbardingCardLayout title="Join as a Client or Freelancer" gap="10">
-            <RadioGroup.Root
-              value={selectedOption}
-              onValueChange={handleOptionChange}
-            >
-              <div className="flex flex-row items-center justify-center max-sm:flex-col max-sm:w-full gap-4">
+          <AuthLayout
+            title="Join ZeeWork"
+            description="Choose how you'd like to use ZeeWork"
+          >
+            <div className="space-y-6">
+              {/* Role Selection Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Client Option */}
-                <div
-                  className="max-sm:w-full p-6 w-[250px] relative rounded-lg cursor-pointer border-2 border-gray-200 hover:border-green-500 transition-colors"
+                <Card
+                  className={cn(
+                    "cursor-pointer transition-all duration-200 hover:shadow-md",
+                    selectedOption === "client" ? "ring-2 ring-green-500 border-green-500" : "border-gray-200 hover:border-green-300"
+                  )}
                   onClick={() => setSelectedOption("client")}
                 >
-                  <div className="flex flex-row items-center justify-between">
-                    <BsBriefcase className="text-4xl text-green-600 mb-4" />
-                    <RadioGroup.Item
-                      value="client"
-                      className="cursor-pointer"
-                    >
-                      <RadioGroup.ItemHiddenInput />
-                      <RadioGroup.ItemIndicator />
-                    </RadioGroup.Item>
-                  </div>
-                  <span className="font-medium text-gray-700">
-                    I'm a Client, <br />
-                    hiring for a project
-                  </span>
-                </div>
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      <div className="p-3 rounded-full bg-green-100">
+                        <Briefcase className="h-8 w-8 text-green-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Client</h3>
+                        <p className="text-sm text-gray-600">Hiring for a project</p>
+                      </div>
+                      <div className={cn(
+                        "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                        selectedOption === "client" ? "border-green-500 bg-green-500" : "border-gray-300"
+                      )}>
+                        {selectedOption === "client" && (
+                          <CheckCircle className="h-3 w-3 text-white" />
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
                 {/* Freelancer Option */}
-                <div
-                  className="max-sm:w-full p-6 w-[250px] relative rounded-lg cursor-pointer border-2 border-gray-200 hover:border-green-500 transition-colors"
+                <Card
+                  className={cn(
+                    "cursor-pointer transition-all duration-200 hover:shadow-md",
+                    selectedOption === "freelancer" ? "ring-2 ring-green-500 border-green-500" : "border-gray-200 hover:border-green-300"
+                  )}
                   onClick={() => setSelectedOption("freelancer")}
                 >
-                  <div className="flex flex-row items-center justify-between">
-                    <BsPerson className="text-4xl text-blue-600 mb-4" />
-                    <RadioGroup.Item
-                      value="freelancer"
-                      className="cursor-pointer"
-                    >
-                      <RadioGroup.ItemHiddenInput />
-                      <RadioGroup.ItemIndicator />
-                    </RadioGroup.Item>
-                  </div>
-                  <span className="font-medium text-gray-700">
-                    I'm a Freelancer, <br />
-                    looking for work
-                  </span>
-                </div>
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      <div className="p-3 rounded-full bg-blue-100">
+                        <Users className="h-8 w-8 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Freelancer</h3>
+                        <p className="text-sm text-gray-600">Looking for work</p>
+                      </div>
+                      <div className={cn(
+                        "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                        selectedOption === "freelancer" ? "border-green-500 bg-green-500" : "border-gray-300"
+                      )}>
+                        {selectedOption === "freelancer" && (
+                          <CheckCircle className="h-3 w-3 text-white" />
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            </RadioGroup.Root>
 
-            <div className="w-full flex flex-col gap-5 p-5">
-              <button
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-green-600 text-white py-3 px-6 disabled:opacity-50"
+              {/* Continue Button */}
+              <Button
+                variant="gradient"
+                size="lg"
+                className="w-full h-12 text-base font-semibold"
                 onClick={handleButtonClick}
                 disabled={!selectedOption}
               >
                 {buttonText}
-              </button>
-              <span className="text-center text-gray-600">
-                Already Have Account?{" "}
-                <span
-                  className="text-green-600 cursor-pointer hover:underline"
-                  onClick={() => router.push("/login")}
-                >
-                  Login
+              </Button>
+
+              {/* Login Link */}
+              <div className="text-center">
+                <span className="text-gray-600">
+                  Already have an account?{" "}
+                  <button
+                    type="button"
+                    className="text-green-600 hover:text-green-700 font-medium transition-colors"
+                    onClick={() => router.push("/login")}
+                  >
+                    Sign in
+                  </button>
                 </span>
-              </span>
+              </div>
             </div>
-          </OnbardingCardLayout>
+          </AuthLayout>
         )}
     </>
   );
@@ -280,179 +281,186 @@ export const FreelancerSignUp = () => {
 
   if (verifyShow) {
     return (
-      <OnbardingCardLayout>
-        <div className="max-sm:w-full flex flex-col gap-5 p-5">
-          <div className="flex flex-col gap-5 items-center text-center">
-            <div className="p-4 rounded-lg bg-green-50">
-              <HiOutlineMail className="text-5xl text-green-600" />
+      <AuthLayout
+        title="Check your email"
+        description="We've sent a verification link to your email address"
+      >
+        <div className="space-y-6 text-center">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="p-4 rounded-full bg-green-100">
+              <Mail className="h-12 w-12 text-green-600" />
             </div>
-            <span className="text-2xl font-medium text-green-600">
+            <div className="text-3xl font-bold text-green-600">
               {formatTime(countdown)}
-            </span>
-            <span className="text-xl font-medium">
-              Verify your email to proceed
-            </span>
-            <span className="text-gray-600">
-              We just sent an email to the address{" "}
-              <span className="font-bold text-green-600">
-                {email}
-              </span>
-              <br />
-              Please check your email and click on the link provided <br />
-              to verify your address
-            </span>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Verify your email to continue
+              </h3>
+              <p className="text-gray-600">
+                We just sent an email to{" "}
+                <span className="font-semibold text-green-600">
+                  {email}
+                </span>
+                <br />
+                Please check your email and click the verification link to activate your account
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-row items-center justify-center gap-4 max-sm:flex-col max-sm:w-full">
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-gray-600 text-white py-2 px-4 disabled:opacity-50"
+          <div className="space-y-3">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full"
               onClick={handleResendVerification}
               disabled={countdown > 0 || isLoading}
             >
-              {isLoading && <BtnSpinner size="16" />}
-              {isLoading ? "Resending Email" : "Resend Verification Email"}
-            </button>
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-green-600 text-white py-2 px-4"
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Resending...
+                </>
+              ) : (
+                "Resend verification email"
+              )}
+            </Button>
+            <Button
+              variant="gradient"
+              size="lg"
+              className="w-full"
               onClick={handleOpenGmailBox}
             >
-              Go to My Inbox
-            </button>
+              Open Gmail inbox
+            </Button>
           </div>
         </div>
-      </OnbardingCardLayout>
+      </AuthLayout>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <OnbardingCardLayout title="Sign Up To Find Your Dream Job">
-        <div className="flex flex-col gap-6 p-6">
-          {/* Name Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <input
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                {...register("firstName")}
-                placeholder="First name"
-              />
-              {errors.firstName && (
-                <ErrorMsg msg={errors.firstName.message} />
+    <AuthLayout
+      title="Join as a Freelancer"
+      description="Create your account to start finding amazing projects"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Name Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Input
+              {...register("firstName")}
+              placeholder="First name"
+              className={cn(
+                "h-12 text-base",
+                errors.firstName && "border-red-500 focus-visible:ring-red-500"
               )}
-            </div>
-            <div>
-              <input
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                {...register("lastName")}
-                placeholder="Last name"
-              />
-              {errors.lastName && (
-                <ErrorMsg msg={errors.lastName.message} />
-              )}
-            </div>
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              {...register("email")}
-              placeholder="Email"
-              type="email"
             />
-            {errors.email && <ErrorMsg msg={errors.email.message} />}
-          </div>
-
-          {/* Password Field */}
-          <div className="relative">
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pr-10"
-              {...register("password")}
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter password"
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <BsEyeSlash /> : <BsEye />}
-            </button>
-            {errors.password && (
-              <ErrorMsg msg={errors.password.message} />
+            {errors.firstName && (
+              <p className="text-sm text-red-500 font-medium">{errors.firstName.message}</p>
             )}
           </div>
-
-          {/* Country Field */}
-          <div>
-            <Select
-              {...register("country")}
-              placeholder="Select Country"
-              options={countries}
-              onChange={(data: any) => {
-                setValue("country", data.name);
-                trigger("country");
-              }}
-              className="custom-select"
-            />
-            {errors.country && <ErrorMsg msg={errors.country.message} />}
-          </div>
-
-          {/* Checkboxes */}
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                {...register("sendEmails")}
-                className="rounded border-gray-300"
-              />
-              Send me information on how to find my dream job.
-            </label>
-
-            <div>
-              <label className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  {...register("has_accepted_terms")}
-                  className="rounded border-gray-300 mt-0.5"
-                />
-                <span>
-                  Yes, I understand & agree to the ZeeWork{" "}
-                  <span className="font-semibold text-green-600">
-                    Terms of Service
-
-                  </span>
-                </span>
-              </label>
-              {errors.has_accepted_terms && (
-                <ErrorMsg msg={errors.has_accepted_terms.message} />
+          <div className="space-y-2">
+            <Input
+              {...register("lastName")}
+              placeholder="Last name"
+              className={cn(
+                "h-12 text-base",
+                errors.lastName && "border-red-500 focus-visible:ring-red-500"
               )}
-            </div>
+            />
+            {errors.lastName && (
+              <p className="text-sm text-red-500 font-medium">{errors.lastName.message}</p>
+            )}
           </div>
+        </div>
 
-          {/* Submit Button */}
-          <div className="w-full flex flex-col gap-4">
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-green-600 text-white py-3 px-6 disabled:opacity-50"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading && <BtnSpinner size="16" />}
-              {isLoading ? "Creating Account" : "Create An Account"}
-            </button>
-            <span className="text-center text-gray-600">
-              Already Have an Account?{" "}
-              <span
-                className="text-green-600 cursor-pointer hover:underline"
+        {/* Email Field */}
+        <AuthFormField
+          type="email"
+          placeholder="Enter your email address"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+
+        {/* Password Field */}
+        <AuthFormField
+          type="password"
+          placeholder="Create a strong password"
+          showPassword={showPassword}
+          onTogglePassword={() => setShowPassword(!showPassword)}
+          error={errors.password?.message}
+          {...register("password")}
+        />
+
+        {/* Country Field */}
+        <div className="space-y-2">
+          <Select
+            placeholder="Select your country"
+            options={countries}
+            onChange={(data: any) => {
+              setValue("country", data.name);
+              trigger("country");
+            }}
+            error={errors.country?.message}
+          />
+        </div>
+
+        {/* Checkboxes */}
+        <div className="space-y-4">
+          <Checkbox
+            {...register("sendEmails")}
+            label="Send me information on how to find my dream job"
+          />
+
+          <Checkbox
+            {...register("has_accepted_terms")}
+            label={
+              <span>
+                I understand and agree to the ZeeWork{" "}
+                <span className="font-semibold text-green-600">
+                  Terms of Service
+                </span>
+              </span>
+            }
+            error={errors.has_accepted_terms?.message}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="space-y-4">
+          <Button
+            type="submit"
+            variant="gradient"
+            size="lg"
+            className="w-full h-12 text-base font-semibold"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              "Create freelancer account"
+            )}
+          </Button>
+
+          <div className="text-center">
+            <span className="text-gray-600">
+              Already have an account?{" "}
+              <button
+                type="button"
+                className="text-green-600 hover:text-green-700 font-medium transition-colors"
                 onClick={() => router.push("/login")}
               >
-                Login
-              </span>
+                Sign in
+              </button>
             </span>
           </div>
         </div>
-      </OnbardingCardLayout>
-    </form>
+      </form>
+    </AuthLayout>
   );
 };
 
@@ -559,177 +567,185 @@ export const ClientSignUp = () => {
 
   if (verifyShow) {
     return (
-      <OnbardingCardLayout>
-        <div className="flex flex-col gap-5 p-5">
-          <div className="flex flex-col gap-5 items-center text-center">
-            <div className="p-4 rounded-lg bg-green-50">
-              <HiOutlineMail className="text-5xl text-green-600" />
+      <AuthLayout
+        title="Check your email"
+        description="We've sent a verification link to your email address"
+      >
+        <div className="space-y-6 text-center">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="p-4 rounded-full bg-green-100">
+              <Mail className="h-12 w-12 text-green-600" />
             </div>
-            <span className="text-2xl font-medium text-green-600">
+            <div className="text-3xl font-bold text-green-600">
               {formatTime(countdown)}
-            </span>
-            <span className="text-xl font-medium">
-              Verify your email to proceed
-            </span>
-            <span className="text-gray-600">
-              We just sent an email to the address{" "}
-              <span className="font-bold text-green-600">
-                {email}
-              </span>
-              <br />
-              Please check your email and click on the link provided <br />
-              to verify your address
-            </span>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Verify your email to continue
+              </h3>
+              <p className="text-gray-600">
+                We just sent an email to{" "}
+                <span className="font-semibold text-green-600">
+                  {email}
+                </span>
+                <br />
+                Please check your email and click the verification link to activate your account
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-row items-center justify-center gap-4">
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-gray-600 text-white py-2 px-4 disabled:opacity-50"
+          <div className="space-y-3">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full"
               onClick={handleResendVerification}
               disabled={countdown > 0 || isLoading}
             >
-              {isLoading && <BtnSpinner size="16" />}
-              {isLoading ? "Resending Email" : "Resend Verification Email"}
-            </button>
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-green-600 text-white py-2 px-4"
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Resending...
+                </>
+              ) : (
+                "Resend verification email"
+              )}
+            </Button>
+            <Button
+              variant="gradient"
+              size="lg"
+              className="w-full"
               onClick={handleOpenGmailBox}
             >
-              Go to My Inbox
-            </button>
+              Open Gmail inbox
+            </Button>
           </div>
         </div>
-      </OnbardingCardLayout>
+      </AuthLayout>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <OnbardingCardLayout title="Sign Up To Hire Talent">
-        <div className="flex flex-col gap-6 p-6">
-          {/* Name Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <input
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                {...register("firstName")}
-                placeholder="First name"
-              />
-              {errors.firstName && (
-                <ErrorMsg msg={errors.firstName.message} />
+    <AuthLayout
+      title="Join as a Client"
+      description="Create your account to start hiring top talent"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Name Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Input
+              {...register("firstName")}
+              placeholder="First name"
+              className={cn(
+                "h-12 text-base",
+                errors.firstName && "border-red-500 focus-visible:ring-red-500"
               )}
-            </div>
-            <div>
-              <input
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                {...register("lastName")}
-                placeholder="Last name"
-              />
-              {errors.lastName && (
-                <ErrorMsg msg={errors.lastName.message} />
-              )}
-            </div>
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              {...register("email")}
-              placeholder="Email"
-              type="email"
             />
-            {errors.email && <ErrorMsg msg={errors.email.message} />}
-          </div>
-
-          {/* Password Field */}
-          <div className="relative">
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pr-10"
-              {...register("password")}
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter password"
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <BsEyeSlash /> : <BsEye />}
-            </button>
-            {errors.password && (
-              <ErrorMsg msg={errors.password.message} />
+            {errors.firstName && (
+              <p className="text-sm text-red-500 font-medium">{errors.firstName.message}</p>
             )}
           </div>
-
-          {/* Country Field */}
-          <div>
-            <Select
-              {...register("country")}
-              placeholder="Select Country"
-              options={countries}
-              onChange={(data: any) => {
-                setValue("country", data.name);
-                trigger("country");
-              }}
-              className="custom-select"
-            />
-            {errors.country && <ErrorMsg msg={errors.country.message} />}
-          </div>
-
-          {/* Checkboxes */}
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                {...register("sendEmails")}
-                className="rounded border-gray-300"
-              />
-              Send me emails on how to find the best talent
-            </label>
-
-            <div>
-              <label className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  {...register("has_accepted_terms")}
-                  className="rounded border-gray-300 mt-0.5"
-                />
-                <span>
-                  Yes, I understand & agree to the ZeeWork{" "}
-                  <span className="font-semibold text-green-600">
-                    Terms of Service
-                  </span>
-                </span>
-              </label>
-              {errors.has_accepted_terms && (
-                <ErrorMsg msg={errors.has_accepted_terms.message} />
+          <div className="space-y-2">
+            <Input
+              {...register("lastName")}
+              placeholder="Last name"
+              className={cn(
+                "h-12 text-base",
+                errors.lastName && "border-red-500 focus-visible:ring-red-500"
               )}
-            </div>
+            />
+            {errors.lastName && (
+              <p className="text-sm text-red-500 font-medium">{errors.lastName.message}</p>
+            )}
           </div>
+        </div>
 
-          {/* Submit Button */}
-          <div className="w-full flex flex-col gap-4">
-            <button
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-green-600 text-white py-3 px-6 disabled:opacity-50"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading && <BtnSpinner size="16" />}
-              {isLoading ? "Creating Account" : "Create An Account"}
-            </button>
-            <span className="text-center text-gray-600">
-              Already Have an Account?{" "}
-              <span
-                className="text-green-600 cursor-pointer hover:underline"
+        {/* Email Field */}
+        <AuthFormField
+          type="email"
+          placeholder="Enter your email address"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+
+        {/* Password Field */}
+        <AuthFormField
+          type="password"
+          placeholder="Create a strong password"
+          showPassword={showPassword}
+          onTogglePassword={() => setShowPassword(!showPassword)}
+          error={errors.password?.message}
+          {...register("password")}
+        />
+
+        {/* Country Field */}
+        <div className="space-y-2">
+          <Select
+            placeholder="Select your country"
+            options={countries}
+            onChange={(data: any) => {
+              setValue("country", data.name);
+              trigger("country");
+            }}
+            error={errors.country?.message}
+          />
+        </div>
+
+        {/* Checkboxes */}
+        <div className="space-y-4">
+          <Checkbox
+            {...register("sendEmails")}
+            label="Send me emails on how to find the best talent"
+          />
+
+          <Checkbox
+            {...register("has_accepted_terms")}
+            label={
+              <span>
+                I understand and agree to the ZeeWork{" "}
+                <span className="font-semibold text-green-600">
+                  Terms of Service
+                </span>
+              </span>
+            }
+            error={errors.has_accepted_terms?.message}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="space-y-4">
+          <Button
+            type="submit"
+            variant="gradient"
+            size="lg"
+            className="w-full h-12 text-base font-semibold"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              "Create client account"
+            )}
+          </Button>
+
+          <div className="text-center">
+            <span className="text-gray-600">
+              Already have an account?{" "}
+              <button
+                type="button"
+                className="text-green-600 hover:text-green-700 font-medium transition-colors"
                 onClick={() => router.push("/login")}
               >
-                Login
-              </span>
+                Sign in
+              </button>
             </span>
           </div>
         </div>
-      </OnbardingCardLayout>
-    </form>
+      </form>
+    </AuthLayout>
   );
 };

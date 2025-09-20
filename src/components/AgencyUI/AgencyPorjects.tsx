@@ -1,7 +1,5 @@
-
 "use client";
 import React from "react";
-
 
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -129,25 +127,17 @@ const AgencyProjects = ({ agency, setAgency }) => {
   return (
     <>
       <div className="w-full mt-[2rem]">
-        <div className="flex flex-row items-center> <span} className="mb-[0px] font-semibold">
-            Projects
-          </span>
-          {
-            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
-              transition="0.6s ease-in-out"
-              _hover={{
-                border: "2px solid var(--primarycolor)",
-                backgroundColor: "transparent",
-                color: "var(--primarycolor)",
-              }}
-              onClick={() => setIsModal(true)}
-            >
-              <FiPlus />
-            </div>
-          }
+        <div className="flex flex-row items-center">
+          <span className="mb-[0px] font-semibold">Projects</span>
+          <div
+            className="flex flex-col cursor-pointer rounded w-[30px] border h-[30px] items-center justify-center transition-all duration-300 hover:border-2 hover:border-green-500 hover:bg-transparent hover:text-green-500"
+            onClick={() => setIsModal(true)}
+          >
+            <FiPlus />
+          </div>
         </div>
         {agency?.agency_portfolio?.length > 0 ? (
-          <div className="relative mt-3 z-0">
+          <div className="relative z-0 mt-3">
             <Swiper
               modules={[Navigation]}
               navigation={{
@@ -183,27 +173,23 @@ const AgencyProjects = ({ agency, setAgency }) => {
               <>
                 <button
                   ref={prevRef}
-                  className="absolute top-1/2 -left-2 z-20 bg-green-100 rounded-full shadow -mt-4"
+                  className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -left-2"
                 >
-                  <IoArrowBack className="text-4xl p-2 text-green-500" />
+                  <IoArrowBack className="p-2 text-4xl text-green-500" />
                 </button>
                 <button
                   ref={nextRef}
-                  className="absolute top-1/2 -right-2 z-20 bg-green-100 rounded-full shadow -mt-4"
+                  className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -right-2"
                 >
-                  <IoArrowForwardSharp className="text-4xl p-2 text-green-500" />
+                  <IoArrowForwardSharp className="p-2 text-4xl text-green-500" />
                 </button>
               </>
             )}
           </div>
         ) : (
           <div className="mt-[20px]">
-            <Image
-              src="/images/404not-added.png"
-              className="m-[auto]"
-            ></img>
-            <span
-             className="mt-[1.5rem] font-semibold text-center">
+            <img src="/images/404not-added.png" className="m-[auto]"></img>
+            <span className="mt-[1.5rem] font-semibold text-center">
               You haven&apos;t added any projects yet!
             </span>
             <span className="text-base text-center">
@@ -282,21 +268,21 @@ const AgencyProjects = ({ agency, setAgency }) => {
                     {selectedImages?.map((image, index) => (
                       <div
                         key={index}
-                        className="rounded border border-green-300 mr-2 relative"
+                        className="relative mr-2 border border-green-300 rounded"
                       >
                         <img
                           src={URL.createObjectURL(image)}
                           alt={`Selected ${index + 1}`}
-                          className="w-28 h-20 object-cover rounded"
+                          className="object-cover h-20 rounded w-28"
                         />
                         <span
-                          className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"
+                          className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 rounded-full cursor-pointer bg-red-50/10 backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"
                           onClick={() => handleImageDelete(index)}
                         >
                           <IoMdClose />
                         </span>
                         {index === 0 && (
-                          <div className="absolute bottom-0 left-0 bg-black/10 backdrop-blur backdrop-filter text-white flex justify-center items-center gap-1 w-full text-sm">
+                          <div className="absolute bottom-0 left-0 flex items-center justify-center w-full gap-1 text-sm text-white bg-black/10 backdrop-blur backdrop-filter">
                             <FaStar />
                             <span>Primary</span>
                           </div>
@@ -334,8 +320,9 @@ const AgencyProjects = ({ agency, setAgency }) => {
               </div>
             </div>
           </div>
-          <div className="text-right mt-10">
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          <div className="mt-10 text-right">
+            <button
+              className="inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground"
               isLoading={isLoading}
               loadingText="Submit"
               type="submit"
@@ -352,21 +339,21 @@ const AgencyProjects = ({ agency, setAgency }) => {
         isModal={isDeleteAgencyId}
         setIsModal={setIsDeleteAgencyId}
       >
-        <p className="text-xl sm:text-2xl font-semibold">
+        <p className="text-xl font-semibold sm:text-2xl">
           Are you sure you want to delete this project?
         </p>
 
-        <div className="flex gap-5 sm:gap-10 mt-8 sm:mt-20">
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-           
+        <div className="flex gap-5 mt-8 sm:gap-10 sm:mt-20">
+          <button
+            className="inline-flex items-center justify-center w-full text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground"
             onClick={() => setIsDeleteAgencyId(null)}
           >
             No, I don&apos;t want to Delete
           </button>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+          <button
+            className="inline-flex items-center justify-center w-full text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground"
             isLoading={isLoading}
             loadingText=" Yes, I want to Delete"
-           
             onClick={handleDeleteAgency}
             spinner={<BtnSpinner />}
           >

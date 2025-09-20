@@ -1,5 +1,15 @@
-import { AllJobs } from "../../components/FindJobUi";
+"use client";
+
+import React from "react";
+import HomeLayout from "../../components/Layouts/HomeLayout";
+import ModernAllJobs from "../../components/FindJobUi/ModernAllJobs";
 
 export default function FindJobPage() {
-  return <AllJobs />;
+  return (
+    <HomeLayout>
+      <div className="flex flex-col w-full justify-center p-0">
+        <ModernAllJobs />
+      </div>
+    </HomeLayout>
+  );
 }

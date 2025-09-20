@@ -209,29 +209,13 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
               }}
             />
           )}
-          <divtext-2.5rem"
-            transform={"translate(-50%, -50%)"}
-            top="50%"
-            left="50%"
-           className="flex flex-row items-center className= absolute">
-            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[50px] h-[50px] items-center justify-center"
-              transition="0.6s ease-in-out"
-              _hover={{
-                border: "2px solid var(--primarycolor)",
-                backgroundColor: "transparent",
-                color: "var(--primarycolor)",
-              }}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row items-center text-2xl">
+            <div className="flex flex-col items-center justify-center bg-white rounded w-[50px] h-[50px] cursor-pointer transition-all duration-300 hover:border-2 hover:border-green-600 hover:bg-transparent hover:text-green-600"
               onClick={() => handleUpdate("Cover Photo")}
             >
               <RiEdit2Fill />
             </div>
-            <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[50px] h-[50px] items-center justify-center"
-              transition="0.6s ease-in-out"
-              _hover={{
-                border: "2px solid var(--primarycolor)",
-                backgroundColor: "transparent",
-                color: "var(--primarycolor)",
-              }}
+            <div className="flex flex-col items-center justify-center bg-white rounded w-[50px] h-[50px] cursor-pointer transition-all duration-300 hover:border-2 hover:border-green-600 hover:bg-transparent hover:text-green-600"
             >
               <RiDeleteBin2Fill />
             </div>
@@ -239,54 +223,37 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
         </div>
 
         <AgencyBodyLayout>
-          <div className="flex flex-row items-center} className="justify-between w-full"}
-          >
-            <div className="flex flex-row items-center className="w-full">
-              <div className="flex flex-row items-center className="relative">
+          <div className="flex flex-row items-center justify-between w-full">
+            <div className="flex flex-row items-center w-full">
+              <div className="flex flex-row items-center relative">
                 <Avatar
                   src={agency_profileImage}
-                  name={agency_name}}} className="rounded"
+                  name={agency_name}
+                  className="rounded"
                 />
 
-                <div className="bottom= rounded w-[30px] border h-[30px] items-center justify-center"0px"
-                  right="0px"
-                  transition="0.6s ease-in-out"
-                  _hover={{
-                    border: "2px solid var(--primarycolor)",
-                    backgroundColor: "transparent",
-                    color: "var(--primarycolor)",
-                  }}
-                  onClick={() = className="flex flex-col backgroundColor= cursor-pointer absolute"> handleUpdate("Profile Photo")}
+                <div className="absolute bottom-0 right-0 flex flex-col items-center justify-center bg-white border rounded w-[30px] h-[30px] cursor-pointer transition-all duration-300 hover:border-2 hover:border-green-600 hover:bg-transparent hover:text-green-600"
+                  onClick={() => handleUpdate("Profile Photo")}
                 >
                   <RiEdit2Fill />
                 </div>
               </div>
 
-              <div className="flex flex-col className="items-flex-start ml-[1.1rem]"
-              >
-                <div className="flex flex-row items-center> <span} className="font-semibold">
+              <div className="flex flex-col items-start ml-[1.1rem]">
+                <div className="flex flex-row items-center">
+                  <span className="font-semibold">
                     {agency_name}
                   </span>
-                  <div className="className= flex flex-col backgroundColor= cursor-pointer"rounded w-[30px] border h-[30px] items-center justify-center"
-                    transition="0.6s ease-in-out"
-                    _hover={{
-                      border: "2px solid var(--primarycolor)",
-                      backgroundColor: "transparent",
-                      color: "var(--primarycolor)",
-                    }}
+                  <div className="flex flex-col items-center justify-center bg-white border rounded w-[30px] h-[30px] cursor-pointer transition-all duration-300 hover:border-2 hover:border-green-600 hover:bg-transparent hover:text-green-600"
                     onClick={() => handleUpdate("Agency Name", agency_name)}
                   >
                     <RiEdit2Fill />
                   </div>
                 </div>
 
-                <div className="flex flex-row items-center> <span}> {agency_tagline} </span> <divwhite rounded w-[30px] border h-[30px] items-center justify-center flex flex-col backgroundColor= cursor-pointer"
-                    transition="0.6s ease-in-out"
-                    _hover={{
-                      border: "2px solid var(--primarycolor)",
-                      backgroundColor: "transparent",
-                      color: "var(--primarycolor)",
-                    }}
+                <div className="flex flex-row items-center">
+                  <span>{agency_tagline}</span>
+                  <div className="flex flex-col items-center justify-center bg-white border rounded w-[30px] h-[30px] cursor-pointer transition-all duration-300 hover:border-2 hover:border-green-600 hover:bg-transparent hover:text-green-600"
                     onClick={() =>
                       handleUpdate("Agency Tagline", agency_tagline)
                     }
@@ -297,16 +264,8 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
               </div>
             </div>
 
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground rounded"
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all duration-300 bg-green-600 text-white px-4 py-2 mt-1 md:mt-0 hover:bg-transparent hover:border-2 hover:border-green-600 hover:text-black"
               onClick={handleSwitchFreelancer}
-              backgroundColor={"var(--primarycolor)"}}
-              marginTop={{ base: "4px", md: "0px" }}
-              transition="0.6s ease-in-out"
-              _hover={{
-                background: "transparent",
-                border: "2px solid var(--primarycolor)",
-                color: "black",
-              }}
             >
               Switch To Your Freelancer Profile
             </button>
@@ -485,14 +444,18 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                 </div>
                 {imageSrc && (
                   <div className="text-right mt-10">
-                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                      isLoading={isLoading}
-                      loadingText="Uploading"
+                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-green-600 text-white px-7 py-2 hover:bg-green-700 disabled:opacity-50"
+                      disabled={isLoading}
                       onClick={() => onSubmit()}
-                      paddingX={7}
-                      spinner={<BtnSpinner />}
                     >
-                      Upload
+                      {isLoading ? (
+                        <>
+                          <BtnSpinner />
+                          Uploading
+                        </>
+                      ) : (
+                        "Upload"
+                      )}
                     </button>
                   </div>
                 )}
@@ -521,13 +484,18 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
 
             {modalType !== "Profile Photo" && modalType !== "Cover Photo" && (
               <div className="text-right mt-10">
-                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isLoading={isLoading}
-                  loadingText="Submit"
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-green-600 text-white px-4 py-2 hover:bg-green-700 disabled:opacity-50"
+                  disabled={isLoading}
                   type="submit"
-                  spinner={<BtnSpinner />}
                 >
-                  Submit
+                  {isLoading ? (
+                    <>
+                      <BtnSpinner />
+                      Submit
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             )}

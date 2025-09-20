@@ -54,7 +54,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 fixed w-full z-50 shadow-sm">
+    <nav className="bg-white/95 backdrop-blur-md fixed w-full z-50 shadow-sm">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -465,7 +465,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   }, [activeAgency]);
 
   return (
-    <nav className="bg-white w-full shadow-slate-700 border-b-[1px] items-center">
+    <nav className="bg-white w-full shadow-slate-700 items-center">
       <div className="w-[90%] mx-auto sm:py-1 justify-between max-w-[1200px]">
         <div className=" flex m-auto items-center md:justify-between justify-between h-16">
           <div className="inset-y-0 left-0 flex items-center sm:hidden">

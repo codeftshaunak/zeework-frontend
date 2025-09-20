@@ -13,12 +13,9 @@ interface OnboardingProcessProps {
 
 const OnboardingProcess: React.FC<OnboardingProcessProps> = (props) => {
   return (
-    <div className="flex flex-row items-center mt-[5%]"
-      className="justify-space-around relative"
-    >
+    <div className="flex flex-row items-center justify-around relative mt-[5%]">
       {props.children}
-      <div className="flex flex-row items-center className="border p-[1.5rem 1.3rem] rounded bg-white max-lg:!hidden"
-      >
+      <div className="flex flex-row items-center border p-[1.5rem_1.3rem] rounded bg-white max-lg:!hidden">
         <UserCard />
       </div>
     </div>

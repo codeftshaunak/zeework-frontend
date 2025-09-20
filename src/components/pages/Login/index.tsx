@@ -3,32 +3,20 @@
 import React from "react";
 
 import { useContext, useRef, useState } from "react";
-import { CiUser } from "react-icons/ci";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { MdPassword } from "react-icons/md";
-import CTAButton from "../../CTAButton";
-import Divider from "../../Divider/Divider";
-import {
-  VStack,
-  Flex,
-  Input,
-
-  Button,
-  Text,
-} from "@/components/ui/migration-helpers";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "@/lib/toast";
 
-import OnbardingCardLayout from "../../Layouts/CardLayout/OnbardingCardLayout";
+import AuthLayout from "../../auth/AuthLayout";
+import AuthFormField from "../../auth/AuthFormField";
 import { signIn } from "../../../helpers/APIs/apiRequest";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "../../../redux/authSlice/authSlice";
 import { getAllDetailsOfUser } from "../../../helpers/APIs/userApis";
 import { CurrentUserContext } from "../../../contexts/CurrentUser";
-import BtnSpinner from "../../Skeletons/BtnSpinner";
 import { useForm } from "react-hook-form";
-import ErrorMsg from "../../utils/Error/ErrorMsg";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const router = useRouter();
@@ -101,130 +89,107 @@ const Login = () => {
   };
 
   return (
-    <OnbardingCardLayout title="Log In to ZeeWork">
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-
-        <div className="flex flex-col gap-4">
-          <div className={cn("w-full", loading && "animate-pulse")}>
-            {loading ? (
-              <div className="h-12 bg-gray-200 rounded-md w-full"></div>
-            ) : (
-              <>
-                <div className="flex overflow-hidden"
-                 
-                 
-                 
-                 
-                 
-                 
-                >
-                  <CiUser
-                    style={{
-                      fontSize: "2rem",
-                      marginRight: "0.1rem",
-                      padding: "0.4rem",
-                    }}
-                  />
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm border-none text-base py-2 px-2 rounded-none focus:outline-none focus:ring-0"
-                    type="text"
-                    placeholder="Username Or Email"
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                        message: "Enter a valid email address",
-                      },
-                    })}
-                   
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        passwordRef.current.focus();
-                      }
-                    }}
-                  />
-                </div>
-                {errors.email && <ErrorMsg msg={errors.email.message} className="text-red-500 text-sm mt-1" />}
-              </>
-            )}
-          </div>
-          <div className={cn("w-full", loading && "animate-pulse")}>
-            {loading ? (
-              <div className="h-12 bg-gray-200 rounded-md w-full"></div>
-            ) : (
-              <>
-                <div className="flex overflow-hidden"
-                 
-                 
-                 
-                 
-                 
-                 
-                >
-                  <MdPassword
-                    style={{
-                      fontSize: "2.1rem",
-                      marginRight: "0.1rem",
-                      padding: "0.5rem",
-                    }}
-                  />
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm border-none text-base py-2 px-2 rounded-none focus:outline-none focus:ring-0 flex-1"
-                    ref={passwordRef}
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    {...register("password", { required: "Password is required" })}
-                   
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleSubmit(onSubmit)();
-                    }}
-                  />
-                  <button
-                    type="button"
-                    aria-label={showPassword ? "Hide Password" : "Show Password"}
-                    onClick={toggleShowPassword}
-                    className="p-2 hover:bg-gray-100 transition-colors rounded-none"
-                  >
-                    {showPassword ? <BsEyeSlash /> : <BsEye />}
-                  </button>
-                </div>
-                {errors.password && <ErrorMsg msg={errors.password.message} className="text-red-500 text-sm mt-1" />}
-                <span
-                  className="cursor-pointer mt-3 ml-1"
-                  onClick={() => router.push("/forget-password")}
-                >
-                  Forget Your Password?
-                </span>
-              </>
-            )}
-          </div>
-          <div className={cn("w-full", loading && "animate-pulse")}>
-            {loading ? (
-              <div className="h-10 bg-gray-200 rounded-md w-full"></div>
-            ) : (
-              <button
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-                type="submit"
-                disabled={loginBtnLoading}
-              >
-                {loginBtnLoading ? "Verifying..." : "Continue with Email"}
-              </button>
-            )}
-          </div>
-          <Divider text="Don't have a ZeeWork account?" dwidth="60px" />
-        </div>
-      </form>
-      <br />
-
-      <div className={cn("w-full", loading && "animate-pulse")}>
+    <AuthLayout
+      title="Welcome back"
+      description="Sign in to your ZeeWork account to continue"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {loading ? (
-          <div className="h-10 bg-gray-200 rounded-md w-full"></div>
+          <div className="space-y-4">
+            <div className="h-12 bg-gray-200 rounded-md w-full animate-pulse"></div>
+            <div className="h-12 bg-gray-200 rounded-md w-full animate-pulse"></div>
+            <div className="h-12 bg-gray-200 rounded-md w-full animate-pulse"></div>
+          </div>
         ) : (
-          <CTAButton
-            text="Sign Up"
-            onClick={() => router.push("/signup")}
-          />
+          <>
+            {/* Email Field */}
+            <AuthFormField
+              type="email"
+              placeholder="Enter your email address"
+              error={errors.email?.message}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  passwordRef.current?.focus();
+                }
+              }}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: "Enter a valid email address",
+                },
+              })}
+            />
+
+            {/* Password Field */}
+            <div className="space-y-2">
+              <AuthFormField
+                ref={passwordRef}
+                type="password"
+                placeholder="Enter your password"
+                showPassword={showPassword}
+                onTogglePassword={toggleShowPassword}
+                error={errors.password?.message}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSubmit(onSubmit)();
+                }}
+                {...register("password", { required: "Password is required" })}
+              />
+
+              {/* Forgot Password Link */}
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={() => router.push("/forget-password")}
+                  className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors"
+                >
+                  Forgot your password?
+                </button>
+              </div>
+            </div>
+
+            {/* Sign In Button */}
+            <Button
+              type="submit"
+              variant="gradient"
+              size="lg"
+              className="w-full h-12 text-base font-semibold"
+              disabled={loginBtnLoading}
+            >
+              {loginBtnLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign in to ZeeWork"
+              )}
+            </Button>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-4 text-gray-500">Don't have an account?</span>
+              </div>
+            </div>
+
+            {/* Sign Up Button */}
+            <Button
+              type="button"
+              variant="gradient-outline"
+              size="lg"
+              className="w-full h-12 text-base font-semibold"
+              onClick={() => router.push("/signup")}
+            >
+              Create new account
+            </Button>
+          </>
         )}
-      </div>
-    </OnbardingCardLayout>
+      </form>
+    </AuthLayout>
   );
 };
 
