@@ -4,13 +4,14 @@ import DreamsInto from "./DreamsInto/DreamsInto";
 import Faqs from "./Faqs/Faqs";
 import Findtalent from "./Findtalent/Findtalent";
 import GuaranteedWork from "./GuaranteedWork/GuaranteedWork";
+import { Header } from "../Header";
 import HeroSection from "./HeroSection/HeroSection";
 import MoreCategories from "./MoreCategories/MoreCategories";
 import ReviewSection from "./ReviewSection/ReviewSection";
 import WorkteamsSection from "./WorkteamsSection/WorkteamsSection";
 import { useEffect, useState, useRef } from "react";
 
-function useIsVisible(ref) {
+function useIsVisible(ref: React.RefObject<HTMLDivElement | null>) {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,9 @@ function useIsVisible(ref) {
       setIntersecting(entry.isIntersecting);
     });
 
-    observer.observe(ref.current);
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
     return () => {
       observer.disconnect();
     };
@@ -28,95 +31,111 @@ function useIsVisible(ref) {
 }
 
 const HomeComponent = () => {
-  const ref1 = useRef();
+  const ref1 = useRef<HTMLDivElement>(null);
   const isVisible1 = useIsVisible(ref1);
 
-  const ref2 = useRef();
+  const ref2 = useRef<HTMLDivElement>(null);
   const isVisible2 = useIsVisible(ref2);
 
-  const ref3 = useRef();
+  const ref3 = useRef<HTMLDivElement>(null);
   const isVisible3 = useIsVisible(ref3);
 
-  const ref4 = useRef();
+  const ref4 = useRef<HTMLDivElement>(null);
   const isVisible4 = useIsVisible(ref4);
 
-  const ref5 = useRef();
+  const ref5 = useRef<HTMLDivElement>(null);
   const isVisible5 = useIsVisible(ref5);
 
-  const ref6 = useRef();
+  const ref6 = useRef<HTMLDivElement>(null);
   const isVisible6 = useIsVisible(ref6);
 
   return (
-    <div className="mt-0 m-auto overflow-hidden bg-white text-[#575757] ">
+    <div className="min-h-screen bg-white text-gray-700 overflow-hidden">
+      {/* Header */}
+      <Header />
+
+      {/* Hero Section */}
       <div
         ref={ref1}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible1 ? "opacity-100" : "opacity-0"
-        } bg-[#fafafa] py-10 z-50 md:h-full flex items-center`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } bg-gradient-to-br from-white via-gray-50 to-green-50/30 pt-16`}
       >
         <HeroSection />
       </div>
+
+      {/* Workteams Section */}
       <div
         ref={ref2}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible2 ? "opacity-100" : "opacity-0"
-        } relative sm:pt-16 overflow-hidden z-10`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } relative bg-white`}
       >
-        <img
-          className="absolute left-[calc(50%-362px)] -z-10 max-sm:hidden"
-          src="./images/Illustration.svg"
-        />
-        <img
-          className="absolute left-12 lg:left-[calc(50%-520px)]  2xl:top-[calc(50%-280px)] top-20 -z-10 max-sm:hidden"
-          src="./images/TeamsSectionImg1.svg"
-        />
-        <img
-          className="absolute left-0 -top-[300px] max-lg:hidden"
-          src="./images/LeftBadgeBg.svg"
-        />
-        <img
-          className="absolute right-0 -top-[350px] max-lg:hidden"
-          src="./images/RightBadgeBg.svg"
-        />
+        {/* Subtle background decorations */}
+        <div className="absolute inset-0 opacity-30">
+          <img
+            className="absolute left-[calc(50%-362px)] -z-10 max-sm:hidden opacity-50"
+            src="./images/Illustration.svg"
+            alt="Decoration"
+          />
+          <img
+            className="absolute left-12 lg:left-[calc(50%-520px)] 2xl:top-[calc(50%-280px)] top-20 -z-10 max-sm:hidden opacity-40"
+            src="./images/TeamsSectionImg1.svg"
+            alt="Teams decoration"
+          />
+        </div>
         <WorkteamsSection />
       </div>
+
+      {/* Find Talent Section */}
       <div
         ref={ref3}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible3 ? "opacity-100" : "opacity-0"
-        } py-8 my-4 z-0`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } bg-gray-50/50`}
       >
         <Findtalent />
       </div>
+
+      {/* Guaranteed Work Section */}
       <div
         ref={ref4}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible4 ? "opacity-100" : "opacity-0"
-        } bg-[#16A34A]/[.12] relative z-10`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } bg-gradient-to-br from-green-50 to-emerald-50 relative`}
       >
-        <div className="bg-[#22C55E]/20 rounded-full h-[175px] w-[175px] absolute left-[-114px] -top-[35px]"></div>
+        {/* Modern decoration */}
+        <div className="absolute left-0 top-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-emerald-500/20 rounded-full blur-3xl"></div>
         <GuaranteedWork />
       </div>
+
+      {/* More Categories Section */}
       <div
         ref={ref5}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible5 ? "opacity-100" : "opacity-0"
-        } z-50`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } bg-white`}
       >
         <MoreCategories />
       </div>
+
+      {/* Dreams Into Section */}
       <div
         ref={ref6}
-        className={`transition-opacity ease-in duration-700 ${
-          isVisible6 ? "opacity-100" : "opacity-0"
-        } z-50`}
+        className={`transition-all ease-in-out duration-1000 transform ${
+          isVisible6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        } bg-gradient-to-br from-blue-50 to-purple-50`}
       >
         <DreamsInto />
       </div>
-      <div className="z-50">
+
+      {/* Review Section */}
+      <div className="bg-white">
         <ReviewSection />
       </div>
-      <div className="z-50">
+
+      {/* FAQ Section */}
+      <div className="bg-gray-50">
         <Faqs />
       </div>
     </div>

@@ -88,6 +88,12 @@ const Login = () => {
       toast.warning(response?.msg);
       router.push("/login");
     }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred during login");
+      setLoginBtnLoading(false);
+      setLoading(false);
+    }
   };
 
   const toggleShowPassword = () => {
@@ -98,7 +104,8 @@ const Login = () => {
     <OnbardingCardLayout title="Log In to ZeeWork">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
 
-        <div className="flex flex-col> <div className={cn("w-full", loading && "animate-pulse")}>
+        <div className="flex flex-col gap-4">
+          <div className={cn("w-full", loading && "animate-pulse")}>
             {loading ? (
               <div className="h-12 bg-gray-200 rounded-md w-full"></div>
             ) : (
@@ -136,7 +143,7 @@ const Login = () => {
                     }}
                   />
                 </div>
-                {errors.email && <ErrorMsg msg={errors.email.message} />}
+                {errors.email && <ErrorMsg msg={errors.email.message} className="text-red-500 text-sm mt-1" />}
               </>
             )}
           </div>
@@ -179,12 +186,9 @@ const Login = () => {
                     {showPassword ? <BsEyeSlash /> : <BsEye />}
                   </button>
                 </div>
-                {errors.password && <ErrorMsg msg={errors.password.message} />}
+                {errors.password && <ErrorMsg msg={errors.password.message} className="text-red-500 text-sm mt-1" />}
                 <span
-                  marginTop={3}
-                  marginLeft={1}
-                 
-                  className="cursor-pointer"
+                  className="cursor-pointer mt-3 ml-1"
                   onClick={() => router.push("/forget-password")}
                 >
                   Forget Your Password?
@@ -196,10 +200,10 @@ const Login = () => {
             {loading ? (
               <div className="h-10 bg-gray-200 rounded-md w-full"></div>
             ) : (
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-                isLoading={loginBtnLoading}
+              <button
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                 type="submit"
-               
+                disabled={loginBtnLoading}
               >
                 {loginBtnLoading ? "Verifying..." : "Continue with Email"}
               </button>

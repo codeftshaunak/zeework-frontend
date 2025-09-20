@@ -5,25 +5,30 @@ import { BsBriefcase, BsSend } from "react-icons/bs";
 
 const UserCard: React.FC = () => {
   return (
-    <div5" className="flex flex-col gap= p-5">
+    <div className="flex flex-col gap-5 p-5">
       <img
         src="./images/user.jpeg"
         alt="user"
         className="w-20 h-20 rounded-full object-cover"
       />
 
-      <div className="flex flex-col>
+      <div className="flex flex-col">
         <span className="mb-[0]">
           Sasheen M.
         </span>
         <span className="mb-[0]">Customer Experience Consultant</span>
       </div>
 
-      <div className="flex flex-row items-center> <div className="flex flex-row items-center>
+      <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-1">
           <AiOutlineStar />
           <span>5.0</span>
         </div>
-        <div className="flex flex-row items-center> <BsSend /> <span>$65.00/hr</span> </div> <div className="flex flex-row items-center>
+        <div className="flex flex-row items-center gap-1">
+          <BsSend />
+          <span>$65.00/hr</span>
+        </div>
+        <div className="flex flex-row items-center gap-1">
           <BsBriefcase />
           <span>$65.00/hr</span>
         </div>

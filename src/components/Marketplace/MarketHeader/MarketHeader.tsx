@@ -30,8 +30,7 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
   };
 
   return (
-    <div className="flex flex-row items-center className="w-full justify-between items-start mt-[10px]"
-      marginBottom={5}
+    <div className="flex flex-row items-center w-full justify-between items-start mt-[10px] mb-5"
     >
       <SearchFilter
         categoryOptions={category}
@@ -53,10 +52,10 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
           />
         </div>
 
-        <div className="flex flex-col> <div className="w-full flex gap-2 items-center rounded-md">
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        <div className="flex flex-col">
+          <div className="w-full flex gap-2 items-center rounded-md">
+            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-4"
               placeholder="Find your perfect gig ..."
-              paddingLeft="1rem"
               value={searchText}
               onChange={handleSearchTextChange}
               onKeyDown={(event) => {
@@ -67,38 +66,13 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
             />
 
             <button type="button" className="lg:hidden">
-              <div
-               
-               
-               
-               
-               
-                backgroundColor="white"
-               
-                transition="0.3s ease-in-out"
-                _hover={{
-                  backgroundColor: "var(--primarycolor)",
-                  color: "#fff",
-                }}
-               className="cursor-pointer">
+              <div className="cursor-pointer bg-white transition-all duration-300 ease-in-out hover:bg-green-500 hover:text-white p-2 rounded">
                 <CiFilter />
               </div>
             </button>
             <div
-             
-             
-             
-             
-             
-              backgroundColor="var(--primarycolor)"
-             
-              transition="0.3s ease-in-out"
-              _hover={{
-                backgroundColor: "#fff",
-                color: "#000",
-              }}
               onClick={handleSearch}
-             className="cursor-pointer">
+              className="cursor-pointer bg-green-500 text-white transition-all duration-300 ease-in-out hover:bg-white hover:text-black p-2 rounded">
               <BiSearchAlt />
             </div>
           </div>

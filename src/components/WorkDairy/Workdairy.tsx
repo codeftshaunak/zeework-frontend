@@ -57,8 +57,8 @@ const Workdairy = () => {
   };
 
   return (
-    <div className="flex flex-col className= items-start"w-[90%]">
-      <div className="flex flex-row items-center className="justify-between w-full">
+    <div className="flex flex-col items-start w-[90%]">
+      <div className="flex flex-row items-center justify-between w-full">
         <span className="font-semibold">
           Work diary
         </span>
@@ -68,10 +68,8 @@ const Workdairy = () => {
           p="0.5rem 1rem"
         />
       </div>
-      <div className="flex flex-col className= relative border p-[2rem 2rem] rounded"w-full"
-       
-      >
-        <div className="flex flex-row items-center className="justify-between w-full">
+      <div className="flex flex-col relative border p-[2rem] rounded w-full">
+        <div className="flex flex-row items-center justify-between w-full">
           <Select options={options} styles={customStyles} />
           <div className="w-[243px]">
             <Datepicker
@@ -83,8 +81,9 @@ const Workdairy = () => {
             />
           </div>
         </div>
-        <div className="flex flex-row items-center className="justify-between w-full">
-          <div className="flex flex-row items-center> <span className="font-semibold">
+        <div className="flex flex-row items-center justify-between w-full">
+          <div className="flex flex-row items-center gap-2">
+            <span className="font-semibold">
               Total:
             </span>
             <span className="font-semibold">
@@ -101,30 +100,35 @@ const Workdairy = () => {
           <Select options={options_hr} styles={customStyles_hr} />
         </div>
         <Divider></Divider>
-        <div className="flex flex-row items-center className="w-full justify-between">
-          <div className="flex flex-row items-center> <ActiveIcon /> <span className="font-semibold">
+        <div className="flex flex-row items-center w-full justify-between">
+          <div className="flex flex-row items-center gap-2">
+            <ActiveIcon />
+            <span className="font-semibold">
               7:00 PM - 8:00 PM (1:00 hrs)
             </span>
           </div>
           <span className="text-2xl">{<CiCircleMore />}</span>
         </div>
-        <span
-          float="left"
-         className="w-full text-sm">
+        <span className="w-full text-sm float-left">
           Working On Mobile Responsiveness
         </span>
-        <div className="flex flex-row items-center className="justify-start w-full" flexWrap="wrap">
+        <div className="flex flex-row items-center justify-start w-full flex-wrap">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => {
             return (
-              <div className="flex flex-col className="items-start" key={item}>
+              <div className="flex flex-col items-start" key={item}>
                 <Image
                   src="https://i.ibb.co/tmNpfvL/Screenshot-2023-10-30-at-11-16-14-PM.png"
                   style={customStyles_img}
                 />
-                <div className="flex flex-row items-center> {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => ( <div key={number} className="w-[11px] h-[5px]"
-                      backgroundColor="#22C35E"
+                <div className="flex flex-row items-center gap-1">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+                    <div
+                      key={number}
+                      className="w-[11px] h-[5px]"
+                      style={{ backgroundColor: "#22C35E" }}
                     ></div>
                   ))}
+                </div>
                 </div>
               </div>
             );

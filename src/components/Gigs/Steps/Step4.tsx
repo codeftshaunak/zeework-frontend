@@ -120,7 +120,7 @@ const Step4 = ({
           onBackward={onBack}
           isLoading={isLoading}
         >
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Project Summary
             </label>
@@ -134,7 +134,7 @@ const Step4 = ({
               render={({ field, fieldState }) => {
                 return (
                   <>
-                    <spanarea {...field} / className="mt-[5px] bg-white">
+                    <Textarea {...field} className="mt-[5px] bg-white" />
                     {fieldState.error && (
                       <p style={{ color: "red", marginTop: "5px" }}>
                         {fieldState.error.message}
@@ -146,7 +146,7 @@ const Step4 = ({
             />
           </div>
 
-          <div className="flex flex-col className="items-start w-full">
+          <div className="flex flex-col items-start w-full">
             <label htmlFor="fileInput" className="text-xl font-[600] pb-0 mb-0">
               Frequently asked questions (optional)
             </label>
@@ -155,11 +155,12 @@ const Step4 = ({
               your project. Feel free to include details that will help them
               better understand your work process.
             </p>
-            <div className="flex flex-col className="w-full">
+            <div className="flex flex-col w-full">
               {faqFields.map((faq, index) => (
-                <div className="flex flex-col key={index} className= p-[2rem 1.5rem] mt-[1rem] rounded-md"items-start w-full"
-                  backgroundColor="white"
-                 
+                <div
+                  key={index}
+                  className="flex flex-col items-start w-full p-[2rem_1.5rem] mt-[1rem] rounded-md"
+                  style={{ backgroundColor: "white" }}
                 >
                   <label htmlFor="" className="font-semibold">
                     Question {index + 1}
@@ -190,9 +191,10 @@ const Step4 = ({
                     control={control}
                     render={({ field, fieldState }) => (
                       <>
-                        <spanarea
+                        <Textarea
                           {...field}
-                        / className="mt-[5px] bg-white">
+                          className="mt-[5px] bg-white"
+                        />
                         {fieldState.error && (
                           <p style={{ color: "red", marginTop: "5px" }}>
                             {fieldState.error.message}
@@ -204,20 +206,18 @@ const Step4 = ({
                 </div>
               ))}
             </div>
-            <div className="flex flex-row items-center className="w-full">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                backgroundColor="transparent"
+            <div className="flex flex-row items-center w-full">
+              <button
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                style={{ backgroundColor: "transparent" }}
                 onClick={() => addFaq()}
-                _hover={{
-                  backgroundColor: "transparent",
-                }}
               >
                 <FiPlus size="1.3rem" /> <span>Add a step</span>
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col className="items-start w-full">
+          <div className="flex flex-col items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
@@ -225,7 +225,7 @@ const Step4 = ({
               Terms of Service
             </label>
 
-            <div className="flex flex-row items-center className="w-full">
+            <div className="flex flex-row items-center w-full">
               <Checkbox
                 colorScheme="primary"
                 size="lg"
@@ -244,14 +244,14 @@ const Step4 = ({
             {errors.terms && <ErrorMsg msg={errors.terms.message} />}
           </div>
 
-          <div className="flex flex-col className="items-start w-full">
+          <div className="flex flex-col items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
             >
               Privacy Notice
             </label>
-            <div className="flex flex-row items-center className="w-full">
+            <div className="flex flex-row items-center w-full">
               <Checkbox
                 colorScheme="primary"
                 size="lg"
