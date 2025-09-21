@@ -371,7 +371,7 @@ const JobDetails = ({
                         }
                       }}
                       size="lg"
-                      className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
+                      variant="gradient"
                     >
                       Apply for this job
                     </ShadButton>
