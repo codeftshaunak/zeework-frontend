@@ -2,6 +2,7 @@
 
 import { toast } from "@/lib/toast";
 import Select from "react-select";
+import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import makeAnimated from "react-select/animated";
@@ -74,7 +75,6 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
             return body?.map((item) => ({
               value: item?.skill_name,
               label: item?.skill_name,
-              _id: item?._id,
             }));
           } else {
             return [];
@@ -166,20 +166,21 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <button
+            <Button
+              variant="gradient"
               disabled={isLoading}
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="gap-2"
             >
               {isLoading ? (
                 <>
                   <BtnSpinner />
-                  <span className="ml-2">Updating</span>
+                  Updating Skills...
                 </>
               ) : (
-                "Update"
+                "Update Skills"
               )}
-            </button>
+            </Button>
           </div>
         </form>
       </>
