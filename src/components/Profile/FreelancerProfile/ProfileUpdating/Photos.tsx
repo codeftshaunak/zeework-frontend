@@ -6,7 +6,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from "@/components/ui/migration-helpers";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useDropzone } from "react-dropzone";
 import Cropper from "react-easy-crop";
@@ -204,25 +203,49 @@ const Photos = ({ setIsModal }) => {
 
                 {/* Zoom Control */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <ZoomOut className="h-4 w-4 text-gray-500" />
-                    <Slider
-                      value={zoom}
-                      min={1}
-                      max={3}
-                      step={0.1}
-                      onChange={(val) => !isCropped && setZoom(val)}
-                      className="flex-1"
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => !isCropped && setZoom(Math.max(1, zoom - 0.1))}
+                      disabled={isCropped || zoom <= 1}
+                      className="h-8 w-8 p-0"
                     >
-                      <SliderTrack className="bg-gray-200">
-                        <SliderFilledTrack className="bg-green-500" />
-                      </SliderTrack>
-                      <SliderThumb className="w-5 h-5 bg-white border-2 border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500" />
-                    </Slider>
-                    <ZoomIn className="h-4 w-4 text-gray-500" />
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm font-medium text-gray-700 min-w-[60px] text-center">
+                        {Math.round(zoom * 100)}%
+                      </div>
+                      <div className="flex gap-1">
+                        {[1, 1.5, 2, 2.5, 3].map((zoomLevel) => (
+                          <button
+                            key={zoomLevel}
+                            onClick={() => !isCropped && setZoom(zoomLevel)}
+                            disabled={isCropped}
+                            className={`h-2 w-6 rounded-sm transition-colors ${
+                              zoom >= zoomLevel
+                                ? 'bg-green-500'
+                                : 'bg-gray-200 hover:bg-gray-300'
+                            } ${isCropped ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => !isCropped && setZoom(Math.min(3, zoom + 0.1))}
+                      disabled={isCropped || zoom >= 3}
+                      className="h-8 w-8 p-0"
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <p className="text-sm text-center text-gray-500">
-                    Zoom: {Math.round(zoom * 100)}%
+                  <p className="text-xs text-center text-gray-500">
+                    Use zoom controls to adjust the image size, then crop to save your selection
                   </p>
                 </div>
 
