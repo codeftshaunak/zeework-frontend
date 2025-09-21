@@ -33,7 +33,7 @@ interface RootState {
   profile: {
     profile: {
       categories: any[];
-      skills: string[];
+      skills: Array<string | { value: string; _id?: string; label?: string }>;
     };
   };
 }
@@ -86,7 +86,11 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       });
 
       const results = await Promise.all(promises);
-      const newSkillOptions = results.flat();
+      const newSkillOptions = results.flat().filter(option =>
+        option &&
+        typeof option.value === 'string' &&
+        typeof option.label === 'string'
+      );
 
       setOptions(newSkillOptions);
     } catch (error) {
@@ -100,10 +104,18 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       getCategorySkills(userProfileInfo.categories);
     }
     if (userProfileInfo?.skills) {
-      setValue(
-        "skills",
-        userProfileInfo.skills.map((skill) => ({ value: skill, label: skill }))
-      );
+      const formattedSkills = userProfileInfo.skills.map((skill) => {
+        if (typeof skill === 'string') {
+          return { value: skill, label: skill };
+        } else if (typeof skill === 'object' && skill.value) {
+          return { value: skill.value, label: skill.label || skill.value };
+        } else {
+          console.warn('Invalid skill format:', skill);
+          return null;
+        }
+      }).filter(Boolean) as SkillOption[];
+
+      setValue("skills", formattedSkills);
     }
   }, [userProfileInfo]);
 
@@ -154,11 +166,21 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
                     isLoading={optionsLoading}
                     options={options}
                     onChange={(selected) => {
-                      field.onChange(selected);
-                      setValue("skills", selected);
+                      // Ensure selected values are properly formatted
+                      const cleanSelected = Array.isArray(selected)
+                        ? selected.map(item => ({
+                            value: typeof item === 'string' ? item : item?.value || '',
+                            label: typeof item === 'string' ? item : item?.label || item?.value || ''
+                          }))
+                        : [];
+
+                      field.onChange(cleanSelected);
+                      setValue("skills", cleanSelected);
                       trigger("skills");
                     }}
-                    value={field.value}
+                    value={Array.isArray(field.value) ? field.value.filter(item =>
+                      item && typeof item.value === 'string' && typeof item.label === 'string'
+                    ) : []}
                   />
                 )}
               />
