@@ -54,19 +54,19 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md fixed w-full z-50 shadow-sm">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-16">
+    <nav className="bg-white/98 backdrop-blur-lg w-full border-b border-gray-100 shadow-sm">
+      <div className="w-full px-6 lg:px-12">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
             <div
-              className="flex items-center space-x-2 cursor-pointer"
+              className="flex items-center space-x-3 cursor-pointer group"
               onClick={() => router.push("/")}
             >
               <img
                 src="/images/zeework_logo.png"
                 alt="ZeeWork"
-                className="h-8 w-auto"
+                className="h-6 w-auto transition-transform group-hover:scale-105"
               />
             </div>
           </div>
@@ -76,10 +76,10 @@ export const Header = () => {
               <button
                 key={i}
                 onClick={() => router.push(item.href)}
-                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 relative group"
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 relative group py-1"
               >
                 {item.title}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-green-500 to-green-600 transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </nav>
@@ -100,13 +100,13 @@ export const Header = () => {
             <div className="hidden min-[840px]:flex items-center space-x-3">
               <button
                 onClick={() => router.push("/login")}
-                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 px-4 py-2"
+                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-gray-50"
               >
                 Log In
               </button>
               <button
                 onClick={() => router.push("/signup")}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 Sign Up
               </button>
@@ -465,9 +465,9 @@ export const AuthHeader = ({ role }: { role: number }) => {
   }, [activeAgency]);
 
   return (
-    <nav className="bg-white w-full shadow-slate-700 items-center">
-      <div className="w-[90%] mx-auto sm:py-1 justify-between max-w-[1200px]">
-        <div className=" flex m-auto items-center md:justify-between justify-between h-16">
+    <nav className="bg-white/98 backdrop-blur-lg w-full border-b border-gray-100 shadow-sm">
+      <div className="w-full px-6 lg:px-12">
+        <div className="flex items-center md:justify-between justify-between h-20">
           <div className="inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
             {isOpen && isMenuRef ? (
@@ -489,20 +489,17 @@ export const AuthHeader = ({ role }: { role: number }) => {
             )}
           </div>
           <div className="flex items-center flex-1 max-sm:justify-center">
-            <div className="flex md:w-[130px] items-center">
-              <p
-                className="text-[22px] font-bold text-green-500 cursor-pointer text-right mb-0 pb-0"
+            <div className="flex md:w-[140px] items-center">
+              <div
+                className="cursor-pointer group"
                 onClick={() => router.push("/")}
               >
                 <img
                   src="/images/zeework_logo.png"
-                  style={{
-                    width: "100px",
-                    marginTop: "3px",
-                    margin: "auto",
-                  }}
+                  alt="ZeeWork"
+                  className="h-6 w-auto transition-transform group-hover:scale-105"
                 />
-              </p>
+              </div>
             </div>
             <div className="hidden sm:flex sm:ml-2 md:ml-6 flex-1 max-lg:justify-center">
               <div className="flex gap-3 min-[920px]:gap-9">
@@ -527,26 +524,23 @@ export const AuthHeader = ({ role }: { role: number }) => {
           </div>
           <div className="right-0 flex sm:block items-center sm:static sm:inset-auto md:ml-6 sm:pr-0">
             <div className="hidden sm:hidden lg:flex whitespace-no-wrap items-center justify-center my-2 pl-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md  focus:outline-none focus:shadow-outline-indigo transition ease-in-out duration-150">
-              <div className="flex w-[320px] xl:w-[400px] mr-3">
-                {/* ========== search ======= */}
+              <div className="flex w-[300px] xl:w-[400px] mr-3">
+                {/* Professional Search Bar */}
                 <div
-                  className={`flex w-[400px] items-center rounded-full border-[var(--bordersecondary)] border-[1px] justify-between mr-3 bg-[#F0F2F5]
-                  `}
+                  className={`flex w-full items-center rounded-lg border transition-all duration-200 ${
+                    isHover || isActiveInput
+                      ? "border-green-300 bg-white shadow-md"
+                      : "border-gray-200 bg-gray-50"
+                  }`}
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
                 >
-                  <div
-                    className={`w-full rounded-full flex items-center gap-2 py-2 pl-4 ${
-                      isHover || isActiveInput
-                        ? "bg-white border-r border-[var(--bordersecondary)]"
-                        : "bg-[#F0F2F5]"
-                    }`}
-                  >
-                    <BsSearch />
+                  <div className="w-full rounded-lg flex items-center gap-2 py-2 pl-3">
+                    <BsSearch className={`text-sm ${isHover || isActiveInput ? "text-green-600" : "text-gray-400"} transition-colors`} />
                     <input
-                      placeholder="Search"
+                      placeholder="Search..."
                       type="text"
-                      className={`border-none outline-none text-[15px] bg-transparent`}
+                      className="border-none outline-none text-sm bg-transparent w-full placeholder:text-gray-400"
                       onChange={(e) => setSearchTerm(e.target.value)}
                       onFocus={() => setIsActiveInput(true)}
                       onBlur={() => setIsActiveInput(false)}
@@ -559,48 +553,52 @@ export const AuthHeader = ({ role }: { role: number }) => {
                     />
                   </div>
 
-                  <div className="relative">
-                    <p
-                      className="px-3 capitalize cursor-pointer flex items-center gap-2"
+                  <div className="relative border-l border-gray-200 pl-3">
+                    <button
+                      className="px-4 py-2 capitalize cursor-pointer flex items-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors rounded-lg hover:bg-gray-50"
                       onClick={(event) => {
                         setIsSelectModal(!isSelectModal),
                           event.stopPropagation();
                       }}
                     >
                       {selectedRole}
-                      {isSelectModal ? <IoIosArrowUp /> : <IoIosArrowDown />}
-                    </p>{" "}
+                      {isSelectModal ? <IoIosArrowUp className="text-sm" /> : <IoIosArrowDown className="text-sm" />}
+                    </button>
                     {isSelectModal && (
                       <>
                         <ul
-                          className="absolute top-[42px] right-2 bg-white border-slate-200 border transition-all rounded-md overflow-hidden w-48 z-50"
+                          className="absolute top-[50px] right-0 bg-white border border-gray-200 shadow-xl transition-all rounded-xl overflow-hidden w-56 z-50"
                           ref={selectModalRef}
                         >
                           <li
-                            className="px-3 py-1 hover:bg-slate-100 cursor-pointer"
+                            className="px-4 py-3 hover:bg-green-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0"
                             onClick={() => {
                               handelSelectedValue("job");
                             }}
                           >
-                            <div className="flex gap-2">
-                              <IoBagCheck className="text-xl mt-1" />{" "}
+                            <div className="flex gap-3 items-center">
+                              <div className="p-2 rounded-lg bg-blue-100">
+                                <IoBagCheck className="text-lg text-blue-600" />
+                              </div>
                               <div>
-                                <p>Jobs</p>{" "}
-                                <p className="text-[12px] -mt-1">
-                                  Apply to job posted
+                                <p className="font-semibold text-gray-900">Jobs</p>
+                                <p className="text-sm text-gray-500">
+                                  Apply to job postings
                                 </p>
                               </div>
                             </div>
                           </li>
                           <li
-                            className="px-3 py-1 hover:bg-slate-100 cursor-pointer"
+                            className="px-4 py-3 hover:bg-green-50 cursor-pointer transition-colors"
                             onClick={() => handelSelectedValue("talent")}
                           >
-                            <div className="flex gap-2">
-                              <FaUsers className="text-xl mt-1" />{" "}
+                            <div className="flex gap-3 items-center">
+                              <div className="p-2 rounded-lg bg-green-100">
+                                <FaUsers className="text-lg text-green-600" />
+                              </div>
                               <div>
-                                <p>Talent</p>{" "}
-                                <p className="text-[12px] -mt-1">
+                                <p className="font-semibold text-gray-900">Talent</p>
+                                <p className="text-sm text-gray-500">
                                   Hire professionals
                                 </p>
                               </div>
@@ -628,21 +626,23 @@ export const AuthHeader = ({ role }: { role: number }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 relative">
+              <div className="flex items-center gap-3 relative">
                 <div
-                  className={`relative p-2 rounded-full ${
-                    isOpenNotification && "bg-slate-100"
+                  className={`relative p-2 rounded-lg transition-all duration-200 ${
+                    isOpenNotification ? "bg-green-50" : "hover:bg-gray-50"
                   }`}
                 >
                   <FiBell
-                    className={`text-2xl text-gray-400 cursor-pointer`}
+                    className={`text-lg cursor-pointer transition-colors ${
+                      isOpenNotification ? "text-green-600" : "text-gray-500 hover:text-green-600"
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsOpenNotification(!isOpenNotification);
                     }}
                   />
                   {hasUnreadNotifications && (
-                    <div className="w-2 h-2 rounded-full bg-red-500 absolute top-2 right-2.5"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500 absolute top-2 right-2 animate-pulse"></div>
                   )}
                   {isOpenNotification && (
                     <>
@@ -703,7 +703,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                   )}
                 </div>
                 <div
-                  className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer"
+                  className="flex items-center justify-center rounded-full cursor-pointer p-1 hover:bg-gray-50 transition-colors"
                   onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                 >
                   {firstName || profile?.agency?.agency_name ? (
@@ -720,51 +720,53 @@ export const AuthHeader = ({ role }: { role: number }) => {
                           ? profile?.agency?.agency_name
                           : firstName + " " + lastName
                       }
-                      boxSize="40px"
+                      boxSize="36px"
                     />
                   ) : (
-                    <Avatar boxSize="40px" />
+                    <Avatar boxSize="36px" />
                   )}
                 </div>
                 {openInfo && (
                   <>
                     <div
-                      className="absolute bg-white p-2 rounded-lg right-12 top-2 w-[120px] gap-5 border-slate-200 border transition-all z-50"
+                      className="absolute bg-white p-3 rounded-xl right-12 top-2 w-48 border border-gray-200 shadow-xl transition-all z-50"
                       ref={selectModalRef}
                     >
                       <div
-                        className="flex  items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
+                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
                         onClick={handleUserProfile}
                       >
-                        <CgProfile />
-                        <p className="text-sm ml-2">Profile</p>
+                        <CgProfile className="text-lg text-gray-600 group-hover:text-green-600" />
+                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Profile</p>
                       </div>
                       <div
-                        className="flex items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
+                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
                         onClick={() => {
                           router.push("/setting"), setOpenInfo(false);
                         }}
                       >
-                        <LuSettings />
-                        <p className="text-sm ml-2">Settings</p>
+                        <LuSettings className="text-lg text-gray-600 group-hover:text-green-600" />
+                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Settings</p>
                       </div>
 
                       <div
-                        className="flex items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
+                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
                         onClick={() => {
                           router.push("/help"), setOpenInfo(false);
                         }}
                       >
-                        <BiHelpCircle />
-                        <p className="text-sm ml-2">Help</p>
+                        <BiHelpCircle className="text-lg text-gray-600 group-hover:text-green-600" />
+                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Help</p>
                       </div>
 
+                      <hr className="my-2 border-gray-200" />
+
                       <div
-                        className="flex  items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
+                        className="flex items-center w-full cursor-pointer hover:bg-red-50 py-3 px-3 rounded-lg transition-colors group"
                         onClick={() => handleLogout()}
                       >
-                        <BiExit />
-                        <p className="text-sm ml-2">Logout</p>
+                        <BiExit className="text-lg text-gray-600 group-hover:text-red-600" />
+                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-red-700">Logout</p>
                       </div>
                     </div>
                     <div className="h-5 w-5 bg-slate-200 shadow-sm rotate-45 absolute top-3 right-11"></div>

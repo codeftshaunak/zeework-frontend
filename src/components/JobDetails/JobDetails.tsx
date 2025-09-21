@@ -6,8 +6,7 @@ import { getAgencyAllJobs, userAllJobs } from "../../helpers/APIs/jobApis";
 import { getSingleJobDetails } from "../../helpers/APIs/jobApis";
 import StarRatings from "react-star-ratings";
 import JobDetailsSkeleton from "../Skeletons/JobDetailsSkeleton";
-import { RiUploadCloud2Fill, RiVerifiedBadgeFill } from "react-icons/ri";
-import { LuBadgeX } from "react-icons/lu";
+import { RiUploadCloud2Fill } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import UniversalModal from "../Modals/UniversalModal";
@@ -23,17 +22,29 @@ import {
 import { useDropzone } from "react-dropzone";
 import getCroppedImg from "../../helpers/manageImages/getCroppedImg";
 import { BiImages, BiSolidCrop } from "react-icons/bi";
-import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
+import { TiArrowBack, TiMinus, TiPlus } from "react-icons/ti";
 import Cropper from "react-easy-crop";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 import Link from "next/link";
 import { Slider, Button } from "../ui/migration-helpers";
-// import { Slider } from "@/components/ui/slider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button as ShadButton } from "@/components/ui/button";
+import {
+  Clock,
+  MapPin,
+  DollarSign,
+  User,
+  Shield,
+  Copy,
+  ChevronRight,
+} from "lucide-react";
 
 // Type definitions
 interface JobDetailsProps {
   setPage?: (page: number) => void;
   setDetails?: (details: any[]) => void;
+  jobId?: string;
 }
 
 interface JobDetail {
@@ -110,7 +121,7 @@ const JobDetails = ({
         const formData = new FormData();
         formData.append(
           "imageFile",
-          isCropped && croppedImage ? croppedImage[0] : fullImage[0]
+          (isCropped && croppedImage ? croppedImage[0] : fullImage[0]) as File
         );
         const { body: imgBody, code: imgCode } =
           await uploadSingleImage(formData);
@@ -129,7 +140,9 @@ const JobDetails = ({
         // upload freelancer profile
         const formData = new FormData();
         const compressedImage = await compressImageToWebP(
-          isCropped && croppedImage ? croppedImage[0] : fullImage[0]
+          isCropped && croppedImage ? croppedImage[0] : fullImage[0],
+          0.8,
+          800
         );
         formData.append("file", compressedImage);
 
@@ -210,8 +223,6 @@ const JobDetails = ({
   const hiredPercentage =
     job_open > 0 ? (hired_freelancers / job_open) * 100 : 0;
   const clientHistory = jobDetails[0]?.client_history || [];
-  const lastHistory =
-    clientHistory.length > 0 ? clientHistory[clientHistory.length - 1] : null;
 
   // handle photo drag 'n' drop with photo cropping
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -235,7 +246,7 @@ const JobDetails = ({
   });
 
   const onCropComplete = useCallback(
-    (croppedArea: any, croppedAreaPixels: any) => {
+    (_croppedArea: any, croppedAreaPixels: any) => {
       setCroppedAreaPixels(croppedAreaPixels);
     },
     []
@@ -246,7 +257,9 @@ const JobDetails = ({
 
     try {
       const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-      const file = new File([croppedImage], fileName, { type: "image/jpeg" });
+      const file = new File([croppedImage as BlobPart], fileName, {
+        type: "image/jpeg",
+      });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {
@@ -268,214 +281,350 @@ const JobDetails = ({
   };
 
   // throwing job details skeleton
-  if (isLoading || !jobDetails?.length) return <JobDetailsSkeleton />;
+  if (isLoading || !jobDetails?.length) return <JobDetailsSkeleton hideNavigation={true} />;
 
   return (
     <>
-      <div className="w-full">
-        <div className="w-full py-2">
-          <div className="flex items-center gap-2 py-6">
-            <Link href="/">
-              <img src="/icons/home.svg" alt="home" className="w-5 h-5" />
-            </Link>
-            <img
-              src="/icons/chevron-right.svg"
-              alt="arrow right"
-              className="w-4 h-4"
-            />
-            <div className="capitalize">{jobDetails[0]?.title}</div>
-          </div>
-          <div className="w-full p-6 mb-4 bg-white border border-tertiary rounded-2xl">
-            <div className="flex items-center justify-between max-sm:flex-col max-sm:gap-2">
-              <div className="flex flex-col gap-2 max-[570px]:flex-col max-sm:flex-row max-sm:items-center">
-                <div className="flex max-[380px]:flex-col max-[380px]:items-center max-xl:flex-col">
-                  <div className="font-semibold min-[380px]:mr-2 capitalize text-[20px]">
-                    {jobDetails[0]?.title}{" "}
-                  </div>
-                  <div className="flex items-center mt-1 text-gray-300 max-sm:mt-0">
-                    {formattedTimeElapsed}
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="flex gap-2">
-                    <img src="/icons/receipt.svg" alt="receipt" />{" "}
-                    <div className="text-gray-300">
-                      ${jobDetails[0]?.amount}
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <img src="/icons/user.svg" alt="user" />{" "}
-                    <div className="text-gray-300 capitalize">
-                      {jobDetails[0]?.experience}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {isAlreadyApplied ? (
-                <button className="bg-[#22c55e] text-secondary max-lg:text-[12px] font-semibold rounded h-[36px] px-4 disabled cursor-not-allowed leading-3">
-                  You have already applied
-                </button>
-              ) : (
-                <button
-                  className="rounded font-semibold h-[36px] px-4 bg-[#22c55e] text-secondary"
-                  onClick={() => {
-                    if (isProfileImg) {
-                      setPage(2);
-                    } else {
-                      setIsPopUp(true);
-                    }
-                  }}
-                >
-                  Apply for this job
-                </button>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-col justify-between w-full gap-4 lg:gap-0 lg:flex-row">
-            <div className="w-full lg:w-[68%]">
-              <div className="w-full p-6 capitalize bg-white border border-tertiary rounded-2xl h-max">
-                <p className="mb-6 text-xl font-semibold">Details:</p>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: jobDetails[0]?.description,
-                  }}
-                />
+      <div className="w-full mx-auto">
+        <div className="flex w-full py-6">
+          <div className="w-full px-6">
+            {/* Breadcrumb Navigation */}
+            <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">
+              <Link
+                href="/"
+                className="hover:text-green-600 transition-colors duration-200"
+              >
+                Home
+              </Link>
+              <ChevronRight className="h-4 w-4" />
+              <Link
+                href="/find-job"
+                className="hover:text-green-600 transition-colors duration-200"
+              >
+                Jobs
+              </Link>
+              <ChevronRight className="h-4 w-4" />
+              <span className="text-gray-900 font-medium truncate">
+                {jobDetails[0]?.title}
+              </span>
+            </nav>
 
-                <div className="mt-10">
-                  <p className="mb-2 text-lg font-semibold">Attachments:</p>
-                  <div>
-                    <Link
-                      href={jobDetails[0].file}
-                      target="_blank"
-                      className="text-[var(--primarycolor)]"
-                    >
-                      Attachment 1
-                    </Link>
+            {/* Main Job Header Card */}
+            <div className="bg-white border border-gray-200/60 rounded-lg p-8 mb-8 shadow-sm">
+              <div className="flex justify-between items-start gap-8">
+                <div className="flex-1">
+                  <div className="mb-6">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-3 leading-tight capitalize">
+                      {jobDetails[0]?.title}
+                    </h1>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Clock className="h-4 w-4" />
+                      <span>Posted {formattedTimeElapsed}</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="hidden w-full p-6 mt-4 bg-white border border-tertiary rounded-2xl h-max max-lg:block">
-                <div className="mb-6 text-xl font-semibold capitalize">
-                  About the client
-                </div>
-                <div className="font-semibold">
-                  Payment method {payment_verified ? "verified" : "unverified"}
-                </div>
-                <div className="flex items-center mb-4">
-                  {jobDetails?.length > 0 && (
-                    <StarRatings
-                      rating={Number(avg_review)}
-                      starDimension="18px"
-                      starSpacing="1px"
-                      starRatedColor="#22C35E"
-                      starEmptyColor="#d7f7e4"
-                    />
-                  )}
-                  {avg_review} of {hired_freelancers} reviews
-                </div>
-                <div className="font-semibold">{clientLocation}</div>
-                <div className="mb-4">01:18 am</div>
-                <div className="font-semibold">{job_posted} jobs posted</div>
-                <div className="mb-4">
-                  {hiredPercentage.toFixed()}% hire rate, {job_open} open job
-                </div>
-                <div className="font-semibold">
-                  ${total_spend?.toFixed()} total spent
-                </div>
-                <div className="mb-4">
-                  {hired_freelancers} hire, {active_freelancers} active
-                </div>
-                <div className="font-semibold">
-                  {hired_freelancers} hire, {active_freelancers} active
-                </div>
-                <div>{total_hours} hours</div>
-              </div>
-              <div className="w-full mt-4 bg-white border border-tertiary rounded-2xl">
-                <div className="p-6 font-semibold">Clients History</div>
-                {clientHistory?.map(({ _id, title, amount, status }) => (
-                  <div
-                    key={_id}
-                    className={
-                      lastHistory && _id === lastHistory._id
-                        ? "border-b px-6 mb-4 bg-white border-transparent"
-                        : "border-b px-6 mb-4 bg-white border-tertiary"
-                    }
-                  >
-                    <Link href={`/find-job/${_id}`}>
-                      <div className="font-semibold hover:text-blue-900">
-                        {title}
+
+                  <div className="flex items-center gap-8 mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <DollarSign className="h-5 w-5 text-green-600" />
                       </div>
-                    </Link>
-
-                    <div className="text-gray-200">
-                      {status === "open" ? "Job in progress" : "Already done"}
+                      <div>
+                        <div className="text-xl font-bold text-gray-900">
+                          ${jobDetails[0]?.amount}
+                        </div>
+                        <div className="text-sm text-gray-500">Budget</div>
+                      </div>
                     </div>
-                    <div className="flex justify-between w-full mb-4">
-                      <div className="text-gray-300">Budget: ${amount}</div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <User className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-900 capitalize">
+                          {jobDetails[0]?.experience}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          Experience level
+                        </div>
+                      </div>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  {isAlreadyApplied ? (
+                    <ShadButton
+                      disabled
+                      variant="outline"
+                      size="lg"
+                      className="px-8 py-3 bg-gray-50 text-gray-500 border-gray-200 cursor-not-allowed"
+                    >
+                      Already Applied
+                    </ShadButton>
+                  ) : (
+                    <ShadButton
+                      onClick={() => {
+                        if (isProfileImg) {
+                          setPage(2);
+                        } else {
+                          setIsPopUp(true);
+                        }
+                      }}
+                      size="lg"
+                      className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold transition-all duration-200 shadow-sm hover:shadow-md"
+                    >
+                      Apply for this job
+                    </ShadButton>
+                  )}
+                  <ShadButton
+                    onClick={handleCopyLink}
+                    variant="outline"
+                    size="sm"
+                    className="text-green-600 border-green-200 hover:bg-green-50"
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy link
+                  </ShadButton>
+                </div>
               </div>
             </div>
-            <div className="w-full lg:w-[30%] border border-tertiary rounded-2xl p-6 bg-white h-max max-lg:hidden">
-              <div className="mb-6 text-xl font-semibold capitalize">
-                About the client
-              </div>
 
-              <div className="flex items-center gap-1 mb-1 font-semibold">
-                {payment_verified ? (
-                  <RiVerifiedBadgeFill className="text-[#22C35E]" />
-                ) : (
-                  <LuBadgeX />
-                )}
-                <p>
-                  Payment method {payment_verified ? "verified" : "unverified"}
-                </p>
-              </div>
-              <div className="flex items-center mb-4">
-                {jobDetails?.length > 0 && (
-                  <StarRatings
-                    rating={Number(avg_review)}
-                    starDimension="18px"
-                    starSpacing="1px"
-                    starRatedColor="#22C35E"
-                    starEmptyColor="#d7f7e4"
-                  />
-                )}
-                {avg_review} of {hired_freelancers} reviews
-              </div>
-              <div className="font-semibold">{clientLocation}</div>
-              <div className="font-semibold">{job_posted} jobs posted</div>
-              <div className="mb-4">
-                {hiredPercentage.toFixed()}% hire rate, {job_open} open job
-              </div>
-              <div className="font-semibold">
-                ${total_spend?.toFixed()} total spent
-              </div>
-              <div className="mb-4">
-                {hired_freelancers} hire, {active_freelancers} active
-              </div>
-              <div className="font-semibold">
-                {hired_freelancers} hire, {active_freelancers} active
-              </div>
-              <div>{total_hours} hours</div>
+            {/* Main Content Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left Column - Main Content */}
+              <div className="lg:col-span-2">
+                {/* Job Description */}
+                <div className="bg-white border border-gray-200/60 rounded-lg mb-8 shadow-sm">
+                  <div className="p-8">
+                    <h2 className="text-xl font-bold text-gray-900 mb-6">
+                      Job Description
+                    </h2>
+                    <div
+                      className="prose prose-base max-w-none text-gray-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                        __html: jobDetails[0]?.description,
+                      }}
+                    />
 
-              <div className="my-3">
-                <hr />
-              </div>
-              <div>
-                <h2 className="text-[#374151] text-lg font-semibold">
-                  Job link
-                </h2>
-                <div className="p-2 text-sm font-medium text-gray-200 bg-gray-100 rounded-md">
-                  <p className="break-all line-clamp-1">{`${window.location.origin}/find-job/${jobDetails[0]._id}`}</p>
+                    {jobDetails[0]?.file && (
+                      <div className="mt-8 pt-8 border-t border-gray-100">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                          Attachments
+                        </h3>
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                          <Link
+                            href={jobDetails[0].file}
+                            target="_blank"
+                            className="inline-flex items-center gap-3 text-green-600 hover:text-green-700 transition-colors duration-200 font-medium"
+                          >
+                            <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                              <svg
+                                className="h-4 w-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                                />
+                              </svg>
+                            </div>
+                            View Attachment
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p
-                  className="text-[var(--primarycolor)] cursor-pointer hover:underline mt-1 font-medium text-sm"
-                  onClick={handleCopyLink}
-                >
-                  Copy link
-                </p>
+
+                {/* Client History */}
+                {clientHistory?.length > 0 && (
+                  <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm">
+                    <div className="p-8">
+                      <h2 className="text-xl font-bold text-gray-900 mb-6">
+                        Client's Job History
+                      </h2>
+                      <div className="space-y-4">
+                        {clientHistory?.map(
+                          ({ _id, title, amount, status }) => (
+                            <div
+                              key={_id}
+                              className="border border-gray-200/60 rounded-lg p-5 hover:bg-gray-50 transition-all duration-200 hover:shadow-sm"
+                            >
+                              <Link href={`/find-job/${_id}`}>
+                                <h4 className="font-semibold text-gray-900 hover:text-green-600 transition-colors duration-200 mb-3">
+                                  {title}
+                                </h4>
+                              </Link>
+                              <div className="flex items-center justify-between">
+                                <Badge
+                                  variant={
+                                    status === "open" ? "default" : "secondary"
+                                  }
+                                  className={`text-xs font-medium ${
+                                    status === "open"
+                                      ? "bg-green-100 text-green-700 hover:bg-green-200"
+                                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                  }`}
+                                >
+                                  {status === "open"
+                                    ? "In Progress"
+                                    : "Completed"}
+                                </Badge>
+                                <span className="text-base font-semibold text-gray-900">
+                                  ${amount}
+                                </span>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Right Column - Client Info */}
+              <div className="space-y-8">
+                {/* About the Client */}
+                <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm">
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">
+                      About the client
+                    </h3>
+
+                    {/* Payment Verification */}
+                    <div className="flex items-center gap-3 mb-6">
+                      {payment_verified ? (
+                        <div className="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
+                          <Shield className="h-4 w-4 text-green-600" />
+                          <span className="text-sm font-medium text-green-700">
+                            Payment verified
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                          <Shield className="h-4 w-4 text-gray-500" />
+                          <span className="text-sm font-medium text-gray-600">
+                            Payment unverified
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Reviews */}
+                    {avg_review > 0 && (
+                      <div className="mb-6">
+                        <div className="flex items-center gap-3 mb-2">
+                          <StarRatings
+                            rating={Number(avg_review)}
+                            starDimension="18px"
+                            starSpacing="2px"
+                            starRatedColor="#22C35E"
+                            starEmptyColor="#e5e7eb"
+                          />
+                          <span className="text-lg font-bold text-gray-900">
+                            {avg_review.toFixed(1)}
+                          </span>
+                        </div>
+                        <span className="text-sm text-gray-600">
+                          {hired_freelancers} reviews
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Location */}
+                    {clientLocation && (
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                          <MapPin className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <span className="text-base font-medium text-gray-900">
+                          {clientLocation}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Stats */}
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            {job_posted}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Jobs posted
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            {hiredPercentage.toFixed()}%
+                          </div>
+                          <div className="text-sm text-gray-600">Hire rate</div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            ${total_spend?.toFixed() || "0"}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Total spent
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            {hired_freelancers}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Total hires
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            {active_freelancers}
+                          </div>
+                          <div className="text-sm text-gray-600">Active</div>
+                        </div>
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <div className="text-2xl font-bold text-gray-900">
+                            {total_hours}
+                          </div>
+                          <div className="text-sm text-gray-600">Hours</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Share Job */}
+                <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm">
+                  <div className="p-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                      Job link
+                    </h4>
+                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono text-gray-600 break-all mb-4">
+                      {typeof window !== "undefined"
+                        ? window.location.origin
+                        : ""}
+                      /find-job/{jobDetails[0]._id}
+                    </div>
+                    <ShadButton
+                      onClick={handleCopyLink}
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-green-600 border-green-200 hover:bg-green-50 transition-all duration-200"
+                    >
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy link
+                    </ShadButton>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -538,8 +687,8 @@ const JobDetails = ({
                       zoom={zoom}
                       aspect={1}
                       showGrid={false}
-                      onCropChange={isCropped ? undefined : setCrop}
-                      onZoomChange={isCropped ? undefined : setZoom}
+                      onCropChange={isCropped ? () => {} : setCrop}
+                      onZoomChange={isCropped ? () => {} : setZoom}
                       onCropComplete={onCropComplete}
                       cropShape="round"
                     />
