@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "@/lib/toast";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
+import { Input, HStack } from "@/components/ui/migration-helpers";
 import {
   updateFreelancer,
   updateFreelancerProfile,
@@ -13,7 +15,7 @@ import { profileData } from "../../../../redux/authSlice/profileSlice";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { deleteEducation } from "../../../../helpers/APIs/freelancerApis";
-import { MdDelete } from "react-icons/md";
+import { Trash2 } from "lucide-react";
 import { educationSchema } from "../../../../schemas/freelancer-profile-schema";
 
 // TypeScript interfaces
@@ -248,55 +250,66 @@ const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, s
             </HStack>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <button
+            <Button
+              variant="gradient"
               disabled={isLoading}
               type="submit"
-              className="px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="gap-2"
             >
               {isLoading ? (
                 <>
                   <BtnSpinner />
-                  <span className="ml-2">{type === "Add Education" ? "Adding" : "Updating"}</span>
+                  {type === "Add Education" ? "Adding..." : "Updating..."}
                 </>
               ) : (
-                type === "Add Education" ? "Add" : "Update"
+                type === "Add Education" ? "Add Education" : "Update Education"
               )}
-            </button>
+            </Button>
           </div>
         </form>
       )}
 
       {/* Delete the education */}
       {type === "Delete Education" && (
-        <div>
-          <div className="w-[72px] h-[72px] flex items-center justify-center bg-red-50 rounded-full mx-auto">
-            <MdDelete className="text-4xl text-red-400" />
+        <div className="text-center space-y-6">
+          <div className="w-16 h-16 flex items-center justify-center bg-red-50 rounded-full mx-auto">
+            <Trash2 className="h-8 w-8 text-red-500" />
           </div>
-          <p className="text-2xl font-semibold text-center">
-            Are you sure you want to delete?
-          </p>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Delete Education
+            </h3>
+            <p className="text-gray-600">
+              Are you sure you want to delete this education entry? This action cannot be undone.
+            </p>
+          </div>
 
-          <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-            <button
+          <div className="flex gap-3 justify-center">
+            <Button
+              variant="outline"
               onClick={() => setIsModal(false)}
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+              className="min-w-[100px]"
             >
-              No, cancel
-            </button>
-            <button
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
               disabled={isLoading}
               onClick={handleDelete}
-              className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
+              className="gap-2 min-w-[100px]"
             >
               {isLoading ? (
                 <>
                   <BtnSpinner />
-                  <span className="ml-2">Deleting..</span>
+                  Deleting...
                 </>
               ) : (
-                "Yes, delete it"
+                <>
+                  <Trash2 className="h-4 w-4" />
+                  Delete
+                </>
               )}
-            </button>
+            </Button>
           </div>
         </div>
       )}

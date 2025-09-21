@@ -173,12 +173,16 @@ export const WorkHistorySection: React.FC<WorkHistorySectionProps> = ({
                 {/* Skills Used */}
                 {item.skills_used && item.skills_used.length > 0 && (
                   <div className="mb-4">
+                    <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                      <Briefcase className="h-4 w-4" />
+                      Skills Used
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                       {item.skills_used.map((skill, skillIndex) => (
                         <Badge
                           key={skillIndex}
-                          variant="outline"
-                          className="text-xs"
+                          variant="secondary"
+                          className="px-3 py-1 text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors duration-200"
                         >
                           {skill}
                         </Badge>
