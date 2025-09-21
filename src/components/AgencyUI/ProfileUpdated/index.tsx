@@ -16,8 +16,14 @@ import {
 import { State, City } from "country-state-city";
 import { useSelector, useDispatch } from "react-redux";
 import UniversalModal from "../../Modals/UniversalModal";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import QuillToolbar, {
   formats,
   modules,

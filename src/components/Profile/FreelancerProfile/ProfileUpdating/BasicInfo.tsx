@@ -1,11 +1,17 @@
 "use client";
 
 import { toast } from "@/lib/toast";
+import dynamic from "next/dynamic";
 import QuillToolbar, {
   formats,
   modules,
 } from "../../../utils/QuillToolbar/QuillToolbar";
-import ReactQuill from "react-quill";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";

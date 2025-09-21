@@ -1,6 +1,12 @@
 
 import { BsSendFill } from "react-icons/bs";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-20 bg-gray-100 rounded border animate-pulse" />
+});
 
 const MessageInput = ({
   message,
