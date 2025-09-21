@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -51,15 +51,12 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-start gap-6">
           <div className="flex items-center gap-6">
             <div className="relative">
-              <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
-                <AvatarImage
-                  src={profile.profile_image}
-                  alt={`${profile.firstName} ${profile.lastName}`}
-                />
-                <AvatarFallback className="text-lg font-semibold bg-green-100 text-green-700">
-                  {getInitials(profile.firstName, profile.lastName)}
-                </AvatarFallback>
-              </Avatar>
+              <Avatar
+                src={profile.profile_image}
+                name={`${profile.firstName} ${profile.lastName}`}
+                size="xl"
+                className="border-4 border-white shadow-lg"
+              />
               {isOwner && (
                 <Button
                   size="sm"

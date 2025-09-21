@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/Avatar";
 import {
   Star,
   Calendar,
@@ -132,12 +132,12 @@ export const WorkHistorySection: React.FC<WorkHistorySectionProps> = ({
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src={item.client_avatar} alt={item.client_name} />
-                      <AvatarFallback className="bg-gray-100 text-gray-600">
-                        <User className="h-5 w-5" />
-                      </AvatarFallback>
-                    </Avatar>
+                    <Avatar
+                      src={item.client_avatar}
+                      name={item.client_name}
+                      size="md"
+                      className="bg-gray-100 text-gray-600"
+                    />
                     <div>
                       <h3 className="font-semibold text-gray-900">{item.job_title}</h3>
                       <p className="text-sm text-gray-600">Client: {item.client_name}</p>

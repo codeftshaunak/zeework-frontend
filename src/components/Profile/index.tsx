@@ -6,6 +6,7 @@ import AgencyProfile from "../AgencyUI/AgencyProfile";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { FreelancerProfile } from "./FreelancerProfile/FreelancerProfile/FreelancerProfile";
+import { ModernFreelancerProfile } from "./FreelancerProfile/ModernFreelancerProfile";
 import { useParams } from "next/navigation";
 import ViewFreelancerProfile from "../PublicProfile/Freelancer/ViewFreelancerProfile";
 import ViewAgencyProfile from "../PublicProfile/Agency/ViewAgencyProfile";
@@ -40,7 +41,7 @@ const UserProfile = () => {
 
       {/* freelancer profile */}
       {profile === "f" &&
-        (isAuthorized ? <FreelancerProfile /> : <ViewFreelancerProfile />)}
+        (isAuthorized ? <ModernFreelancerProfile /> : <ViewFreelancerProfile />)}
 
       {/* client profile */}
       {profile === "c" &&
