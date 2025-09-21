@@ -5,7 +5,7 @@ const DreamsInto = () => {
   const router = useRouter();
   return (
     <section className="py-12 lg:py-16">
-      <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
         <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-green-600 to-green-700 shadow-xl">
 
           {/* Subtle background pattern */}

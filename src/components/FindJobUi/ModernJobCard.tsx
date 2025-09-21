@@ -2,6 +2,10 @@ import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Clock, MapPin, Star, Shield, ShieldCheck } from "lucide-react";
 import JobCardSkeleton from "../Skeletons/JobCardSkeleton";
 
 // Types
@@ -64,6 +68,29 @@ const ModernJobCard: React.FC<ModernJobCardProps> = ({
     return num?.toString();
   }
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(
+          <Star key={i} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+        );
+      } else if (i === fullStars + 1 && hasHalfStar) {
+        stars.push(
+          <Star key={i} className="h-3.5 w-3.5 fill-yellow-200 text-yellow-400" />
+        );
+      } else {
+        stars.push(
+          <Star key={i} className="h-3.5 w-3.5 text-gray-300" />
+        );
+      }
+    }
+    return stars;
+  };
+
   // Ensure jobs is always an array
   const jobsArray = Array.isArray(jobs) ? jobs : [];
 
@@ -87,137 +114,150 @@ const ModernJobCard: React.FC<ModernJobCardProps> = ({
               );
 
               return (
-                <div
-                  key={index}
-                  className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-200 mt-4 overflow-hidden"
-                >
-                  <div className="px-6 py-4 md:px-8 md:py-6">
-                    <div
-                      className="text-[#536179] text-sm"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightSearchTerm(`Posted ${formattedDate}`),
-                      }}
-                    />
-                    <div
-                      className="mt-3 mb-3 text-lg font-semibold capitalize cursor-pointer hover:text-green-600 transition-colors duration-200 md:text-xl line-clamp-2"
-                      onClick={() => {
-                        router.push(`/find-job/${job?._id}`);
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: highlightSearchTerm(job?.title || ""),
-                      }}
-                    />
-                    <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 mb-3">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {job?.job_type === "fixed" ? "Fixed Budget" : "Hourly"}
-                      </span>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {job?.experience || "N/A"}
-                      </span>
-                      <span className="font-semibold text-gray-900">
-                        ${job?.amount || 0}
-                      </span>
+                <Card key={index} className="group border border-gray-200/60 hover:border-green-200 bg-white hover:shadow-lg transition-all duration-300 cursor-pointer mb-4">
+                  <CardContent className="p-6 space-y-4" onClick={() => router.push(`/find-job/${job?._id}`)}>
+                    {/* Header Section */}
+                    <div className="space-y-3">
+                      {/* Job Type & Budget Row */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                            {job?.job_type === "fixed" ? "Fixed-price" : "Hourly"}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                            {job?.experience || "Entry level"}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-500"
+                          dangerouslySetInnerHTML={{
+                            __html: highlightSearchTerm(`Posted ${formattedDate}`),
+                          }}
+                        />
+                      </div>
+
+                      {/* Job Title */}
+                      <h2
+                        className="text-lg font-semibold text-gray-900 group-hover:text-green-700 transition-colors duration-200 line-clamp-2 leading-6"
+                        dangerouslySetInnerHTML={{
+                          __html: highlightSearchTerm(job?.title || ""),
+                        }}
+                      />
+
+                      {/* Budget */}
+                      <div className="text-base font-medium text-gray-900">
+                        {job?.job_type === "fixed"
+                          ? `$${job?.amount || 0} fixed-price`
+                          : `$${job?.amount || 0}/hr`
+                        }
+                      </div>
                     </div>
-                    <div className="hidden mt-2 md:block">
+                    {/* Job Description */}
+                    <div className="space-y-3">
                       <div
-                        className="text-gray-700 leading-relaxed"
+                        className="text-sm text-gray-600 leading-relaxed"
                         dangerouslySetInnerHTML={{
                           __html: highlightSearchTerm(
-                            truncateText(job?.description || "", 250)
+                            truncateText(job?.description || "", 200)
                           ),
                         }}
                       />
-                      {job?.description && job.description.length > 250 && (
+                      {job?.description && job.description.length > 200 && (
                         <button
-                          className="mt-2 text-green-600 hover:text-green-700 font-medium text-sm transition-colors duration-200"
-                          onClick={() => {
+                          className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline"
+                          onClick={(e) => {
+                            e.stopPropagation();
                             router.push(`/find-job/${job?._id}`);
                           }}
                         >
-                          Read more →
-                        </button>
-                      )}
-                    </div>
-                    <div className="hidden mt-2 sm:block md:hidden">
-                      <div
-                        className="text-gray-700 leading-relaxed"
-                        dangerouslySetInnerHTML={{
-                          __html: highlightSearchTerm(
-                            truncateText(job?.description || "", 150)
-                          ),
-                        }}
-                      />
-                      {job?.description && job.description.length > 150 && (
-                        <button
-                          className="mt-2 text-green-600 hover:text-green-700 font-medium text-sm transition-colors duration-200"
-                          onClick={() => {
-                            router.push(`/find-job/${job?._id}`);
-                          }}
-                        >
-                          Read more →
+                          more
                         </button>
                       )}
                     </div>
 
                     {/* Skills section */}
                     {job?.skills && job.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {job.skills.slice(0, 5).map((skill, skillIndex) => (
-                          <span
-                            key={skillIndex}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors duration-200"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                        {job.skills.length > 5 && (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-500">
-                            +{job.skills.length - 5} more
-                          </span>
-                        )}
+                      <div className="space-y-2">
+                        <div className="flex flex-wrap gap-2">
+                          {job.skills.slice(0, 6).map((skill, skillIndex) => (
+                            <span
+                              key={skillIndex}
+                              className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                          {job.skills.length > 6 && (
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs text-gray-500">
+                              +{job.skills.length - 6}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    {/* Client info */}
+                    {/* Client info footer */}
                     {job?.client_details && (
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex items-center space-x-4">
-                          {job.client_details.payment_verified ? (
-                            <div className="inline-flex items-center">
-                              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                              <span className="text-xs text-green-600 font-medium">
+                      <div className="pt-4 border-t border-gray-100">
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-3">
+                            {/* Payment verification badge */}
+                            {job.client_details.payment_verified ? (
+                              <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+                                <ShieldCheck className="h-3 w-3" />
                                 Payment verified
                               </span>
-                            </div>
-                          ) : (
-                            <div className="inline-flex items-center">
-                              <div className="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
-                              <span className="text-xs text-gray-500">
+                            ) : (
+                              <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-600 border border-gray-200">
+                                <Shield className="h-3 w-3" />
                                 Payment unverified
                               </span>
-                            </div>
-                          )}
-                          {job.client_details.avg_review > 0 && (
-                            <div className="inline-flex items-center">
-                              <span className="text-yellow-400 mr-1">★</span>
-                              <span className="text-xs text-gray-600 font-medium">
-                                {job.client_details.avg_review.toFixed(1)}
+                            )}
+
+                            {/* Star rating */}
+                            {job.client_details.avg_review > 0 && (
+                              <div className="flex items-center gap-1">
+                                <div className="flex items-center">
+                                  {renderStars(job.client_details.avg_review)}
+                                </div>
+                                <span className="font-medium text-gray-700 ml-1">
+                                  {job.client_details.avg_review.toFixed(1)}
+                                </span>
+                              </div>
+                            )}
+
+                            {/* Client spend */}
+                            {job.client_details.total_spend > 0 && (
+                              <span className="text-gray-600">
+                                ${formatNumber(job.client_details.total_spend)} spent
                               </span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="text-xs text-gray-500 font-medium">
-                          📍 {job.client_details.location || "Remote"}
+                            )}
+                          </div>
+
+                          {/* Location */}
+                          <div className="flex items-center gap-1 text-gray-500">
+                            <MapPin className="h-3.5 w-3.5" />
+                            <span>{job.client_details.location || "Remote"}</span>
+                          </div>
                         </div>
                       </div>
                     )}
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               );
             })
           ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No jobs found</p>
+            <div className="text-center py-16 px-6">
+              <div className="max-w-md mx-auto space-y-4">
+                <div className="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-medium text-gray-900">No jobs found</h3>
+                  <p className="text-sm text-gray-600">Try adjusting your search filters or check back later for new opportunities</p>
+                </div>
+              </div>
             </div>
           )}
         </div>

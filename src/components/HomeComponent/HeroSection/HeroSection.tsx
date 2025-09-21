@@ -26,7 +26,7 @@ const HeroSection = () => {
   const router = useRouter();
   return (
     <section className="relative py-20">
-      <div className="container px-4 mx-auto lg:px-8 max-w-7xl">
+      <div className="container px-4 mx-auto lg:px-8 max-w-[1400px]">
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-50 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 -z-10" />
 

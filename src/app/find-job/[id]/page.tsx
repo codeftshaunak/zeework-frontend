@@ -1,4 +1,5 @@
 import JobDetails from "../../../components/JobDetails/JobDetails";
+import HomeLayout from "../../../components/Layouts/HomeLayout";
 
 interface JobDetailsPageProps {
   params: {
@@ -7,5 +8,9 @@ interface JobDetailsPageProps {
 }
 
 export default function JobDetailsPage({ params }: JobDetailsPageProps) {
-  return <JobDetails jobId={params.id} />;
+  return (
+    <HomeLayout>
+      <JobDetails />
+    </HomeLayout>
+  );
 }

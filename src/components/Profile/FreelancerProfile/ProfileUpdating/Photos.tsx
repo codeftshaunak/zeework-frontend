@@ -4,25 +4,24 @@ import React from "react";
 
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Button,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Box,
-} from "@/components/ui/migration-helpers";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useDropzone } from "react-dropzone";
 import Cropper from "react-easy-crop";
-import { RiUploadCloud2Fill } from "react-icons/ri";
-import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
-import { BiImages, BiSolidCrop } from "react-icons/bi";
+import {
+  Upload,
+  RotateCcw,
+  Crop,
+  ZoomIn,
+  ZoomOut,
+  Image as ImageIcon,
+  AlertCircle
+} from "lucide-react";
 import getCroppedImg from "../../../../helpers/manageImages/getCroppedImg";
 import { uploadImage } from "../../../../helpers/APIs/userApis";
 import { profileData } from "../../../../redux/authSlice/profileSlice";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
-import ErrorMsg from "../../../utils/Error/ErrorMsg";
 import { compressImageToWebP } from "../../../../helpers/manageImages/imageCompressed";
 
 const Photos = ({ setIsModal }) => {
@@ -130,92 +129,139 @@ const Photos = ({ setIsModal }) => {
   }, [setIsModal]);
 
   return (
-    <div className="w-full flex flex-col gap-[20px]">
-      <form>
-        <div className="flex flex-col gap-[16px]">
-          <div className="flex flex-col gap-[2px]">
-            {!imageSrc && (
+    <div className="w-full space-y-6">
+      <div className="space-y-4">
+        {/* Upload Area */}
+        {!imageSrc && (
+          <Card className="border-2 border-dashed border-gray-300 hover:border-green-400 transition-colors">
+            <CardContent className="p-8">
               <div
                 {...getRootProps()}
-                className={`w-[100%] ${
-                  fileName ? "py-5" : "py-8"
-                } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
+                className="cursor-pointer text-center space-y-4"
               >
-                {!fileName && (
-                  <RiUploadCloud2Fill className="text-green-300 text-6xl mx-auto" />
-                )}
-                <input
-                  {...getInputProps()}
-                  className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
-                  placeholder="Select an image"
-                />
-                {isDragActive ? (
-                  <p className="text-center">Drop the files here ... </p>
-                ) : (
-                  <p className="text-center">
-                    Drag &apos;n&apos; drop image file here, or click to select
-                    file
-                  </p>
-                )}
-              </div>
-            )}
-            {fileName && (
-              <p className="text-center mt-2 -mb-4 text-green-600">
-                {fileName}
-              </p>
-            )}
-            {errorMessage && <ErrorMsg msg={errorMessage} />}
-          </div>
-          {imageSrc && (
-            <>
-              <div className="relative w-full h-64">
-                <Cropper
-                  image={imageSrc}
-                  crop={crop}
-                  zoom={zoom}
-                  aspect={1}
-                  showGrid={false}
-                  onCropChange={isCropped ? undefined : setCrop}
-                  onZoomChange={isCropped ? undefined : setZoom}
-                  onCropComplete={onCropComplete}
-                  cropShape="round"
-                />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <div className="flex items-center gap-1 w-full sm:w-96">
-                  <TiMinus />
-                  <Slider
-                    aria-label="zoom-slider"
-                    value={zoom}
-                    min={1}
-                    max={3}
-                    step={0.1}
-                    onChange={(val) => {
-                      !isCropped && setZoom(val);
-                    }}
-                  >
-                    <SliderTrack className="bg-slate-300">
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb boxSize={6}>
-                      <div className="text-slate-500" as={TiZoom} />
-                    </SliderThumb>
-                  </Slider>
-                  <TiPlus />
+                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                  <Upload className="h-8 w-8 text-green-600" />
                 </div>
-                <div className="flex items-center justify-center gap-x-5 flex-wrap">
-                  <button
-                    type="button"
+                <input {...getInputProps()} />
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Upload Profile Photo
+                  </h3>
+                  {isDragActive ? (
+                    <p className="text-green-600 font-medium">Drop the image here...</p>
+                  ) : (
+                    <div className="space-y-1">
+                      <p className="text-gray-600">
+                        Drag and drop your image here, or{" "}
+                        <span className="text-green-600 font-medium">browse files</span>
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        PNG, JPG or JPEG (max 10MB)
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {fileName && !imageSrc && (
+          <div className="text-center py-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">
+              <ImageIcon className="h-4 w-4" />
+              {fileName}
+            </div>
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+            <AlertCircle className="h-4 w-4" />
+            <p className="text-sm font-medium">{errorMessage}</p>
+          </div>
+        )}
+        {/* Cropping Interface */}
+        {imageSrc && (
+          <Card className="border border-gray-200">
+            <CardContent className="p-6">
+              <div className="space-y-6">
+                {/* Crop Area */}
+                <div className="relative w-full h-80 bg-gray-100 rounded-lg overflow-hidden">
+                  <Cropper
+                    image={imageSrc}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    showGrid={false}
+                    onCropChange={isCropped ? undefined : setCrop}
+                    onZoomChange={isCropped ? undefined : setZoom}
+                    onCropComplete={onCropComplete}
+                    cropShape="round"
+                  />
+                </div>
+
+                {/* Zoom Control */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => !isCropped && setZoom(Math.max(1, zoom - 0.1))}
+                      disabled={isCropped || zoom <= 1}
+                      className="h-8 w-8 p-0"
+                    >
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+
+                    <div className="flex items-center gap-3">
+                      <div className="text-sm font-medium text-gray-700 min-w-[60px] text-center">
+                        {Math.round(zoom * 100)}%
+                      </div>
+                      <div className="flex gap-1">
+                        {[1, 1.5, 2, 2.5, 3].map((zoomLevel) => (
+                          <button
+                            key={zoomLevel}
+                            onClick={() => !isCropped && setZoom(zoomLevel)}
+                            disabled={isCropped}
+                            className={`h-2 w-6 rounded-sm transition-colors ${
+                              zoom >= zoomLevel
+                                ? 'bg-green-500'
+                                : 'bg-gray-200 hover:bg-gray-300'
+                            } ${isCropped ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => !isCropped && setZoom(Math.min(3, zoom + 0.1))}
+                      disabled={isCropped || zoom >= 3}
+                      className="h-8 w-8 p-0"
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-center text-gray-500">
+                    Use zoom controls to adjust the image size, then crop to save your selection
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
                     disabled={isCropped}
-                    className={`flex items-center gap-1 ${
-                      isCropped ? "cursor-no-drop bg-slate-400" : "bg-slate-500"
-                    } rounded py-1 px-3 text-white w-fit mt-2`}
-                    onClick={() => {
-                      document.getElementById("file-input").click();
-                    }}
+                    onClick={() => document.getElementById("file-input")?.click()}
+                    className="gap-2"
                   >
-                    <BiImages /> Changed File
-                  </button>
+                    <ImageIcon className="h-4 w-4" />
+                    Change Photo
+                  </Button>
+
                   <input
                     id="file-input"
                     type="file"
@@ -227,6 +273,7 @@ const Photos = ({ setIsModal }) => {
                         setFileName(file.name);
                         setFullImage([file]);
                         setErrorMessage("");
+                        setIsCropped(false);
                         const reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = () => {
@@ -235,59 +282,67 @@ const Photos = ({ setIsModal }) => {
                       }
                     }}
                   />
-                  <div className="flex items-center justify-center gap-5">
-                    <button
-                      type="button"
-                      className={`flex items-center gap-1 ${
-                        isCropped
-                          ? "cursor-no-drop bg-slate-400"
-                          : "bg-slate-500"
-                      } rounded py-1 px-3 text-white w-fit mt-2`}
-                      onClick={handleCrop}
-                      disabled={isCropped}
-                    >
-                      {isCropped ? (
-                        <>
-                          <IoMdCheckmarkCircleOutline /> Cropped
-                        </>
-                      ) : (
-                        <>
-                          <BiSolidCrop /> Crop photo
-                        </>
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      className={`flex items-center gap-1 ${
-                        !isCropped
-                          ? "cursor-no-drop bg-slate-400"
-                          : "bg-slate-500"
-                      } rounded py-1 px-3 text-white w-fit mt-2`}
-                      onClick={handleRevert}
-                      disabled={!isCropped}
-                    >
-                      <TiArrowBack /> Revert
-                    </button>
-                  </div>
+
+                  <Button
+                    variant={isCropped ? "secondary" : "outline"}
+                    size="sm"
+                    onClick={handleCrop}
+                    disabled={isCropped}
+                    className="gap-2"
+                  >
+                    {isCropped ? (
+                      <>
+                        <IoMdCheckmarkCircleOutline className="h-4 w-4" />
+                        Cropped
+                      </>
+                    ) : (
+                      <>
+                        <Crop className="h-4 w-4" />
+                        Crop Photo
+                      </>
+                    )}
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleRevert}
+                    disabled={!isCropped}
+                    className="gap-2"
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                    Reset
+                  </Button>
                 </div>
               </div>
-            </>
-          )}
-        </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Upload Button */}
         {imageSrc && (
-          <div className="text-right mt-10">
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-              isLoading={isLoading}
-              loadingText="Uploading"
+          <div className="flex justify-end pt-4">
+            <Button
+              variant="gradient"
               onClick={uploadProfileImage}
-              paddingX={7}
-              spinner={<BtnSpinner />}
+              disabled={isLoading}
+              className="gap-2 min-w-[120px]"
             >
-              Upload
-            </button>
+              {isLoading ? (
+                <>
+                  <BtnSpinner />
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Upload className="h-4 w-4" />
+                  Upload Photo
+                </>
+              )}
+            </Button>
           </div>
         )}
-      </form>
+      </div>
     </div>
   );
 };

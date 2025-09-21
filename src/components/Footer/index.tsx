@@ -3,6 +3,7 @@ import { Link, useRouter } from "next/navigation";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
+import { Button } from "@/components/ui/button";
 
 export const HomeFooter = () => {
   const router = useRouter();
@@ -309,7 +310,7 @@ export const Footer = () => {
   return (
     <div>
       <div className="bg-[#F4FAF6] mt-5 text-[#575757] text-center">
-        <div className="md:w-[85%] max-w-[1200px] mb-16 mx-[auto] p-6">
+        <div className="md:w-[85%] max-w-[1400px] mb-16 mx-[auto] p-6">
           <div className="grid lg:grid-cols-[1fr,1.5fr,1fr] md:grid-cols-2 grid-cols-1 gap-8">
             <div className="md:w-full">
               <img
@@ -383,9 +384,9 @@ export const Footer = () => {
                   className="text-balck h-[44px] w-full bg-transparent p-4"
                   placeholder="Your email"
                 />
-                <button className="px-4 py-[auto] w-[124px] h-[44px] text-white bg-[#35AD41] rounded-xl">
+                <Button variant="gradient" className="w-[124px] h-[44px] rounded-xl">
                   Subscribe
-                </button>
+                </Button>
               </div>
               <h1 className="text-sm font-medium md:text-start">
                 Sign up for the ZeeWork Newsletter

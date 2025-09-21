@@ -12,7 +12,7 @@ interface FullContainerProps {
 const FullContainer: React.FC<FullContainerProps> = ({ children, bg, pad, borderBottom, mg }) => {
     return (
         <div borderBottom={borderBottom}>
-            <div className="max-w-[100%] md:max-w-[85%] mx-auto">{children}</div>
+            <div className="max-w-[100%] md:max-w-[1400px] mx-auto px-4 lg:px-6 xl:px-8">{children}</div>
         </div>
     );
 };

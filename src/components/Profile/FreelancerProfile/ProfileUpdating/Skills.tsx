@@ -2,6 +2,7 @@
 
 import { toast } from "@/lib/toast";
 import Select from "react-select";
+import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import makeAnimated from "react-select/animated";
@@ -32,7 +33,7 @@ interface RootState {
   profile: {
     profile: {
       categories: any[];
-      skills: string[];
+      skills: Array<string | { value: string; _id?: string; label?: string }>;
     };
   };
 }
@@ -74,7 +75,6 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
             return body?.map((item) => ({
               value: item?.skill_name,
               label: item?.skill_name,
-              _id: item?._id,
             }));
           } else {
             return [];
@@ -86,7 +86,11 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       });
 
       const results = await Promise.all(promises);
-      const newSkillOptions = results.flat();
+      const newSkillOptions = results.flat().filter(option =>
+        option &&
+        typeof option.value === 'string' &&
+        typeof option.label === 'string'
+      );
 
       setOptions(newSkillOptions);
     } catch (error) {
@@ -100,10 +104,18 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       getCategorySkills(userProfileInfo.categories);
     }
     if (userProfileInfo?.skills) {
-      setValue(
-        "skills",
-        userProfileInfo.skills.map((skill) => ({ value: skill, label: skill }))
-      );
+      const formattedSkills = userProfileInfo.skills.map((skill) => {
+        if (typeof skill === 'string') {
+          return { value: skill, label: skill };
+        } else if (typeof skill === 'object' && skill.value) {
+          return { value: skill.value, label: skill.label || skill.value };
+        } else {
+          console.warn('Invalid skill format:', skill);
+          return null;
+        }
+      }).filter(Boolean) as SkillOption[];
+
+      setValue("skills", formattedSkills);
     }
   }, [userProfileInfo]);
 
@@ -153,33 +165,75 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
                     isDisabled={optionsLoading}
                     isLoading={optionsLoading}
                     options={options}
+                    menuPortalTarget={document.body}
+                    menuPosition="fixed"
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                      menu: (base) => ({ ...base, zIndex: 9999 }),
+                      control: (base) => ({
+                        ...base,
+                        minHeight: '42px',
+                        borderColor: '#d1d5db',
+                        '&:hover': {
+                          borderColor: '#9ca3af'
+                        }
+                      }),
+                      multiValue: (base) => ({
+                        ...base,
+                        backgroundColor: '#f0fdf4',
+                        border: '1px solid #bbf7d0'
+                      }),
+                      multiValueLabel: (base) => ({
+                        ...base,
+                        color: '#166534'
+                      }),
+                      multiValueRemove: (base) => ({
+                        ...base,
+                        color: '#166534',
+                        '&:hover': {
+                          backgroundColor: '#dc2626',
+                          color: 'white'
+                        }
+                      })
+                    }}
                     onChange={(selected) => {
-                      field.onChange(selected);
-                      setValue("skills", selected);
+                      // Ensure selected values are properly formatted
+                      const cleanSelected = Array.isArray(selected)
+                        ? selected.map(item => ({
+                            value: typeof item === 'string' ? item : item?.value || '',
+                            label: typeof item === 'string' ? item : item?.label || item?.value || ''
+                          }))
+                        : [];
+
+                      field.onChange(cleanSelected);
+                      setValue("skills", cleanSelected);
                       trigger("skills");
                     }}
-                    value={field.value}
+                    value={Array.isArray(field.value) ? field.value.filter(item =>
+                      item && typeof item.value === 'string' && typeof item.label === 'string'
+                    ) : []}
                   />
                 )}
               />
-              {errors.skills && <ErrorMsg msg={errors.skills.message} />}
+              {errors.skills && <ErrorMsg msg={errors.skills.message || ''} />}
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <button
+            <Button
+              variant="gradient"
               disabled={isLoading}
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="gap-2"
             >
               {isLoading ? (
                 <>
                   <BtnSpinner />
-                  <span className="ml-2">Updating</span>
+                  Updating Skills...
                 </>
               ) : (
-                "Update"
+                "Update Skills"
               )}
-            </button>
+            </Button>
           </div>
         </form>
       </>

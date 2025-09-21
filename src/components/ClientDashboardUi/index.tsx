@@ -5,7 +5,6 @@ import React from "react";
 import {
   Button,
   HStack,
-  Progress,
   StackDivider,
   VStack,
 } from "@/components/ui/migration-helpers";
@@ -245,23 +244,13 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="w-full">
                   {isLoading ? (
-                    <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
-                      }
-                      spacing={8}
-                      
-                      padding={5}
-                    >
+                    <div className="flex flex-col gap-8 p-5">
                       {[1, 2].map((item) => (
                         <ClientJobSkeleton key={item} />
                       ))}
                     </div>
                   ) : jobs?.length ? (
-                    <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
-                      }
-                      spacing={8}
-                      
-                      padding={5}
-                    >
+                    <div className="flex flex-col gap-8 p-5">
                       {visibleJobs.map((job, index) => {
                         const formattedDate = formatDistanceToNow(
                           new Date(job?.created_at),
@@ -272,13 +261,13 @@ const ClientDashboardComponent = () => {
                             className="flex items-center justify-between w-full max-[480px]:flex-col"
                             key={index}
                           >
-                            <divitems-start justify-center"
-                              onClick={() = className="flex flex-col className= cursor-pointer"> {
+                            <div
+                              className="flex flex-col items-start justify-center cursor-pointer w-full"
+                              onClick={() => {
                                 router.push(`/client-jobDetails/${job?._id}`, {
                                   state: { jobDetails: job },
                                 });
                               }}
-                              w="full"
                             >
                               <h5 className="text-lg text-[#374151] font-medium capitalize">
                                 {job?.title}
@@ -291,10 +280,9 @@ const ClientDashboardComponent = () => {
                               </div>
                             </div>
 
-                            <div className="flex flex-col className="w-[200px] justify-between items-end max-[480px]:!items-center"
-                              marginTop={{ base: "1rem", sm: "0" }}
-                            >
-                              <div className="flex flex-row items-center> <div className=" text-[#6B7280] font-bold text-base">
+                            <div className="flex flex-col w-[200px] justify-between items-end max-[480px]:!items-center mt-4 sm:mt-0">
+                              <div className="flex flex-row items-center">
+                                <div className="text-[#6B7280] font-bold text-base">
                                   {job?.proposal_details?.length === 0
                                     ? "No"
                                     : job?.proposal_details?.filter(
@@ -355,8 +343,8 @@ const ClientDashboardComponent = () => {
             </div>
           </div>
           <div className="w-full lg:w-[300px]">
-            <div5"
-              className="w-full lg:w-[300px] h-[max-content] flex flex-col gap= p-5"
+            <div
+              className="w-full lg:w-[300px] h-[max-content] flex flex-col gap-5 p-5"
             >
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => {
@@ -467,23 +455,13 @@ const ClientDashboardComponent = () => {
             </div>
             <div className="w-full">
               {isLoading ? (
-                <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
-                  }
-                  spacing={8}
-                  
-                  padding={5}
-                >
+                <div className="flex flex-col gap-8 p-5">
                   {[1, 2].map((item) => (
                     <ClientJobSkeleton key={item} />
                   ))}
                 </div>
               ) : jobs?.length ? (
-                <div className="flex flex-col divider={ <div className="flexDivider borderColor="var(--bordersecondary)" />
-                  }
-                  spacing={8}
-                  
-                  padding={5}
-                >
+                <div className="flex flex-col gap-8 p-5">
                   {visibleJobs?.slice().map((job, index) => {
                     const formattedDate = formatDistanceToNow(
                       new Date(job?.created_at),
@@ -494,13 +472,13 @@ const ClientDashboardComponent = () => {
                         className="flex items-center justify-between w-full max-[480px]:flex-col"
                         key={index}
                       >
-                        <divitems-start justify-center"
-                          onClick={() = className="flex flex-col className= cursor-pointer"> {
+                        <div
+                          className="flex flex-col items-start justify-center cursor-pointer w-full"
+                          onClick={() => {
                             router.push(`/client-jobDetails/${job?._id}`, {
                               state: { jobDetails: job },
                             });
                           }}
-                          w="full"
                         >
                           <h5 className="text-lg text-[#374151] font-medium capitalize">
                             {job?.title}
@@ -513,10 +491,9 @@ const ClientDashboardComponent = () => {
                           </div>
                         </div>
 
-                        <div className="flex flex-col className="w-[200px] justify-between items-end max-[480px]:!items-center"
-                          marginTop={{ base: "1rem", sm: "0" }}
-                        >
-                          <div className="flex flex-row items-center> <div className=" text-[#6B7280] font-bold text-base">
+                        <div className="flex flex-col w-[200px] justify-between items-end max-[480px]:!items-center mt-4 sm:mt-0">
+                          <div className="flex flex-row items-center">
+                            <div className="text-[#6B7280] font-bold text-base">
                               {job?.proposal_details?.length === 0
                                 ? "No"
                                 : job?.proposal_details?.length}{" "}

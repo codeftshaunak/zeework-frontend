@@ -28,7 +28,13 @@ import {
 } from "../../../helpers/APIs/freelancerApis";
 import { CurrentUserContext } from "../../../contexts/CurrentUser";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import QuillToolbar, {
   formats,
   modules,

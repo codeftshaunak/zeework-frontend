@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useFormState } from "../../contexts/FormContext";
 import { FaRegCreditCard } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
 
 function Complete({ setStep }) {
   const router = useRouter();
@@ -104,20 +105,19 @@ function Complete({ setStep }) {
             </div>
 
             <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
-              <div
-                className="self-stretch h-9 px-3 py-2 bg-green-500 rounded-md shadow justify-center items-center gap-1 inline-flex cursor-pointer"
+              <Button
+                variant="gradient"
+                className="self-stretch h-9"
                 onClick={() => {
                   isPaymentVerified
                     ? setStep(1)
                     : router.push("/setting/billing-payments");
                 }}
               >
-                <div className="text-center text-white text-sm font-medium font-['SF Pro Text'] leading-tight">
-                  {isPaymentVerified
-                    ? "Create New Job Post"
-                    : "Yes, I want to add a payment method"}
-                </div>
-              </div>
+                {isPaymentVerified
+                  ? "Create New Job Post"
+                  : "Yes, I want to add a payment method"}
+              </Button>
             </div>
           </div>
         </div>

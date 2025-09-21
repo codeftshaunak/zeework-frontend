@@ -26,8 +26,14 @@ import {
   FaRegFileWord,
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import { useSelector } from "react-redux";
 import { useRouter, useParams } from "next/navigation";
 import * as Yup from "yup";

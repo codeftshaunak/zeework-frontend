@@ -6,8 +6,14 @@ import { Controller, useForm } from "react-hook-form";
 import { BiX } from "react-icons/bi";
 import { useFormState } from "../../contexts/FormContext";
 import { firstStepSchema } from "../../schemas/job-create-schema";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import { getCategories, getSkills } from "../../helpers/APIs/freelancerApis";
 import Select from "react-select/creatable";
 import { MultiValue, SingleValue } from "react-select";

@@ -7,7 +7,7 @@ import ModernAllJobs from "../../components/FindJobUi/ModernAllJobs";
 export default function FindJobPage() {
   return (
     <HomeLayout>
-      <div className="flex flex-col w-full justify-center p-0">
+      <div className="flex flex-col w-full justify-center">
         <ModernAllJobs />
       </div>
     </HomeLayout>

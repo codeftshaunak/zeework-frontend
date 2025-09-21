@@ -32,7 +32,7 @@ const GuaranteedWork = () => {
   ];
 
   return (
-    <section className="relative md:w-[85%] w-[90%] max-w-[1200px] mx-auto">
+    <section className="relative md:w-[85%] w-[90%] max-w-[1400px] mx-auto">
       <div className="flex justify-between gap-12 xl:flex-row flex-col lg:items-center py-12 w-full">
         <div className="flex flex-col gap-y-[20px] w-full max-2xl:flex-1 2xl:basis-[40%] items-center xl:items-start">
           <h1 className="font-geist-extra capitalize mb-5 font-bold text-3xl md:text-4xl md:w-[400px] sm:w-full text-center xl:text-left sm:text-center  max-[425px]:text-[1.6rem]  max-[425px]:leading-7 ">

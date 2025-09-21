@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import QuillToolbar, {
   formats,
   modules,
 } from "../utils/QuillToolbar/QuillToolbar";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateAgencyProfile } from "../../helpers/APIs/agencyApis";

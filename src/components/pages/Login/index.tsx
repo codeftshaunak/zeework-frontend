@@ -63,7 +63,17 @@ const Login = () => {
       await delay(1500);
       toast.success(response.msg);
       if (detailsFound || clientDetailsFound) {
-        router.push(from, { replace: true });
+        // Redirect based on user role after successful login
+        if (role === 1) {
+          // Freelancer role - redirect to find job page
+          router.push("/find-job", { replace: true });
+        } else if (role === 2) {
+          // Client role - redirect to dashboard
+          router.push("/client-dashboard", { replace: true });
+        } else {
+          // Fallback to original from parameter
+          router.push(from, { replace: true });
+        }
       } else {
         router.push("/onboarding");
       }
