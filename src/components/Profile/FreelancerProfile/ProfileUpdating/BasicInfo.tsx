@@ -2,7 +2,7 @@
 
 import { toast } from "@/lib/toast";
 import dynamic from "next/dynamic";
-import QuillToolbar, {
+import {
   formats,
   modules,
 } from "../../../utils/QuillToolbar/QuillToolbar";
@@ -11,6 +11,12 @@ import QuillToolbar, {
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
+});
+
+// Dynamically import QuillToolbar to avoid SSR issues
+const QuillToolbar = dynamic(() => import("../../../utils/QuillToolbar/QuillToolbar"), {
+  ssr: false,
+  loading: () => <div className="h-8 bg-gray-100 rounded border animate-pulse" />
 });
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
