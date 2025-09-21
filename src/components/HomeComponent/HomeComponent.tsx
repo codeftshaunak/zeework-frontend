@@ -59,7 +59,7 @@ const HomeComponent = () => {
         ref={ref1}
         className={`transition-all ease-in-out duration-1000 transform ${
           isVisible1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        } bg-gradient-to-br from-white via-gray-50 to-green-50/30 pt-16`}
+        } bg-gradient-to-br from-white via-gray-50 to-green-50/30`}
       >
         <HeroSection />
       </div>
