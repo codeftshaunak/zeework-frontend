@@ -47,7 +47,7 @@ const MoreCategories = () => {
   ];
 
   return (
-    <section className="relative md:w-[85%] w-[90%] max-w-[1200px] mx-auto pt-16">
+    <section className="relative md:w-[85%] w-[90%] max-w-[1400px] mx-auto pt-16">
       <h2 className=" font-geist-extra text-[30px] md:text-4xl text-center xl:text-left sm:text-center">
         Looking For Something?
       </h2>

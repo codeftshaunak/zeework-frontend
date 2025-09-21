@@ -52,7 +52,7 @@ const Faqs = () => {
   };
   return (
     <section className="bg-[#DCFCE7] rounded-xl">
-      <div className="py-10 sm:py-16 md:w-[85%] w-[90%] max-w-[1200px] mx-[auto]">
+      <div className="py-10 sm:py-16 md:w-[85%] w-[90%] max-w-[1400px] mx-[auto]">
         <h1 className="sm:text-[42px] text-[24px] font-geist-extra text-center font-semibold mb-4">
           Frequently Asked <span className="text-primary">Questions</span>
         </h1>

@@ -309,7 +309,7 @@ export const Footer = () => {
   return (
     <div>
       <div className="bg-[#F4FAF6] mt-5 text-[#575757] text-center">
-        <div className="md:w-[85%] max-w-[1200px] mb-16 mx-[auto] p-6">
+        <div className="md:w-[85%] max-w-[1400px] mb-16 mx-[auto] p-6">
           <div className="grid lg:grid-cols-[1fr,1.5fr,1fr] md:grid-cols-2 grid-cols-1 gap-8">
             <div className="md:w-full">
               <img

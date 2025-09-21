@@ -41,7 +41,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       </CardHeader>
       <CardContent>
         {skills && skills.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3">
             {skills.map((skill, index) => (
               <Badge
                 key={skill._id || index}

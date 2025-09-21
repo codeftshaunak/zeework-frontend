@@ -5,7 +5,7 @@ import { GreenButton } from "../../utils/Buttons/Buttons";
 const Findtalent = () => {
   const router = useRouter();
   return (
-    <section className="md:w-[85%] w-[90%] max-w-[1200px] mb-16 mx-[auto]">
+    <section className="md:w-[85%] w-[90%] max-w-[1400px] mb-16 mx-[auto]">
       <div className="w-full">
         <div className="flex lg:gap-8 justify-between max-[440px]:h-[480px] max-[1439px]:items-center flex-col xl:flex-row w-full h-full max-md:overflow-hidden items-center">
           <div className=" max-lg:w-full max-2xl:flex-1 h-full 2xl:basis-[540px] max-md:relative max-md:overflow-hidden max-md:border max-md:rounded-[60px]">

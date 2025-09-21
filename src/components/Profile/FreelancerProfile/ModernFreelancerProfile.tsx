@@ -136,7 +136,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
   return (
     <HomeLayout>
       <div className="min-h-screen bg-gray-50/50">
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="w-full py-8">
           <div className="space-y-8">
             {/* Profile Header */}
             <ProfileHeader
@@ -148,9 +148,9 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
             />
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-5 xl:grid-cols-6 gap-8">
               {/* Left Sidebar */}
-              <div className="lg:col-span-1 space-y-6">
+              <div className="lg:col-span-1 xl:col-span-2 space-y-6">
                 {/* Stats Section */}
                 <StatsSection
                   stats={mockStats}
@@ -181,7 +181,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
               </div>
 
               {/* Main Content */}
-              <div className="lg:col-span-3 space-y-8">
+              <div className="lg:col-span-4 xl:col-span-4 space-y-8">
                 {/* Skills Section */}
                 <SkillsSection
                   skills={profileData.skills || []}

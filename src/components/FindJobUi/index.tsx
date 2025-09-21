@@ -105,7 +105,7 @@ export const AllJobs = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[1200px]">
+    <div className="w-full max-w-[1400px]">
       <div className="flex justify-center w-full py-6">
         <div className="w-full lg:w-[75%]">
           <Banner />

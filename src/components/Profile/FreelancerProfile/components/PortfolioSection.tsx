@@ -57,7 +57,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       </CardHeader>
       <CardContent>
         {portfolio && portfolio.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
             {portfolio.map((project, index) => (
               <div
                 key={project._id || index}

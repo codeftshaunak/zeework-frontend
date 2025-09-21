@@ -7,7 +7,7 @@ const PrivacyAndPolicy = () => {
      <div>
      <Header/>
        <section className="bg-[#DCFCE7] rounded-xl h-full">
-      <div className="py-24 md:py-16 md:w-[85%] w-[90%] max-w-[1200px] mx-[auto]">
+      <div className="py-24 md:py-16 md:w-[85%] w-[90%] max-w-[1400px] mx-[auto]">
      <h2 className="z-20 2xl:text-[50px] text-[2.5rem] max-[425px]:text-[1.8rem] max-[425px]:leading-8 font-geist-extra font-[800] 2xl:leading-[70px] leading-[50px] max-xl:text-center mb-4">Privacy & Policy</h2>
 
   <p><strong>ZeeWork</strong> (“we”, “our”, “us”) values your privacy. This Privacy Policy outlines how we collect, use, and protect your personal data when you use our services.</p>

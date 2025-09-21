@@ -36,7 +36,7 @@ const ReviewSection = () => {
 
   return (
     <section className="bg-gradient-to-t from-[#84B3B1]/[0.05] to-[#C5FFB0]/[0.05] mt-16">
-      <div className="mt-16 pt-5 pb-12 md:w-[85%] w-[90%] max-w-[1200px] mx-[auto] relative">
+      <div className="mt-16 pt-5 pb-12 md:w-[85%] w-[90%] max-w-[1400px] mx-[auto] relative">
         <img
           className="h-[80px] w-[80px] rounded-[15px] absolute blur-sm right-[100px] top-[180px] max-xl:hidden opacity-60"
           src="./images/ReviewSectionImg2.png"

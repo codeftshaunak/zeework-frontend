@@ -287,7 +287,7 @@ const JobDetails = ({
     <>
       <div className="w-full mx-auto">
         <div className="flex w-full py-6">
-          <div className="w-full px-6">
+          <div className="w-full">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">
               <Link
@@ -390,9 +390,9 @@ const JobDetails = ({
             </div>
 
             {/* Main Content Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {/* Left Column - Main Content */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-3 xl:col-span-4">
                 {/* Job Description */}
                 <div className="bg-white border border-gray-200/60 rounded-lg mb-8 shadow-sm">
                   <div className="p-8">
