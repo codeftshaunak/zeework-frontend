@@ -69,7 +69,7 @@ const WorkteamsCard = ({ image, title, subTitle, color = "primary", icon }: Work
 const WorkteamsSection = () => {
     return (
         <section className="py-20 lg:py-32">
-            <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+            <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
                 {/* Header */}
                 <div className="text-center space-y-6 mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">
