@@ -52,11 +52,11 @@ const UserProfileCard = () => {
       ) : (
         <>
           <div className="flex flex-col items-center gap-1 pt-6 pb-4">
-            <div className="w-[96px] h-[96px] rounded-full flex justify-center items-center border-2 bg-gradient-to-br from-[#A3ECBE] to-[#0EDD5A]">
+            <div className="w-[96px] h-[96px] rounded-full flex justify-center items-center border-2 bg-gradient-to-br from-[#A3ECBE] to-[#0EDD5A] overflow-hidden">
               <Avatar
                 src={profile_image}
                 name={firstName + " " + lastName}
-                className={`!w-[90px] !h-[90px] border-2 ${!activeAgency && "cursor-pointer"
+                className={`!w-[90px] !h-[90px] border-2 border-white object-cover rounded-full overflow-hidden ${!activeAgency && "cursor-pointer"
                   }`}
                 onClick={() =>
                   !activeAgency && router.push(`/profile/f/${user_id}`)

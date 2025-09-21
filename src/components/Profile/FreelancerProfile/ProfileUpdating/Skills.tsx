@@ -165,6 +165,37 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
                     isDisabled={optionsLoading}
                     isLoading={optionsLoading}
                     options={options}
+                    menuPortalTarget={document.body}
+                    menuPosition="fixed"
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                      menu: (base) => ({ ...base, zIndex: 9999 }),
+                      control: (base) => ({
+                        ...base,
+                        minHeight: '42px',
+                        borderColor: '#d1d5db',
+                        '&:hover': {
+                          borderColor: '#9ca3af'
+                        }
+                      }),
+                      multiValue: (base) => ({
+                        ...base,
+                        backgroundColor: '#f0fdf4',
+                        border: '1px solid #bbf7d0'
+                      }),
+                      multiValueLabel: (base) => ({
+                        ...base,
+                        color: '#166534'
+                      }),
+                      multiValueRemove: (base) => ({
+                        ...base,
+                        color: '#166534',
+                        '&:hover': {
+                          backgroundColor: '#dc2626',
+                          color: 'white'
+                        }
+                      })
+                    }}
                     onChange={(selected) => {
                       // Ensure selected values are properly formatted
                       const cleanSelected = Array.isArray(selected)
@@ -184,7 +215,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
                   />
                 )}
               />
-              {errors.skills && <ErrorMsg msg={errors.skills.message} />}
+              {errors.skills && <ErrorMsg msg={errors.skills.message || ''} />}
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 pt-5 w-full">

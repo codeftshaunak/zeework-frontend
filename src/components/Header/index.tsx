@@ -36,7 +36,7 @@ import {
   setNotification,
 } from "../../redux/notificationSlice/notificationSlice";
 import { getMessageUsers } from "../../helpers/APIs/messageApis";
-import { HiMenu, HiOutlineX } from "react-icons/hi";
+import { HiMenu, HiOutlineX, HiOutlineXCircle } from "react-icons/hi";
 import { TbLogout } from "react-icons/tb";
 import { GoArrowSwitch } from "react-icons/go";
 import { motion } from "framer-motion";
@@ -703,7 +703,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                   )}
                 </div>
                 <div
-                  className="flex items-center justify-center rounded-full cursor-pointer p-1 hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-center rounded-full cursor-pointer p-1 hover:bg-gray-50 transition-colors overflow-hidden"
                   onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                 >
                   {firstName || profile?.agency?.agency_name ? (
@@ -721,9 +721,10 @@ export const AuthHeader = ({ role }: { role: number }) => {
                           : firstName + " " + lastName
                       }
                       boxSize="36px"
+                      className="object-cover rounded-full overflow-hidden"
                     />
                   ) : (
-                    <Avatar boxSize="36px" />
+                    <Avatar boxSize="36px" className="object-cover rounded-full overflow-hidden" />
                   )}
                 </div>
                 {openInfo && (
@@ -790,13 +791,14 @@ export const AuthHeader = ({ role }: { role: number }) => {
 
           <div className="hidden sm:flex lg:hidden gap-3 relative ">
             <div
-              className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer"
+              className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer overflow-hidden"
               onClick={(e) => handleProfileButton(e)}
             >
               <Avatar
                 src={profile_image}
                 name={firstName && firstName + " " + lastName}
                 boxSize="40px"
+                className="object-cover rounded-full overflow-hidden"
               />
             </div>
             {openInfo && (
@@ -887,6 +889,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                                   src={profile_image}
                                   name={firstName + " " + lastName}
                                   boxSize="40px"
+                                  className="object-cover rounded-full overflow-hidden"
                                   onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                                 />
                                 <div>
@@ -902,6 +905,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                                   src={agency_profileImage}
                                   name={agency_name}
                                   boxSize="40px"
+                                  className="object-cover rounded-full overflow-hidden"
                                   onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                                 />
                                 <div>
@@ -926,6 +930,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                               src={profile_image}
                               name={firstName + " " + lastName}
                               boxSize="40px"
+                              className="object-cover rounded-full overflow-hidden"
                               onClick={(e: React.MouseEvent) => handleProfileButton(e)}
                             />
                             <div>

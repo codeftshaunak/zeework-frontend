@@ -12,7 +12,7 @@ interface Skill {
 }
 
 interface SkillsSectionProps {
-  skills: Skill[];
+  skills: Array<string | Skill>;
   isOwner?: boolean;
   onEditSkills?: () => void;
 }
@@ -42,15 +42,21 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       <CardContent>
         {skills && skills.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3">
-            {skills.map((skill, index) => (
-              <Badge
-                key={skill._id || index}
-                variant="secondary"
-                className="px-3 py-1 text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200"
-              >
-                {skill.value}
-              </Badge>
-            ))}
+            {skills.map((skill, index) => {
+              // Handle both string and object formats
+              const skillValue = typeof skill === 'string' ? skill : skill?.value || skill;
+              const skillId = typeof skill === 'object' ? skill?._id : undefined;
+
+              return (
+                <Badge
+                  key={skillId || skillValue || index}
+                  variant="secondary"
+                  className="px-3 py-1 text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200"
+                >
+                  {skillValue}
+                </Badge>
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-8 text-gray-500">
