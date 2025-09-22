@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 
@@ -17,14 +16,16 @@ import Cropper from "react-easy-crop";
 import getCroppedImg from "../../helpers/manageImages/getCroppedImg";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import { TiArrowBack, TiMinus, TiPlus, TiZoom } from "react-icons/ti";
-import { BiImages, BiSolidCrop } from "react-icons/bi";
+import { BiImages, BiReset, BiSolidCrop } from "react-icons/bi";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
 const ProfilePhotoNotify = () => {
   const profile = useSelector((state: unknown) => state.profile.profile);
   const role = useSelector((state: unknown) => state.auth.role);
   const [isCloseNotification, setIsCloseNotification] = useState(
-    typeof window !== "undefined" ? sessionStorage.getItem("profileImgNotify") : null
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("profileImgNotify")
+      : null
   );
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -171,87 +172,83 @@ const ProfilePhotoNotify = () => {
         setIsModal={setIsModal}
       >
         <div className="flex flex-col gap-[16px]">
-            <div className="flex flex-col">
-              <div className="flex flex-col gap-[2px]">
-                <div
-                  {...getRootProps()}
-                  className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-gray-400 transition-colors"
-                >
-                  <input
-                    {...getInputProps()}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        setFileName(file.name);
-                      }
-                      setErrorMessage("");
-                    }}
-                  />
-                  {isDragActive ? (
-                    <p className="text-center">Drop the files here ...</p>
-                  ) : (
-                    <p className="text-center">
-                      Drag &apos;n&apos; drop image file here, or click to select
-                    </p>
-                  )}
-                </div>
-
+          <div className="flex flex-col">
+            <div className="flex flex-col gap-[2px]">
+              <div
+                {...getRootProps()}
+                className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-gray-400 transition-colors"
+              >
                 <input
-                  id="file-input"
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
+                  {...getInputProps()}
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) {
                       setFileName(file.name);
-                      setFullImage([file]);
-                      setErrorMessage("");
-                      const reader = new FileReader();
-                      reader.readAsDataURL(file);
-                      reader.onload = () => {
-                        setImageSrc(reader.result);
-                      };
                     }
+                    setErrorMessage("");
                   }}
                 />
+                {isDragActive ? (
+                  <p className="text-center">Drop the files here ...</p>
+                ) : (
+                  <p className="text-center">
+                    Drag &apos;n&apos; drop image file here, or click to select
+                  </p>
+                )}
+              </div>
 
-                <div className="flex items-center justify-center gap-5">
-                      <button
-                        type="button"
-                        className={`flex items-center gap-1 ${
-                          isCropped
-                            ? "cursor-no-drop bg-slate-400"
-                            : "bg-slate-500"
-                        } rounded py-1 px-3 text-white w-fit mt-2`}
-                        onClick={handleCrop}
-                        disabled={isCropped}
-                      >
-                        {isCropped ? (
-                          <>
-                            <IoMdCheckmarkCircleOutline /> Cropped
-                          </>
-                        ) : (
-                          <>
-                            <BiSolidCrop /> Crop photo
-                          </>
-                        )}
-                      </button>
-                      <button
-                        type="button"
-                        className={`flex items-center gap-1 ${
-                          !isCropped
-                            ? "cursor-no-drop bg-slate-400"
-                            : "bg-slate-500"
-                        } rounded py-1 px-3 text-white w-fit mt-2`}
-                        onClick={handleRevert}
-                        disabled={!isCropped}
-                      >
-                        <BiReset /> Revert
-                      </button>
-                </div>
+              <input
+                id="file-input"
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setFileName(file.name);
+                    setFullImage([file]);
+                    setErrorMessage("");
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => {
+                      setImageSrc(reader.result);
+                    };
+                  }
+                }}
+              />
+
+              <div className="flex items-center justify-center gap-5">
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 ${
+                    isCropped ? "cursor-no-drop bg-slate-400" : "bg-slate-500"
+                  } rounded py-1 px-3 text-white w-fit mt-2`}
+                  onClick={handleCrop}
+                  disabled={isCropped}
+                >
+                  {isCropped ? (
+                    <>
+                      <IoMdCheckmarkCircleOutline /> Cropped
+                    </>
+                  ) : (
+                    <>
+                      <BiSolidCrop /> Crop photo
+                    </>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 ${
+                    !isCropped ? "cursor-no-drop bg-slate-400" : "bg-slate-500"
+                  } rounded py-1 px-3 text-white w-fit mt-2`}
+                  onClick={handleRevert}
+                  disabled={!isCropped}
+                >
+                  <BiReset /> Revert
+                </button>
               </div>
             </div>
+          </div>
         </div>
       </UniversalModal>
     </>

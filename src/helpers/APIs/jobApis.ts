@@ -1,123 +1,144 @@
-// api.ts
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "./proxy";
 import { handleApiError } from "./common";
 
-// Create axios instance
-const API: AxiosInstance = axios.create({
+const API = axios.create({
   baseURL: BASE_URL,
 });
 
-// Request headers helper
-const getHeaders = (
-  authToken?: string,
-  contentType: string = "application/json"
-) => ({
-  headers: {
-    "Content-Type": contentType,
-    ...(authToken ? { token: authToken } : {}),
-  },
-});
+const getAuthToken = () =>
+  typeof window !== "undefined" ? localStorage.getItem("authtoken") : null;
 
-// Centralized error handler
-const handleError = (error: AxiosError) => {
+const setAuthHeaders = (contentType = "application/json") => {
+  const authToken = getAuthToken();
+  return {
+    headers: {
+      "Content-Type": contentType,
+      ...(authToken ? { token: authToken } : {}),
+    },
+  };
+};
+
+const handleError = (error: any) => {
   handleApiError(error);
   return error.response?.data;
 };
 
-// Example: Fetch user profile
-export const fetchUserProfile = async (authToken: string) => {
-  try {
-    const response: AxiosResponse<{ body: any }> = await API.get(
-      "/user/profile",
-      getHeaders(authToken)
-    );
-    return response.data.body;
-  } catch (error) {
-    return handleError(error as AxiosError);
-  }
-};
-
-// Example: Job search with filters
-interface JobSearchParams {
-  page?: number;
-  searchTerm?: string;
-  experience?: string[];
-  contractType?: string[];
-  hourlyRateMin?: number;
-  hourlyRateMax?: number;
-  fixedRateMin?: number;
-  fixedRateMax?: number;
-  category?: { value: string }[];
-  payment?: string;
-}
-
-export const searchJobs = async ({
-  page,
-  searchTerm,
-  experience,
-  contractType,
-  hourlyRateMin,
-  hourlyRateMax,
-  fixedRateMin,
-  fixedRateMax,
-  category,
-  payment,
-}: JobSearchParams) => {
-  try {
-    const response: AxiosResponse<{ body: any }> = await API.get(
-      "/job/search",
-      {
-        headers: { "Content-Type": "application/json" },
-        params: {
-          page: page || 1,
-          searchTerm: searchTerm || null,
-          experience: experience?.join(",") || null,
-          job_type: contractType?.join(",") || null,
-          hourly_rate_min: hourlyRateMin || null,
-          hourly_rate_max: hourlyRateMax || null,
-          fixed_rate_min: fixedRateMin || null,
-          fixed_rate_max: fixedRateMax || null,
-          category: category?.map((cat) => cat.value).join(",") || null,
-          payment: payment || null,
-        },
-      }
-    );
-
-    return response.data.body;
-  } catch (error) {
-    console.error("Error fetching job data:", error);
-    throw error;
-  }
-};
-
-// Example: Generic POST request
-export const postData = async <T = any>(
-  url: string,
-  data: any,
-  authToken?: string
+// Generic function for GET requests
+const apiGet = async <T = any>(
+  endpoint: string,
+  config?: AxiosRequestConfig
 ) => {
   try {
-    const response: AxiosResponse<T> = await API.post(
-      url,
-      data,
-      getHeaders(authToken)
-    );
+    const response = await API.get<T>(endpoint, config || setAuthHeaders());
     return response.data;
   } catch (error) {
-    return handleError(error as AxiosError);
+    return handleError(error);
   }
 };
 
-// Example: Generic GET request
-export const getData = async <T = any>(url: string, authToken?: string) => {
+// Generic function for POST requests
+const apiPost = async <T = any, U = any>(
+  endpoint: string,
+  data: U,
+  config?: AxiosRequestConfig
+) => {
   try {
-    const response: AxiosResponse<T> = await API.get(
-      url,
-      getHeaders(authToken)
+    const response = await API.post<T>(
+      endpoint,
+      data,
+      config || setAuthHeaders()
     );
     return response.data;
   } catch (error) {
-    return handleError(error as AxiosError);
+    return handleError(error);
   }
 };
+
+// Generic function for PATCH requests
+const apiPatch = async <T = any, U = any>(
+  endpoint: string,
+  data: U,
+  config?: AxiosRequestConfig
+) => {
+  try {
+    const response = await API.patch<T>(
+      endpoint,
+      data,
+      config || setAuthHeaders()
+    );
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+// Generic function for DELETE requests
+const apiDelete = async <T = any, U = any>(
+  endpoint: string,
+  data?: U,
+  config?: AxiosRequestConfig
+) => {
+  try {
+    const response = await API.delete<T>(endpoint, {
+      data,
+      ...config,
+      headers: {
+        "Content-Type": "application/json",
+        ...setAuthHeaders().headers,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+// -------------------- Job APIs --------------------
+
+export const getAllJobs = () => apiGet("/job/get-all");
+export const getJobs = (params: Record<string, any>) =>
+  apiGet("/job/search", { params, headers: setAuthHeaders().headers });
+
+export const getInvitedFreelancer = () => apiGet("/freelancers/invited");
+export const applyJob = (data: any) => apiPost("/job/apply", data);
+export const createJob = (formData: FormData) =>
+  apiPost("/job/create", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      ...setAuthHeaders().headers,
+    },
+  });
+export const getAllJobsProposal = () => apiGet("/jobs/proposals");
+export const userAllJobs = () => apiGet("/user/jobs");
+export const getSingleJobDetails = (id: string | number) =>
+  apiGet(`/job/get-job?job_id=${id}`);
+export const getAgencyAllJobs = () => apiGet("/agency/jobs");
+
+export const updateJob = (id: string | number, data: FormData) =>
+  apiPatch(`/job/update?job_id=${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      ...setAuthHeaders().headers,
+    },
+  });
+
+export const deleteJob = (id: string | number) =>
+  apiDelete("/job/delete", { job_id: id });
+export const endJobContract = (body: any) => apiPost("/contract/end", body);
+export const changeOldPassword = (body: any) =>
+  apiPost("/reset-password", body);
+
+export const submitTask = (body: FormData) =>
+  apiPost("/offer/task/submit", body, setAuthHeaders("multipart/form-data"));
+
+export const taskApproveOrReject = (body: any) =>
+  apiPost("/task/approve", body);
+
+export const getTimeSheet = (id: string | number) =>
+  apiGet(`timesheet/offer_id?ref=${id}`);
+
+export const getAllTimeSheet = () => apiGet("/timesheet");
+
+export const getAllTimeSheetAgency = () =>
+  apiGet("/timesheet", { params: { is_agency: true } });

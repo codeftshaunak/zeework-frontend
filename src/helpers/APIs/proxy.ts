@@ -1,42 +1,40 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
-// Local URL (uncomment for local development)
-// export const BASE_URL = `http://localhost:5002/api/v1`;
-// export const socketURL = "http://localhost:5002/";
-
-// Live Backend URL
+// Next.js environment variables
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+export const socketURL = process.env.NEXT_PUBLIC_SOCKET_URL as string;
 
-// Get token from localStorage if available
-const authToken =
+/** Get auth token from localStorage (client-side only) */
+const getAuthToken = (): string | null =>
   typeof window !== "undefined" ? localStorage.getItem("authtoken") : null;
 
-// Axios instance
-export const API = axios.create({
+/** Axios instance */
+export const API: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    ...(authToken ? { token: authToken } : {}),
+    ...(getAuthToken() ? { token: getAuthToken() } : {}),
   },
 });
 
-/**
- * Logout and redirect user
- */
-export const logoutAndRedirect = () => {
+interface ApiError {
+  message: string;
+  isError: boolean;
+  path?: string;
+}
+
+/** Logout and redirect to login */
+export const logoutAndRedirect = (): void => {
   if (typeof window !== "undefined") {
+    localStorage.removeItem("user");
     localStorage.removeItem("authtoken");
     window.location.replace("/login");
   }
 };
 
-/**
- * Handle structured API error responses
- */
-export const handleApiError = (
-  error: AxiosError
-): { path?: string; message: string; isError: boolean } => {
-  if (error?.response) {
+/** Handle structured API error responses */
+export const handleApiError = (error: AxiosError): ApiError => {
+  if (error.response) {
     console.error("Error response:", error.response);
 
     const code = (error.response.data as any)?.code;
@@ -48,7 +46,7 @@ export const handleApiError = (
     } else if (code === 400 || code === 404) {
       return { message: msg || "Bad request", isError: true };
     } else {
-      throw error;
+      throw error; // unexpected error, let caller handle
     }
   } else if (error.request) {
     console.error("No response received:", error.request);
@@ -57,19 +55,21 @@ export const handleApiError = (
       isError: true,
     };
   } else {
-    console.error("Request setup Error:", error.message);
+    console.error("Request setup error:", error.message);
     return { message: "Unexpected error occurred.", isError: true };
   }
 };
 
-// Attach interceptor to catch 401 and redirect
-API.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    console.error("Interceptor error:", error);
-    if (error?.response?.status === 401) {
-      logoutAndRedirect();
+/** Hook to attach Axios interceptor for handling 401 */
+export const useApiErrorHandling = (): void => {
+  API.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    (error: AxiosError) => {
+      console.error("Interceptor error:", error);
+      if (error?.response?.status === 401) {
+        logoutAndRedirect();
+      }
+      return Promise.reject(handleApiError(error));
     }
-    return Promise.reject(handleApiError(error));
-  }
-);
+  );
+};

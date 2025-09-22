@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useCallback, useContext } from "react";
-import { SocketContext } from "../contexts/SocketContext";
+import SocketContext from "../contexts/SocketContext";
 
 const useUserActivityListener = (callback: (...args: unknown[]) => void) => {
   const { socket } = useContext(SocketContext);

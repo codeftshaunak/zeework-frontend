@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useSelector } from "react-redux";
-import Header from "../../Header";
+import Header, { AuthHeader } from "../../Header";
 import Notifications from "../../NotifyToast/Notifications";
 interface HomeLayoutProps {
   width?: string;

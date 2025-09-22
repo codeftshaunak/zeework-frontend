@@ -1,37 +1,38 @@
-import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
+import { AxiosRequestConfig, Method } from "axios";
 import { handleApiError } from "./common";
-import { API } from "./proxy"; // axios.create({ baseURL: ... })
+import { API } from "./proxy";
 
-interface ApiRequestOptions {
+interface ApiRequestOptions<T = any> {
+  method: Method;
   endpoint: string;
-  method?: Method;
-  data?: any;
-  authToken?: string;
-  contentType?: string;
+  data?: T;
   customHeaders?: Record<string, string>;
+  contentType?: string;
 }
 
-interface ApiErrorResponse {
+interface ApiError {
   path?: string;
   message: string;
   isError: boolean;
 }
 
-export const apiRequest = async <T = any>({
+const makeApiRequest = async <TResponse = any, TData = any>({
+  method,
   endpoint,
-  method = "GET",
-  data,
-  authToken,
-  contentType = "application/json",
+  data = null,
   customHeaders = {},
-}: ApiRequestOptions): Promise<T | ApiErrorResponse> => {
-  const headers = {
+  contentType = "application/json",
+}: ApiRequestOptions<TData>): Promise<TResponse | ApiError> => {
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authtoken") : null;
+
+  const headers: Record<string, string> = {
     "Content-Type": contentType,
     ...(authToken ? { token: authToken } : {}),
     ...customHeaders,
   };
 
-  const config: AxiosRequestConfig = {
+  const config: AxiosRequestConfig<TData> = {
     method,
     url: endpoint,
     headers,
@@ -39,10 +40,38 @@ export const apiRequest = async <T = any>({
   };
 
   try {
-    const response: AxiosResponse<T> = await API(config);
+    const response = await API.request<TResponse>(config);
     return response.data;
-  } catch (error: any) {
-    const { path, message, isError } = handleApiError(error);
-    return { path, message, isError };
+  } catch (error) {
+    const handledError = handleApiError(error);
+    return handledError;
   }
 };
+
+// -------------------- Messaging APIs --------------------
+
+export const getMessageUsers = async (profile?: string) =>
+  makeApiRequest({
+    method: "get",
+    endpoint: `/user-chat-list${profile ? `?profile=${profile}` : ""}`,
+  });
+
+export const getMessageDetails = async (
+  receiverId: string | number,
+  contractRef?: string | number,
+  profile?: string
+) =>
+  makeApiRequest({
+    method: "get",
+    endpoint: `/message-list?receiver_id=${receiverId}${
+      contractRef ? `&contract_ref=${contractRef}` : ""
+    }`,
+    customHeaders: profile ? { profile } : {},
+  });
+
+export const deleteSingleMessage = async (body: Record<string, any>) =>
+  makeApiRequest({
+    method: "post",
+    endpoint: `/message/delete`,
+    data: body,
+  });

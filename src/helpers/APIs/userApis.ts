@@ -1,35 +1,37 @@
-import { AxiosError, AxiosRequestConfig, Method } from "axios";
+import { AxiosRequestConfig, Method } from "axios";
 import { handleApiError } from "./common";
 import { API } from "./proxy";
 
-interface ApiRequestOptions {
+// Generic API request function
+interface MakeApiRequestOptions<T = any> {
+  method: Method;
   endpoint: string;
-  method?: Method;
-  data?: any;
-  authToken?: string | null;
+  data?: T;
   customHeaders?: Record<string, string>;
 }
 
-export const apiRequest = async <T = any>({
+const makeApiRequest = async <TResponse = any, TData = any>({
+  method,
   endpoint,
-  method = "GET",
-  data,
-  authToken,
+  data = null,
   customHeaders = {},
-}: ApiRequestOptions): Promise<T> => {
+}: MakeApiRequestOptions<TData>): Promise<TResponse> => {
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authtoken") : null;
+
   const headers: Record<string, string> = {
-    ...(authToken ? { token: authToken } : {}),
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
     ...customHeaders,
   };
 
-  // Set content type automatically
+  // Set content type
   if (data instanceof FormData) {
     headers["Content-Type"] = "multipart/form-data";
-  } else {
+  } else if (!headers["Content-Type"]) {
     headers["Content-Type"] = "application/json";
   }
 
-  const config: AxiosRequestConfig = {
+  const config: AxiosRequestConfig<TData> = {
     method,
     url: endpoint,
     data,
@@ -37,11 +39,73 @@ export const apiRequest = async <T = any>({
   };
 
   try {
-    const response = await API.request<T>(config);
+    const response = await API.request<TResponse>(config);
     return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    const handled = handleApiError(err);
-    throw handled; // rethrow so caller knows it's an error
+  } catch (error: unknown) {
+    throw handleApiError(error);
   }
 };
+
+// ---------------- API ENDPOINT FUNCTIONS ----------------
+
+export const updateFreelancerProfile = <T = any>(data: T) =>
+  makeApiRequest({ method: "POST", endpoint: "/profile-details", data });
+
+export const uploadImage = <T = any>(data: T) =>
+  makeApiRequest({ method: "POST", endpoint: "/user-profile-image", data });
+
+export const updateFreelancer = <T = any>(data: T) =>
+  makeApiRequest({ method: "PUT", endpoint: "/edit-profile", data });
+
+export const getAllDetailsOfUser = <T = any>() =>
+  makeApiRequest<T>({ method: "GET", endpoint: "/user/profile" });
+
+export const forgetLoginPassword = <T = any>(data: T) =>
+  makeApiRequest({ method: "POST", endpoint: "/forgot-password", data });
+
+export const changeOldPassword = <T = any>(body: T) =>
+  makeApiRequest({ method: "POST", endpoint: "/reset-password", data: body });
+
+export const getTaskDetails = <T = any>(offer_id: string | number) =>
+  makeApiRequest<T>({
+    method: "GET",
+    endpoint: `/task?contract_ref=${offer_id}`,
+  });
+
+export const getNotifications = <T = any>(profile: string) =>
+  makeApiRequest<T>({
+    method: "GET",
+    endpoint: "/notifications",
+    customHeaders: { profile },
+  });
+
+export const readAsNotification = <T = any>(body: T) =>
+  makeApiRequest({
+    method: "PATCH",
+    endpoint: "/notification/read",
+    data: body,
+  });
+
+export const githubAccessToken = <T = any>(body: T) =>
+  makeApiRequest({
+    method: "POST",
+    endpoint: "/github/access_token",
+    data: body,
+  });
+
+export const getGithubProfile = <T = any>(body: T) =>
+  makeApiRequest({ method: "POST", endpoint: "/github/profile", data: body });
+
+export const stackOverflowAccessToken = <T = any>(body: T) =>
+  makeApiRequest({
+    method: "POST",
+    endpoint: "/stackoverflow/access_token",
+    data: body,
+  });
+
+export const getStackOverflowProfile = <T = any>(body: T) =>
+  makeApiRequest({
+    method: "POST",
+    endpoint: "/stackoverflow/profile",
+    data: body,
+  });
