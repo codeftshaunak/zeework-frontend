@@ -13,7 +13,7 @@ import AgencyProfileHeader from "./AgencyProfileHeader";
 const AgencyProfile = () => {
   const [agency, setAgency] = useState({});
   const dispatch = useDispatch();
-  const agencyProfile = useSelector((state: any) => state.profile.agency);
+  const agencyProfile = useSelector((state: unknown) => state.profile.agency);
 
   useEffect(() => {
     if (agency._id) dispatch(agencyData({ agency: agency }));

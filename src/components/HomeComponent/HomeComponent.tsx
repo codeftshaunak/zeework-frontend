@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import DreamsInto from "./DreamsInto/DreamsInto";
 import Faqs from "./Faqs/Faqs";
 import Findtalent from "./Findtalent/Findtalent";
 import GuaranteedWork from "./GuaranteedWork/GuaranteedWork";
-import { Header } from "../Header";
+import Header from "../Header";
 import HeroSection from "./HeroSection/HeroSection";
 import MoreCategories from "./MoreCategories/MoreCategories";
 import ReviewSection from "./ReviewSection/ReviewSection";

@@ -1,3 +1,4 @@
+import { Avatar } from "@chakra-ui/react";
 import React from "react";
 
 
@@ -6,22 +7,7 @@ import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 
-export const ClientDetailsSection = ({
-  clientDetails,
-  status,
-  rejectInvite,
-  setOpenModal,
-  offer,
-  isLoading: loaders,
-}) => {
-  const {
-    firstName,
-    lastName,
-    location,
-    avg_review,
-    total_spend,
-    payment_verified,
-  } = clientDetails || {};
+export 
   const { isLoading, statusValue } = loaders || {};
 
   return (

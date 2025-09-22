@@ -17,7 +17,7 @@ interface AuthFormFieldProps {
   error?: string
   className?: string
   ref?: React.Ref<HTMLInputElement>
-  [key: string]: any // for react-hook-form register props
+  [key: string]: unknown // for react-hook-form register props
 }
 
 const AuthFormField = React.forwardRef<HTMLInputElement, AuthFormFieldProps>(

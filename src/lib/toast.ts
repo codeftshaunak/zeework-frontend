@@ -44,7 +44,7 @@ export const toast = {
     options: {
       loading: string;
       success: string | ((data: T) => string);
-      error: string | ((error: any) => string);
+      error: string | ((error: unknown) => string);
     }
   ) => {
     return sonnerToast.promise(promise, options);
@@ -57,9 +57,7 @@ export const toast = {
 };
 
 // Hook-style function to maintain compatibility with existing useToast usage
-export const useToast = () => {
-  return toast;
-};
+export const useToast = () => ({ toast });
 
 // Export individual functions for direct import
 export const { success, error, warning, info, promise, dismiss } = toast;

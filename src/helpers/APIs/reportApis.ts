@@ -1,15 +1,6 @@
 import { handleApiError } from "./common";
 import { API } from "./proxy";
 
-const makeApiRequest = async (
-  method,
-  endpoint,
-  data = null,
-  customHeaders = {},
-  contentType = "application/json"
-) => {
-  const authtoken = localStorage.getItem("authtoken");
-
   const headers = {
     "Content-Type": contentType,
     token: authtoken,
@@ -34,5 +25,4 @@ const makeApiRequest = async (
   }
 };
 
-export const getWeeklyReport = async (job_id) =>
-  makeApiRequest("get", `/report/${job_id}/weekly`);
+export 

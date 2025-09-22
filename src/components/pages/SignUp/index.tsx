@@ -30,7 +30,6 @@ import {
   freelancerSignUpSchema,
 } from "../../../schemas/profile-create-schema";
 
-
 // Types
 interface Country {
   name: string;
@@ -55,8 +54,6 @@ export const SignUp = () => {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  const handleOptionChange = (option: string) => {
-    setSelectedOption(option);
   };
 
   const buttonText =
@@ -76,110 +73,10 @@ export const SignUp = () => {
     }
   };
 
-  return (
-    <>
-      {(isFreelancer && <FreelancerSignUp />) ||
-        (isClient && <ClientSignUp />) || (
-          <AuthLayout
-            title="Join ZeeWork"
-            description="Choose how you'd like to use ZeeWork"
-          >
-            <div className="space-y-6">
-              {/* Role Selection Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Client Option */}
-                <Card
-                  className={cn(
-                    "cursor-pointer transition-all duration-200 hover:shadow-md",
-                    selectedOption === "client" ? "ring-2 ring-green-500 border-green-500" : "border-gray-200 hover:border-green-300"
-                  )}
-                  onClick={() => setSelectedOption("client")}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      <div className="p-3 rounded-full bg-green-100">
-                        <Briefcase className="h-8 w-8 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Client</h3>
-                        <p className="text-sm text-gray-600">Hiring for a project</p>
-                      </div>
-                      <div className={cn(
-                        "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                        selectedOption === "client" ? "border-green-500 bg-green-500" : "border-gray-300"
-                      )}>
-                        {selectedOption === "client" && (
-                          <CheckCircle className="h-3 w-3 text-white" />
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+export default SignUp;
 
-                {/* Freelancer Option */}
-                <Card
-                  className={cn(
-                    "cursor-pointer transition-all duration-200 hover:shadow-md",
-                    selectedOption === "freelancer" ? "ring-2 ring-green-500 border-green-500" : "border-gray-200 hover:border-green-300"
-                  )}
-                  onClick={() => setSelectedOption("freelancer")}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      <div className="p-3 rounded-full bg-blue-100">
-                        <Users className="h-8 w-8 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Freelancer</h3>
-                        <p className="text-sm text-gray-600">Looking for work</p>
-                      </div>
-                      <div className={cn(
-                        "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-                        selectedOption === "freelancer" ? "border-green-500 bg-green-500" : "border-gray-300"
-                      )}>
-                        {selectedOption === "freelancer" && (
-                          <CheckCircle className="h-3 w-3 text-white" />
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Continue Button */}
-              <Button
-                variant="gradient"
-                size="lg"
-                className="w-full h-12 text-base font-semibold"
-                onClick={handleButtonClick}
-                disabled={!selectedOption}
-              >
-                {buttonText}
-              </Button>
-
-              {/* Login Link */}
-              <div className="text-center">
-                <span className="text-gray-600">
-                  Already have an account?{" "}
-                  <button
-                    type="button"
-                    className="text-green-600 hover:text-green-700 font-medium transition-colors"
-                    onClick={() => router.push("/login")}
-                  >
-                    Sign in
-                  </button>
-                </span>
-              </div>
-            </div>
-          </AuthLayout>
-        )}
-    </>
-  );
-};
-
-export const FreelancerSignUp = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+// State management
+const [isLoading, setIsLoading] = useState(false);
   const [verifyShow, setVerifyShow] = useState(false);
   const [countries, setCountries] = useState<Country[]>([]);
   const [countdown, setCountdown] = useState(0);
@@ -203,7 +100,7 @@ export const FreelancerSignUp = () => {
       const { code, body } = await getCountries();
       if (code === 200) {
         setCountries(
-          body?.map((country: any) => ({
+          body?.map((country: unknown) => ({
             ...country,
             label: country.name,
             value: country.name,
@@ -250,7 +147,7 @@ export const FreelancerSignUp = () => {
         toast.default(msg);
         setCountdown(119);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(error?.message);
       console.error("Error fetching search results:", error);
     }
@@ -277,7 +174,6 @@ export const FreelancerSignUp = () => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
-
 
   if (verifyShow) {
     return (
@@ -352,54 +248,7 @@ export const FreelancerSignUp = () => {
               {...register("firstName")}
               placeholder="First name"
               className={cn(
-                "h-12 text-base",
-                errors.firstName && "border-red-500 focus-visible:ring-red-500"
-              )}
-            />
-            {errors.firstName && (
-              <p className="text-sm text-red-500 font-medium">{errors.firstName.message}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Input
-              {...register("lastName")}
-              placeholder="Last name"
-              className={cn(
-                "h-12 text-base",
-                errors.lastName && "border-red-500 focus-visible:ring-red-500"
-              )}
-            />
-            {errors.lastName && (
-              <p className="text-sm text-red-500 font-medium">{errors.lastName.message}</p>
-            )}
-          </div>
-        </div>
 
-        {/* Email Field */}
-        <AuthFormField
-          type="email"
-          placeholder="Enter your email address"
-          error={errors.email?.message}
-          {...register("email")}
-        />
-
-        {/* Password Field */}
-        <AuthFormField
-          type="password"
-          placeholder="Create a strong password"
-          showPassword={showPassword}
-          onTogglePassword={() => setShowPassword(!showPassword)}
-          error={errors.password?.message}
-          {...register("password")}
-        />
-
-        {/* Country Field */}
-        <div className="space-y-2">
-          <Select
-            placeholder="Select your country"
-            options={countries}
-            onChange={(data: any) => {
-              setValue("country", data.name);
               trigger("country");
             }}
             error={errors.country?.message}
@@ -464,9 +313,7 @@ export const FreelancerSignUp = () => {
   );
 };
 
-export const ClientSignUp = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [verifyShow, setVerifyShow] = useState(false);
+export   const [verifyShow, setVerifyShow] = useState(false);
   const [countries, setCountries] = useState<Country[]>([]);
   const [countdown, setCountdown] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -490,7 +337,7 @@ export const ClientSignUp = () => {
       const { code, body } = await getCountries();
       if (code === 200) {
         setCountries(
-          body?.map((country: any) => ({
+          body?.map((country: unknown) => ({
             ...country,
             label: country.name,
             value: country.name,
@@ -536,7 +383,7 @@ export const ClientSignUp = () => {
         toast.default(msg);
         setCountdown(119);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(error?.message);
       console.error("Error fetching search results:", error);
     }
@@ -563,7 +410,6 @@ export const ClientSignUp = () => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
-
 
   if (verifyShow) {
     return (
@@ -638,54 +484,7 @@ export const ClientSignUp = () => {
               {...register("firstName")}
               placeholder="First name"
               className={cn(
-                "h-12 text-base",
-                errors.firstName && "border-red-500 focus-visible:ring-red-500"
-              )}
-            />
-            {errors.firstName && (
-              <p className="text-sm text-red-500 font-medium">{errors.firstName.message}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Input
-              {...register("lastName")}
-              placeholder="Last name"
-              className={cn(
-                "h-12 text-base",
-                errors.lastName && "border-red-500 focus-visible:ring-red-500"
-              )}
-            />
-            {errors.lastName && (
-              <p className="text-sm text-red-500 font-medium">{errors.lastName.message}</p>
-            )}
-          </div>
-        </div>
 
-        {/* Email Field */}
-        <AuthFormField
-          type="email"
-          placeholder="Enter your email address"
-          error={errors.email?.message}
-          {...register("email")}
-        />
-
-        {/* Password Field */}
-        <AuthFormField
-          type="password"
-          placeholder="Create a strong password"
-          showPassword={showPassword}
-          onTogglePassword={() => setShowPassword(!showPassword)}
-          error={errors.password?.message}
-          {...register("password")}
-        />
-
-        {/* Country Field */}
-        <div className="space-y-2">
-          <Select
-            placeholder="Select your country"
-            options={countries}
-            onChange={(data: any) => {
-              setValue("country", data.name);
               trigger("country");
             }}
             error={errors.country?.message}

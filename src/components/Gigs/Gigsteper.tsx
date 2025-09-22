@@ -1,6 +1,6 @@
 
-"use client";
-import React from "react";
+"use client";"
+import React from "react";"
 
 import {
   Step,
@@ -13,25 +13,25 @@ import {
   Text,
   Stepper,
   useSteps,
-} from "@/components/ui/migration-helpers";
-import { GigCreate } from "./GigCreate";
-import { useCallback } from "react";
-import { GigUpdate } from "./GigUpdate";
+} from "@/components/ui/migration-helpers";"
+import { GigCreate } from "./GigCreate";"
+import { useCallback } from "react";"
+import { GigUpdate } from "./GigUpdate";"
 const steps = [
-  { title: "Overview", description: "Contact Info" },
-  { title: "Pricing", description: "Date & Time" },
-  { title: "Gallery", description: "Select Rooms" },
-  { title: "Requirement & Steps", description: "Select Rooms" },
-  { title: "Description & Review", description: "Select Rooms" },
+  { title: "Overview", description: "Contact Info" },"
+  { title: "Pricing", description: "Date & Time" },"
+  { title: "Gallery", description: "Select Rooms" },"
+  { title: "Requirement & Steps", description: "Select Rooms" },"
+  { title: "Description & Review", description: "Select Rooms" },"
 ];
 
 export const GigSteper = ({ activeStep }) => {
   return (
     <Stepper
-      size="lg"
+      size="lg""
       index={activeStep}
-      colorScheme="primary"
-      className="items-center"
+      colorScheme="primary""
+      className="items-center""
       marginTop={10}}
     >
       {steps.map((step, index) => (
@@ -44,7 +44,7 @@ export const GigSteper = ({ activeStep }) => {
                 active={<StepNumber />}
               />
             </StepIndicator>
-            <span className="absolute pt-2 text-[0.9rem]">{step.title}</span>
+            <span className="absolute pt-2 text-[0.9rem]">{step.title}</span>"
           </div>
           <StepSeparator />
         </Step>
@@ -53,12 +53,7 @@ export const GigSteper = ({ activeStep }) => {
   );
 };
 
-export const CreateWithStepper = ({ setPage }) => {
-  const { activeStep, setActiveStep } = useSteps({
-    index: 0,
-    count: steps?.length,
-  });
-
+export 
   //   move step backward
   const goBackward = useCallback(() => {
     if (activeStep > 0) {
@@ -84,12 +79,7 @@ export const CreateWithStepper = ({ setPage }) => {
   );
 };
 
-export const UpdateWithStepper = ({ setPage, setIsEdit }) => {
-  const { activeStep, setActiveStep } = useSteps({
-    index: 0,
-    count: steps?.length,
-  });
-
+export 
   //   move step backward
   const goBackward = useCallback(() => {
     if (activeStep > 0) {
@@ -104,7 +94,7 @@ export const UpdateWithStepper = ({ setPage, setIsEdit }) => {
   return (
     <>
       <GigSteper activeStep={activeStep} />
-      <div className="mt-10">
+      <div className="mt-10">"
         <GigUpdate
           activeStep={activeStep}
           setActiveStep={setActiveStep}

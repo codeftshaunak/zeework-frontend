@@ -1,5 +1,6 @@
-"use client";
+"use client";"
 
+import { Card } from "@/components/ui/card";
 import {
   Box,
   Card,
@@ -11,47 +12,47 @@ import {
   Text,
   useDisclosure,
   VStack,
-} from "@/components/ui/migration-helpers";
-import React, { useEffect, useMemo, useState } from "react";
-import { useCookies } from "react-cookie";
-import { LuMessagesSquare } from "react-icons/lu";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useRouter, useParams } from "next/navigation";
+} from "@/components/ui/migration-helpers";"
+import React, { useEffect, useMemo, useState } from "react";"
+import { useCookies } from "react-cookie";"
+import { LuMessagesSquare } from "react-icons/lu";"
+import { useDispatch, useSelector } from "react-redux";"
+import { useLocation, useRouter, useParams } from "next/navigation";"
 import {
   getMessageDetails,
   getMessageUsers,
-} from "../../helpers/APIs/messageApis";
+} from "../../helpers/APIs/messageApis";"
 import {
   markMessagesAsRead,
   setMessageUsers,
-} from "../../redux/messageSlice/messageSlice";
-import TimerDownloadCard from "../Common/TimerDownloadCard";
+} from "../../redux/messageSlice/messageSlice";"
+import TimerDownloadCard from "../Common/TimerDownloadCard";"
 import {
   MessageBodySkeleton,
   MessageUsersSkeleton,
-} from "../Skeletons/MessageSkeleton";
-import MessageBody from "./MessageBody";
-import MessageSearchBar from "./MessageSearchBar";
-import MessageUserList from "./MessageUserList";
-import SearchedUsers from "./SearchedUsers";
-import { PiUserListDuotone } from "react-icons/pi";
+} from "../Skeletons/MessageSkeleton";"
+import MessageBody from "./MessageBody";"
+import MessageSearchBar from "./MessageSearchBar";"
+import MessageUserList from "./MessageUserList";"
+import SearchedUsers from "./SearchedUsers";"
+import { PiUserListDuotone } from "react-icons/pi";"
 
 const MessageComp = () => {
-  const messageUsers = useSelector((state: any) => state.message.users);
+  const messageUsers = useSelector((state: unknown) => state.message.users);
   const [messageDetails, setMessageDetails] = useState({});
-  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");"
   const [filteredUser, setFilteredUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [usersIsLoading, setUsersIsLoading] = useState(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");"
   const router = useRouter();
   const { id } = useParams();
-  const pathname = usePathname();
+  
   const searchParams = new URLSearchParams(location.search);
-  const contract_ref = searchParams.get("contract_ref");
-  const profile = useSelector((state: any) => state.profile);
+  const contract_ref = searchParams.get("contract_ref");"
+  const profile = useSelector((state: unknown) => state.profile);
   const role = profile.profile.role;
-  const [cookies] = useCookies(["activeagency"]);
+  const [cookies] = useCookies(["activeagency"]);"
   const activeAgency = cookies.activeagency;
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false); const onOpen = () => setIsOpen(true); const onClose = () => setIsOpen(false);
@@ -62,13 +63,13 @@ const MessageComp = () => {
     setUsersIsLoading(true);
     try {
       const { body, code } = activeAgency
-        ? await getMessageUsers("agency")
+        ? await getMessageUsers("agency")"
         : await getMessageUsers();
       if (code === 200) {
         dispatch(setMessageUsers(body));
       }
     } catch (error) {
-      console.error("Error fetching message user:", error);
+      console.error("Error fetching message user:", error);"
     }
     setUsersIsLoading(false);
   };
@@ -76,7 +77,7 @@ const MessageComp = () => {
   // Fetch messages for a specific user
   const getMessagesList = async (receiver_id, contractRef) => {
     setIsLoading(true);
-    router.push(`/message/${receiver_id}?contract_ref=${contractRef}`, {
+    router.push(`/message/${receiver_id}?contract_ref=${contractRef}`, {`
       replace: true,
     });
 
@@ -121,18 +122,13 @@ const MessageComp = () => {
           });
       }
     } catch (error) {
-      console.error("Error fetching message details:", error);
+      console.error("Error fetching message details:", error);"
     }
     setIsLoading(false);
   };
 
   // update messaging user activity
   useEffect(() => {
-    if (selectedUser && messageUsers?.length) {
-      const selectedUserActivity = messageUsers.find(
-        (user) =>
-          user.user_details.user_id === id || user.user_details._id === id
-      )?.user_details?.activity;
 
       setMessageDetails((prev) => ({
         ...prev,
@@ -149,7 +145,7 @@ const MessageComp = () => {
     setQuery(query);
     if (query.length) {
       // Split the query into individual words
-      const queryWords = query?.toLowerCase()?.split(" ");
+      const queryWords = query?.toLowerCase()?.split(" ");"
 
       const getUsers = messageUsers.filter((user) => {
         // Combine all searchable fields into a single string
@@ -161,10 +157,10 @@ const MessageComp = () => {
           user?.user_details?.agency_name,
         ]
           ?.filter(Boolean)
-          ?.join(" ")
+          ?.join(" ")"
           ?.toLowerCase();
 
-        // Check if every word in the query is included in the user's details
+        // Check if every word in the query is included in the user's details'
         return queryWords?.every((word) => userFields?.includes(word));
       });
 
@@ -176,8 +172,7 @@ const MessageComp = () => {
 
   // Mark messages as read
   useEffect(() => {
-    if (contract_ref && id) {
-      dispatch(markMessagesAsRead({ contract_ref, id }));
+
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -185,8 +180,7 @@ const MessageComp = () => {
 
   // Initial fetch of message users and messages
   useEffect(() => {
-    if (id && contract_ref !== null && contract_ref !== "undefined")
-      getMessagesList(id, contract_ref);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract_ref, id]);
 
@@ -244,7 +238,7 @@ const MessageComp = () => {
   return (
     <div className="flex flex-row items-center paddingTop={{ base: 2, md: 5 }}"
      
-      maxH={{ base: "90vh", md: "90vh" }}}}
+      maxH={{ base: "90vh", md: "90vh" }}}}"
     >
       {/* User list for mobile devices */}
       <div}>
@@ -255,14 +249,14 @@ const MessageComp = () => {
           size="full"
           isFullHeight={false}
         >
-          <DrawerContent mt="4.5rem" shadow="none">
+          <DrawerContent mt="4.5rem" shadow="none">"
             <DrawerBody
               mx="auto"
               className="relative border"
               pt={5}
              
             >
-              <div className="w-full md:w-[250px]">
+              <div className="w-full md:w-[250px]">"
                 <div className="flex flex-row items-center> <MessageSearchBar query={query} handleSearchingUser={handleSearchingUser} /> <DrawerCloseButton size="25px"
                   />
                 </div>
@@ -296,7 +290,7 @@ const MessageComp = () => {
       </div>
 
       {/* User list for larger devices */}
-      <div} className="min-w-[250px]">
+      <div} className="min-w-[250px]">"
         <MessageSearchBar
           query={query}
           handleSearchingUser={handleSearchingUser}
@@ -324,7 +318,7 @@ const MessageComp = () => {
         )}
       </div>
 
-      <div className="flex flex-col className="max-xl:w-full w-[65%] relative">
+      <div className="flex flex-col className="max-xl:w-full w-[65%] relative">"
         {/* Open user list on mobile devices */}
         <PiUserListDuotone
           className="absolute top-5 right-5 z-10 text-4xl bg-slate-100 hover:bg-slate-200 transition duration-300 cursor-pointer rounded-full p-1 text-primary md:hidden"
@@ -332,7 +326,7 @@ const MessageComp = () => {
         />
 
         {/* Messages body */}
-        {id && contract_ref !== null && contract_ref !== "undefined" ? (
+        {id && contract_ref !== null && contract_ref !== "undefined" ? ("
           isLoading ? (
             <MessageBodySkeleton />
           ) : (
@@ -347,31 +341,31 @@ const MessageComp = () => {
             />
           )
         ) : id ? (
-          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">
-              <LuMessagesSquare className="text-8xl text-green-300 mb-4" />
-              <p className="text-lg text-green-300 font-bold text-center">
+          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">"
+              <LuMessagesSquare className="text-8xl text-green-300 mb-4" />"
+              <p className="text-lg text-green-300 font-bold text-center">"
                 Can&apos;t find the contract details
               </p>
             </div>
           </div>
         ) : (
-          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">
-              <LuMessagesSquare className="text-9xl text-green-300" />
+          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">"
+              <LuMessagesSquare className="text-9xl text-green-300" />"
             </div>
           </div>
         )}
       </div>
 
-      <div className="flex flex-col> <div className="max-xl:hidden">
+      <div className="flex flex-col> <div className="max-xl:hidden">"
           {role == 1 && (
             <Card
               className="px-10 py-2 cursor-pointer text-center"
-              onClick={() => router.push("/my-jobs")}
+              onClick={() => router.push("/my-jobs")}"
             >
               <h2>Submit Work</h2>
             </Card>
           )}
-          <div className="w-[70%]">
+          <div className="w-[70%]">"
             <TimerDownloadCard msg={true} />
           </div>
         </div>

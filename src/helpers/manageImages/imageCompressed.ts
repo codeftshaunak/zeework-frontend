@@ -9,7 +9,7 @@ export const compressImageToWebP = (file, quality = 0.5, identifier) => {
         const canvas = document.createElement("canvas");
         const maxWidth = 1200;
         let width = img.width;
-        let height = img.height;
+        const height = img.height;
 
         // Resize the image if it exceeds the max width
         if (width > maxWidth) {
@@ -46,6 +46,5 @@ export const compressImageToWebP = (file, quality = 0.5, identifier) => {
   });
 };
 
-export const compressMultipleImagesToWebP = (files, quality = 0.5) => {
-  return Promise.all(files.map((file) => compressImageToWebP(file, quality)));
+
 };

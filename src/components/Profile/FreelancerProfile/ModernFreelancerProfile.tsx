@@ -28,12 +28,12 @@ interface ProfileState {
   location: string;
   hourly_rate: number;
   description: string;
-  skills: any[];
-  experience: any[];
-  education: any[];
-  portfolio: any[];
-  linked_accounts: any[];
-  categories?: any[];
+  skills: unknown[];
+  experience: unknown[];
+  education: unknown[];
+  portfolio: unknown[];
+  linked_accounts: unknown[];
+  categories?: unknown[];
   user_id?: string;
 }
 
@@ -90,7 +90,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
   const router = useRouter();
   const [localTime, setLocalTime] = useState<string>("");
   const [type, setType] = useState<string>("");
-  const [defaultValue, setDefaultValue] = useState<any>(null);
+  const [defaultValue, setDefaultValue] = useState<unknown>(null);
   const [isModal, setIsModal] = useState(false);
   const [workHistoryLoading, setWorkHistoryLoading] = useState(false);
 
@@ -111,7 +111,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
     }
   };
 
-  const openUpdatingModal = (type: string, data: any = null): void => {
+  const openUpdatingModal = (type: string, data: unknown = null): void => {
     setDefaultValue(data);
     setType(type);
     setIsModal(true);
@@ -236,33 +236,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
                   </h2>
                   <hr className="mb-6" />
                   <p className="text-gray-600 mb-6">
-                    Projects are a new way to earn on ZeeWork. Create project
-                    offerings that highlight your strengths and attract more clients.
-                  </p>
-                  {!viewAs && (
-                    <button
-                      className="px-6 py-2 rounded-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-colors font-semibold"
-                      onClick={() => router.push("/freelancer/gig")}
-                    >
-                      Manage Gigs
-                    </button>
-                  )}
-                  {/* TODO: Add ProfileGigCards component */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Profile Updating Modal */}
-      <ProfileUpdating
-        type={type}
-        defaultValue={defaultValue}
-        setDefaultValue={setDefaultValue}
-        isModal={isModal}
-        setIsModal={setIsModal}
-      />
-    </HomeLayout>
+    );
   );
 };

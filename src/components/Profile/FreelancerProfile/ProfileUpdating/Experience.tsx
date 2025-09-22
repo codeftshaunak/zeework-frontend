@@ -1,5 +1,6 @@
 "use client";
 
+import { HStack, Input, Textarea } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,9 +24,9 @@ import { experienceSchema } from "../../../../schemas/freelancer-profile-schema"
 // TypeScript interfaces
 interface ExperienceProps {
   type: string;
-  defaultValue: any;
+  defaultValue: unknown;
   setIsModal: (isOpen: boolean) => void;
-  setDefaultValue: (value: any) => void;
+  setDefaultValue: (value: unknown) => void;
 }
 
 interface ExperienceFormData {
@@ -45,7 +46,7 @@ interface Country {
 }
 
 interface ProfileState {
-  experience: any[];
+  experience: unknown[];
 }
 
 interface RootState {
@@ -102,7 +103,7 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
   };
 
   // Update new information
-  const profileDispatch = (data: any) => {
+  const profileDispatch = (data: unknown) => {
     if (type === "Add Experience") {
       dispatch(profileData({ profile: data }));
     } else {
@@ -184,13 +185,13 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
   // Delete the experience
   const handleDelete = async () => {
     setIsLoading(true);
-    let newPayload = { experienceId: defaultValue._id };
+    const newPayload = { experienceId: defaultValue._id };
 
     try {
       const { code, msg } = await deleteExperience(newPayload);
 
       if (code === 200) {
-        let newProfile = { ...existProfile };
+        const newProfile = { ...existProfile };
         newProfile.experience = existProfile.experience?.filter(
           (item) => item._id !== defaultValue._id
         );
@@ -233,163 +234,9 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
                   <Input
                     borderColor={"var(--bordersecondary)"}
                     placeholder="Your Company Name"
-                    {...register("company_name")}
-                  />
 
-                  {errors.company_name && (
-                    <ErrorMsg msg={errors.company_name.message} />
-                  )}
-                </div>
-              </div>
-              <br />
-              <HStack className="justify-between">
-                <div className="flex flex-col gap-[2px] w-[49%]">
-                  <p className="font-[500] text-[#374151]">Start Year</p>
-                  <div>
-                    <Input
-                      borderColor={"var(--bordersecondary)"}
-                      type="date"
-                      placeholder="Start Year"
-                      {...register("start_date")}
-                    />
-
-                    {errors.start_date && (
-                      <ErrorMsg msg={errors.start_date.message} />
-                    )}
-                  </div>
-                </div>
-                <br />
-                <div className="flex flex-col gap-[2px] w-[49%]">
-                  <p className="font-[500] text-[#374151]">End Year</p>
-                  <div>
-                    <Input
-                      borderColor={"var(--bordersecondary)"}
-                      type="date"
-                      placeholder="End Year"
-                      {...register("end_date")}
-                    />
-
-                    {errors.end_date && (
-                      <ErrorMsg msg={errors.end_date.message} />
-                    )}
-                  </div>
-                </div>
-              </HStack>
-              <br />
-              <div className="flex flex-col gap-[2px]">
-                <p className="font-[500] text-[#374151]">Position</p>
-                <div>
-                  <Input
-                    borderColor={"var(--bordersecondary)"}
-                    placeholder="Position"
-                    {...register("position")}
-                  />
-                  {errors.position && (
-                    <ErrorMsg msg={errors.position.message} />
-                  )}
-                </div>
-              </div>
-              <br />
-              <div className="flex flex-col gap-[2px]">
-                <p className="font-[500] text-[#374151]">Location</p>
-                {/* <div>
-                  <input
-                    type="text"
-                    className="w-full py-1.5 px-2 outline-none text-[#000] font-[400] border border-[var(--bordersecondary)] rounded-md"
-                    placeholder="Location"
-                    {...register("job_location")}
-                  />
-                  {errors.job_location && (
-                    <ErrorMsg msg={errors.job_location.message} />
-                  )}
-                </div> */}
-                <div>
-                  <Select
-                    {...register("job_location")}
-                    placeholder="Select Location"
-                    options={countries}
-                    onChange={(data) => {
-                      setValue("job_location", data.name);
                       trigger("job_location");
-                    }}
-                  />
-                  {errors.job_location && (
-                    <ErrorMsg msg={errors.job_location.message} />
-                  )}
-                </div>
-              </div>
-              <br />
-              <div className="flex flex-col gap-[2px]">
-                <p className="font-[500] text-[#374151]">Description</p>
-                <div>
-                  <Textarea
-                    borderColor={"var(--bordersecondary)"}
-                    placeholder="Description"
-                    {...register("job_description")}
-                  />
 
-                  {errors.job_description && (
-                    <ErrorMsg msg={errors.job_description.message} />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center justify-end gap-2 pt-5 w-full border-t-[#F3F4F6]">
-            <button
-              disabled={isLoading}
-              type="submit"
-              className="px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-            >
-              {isLoading ? (
-                <>
-                  <BtnSpinner />
-                  <span className="ml-2">{type === "Add Experience" ? "Adding" : "Updating"}</span>
-                </>
-              ) : (
-                type === "Add Experience" ? "Add" : "Update"
-              )}
-            </button>
-          </div>
-        </form>
-      )}
-
-      {/* Delete the experience */}
-      {type === "Delete Experience" && (
-        <div>
-          <div className="w-[72px] h-[72px] flex items-center justify-center bg-red-50 rounded-full mx-auto">
-            <MdDelete className="text-4xl text-red-400" />
-          </div>
-          <p className="text-2xl font-semibold text-center">
-            Are you sure you want to delete?
-          </p>
-
-          <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-            <button
-              onClick={() => setIsModal(false)}
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            >
-              No, cancel
-            </button>
-            <button
-              disabled={isLoading}
-              onClick={handleDelete}
-              className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
-            >
-              {isLoading ? (
-                <>
-                  <BtnSpinner />
-                  <span className="ml-2">Deleting..</span>
-                </>
-              ) : (
-                "Yes, delete it"
-              )}
-            </button>
-          </div>
-        </div>
-      )}
-    </>
-  );
 };
 
 export default Experience;

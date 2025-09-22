@@ -32,7 +32,7 @@ interface FormData {
 interface RootState {
   profile: {
     profile: {
-      categories: any[];
+      categories: unknown[];
       skills: Array<string | { value: string; _id?: string; label?: string }>;
     };
   };
@@ -60,7 +60,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
   });
 
   // Get skills of profile categories
-  const getCategorySkills = async (categoryIds: any[]) => {
+  const getCategorySkills = async (categoryIds: unknown[]) => {
     try {
       if (!categoryIds) {
         console.error("No category IDs provided.");
@@ -87,10 +87,6 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
 
       const results = await Promise.all(promises);
       const newSkillOptions = results.flat().filter(option =>
-        option &&
-        typeof option.value === 'string' &&
-        typeof option.label === 'string'
-      );
 
       setOptions(newSkillOptions);
     } catch (error) {
@@ -210,35 +206,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
                       trigger("skills");
                     }}
                     value={Array.isArray(field.value) ? field.value.filter(item =>
-                      item && typeof item.value === 'string' && typeof item.label === 'string'
-                    ) : []}
-                  />
-                )}
-              />
-              {errors.skills && <ErrorMsg msg={errors.skills.message || ''} />}
-            </div>
-          </div>
-          <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <Button
-              variant="gradient"
-              disabled={isLoading}
-              type="submit"
-              className="gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <BtnSpinner />
-                  Updating Skills...
-                </>
-              ) : (
-                "Update Skills"
-              )}
-            </Button>
-          </div>
-        </form>
-      </>
-    </div>
-  );
+
 };
 
 export default Skills;

@@ -1,5 +1,6 @@
 "use client";
 
+import { Box } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import queryString from "query-string";
@@ -104,29 +105,7 @@ const Offer = () => {
     });
   };
 
-  const sendMessage = (message, statusValue) => {
-    if (socket) {
-      socket.emit(
-        "card_message",
-        {
-          sender_id: jobDetails?.freelancer_id,
-          receiver_id: jobDetails.client_id,
-          message: message,
-          // message_type: "offer",
-          contract_ref: jobDetails._id,
-        },
-        {
-          title: jobDetails?.job_title,
-          type: `${statusValue}_job_offer`,
-          job_type: jobDetails?.job_type,
-          amount: jobDetails?.hourly_rate || jobDetails?.budget,
-          url: {
-            client: `/contract/${jobDetails._id}`,
-            freelancer: `/active-job/submit/${jobDetails._id}`,
-          },
-        }
-      );
-    }
+      }
     dispatch(clearMessageState());
   };
 
@@ -170,31 +149,7 @@ const Offer = () => {
             setOpenModal={setOpenModal}
             rejectInvite={rejectInvite}
             offer={true}
-          />
-          {openModal && (
-            <Modal
-              setOpenModal={setOpenModal}
-              openModal={openModal}
-              acceptInvite={acceptInvite}
-              offer={true}
-              isLoading={isLoading}
-            />
-          )}
-          {reject && (
-            <ConfirmModalCommon
-              setOpenModal={setReject}
-              openModal={reject}
-              title="Reject The Offer"
-              handleSubmit={handleRejectOffer}
-              isLoading={isLoading}
-            />
-          )}
-        </div>
-      ) : (
-        <DataNotAvailable onRefresh={getInvitationDetails} />
-      )}
-    </Box>
-  );
+
 };
 
 export default Offer;

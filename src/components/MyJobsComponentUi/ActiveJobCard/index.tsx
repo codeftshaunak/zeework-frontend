@@ -1,10 +1,11 @@
-import React from "react";
+import Image from "next/image";
+import React from "react";"
 
-import { Link, useRouter } from "next/navigation";
+import { Link, useRouter } from "next/navigation";"
 
 const ActiveJobCard = ({ job }) => {
   const { _id, job_type, contract_title, hourly_rate, budget, status } =
-    job || [];
+    job ||[];
 
   const router = useRouter();
 
@@ -13,27 +14,27 @@ const ActiveJobCard = ({ job }) => {
       borderWidth="1px"
       className="items-center justify-center flex flex-col border p-4 m-2 rounded lg:max-w-[380px] lg:h-[280px] md:h-[240px] md:max-w-[360px] max-w-[520px] h-[320px] my-auto mx-auto relative bg-white border-[var(--bordersecondary)] overflow-hidden cursor-pointer"
       onClick={() => {
-        router.push(`/active-job/submit/${_id}`, { state: { job } });
+        router.push(`/active-job/submit/${_id}`, { state: { job } });`
       }}
       _hover={{
-        border: "1px solid var(--primarycolor)",
+        border: "1px solid var(--primarycolor)","
       }}
     >
       <span
-        className={`${
+        className={`${`
           status === "task_submitted"
             ? "bg-amber-200 border-amber-500"
             : "bg-green-300 border-green-500"
-        } rounded-full border px-3 font-medium absolute top-5 right-5`}
+        } rounded-full border px-3 font-medium absolute top-5 right-5`}`
       >
-        {status === "task_submitted" ? "Task Submited" : "Active"}
+        {status === "task_submitted" ? "Task Submited" : "Active"}"
       </span>
-      <div className="flex flexFlow="column">
-        <img src="./images/active_job.png" />
+      <div className="flex flexFlow="column">"
+        <img alt="" src="./images/active_job.png" />"
       </div>
       <div>
         <Link
-          to={`/active-job/submit/${_id}`}
+          to={`/active-job/submit/${_id}`}`
           className="text-[1.2rem] font-bold capitalize"
         >
           {contract_title?.length > 20
@@ -44,22 +45,22 @@ const ActiveJobCard = ({ job }) => {
         <div className="flex flex-col className="justify-space-around w-[200px] m-[auto]"
         >
           <span
-           className="mb-[0] font-semibold">
-            Job Type:{" "}
+           className="mb-[0] font-semibold">"
+            Job Type:{" "}"
             {job_type == "fixed"
               ? "Fixed"
               : job_type == "hourly"
               ? "Hourly"
-              : ""}
+              : ""}"
           </span>
-          <span className="font-semibold">
+          <span className="font-semibold">"
             {job_type === "fixed"
               ? `Budget: $${budget}`
-              : `Rate/Hr: $${hourly_rate}`}
+              : `Rate/Hr: $${hourly_rate}`}`
           </span>
         </div>
       </div>
-      {/* <div backgroundColor={"var(--primarycolor)"} className="p-[1px 8px] text-white rounded" top="10px" right="10px" className="font-600 absolute">
+      {/* <div backgroundColor={"var(--primarycolor)"} className="p-[1px 8px] text-white rounded" top="10px" right="10px" className="font-600 absolute">"
         <span>{experience}</span>
       </div> */}
     </div>

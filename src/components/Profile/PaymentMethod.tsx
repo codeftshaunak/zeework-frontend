@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { GoPlus } from "react-icons/go";
 
 const PaymentMethod = () => {

@@ -1,5 +1,6 @@
 
 "use client";
+import { Image } from "@chakra-ui/react";
 import React from "react";
 
 import { useEffect, useRef, useState } from "react";
@@ -14,8 +15,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 
 
-export const ProfileGigCards = () => {
-  const [approvedGigs, setApprovedGigs] = useState([]);
+export 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -36,48 +36,9 @@ export const ProfileGigCards = () => {
     getAllGigs();
   }, []);
 
-  return (
-    <>
-      {approvedGigs?.length > 0 && (
-        <div className="max-w-[1016px] relative -z-0">
-          <Swiper
-            modules={[Navigation]}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
-          >
-            {approvedGigs?.map((gig) => (
-              <SwiperSlide key={gig._id} className="w-full">
-                <ProfileGigCard gig={gig} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          {approvedGigs?.length > 1 && (
-            <>
-              <button
-                ref={prevRef}
-                className="absolute top-1/2 -left-2 z-20 bg-green-100 rounded-full shadow -mt-4"
-              >
-                <IoArrowBack className="text-4xl p-2 text-green-500" />
-              </button>
-              <button
-                ref={nextRef}
-                className="absolute top-1/2 -right-2 z-20 bg-green-100 rounded-full shadow -mt-4"
-              >
-                <IoArrowForwardSharp className="text-4xl p-2 text-green-500" />
-              </button>
-            </>
-          )}
-        </div>
-      )}
-    </>
-  );
 };
 
-export const ProfileGigCard = ({ gig }) => {
-  const router = useRouter();
-  const { title, pricing, images } = gig;
+export   const { title, pricing, images } = gig;
 
   const handleDetails = () => {
     router.push(`/freelancer/gig/details/${gig._id}`);

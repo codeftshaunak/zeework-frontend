@@ -10,10 +10,10 @@ import { RootState } from "../redux/store";
 import { User, Agency } from "../types";
 
 interface CurrentUserContextType {
-  profile: any;
+  profile: unknown;
   agency: Agency | null;
   hasAgency: boolean;
-  activeAgency: any;
+  activeAgency: unknown;
   getUserDetails: () => void;
   userAgencyLoading: boolean;
 }

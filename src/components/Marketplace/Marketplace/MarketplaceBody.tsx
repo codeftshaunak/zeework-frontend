@@ -16,8 +16,7 @@ const MarketplaceBody = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [page, setPage] = useState(1);
-  const pathname = usePathname();
-
+  
   const totalPages = searchingGigs?.totalPages || 0;
 
   const getCategory = async () => {
@@ -97,23 +96,11 @@ const MarketplaceBody = () => {
         category={categoryOptions}
         isLoading={isLoadingSearch}
         refresh={getSearchingGigs}
-        route="/marketplace?"
-      />
-      {isSearch && (
-        <div className="bg-neutral-100 p-5 rounded-md w-full">
-          <SearchingGigs gigs={searchingGigs} isLoading={isLoadingSearch} />
-
-          <Pagination
-            totalPages={totalPages}
-            currentPage={page}
-            onPageChange={setPage}
-          />
+        route="/marketplace?">
+          Marketplace content
         </div>
-      )}
-      <LatestGig />
-      <RecommendedGigs />
-    </>
-  );
-};
+      </div>
+    );
+  };
 
 export default MarketplaceBody;

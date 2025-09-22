@@ -24,7 +24,7 @@ interface CTAButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const CTAButton: React.FC<CTAButtonProps> = (props) => {

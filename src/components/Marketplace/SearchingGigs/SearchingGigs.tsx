@@ -19,16 +19,7 @@ const SearchingGigs = ({ gigs, isLoading, headText = "Searching Gigs" }) => {
             // currentPage={currentPage}
             // totalPages={totalPages}
             // onPageChange={(page) => setCurrentPage(page)}
-          />
-        )}
-        {!isLoading && !gigs?.gigs?.length && (
-          <p className="rounded-lg shadow p-4 border bg-white text-center">
-            No gigs found matching the search criteria
-          </p>
-        )}
-      </div>
-    </div>
-  );
+
 };
 
 export default SearchingGigs;

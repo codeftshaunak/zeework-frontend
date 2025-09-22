@@ -1,5 +1,7 @@
 
 "use client";
+import { Avatar } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
 
 import { useContext, useEffect, useState } from "react";
@@ -494,80 +496,7 @@ const SingleContractDetails = () => {
                         onRefresh={() => {
                           setTimeSheetLoading(true);
                           getOfferTimeSheet();
-                        }}
-                      />
-                    )}
-                  </Tabs.Content>
-                )}
-              </Tabs.Content>
-            </SmoothMotion>
-          </Tabs.Root>
-        </div>
-      </div>
 
-      {/* End Contract Methods */}
-      {openModal && (
-        <UniversalModal isModal={openModal} setIsModal={setOpenModal}>
-          <form onSubmit={handleSubmit(handleEndContract)}>
-            {modalType === "endContract" && (
-              <>
-                <Image
-                  src="/images/zeework_end_contract.png"
-                  className="m-[auto]"
-                />
-                <span
-                 className="m-[1rem 0] text-2xl font-semibold text-center">
-                  Are you sure you want to end this contract?
-                </span>
-                <div className="mt-6 mx-auto flex gap-5 w-full">
-                  <MainButtonRounded
-                    noRounded={true}
-                    variant="outline"
-                    isDisable={isApiLoading}
-                    className="w-full"
-                    onClick={() => setModalType("refundRequest")}
-                  >
-                    Ask For Refund
-                  </MainButtonRounded>
-                  <MainButtonRounded
-                    type="submit"
-                    noRounded={true}
-                    isLoading={isApiLoading}
-                    className="w-full"
-                    onClick={() => setValue("action_type", "end_contract")}
-                  >
-                    End Contract & Pay Freelancer
-                  </MainButtonRounded>
-                </div>
-              </>
-            )}
-            {modalType === "refundRequest" && (
-              <>
-                <div className="w-full grid gap-3">
-                  <label
-                    htmlFor="message"
-                    className="block font-medium text-gray-700"
-                  >
-                    Refund Reason:
-                  </label>
-                  <textarea
-                    id="message"
-                    {...register("refaund_reason", {
-                      required: "Refund reason is required",
-                    })}
-                    placeholder="Describe.."
-                    className="p-2 border rounded"
-                  ></textarea>
-                  {errors.refaund_reason && (
-                    <ErrorMsg msg={errors.refaund_reason.message} />
-                  )}
-                </div>
-                <div className="mt-6 mx-auto flex gap-5 w-full">
-                  <MainButtonRounded
-                    noRounded={true}
-                    variant="outline"
-                    onClick={() => {
-                      reset(), setModalType("endContract");
                     }}
                     isDisable={isApiLoading}
                     className="w-full"
@@ -580,148 +509,7 @@ const SingleContractDetails = () => {
                     isLoading={isApiLoading}
                     className="w-full"
                     onClick={() => setValue("action_type", "refund")}
-                  >
-                    Submit Refund Request
-                  </MainButtonRounded>
-                </div>
-              </>
-            )}
-          </form>
-        </UniversalModal>
-      )}
 
-      {/* Task Respond Methods */}
-      {reviewModal && (
-        <UniversalModal
-          isModal={reviewModal}
-          setIsModal={setReviewModal}
-          title="Review Task"
-        >
-          <form onSubmit={handleSubmit(handleTaskApproveReject)}>
-            {modalType === "review" && (
-              <>
-                {" "}
-                <div className="flex flex-col gap-2 items-start">
-                  <div className="text-md">
-                    <span className="font-semibold">Description:</span>{" "}
-                    {taskDetails.message}
-                  </div>
-                  <div className="text-md w-full">
-                    <span className="font-semibold">Attachment:</span>{" "}
-                    {renderFile(taskDetails)}
-                  </div>
-                </div>
-                <div className="mt-6 mx-auto flex gap-5 w-full">
-                  <MainButtonRounded
-                    noRounded={true}
-                    type="submit"
-                    onClick={() => setValue("action_type", "approved")}
-                    isLoading={isApiLoading}
-                    className="w-full"
-                  >
-                    Approve Task & End Contract
-                  </MainButtonRounded>
-                  <MainButtonRounded
-                    noRounded={true}
-                    variant="outline"
-                    isDisable={isApiLoading}
-                    className="w-full"
-                    onClick={() => setModalType("requestToChange")}
-                  >
-                    Request Changes
-                  </MainButtonRounded>
-                </div>
-              </>
-            )}
-            {modalType === "requestToChange" && (
-              <>
-                <div className="w-full grid gap-3">
-                  <label
-                    htmlFor="message"
-                    className="block font-medium text-gray-700"
-                  >
-                    Messages:
-                  </label>
-                  <textarea
-                    id="message"
-                    {...register("message", {
-                      required: "Refund reason is required",
-                    })}
-                    placeholder="Describe.."
-                    className="p-2 border rounded"
-                    required
-                  ></textarea>
-                  {errors.message && <ErrorMsg msg={errors.message.message} />}
-                </div>
-                <div className="mt-6 mx-auto flex gap-5 w-full">
-                  <MainButtonRounded
-                    noRounded={true}
-                    variant="outline"
-                    onClick={() => setModalType("review")}
-                    isDisable={isApiLoading}
-                    className="w-full"
-                  >
-                    Back
-                  </MainButtonRounded>
-                  <MainButtonRounded
-                    noRounded={true}
-                    isLoading={isApiLoading}
-                    className="w-full"
-                    type="submit"
-                    onClick={() => setValue("action_type", "rejected")}
-                  >
-                    Request Changes
-                  </MainButtonRounded>
-                </div>
-              </>
-            )}
-          </form>
-        </UniversalModal>
-      )}
-
-      {/* Send Feedback Popup */}
-      <UniversalModal
-        isModal={feedbackModal}
-        setIsModal={setFeedbackModal}
-        isCloseBtn={false}
-      >
-        <div className="text-center">
-          <div className="w-[72px] h-[72px] flex items-center justify-center bg-green-50 rounded-full mx-auto">
-            <MdOutlineReviews className="text-4xl text-[#22C35E]" />
-          </div>
-
-          <div className="text-gray-700 text-2xl font-semibold font-['SF Pro Text'] leading-loose">
-            Contract Successfully Completed
-          </div>
-          <div className="text-center text-gray-600 font-medium font-['SF Pro Text'] leading-tight">
-            Your contract with the freelancer has ended successfully. Please
-            provide your feedback to help us improve our services and assist
-            other clients in making informed decisions.
-          </div>
-          <div className="w-full flex justify-between items-center gap-6 mt-8">
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-              onClick={() => router.push("/my-stats")}
-            >
-              View Letter
-            </button>
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-              onClick={() =>
-                router.push(`/submit-review/${jobDetails._id}`, {
-                  state: {
-                    jobDetails: jobDetails,
-                    receiverDetails: freelancerDetails,
-                  },
-                  replace: true,
-                })
-              }
-            >
-              Provide Feedback
-            </button>
-          </div>
-        </div>
-      </UniversalModal>
-    </div>
-  );
 };
 
 export default SingleContractDetails;

@@ -1,12 +1,8 @@
+import Image from "next/image";
+import { Avatar } from "@chakra-ui/react";
 import React from "react";
 import { toast } from "@/lib/toast";
-import {
-  HStack,
-  Image,
-  VStack,
-  Text,
-  Avatar,
-} from "@/components/ui/migration-helpers";
+import { HStack, VStack, Text } from "@/components/ui/migration-helpers";
 import { AgencyBodyLayout } from "../../AgencyUI/AgencyBody";
 import { BsLink45Deg } from "react-icons/bs";
 

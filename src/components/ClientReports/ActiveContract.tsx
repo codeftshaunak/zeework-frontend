@@ -1,5 +1,6 @@
 
 "use client";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import React from "react";
 
 import {

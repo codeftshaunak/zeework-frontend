@@ -1,0 +1,9 @@
+# Scripts directory
+.scripts/
+fix-*.js
+*.config.js
+*.config.ts
+.next/
+node_modules/
+dist/
+build/

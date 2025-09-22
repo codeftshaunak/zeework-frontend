@@ -69,7 +69,7 @@ const ModernForgetPassword = () => {
     resolver: yupResolver(validationSchema(step)),
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: unknown) => {
     setIsLoading(true);
 
     try {

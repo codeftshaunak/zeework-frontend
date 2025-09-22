@@ -5,20 +5,18 @@ import { SocketContext } from "../contexts/SocketContext";
 
 interface NotificationEvent {
   event: string;
-  handler: (...args: any[]) => void;
+  handler: (...args: unknown[]) => void;
 }
 
 const useNotificationListener = (
   events: NotificationEvent[] = [],
-  dependencies: any[] = [],
+  dependencies: unknown[] = [],
   condition: boolean = true
 ) => {
   const { socket } = useContext(SocketContext);
 
   useEffect(() => {
-    if (socket && condition) {
-      events.forEach(({ event, handler }) => {
-        socket.on(event, handler);
+
       });
 
       return () => {

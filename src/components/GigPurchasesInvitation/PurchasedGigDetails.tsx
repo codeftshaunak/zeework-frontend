@@ -1,5 +1,7 @@
 "use client";
 
+import { Avatar } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa";

@@ -1,49 +1,49 @@
 
-"use client";
-import React from "react";
+"use client";"
+import React from "react";"
 
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
-import * as yup from "yup";
-import { GigCreateLayout } from "../GigCreate";
-import { getAllDetailsOfUser } from "../../../helpers/APIs/userApis";
+import { yupResolver } from "@hookform/resolvers/yup";"
+import { useEffect, useState } from "react";"
+import { Controller, FormProvider, useForm } from "react-hook-form";"
+import CreatableSelect from "react-select/creatable";"
+import * as yup from "yup";"
+import { GigCreateLayout } from "../GigCreate";"
+import { getAllDetailsOfUser } from "../../../helpers/APIs/userApis";"
 import {
   getCategories,
   getSkills,
   getSubCategory,
-} from "../../../helpers/APIs/freelancerApis";
+} from "../../../helpers/APIs/freelancerApis";"
 
 
 // validation schema
 const schema = yup.object().shape({
-  title: yup.string().label("Title").min(40).max(90).required(),
+  title: yup.string().label("Title").min(40).max(90).required(),"
   category: yup
     .object()
     .shape({
-      value: yup.string().label("Category").required(),
-      label: yup.string().label("Category").required(),
+      value: yup.string().label("Category").required(),"
+      label: yup.string().label("Category").required(),"
     })
-    .label("Category")
+    .label("Category")"
     .required(),
   sub_category: yup
     .object()
     .shape({
-      value: yup.string().label("Sub category").required(),
-      label: yup.string().label("Sub category").required(),
+      value: yup.string().label("Sub category").required(),"
+      label: yup.string().label("Sub category").required(),"
     })
-    .label("Sub Category")
+    .label("Sub Category")"
     .required(),
   skills: yup
     .array(
       yup.object().shape({
-        value: yup.string().label("Skill").required(),
-        label: yup.string().label("Skill").required(),
+        value: yup.string().label("Skill").required(),"
+        label: yup.string().label("Skill").required(),"
       })
     )
-    .label("Skills")
+    .label("Skills")"
     .min(1)
     .required(),
   // Define validation rules for other fields if needed
@@ -51,10 +51,10 @@ const schema = yup.object().shape({
 
 // default values for the step
 const defaultValues = {
-  title: "",
+  title: "","
   category: {},
   sub_category: {},
-  skills: [],
+  skills:[],
 };
 const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
   const [categoryId, setCategoryId] = useState(null);
@@ -160,17 +160,15 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
   }, [categoryId, formState?.defaultValues.category?.category_id]);
 
   useEffect(() => {
-    if (categoryId && subCategoryId) {
-      allSkills();
     }
   }, [categoryId, subCategoryId]);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Gig Overview" onBackward={onBack}>
-          <div className="flex flex-col className="items-start">
-            <label htmlFor="" className="text-xl font-[600] pb-0">
+        <GigCreateLayout title="Gig Overview" onBackward={onBack}>"
+          <div className="flex flex-col className="items-start">"
+            <label htmlFor="" className="text-xl font-[600] pb-0">"
               Title
             </label>
             <p>
@@ -178,104 +176,56 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
               benefits them.
             </p>
             <Controller
-              name="title"
+              name="title""
               control={control}
               render={({ field, fieldState }) => (
                 <>
                   <Skeleton
                     isLoaded={isEdit ? !!formValues?.title : true}
-                    className="w-full"
-                    startColor="gray.100"
-                    endColor="gray.300"
+                    className="w-full""
+                    startColor="gray.100""
+                    endColor="gray.300""
                   >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group
-                      borderColor={"var(--bordersecondary)"}
-                    >
-                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
-                        pointerEvents="none"
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group"
+                      borderColor={"var(--bordersecondary)"}"
+                    /> >
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement"
+                        pointerEvents="none""
                         paddingLeft={2}
-                      >
+                      /> >
                         I will
                       </InputLeftElement>
-                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" {...field} paddingLeft="45px" />
-                    </InputGroup>
-                  </Skeleton>
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="flex flex-col className="items-start">
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Category
-            </label>
-            <p>
-              Select a category that will be easy for others to find your gig.
-            </p>
-            <Controller
-              name="category"
-              control={control}
-              render={({ field, fieldState }) => {
-                return (
-                  <>
-                    <Skeleton
-                      isLoaded={isEdit ? !!formValues?.title : true}
-                      className="w-full"
-                      startColor="gray.100"
-                      endColor="gray.300"
-                    >
-                      <CreatableSelect
-                        className="w-full"
-                        {...field}
-                        options={categoryOptions}
-                        onChange={(selectedOption) => {
-                          field.onChange(selectedOption);
+                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" {...field} paddingLeft="45px" /> />
                           setCategoryId(selectedOption.category_id);
                         }}
                         // isValidNewOption={(inputValue, selectOptions) =>
-                        //   inputValue.trim() !== "" &&
+                        //   inputValue.trim() !== "" &&"
                         //   !selectOptions.find(
                         //     (option) => option.label === inputValue
                         //   )
                         // }
                         isLoading={!categoryOptions?.length}
-                      />
-                    </Skeleton>
-
-                    {fieldState.error && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {fieldState.error?.message ||
-                          fieldState.error?.label?.message ||
-                          fieldState.error?.value?.message}
-                      </p>
-                    )}
-                  </>
-                );
               }}
             />
           </div>
-          <div className="flex flex-col className="items-start">
-            <label htmlFor="" className="text-xl font-[600] pb-0">
+          <div className="flex flex-col className="items-start">"
+            <label htmlFor="" className="text-xl font-[600] pb-0">"
               Sub Category
             </label>
             <p>Select the sub category that matches your skills.</p>
             <Controller
-              name="sub_category"
+              name="sub_category""
               control={control}
               render={({ field, fieldState }) => (
                 <>
                   <Skeleton
                     isLoaded={isEdit ? !!formValues?.title : true}
-                    className="w-full"
-                    startColor="gray.100"
-                    endColor="gray.300"
+                    className="w-full""
+                    startColor="gray.100""
+                    endColor="gray.300""
                   >
                     <CreatableSelect
-                      className="w-full"
+                      className="w-full""
                       {...field}
                       options={subCategoryOptions}
                       onChange={(selectedOption) => {
@@ -283,65 +233,6 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                         setSubCategoryId(selectedOption._id);
                       }}
                       isDisabled={
-                        !isSubCategoryLoading && !subCategoryOptions?.length
-                      }
-                      isLoading={isSubCategoryLoading}
-                    />
-                  </Skeleton>
-
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error?.message ||
-                        fieldState.error?.label?.message ||
-                        fieldState.error?.value?.message}
-                    </p>
-                  )}
-                </>
-              )}
-            />
-          </div>
-          <div className="flex flex-col className="items-start">
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Skills
-            </label>
-            <p>Add skills relevant to your gig.</p>
-            <Controller
-              name="skills"
-              control={control}
-              render={({ field, fieldState }) => (
-                <>
-                  <Skeleton
-                    isLoaded={isEdit ? !!formValues?.title : true}
-                    className="w-full"
-                    startColor="gray.100"
-                    endColor="gray.300"
-                  >
-                    <CreatableSelect
-                      className="w-full"
-                      isMulti
-                      {...field}
-                      options={skillOptions}
-                      closeMenuOnSelect={false}
-                      isDisabled={!isSkillsLoading && !skillOptions.length}
-                      isLoading={isSkillsLoading}
-                    />
-                  </Skeleton>
-
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error?.message ||
-                        fieldState.error?.label?.message ||
-                        fieldState.error?.value?.message}
-                    </p>
-                  )}
-                </>
-              )}
-            />
-          </div>
-        </GigCreateLayout>
-      </form>
-    </FormProvider>
-  );
 };
 
 export default Step0;

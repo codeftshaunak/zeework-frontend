@@ -1,5 +1,6 @@
 
 "use client";
+import { Image, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -19,39 +20,7 @@ import { getAllJobsProposal } from "../../helpers/APIs/jobApis";
 
 const ConnectionHistory = () => {
   const [jobProposal, setJobProposal] = useState(null);
-  const tableDummyData = [
-    {
-      date: "Today",
-      title: "UX/UI designer marketing expert brand identity home page design",
-      job_title: "Applied for Job",
-      contact: "-16",
-    },
-    {
-      date: "Sep 21, 2023",
-      title: "UX/UI designer marketing expert brand identity home page design",
-      job_title: "Applied for Job",
-      contact: "-16",
-    },
-    {
-      date: "Sep 18, 2023",
-      title: "UX/UI designer marketing expert brand identity home page design",
-      job_title: "Applied for Job",
-      contact: "-16",
-    },
-    {
-      date: "Aug 05, 2023",
-      title: "UX/UI designer marketing expert brand identity home page design",
-      job_title: "Applied for Job",
-      contact: "-16",
-    },
-    {
-      date: "Dec 12, 2023",
-      title: "UX/UI designer marketing expert brand identity home page design",
-      job_title: "Applied for Job",
-      contact: "-16",
-    },
-  ];
-
+  
   const getAllJobProposalList = async () => {
     try {
       const response = await getAllJobsProposal();

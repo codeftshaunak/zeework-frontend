@@ -1,12 +1,12 @@
-
 "use client";
+import Image from "next/image";
 import React from "react";
-
 import {
+  Box,
   Button,
-  HStack,
-  StackDivider,
-  VStack,
+  Divider,
+  Text,
+  VStack
 } from "@/components/ui/migration-helpers";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useRef, useState } from "react";
@@ -17,8 +17,8 @@ import { useRouter } from "next/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  getClientJobs,
-  getHiredListByClient,
+  getClientDashboardStats,
+  getRecentJobs
 } from "../../helpers/APIs/clientApis";
 import useUserActivityListener from "../../hooks/useUserActivityListener";
 import { setDashboard } from "../../redux/pagesSlice/pagesSlice";
@@ -27,54 +27,39 @@ import ClientJobSkeleton from "../Skeletons/ClientJobSkeleton";
 import Pagination from "../utils/Pagination/Pagination";
 import ClientProfileCard from "./ClientProfileCard";
 import LatestOffers from "./LatestOffers/LatestOffers";
-
 const ClientDashboardComponent = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { jobs, hiredList } = useSelector((state: any) => state.pages.dashboard);
+  const { jobs, hiredList } = useSelector((state: unknown) => state.pages.dashboard);
   const [isLoading, setIsLoading] = useState(false);
   const jobsx = jobs.slice().reverse();
   const [visibleJobs, setVisibleJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
   const pageSize = 5;
   const totalPages = Math.ceil(jobs.length / pageSize);
-
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-    };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const handleJobsPagination = () => {
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     setVisibleJobs(jobsx.slice(startIndex, endIndex));
-
     // Scroll to the top
     const jobPostingsDiv = document.getElementById("jobPostingsDiv");
-    if (jobPostingsDiv && page !== 1) {
-      jobPostingsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
   useEffect(() => {
     handleJobsPagination();
   }, [page, jobs]);
-
   const filteredHiredList = Array.isArray(hiredList)
     ? hiredList.filter((item) => item?.is_active)
     : [];
 
   useUserActivityListener((data) => {
-    if (data) {
+    // TODO: Fix incomplete if statement
       dispatch(
         setDashboard({
           hiredList: hiredList?.map((i) =>
@@ -98,34 +83,20 @@ const ClientDashboardComponent = () => {
     setIsLoading(true);
     try {
       const response = await getClientJobs();
-
       const sortedJobs = [...response].sort((a, b) =>
         a.created_at.localeCompare(b.created_at)
-      );
-
       dispatch(setDashboard({ jobs: sortedJobs }));
     } catch (error) {
       console.log(error);
-    }
     setIsLoading(false);
-  };
-
   const getHiredFreelancer = async () => {
     const { code, body } = await getHiredListByClient();
-
     if (code === 200 && body?.length)
       dispatch(setDashboard({ hiredList: body }));
-  };
-
   useEffect(() => {
     if (!jobs.length) getClientPostedJob();
     if (!hiredList.length) getHiredFreelancer();
-  }, []);
-
   const isVisibleSliderButton =
-    (filteredHiredList?.length > 3 && !isMobile) ||
-    (filteredHiredList?.length > 1 && isMobile);
-
   return (
     <div className="w-full mt-8">
       <div className="flex flex-col gap-4 w-full">
@@ -143,51 +114,26 @@ const ClientDashboardComponent = () => {
                   spaceBetween={20}
                   slidesPerView={1}
                   breakpoints={{
-                    768: {
                       // width: 768,
                       slidesPerView: 2,
-                    },
-                    1440: {
                       // width: 1024,
                       slidesPerView: 3,
-                    },
-                  }}
                   modules={[Navigation]}
                   navigation={{
-                    prevEl: prevRef.current,
-                    nextEl: nextRef.current,
-                  }}
-                >
-                  {filteredHiredList?.length > 0 &&
-                    filteredHiredList
-                      ?.slice()
-                      ?.reverse()
-                      ?.filter((profile) => profile?.freelancerDetails)
-                      ?.map((data, index) => {
-                        return (
-                          <SwiperSlide key={index}>
-                            <ClientProfileCard data={data} />
-                          </SwiperSlide>
-                        );
-                      })}
                 </Swiper>
-
                 <button
                   ref={prevRef}
                   className="absolute top-1/2 -left-2 z-20 bg-green-100 rounded-full shadow -mt-4"
                   style={{ display: isVisibleSliderButton ? "block" : "none" }}
-                >
                   <IoArrowBack className="text-4xl p-2 text-green-500" />
                 </button>
                 <button
                   ref={nextRef}
                   className="absolute top-1/2 -right-2 z-20 bg-green-100 rounded-full shadow -mt-4"
                   style={{ display: isVisibleSliderButton ? "block" : "none" }}
-                >
                   <IoArrowForwardSharp className="text-4xl p-2 text-green-500" />
                 </button>
               </div>
-            ) : (
               <div className="border border-[var(--bordersecondary)] mt-4 rounded-md bg-white w-full h-max">
                 <div className="flex justify-between border-b border-[var(--bordersecondary)] p-4">
                   <div className="text-2xl font-medium text-[#374151]">
@@ -205,13 +151,11 @@ const ClientDashboardComponent = () => {
                     </p>
                     <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       onClick={() => router.push("/create-job")}
-                    >
                       Post a new job
                     </button>
                   </div>
                 </div>
               </div>
-            )}
             <div className="max-lg:hidden">
               <div className="border border-[var(--bordersecondary)] mt-4 rounded-md overflow-hidden w-[100%]">
                 <div className="flex justify-between border-b border-[var(--bordersecondary)] bg-white p-4">
@@ -230,24 +174,16 @@ const ClientDashboardComponent = () => {
                   <div
                     id="jobPostingsDiv"
                     className="text-2xl font-medium text-[#374151]"
-                  >
                     Your Job Postings
                   </div>
                   <IoMdRefreshCircle
                     className={`text-2xl sm:text-3xl text-primary hover:text-green-400 active:text-primary cursor-pointer ${
-                      isLoading && "animate-spin cursor-not-allowed"
-                    }`}
-                    onClick={() => {
-                      if (!isLoading) getClientPostedJob();
-                    }}
-                  />
                 </div>
                 <div className="w-full">
                   {isLoading ? (
                     <div className="flex flex-col gap-8 p-5">
                       {[1, 2].map((item) => (
                         <ClientJobSkeleton key={item} />
-                      ))}
                     </div>
                   ) : jobs?.length ? (
                     <div className="flex flex-col gap-8 p-5">
@@ -255,20 +191,15 @@ const ClientDashboardComponent = () => {
                         const formattedDate = formatDistanceToNow(
                           new Date(job?.created_at),
                           { addSuffix: true }
-                        );
                         return (
                           <div
                             className="flex items-center justify-between w-full max-[480px]:flex-col"
                             key={index}
-                          >
                             <div
                               className="flex flex-col items-start justify-center cursor-pointer w-full"
                               onClick={() => {
                                 router.push(`/client-jobDetails/${job?._id}`, {
                                   state: { jobDetails: job },
-                                });
-                              }}
-                            >
                               <h5 className="text-lg text-[#374151] font-medium capitalize">
                                 {job?.title}
                               </h5>
@@ -279,7 +210,6 @@ const ClientDashboardComponent = () => {
                                 <div>Posted {formattedDate} ago by you</div>
                               </div>
                             </div>
-
                             <div className="flex flex-col w-[200px] justify-between items-end max-[480px]:!items-center mt-4 sm:mt-0">
                               <div className="flex flex-row items-center">
                                 <div className="text-[#6B7280] font-bold text-base">
@@ -297,13 +227,9 @@ const ClientDashboardComponent = () => {
                                 _hover={{
                                   bg: "#22C35E",
                                   color: "#fff",
-                                }}
                                 onClick={() => {
                                   router.push(`/client-jobDetails/${job._id}`, {
                                     state: { jobDetails: job },
-                                  });
-                                }}
-                              >
                                 Go to job post
                               </button>
                               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -311,33 +237,22 @@ const ClientDashboardComponent = () => {
                                 _hover={{
                                   bg: "#22C35E",
                                   color: "#fff",
-                                }}
                                 onClick={() => {
                                   router.push(`/client-jobDetails/${job._id}`, {
                                     state: { jobDetails: job },
-                                  });
-                                }}
-                              >
                                 Find Applicants
                               </button>
                             </div>
                           </div>
-                        );
-                      })}
-
                       {/* Pagination */}
-
                       <Pagination
                         totalPages={totalPages}
                         currentPage={page}
                         onPageChange={setPage}
-                      />
                     </div>
-                  ) : (
                     <div className="p-5 text-lg text-center py-10">
                       You haven&apos;t post any jobs yet!
                     </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -345,12 +260,9 @@ const ClientDashboardComponent = () => {
           <div className="w-full lg:w-[300px]">
             <div
               className="w-full lg:w-[300px] h-[max-content] flex flex-col gap-5 p-5"
-            >
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 onClick={() => {
                   router.push("/create-job");
-                }}
-              >
                 Post a new job
               </button>
               <div className="w-full border border-[var(--bordersecondary)] bg-white rounded-md p-4 h-full">
@@ -366,14 +278,11 @@ const ClientDashboardComponent = () => {
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
                       className="w-[42px]"
-                    />
                   </div>
                   <p
                     className="ml-3 cursor-pointer"
                     onClick={() => {
                       router.push("/setting/billing-payments");
-                    }}
-                  >
                     Add Your Billing Method
                   </p>
                 </div>
@@ -382,14 +291,11 @@ const ClientDashboardComponent = () => {
                     <img
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
-                    />
                   </div>
                   <p
                     className="ml-3 cursor-pointer"
                     onClick={() => {
                       router.push("/create-job");
-                    }}
-                  >
                     Post Your First Job
                   </p>
                 </div>
@@ -398,14 +304,11 @@ const ClientDashboardComponent = () => {
                     <img
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
-                    />
                   </div>
                   <p
                     className="ml-3 cursor-pointer"
                     onClick={() => {
                       router.push("/setting/billing-payments");
-                    }}
-                  >
                     Invite Talent To Apply
                   </p>
                 </div>
@@ -414,7 +317,6 @@ const ClientDashboardComponent = () => {
                     <img
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
-                    />
                   </div>
                   <p className="ml-3">Review Proposals</p>
                 </div>
@@ -423,7 +325,6 @@ const ClientDashboardComponent = () => {
                     <img
                       src="images/dashboard/zeework_proposals.png"
                       alt="proposals"
-                    />
                   </div>
                   <p className="ml-3">Hire Your Perfect Freelancer</p>
                 </div>
@@ -449,7 +350,6 @@ const ClientDashboardComponent = () => {
               <div
                 id="jobPostingsDiv"
                 className="text-2xl font-medium text-[#374151]"
-              >
                 Your Job Postings
               </div>
             </div>
@@ -458,7 +358,6 @@ const ClientDashboardComponent = () => {
                 <div className="flex flex-col gap-8 p-5">
                   {[1, 2].map((item) => (
                     <ClientJobSkeleton key={item} />
-                  ))}
                 </div>
               ) : jobs?.length ? (
                 <div className="flex flex-col gap-8 p-5">
@@ -466,20 +365,15 @@ const ClientDashboardComponent = () => {
                     const formattedDate = formatDistanceToNow(
                       new Date(job?.created_at),
                       { addSuffix: true }
-                    );
                     return (
                       <div
                         className="flex items-center justify-between w-full max-[480px]:flex-col"
                         key={index}
-                      >
                         <div
                           className="flex flex-col items-start justify-center cursor-pointer w-full"
                           onClick={() => {
                             router.push(`/client-jobDetails/${job?._id}`, {
                               state: { jobDetails: job },
-                            });
-                          }}
-                        >
                           <h5 className="text-lg text-[#374151] font-medium capitalize">
                             {job?.title}
                           </h5>
@@ -490,7 +384,6 @@ const ClientDashboardComponent = () => {
                             <div>Posted {formattedDate} ago by you</div>
                           </div>
                         </div>
-
                         <div className="flex flex-col w-[200px] justify-between items-end max-[480px]:!items-center mt-4 sm:mt-0">
                           <div className="flex flex-row items-center">
                             <div className="text-[#6B7280] font-bold text-base">
@@ -506,13 +399,9 @@ const ClientDashboardComponent = () => {
                             _hover={{
                               bg: "#22C35E",
                               color: "#fff",
-                            }}
                             onClick={() => {
                               router.push(`/client-jobDetails/${job._id}`, {
                                 state: { jobDetails: job },
-                              });
-                            }}
-                          >
                             Go to job post
                           </button>
                           <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -520,39 +409,25 @@ const ClientDashboardComponent = () => {
                             _hover={{
                               bg: "#22C35E",
                               color: "#fff",
-                            }}
                             onClick={() => {
                               router.push(`/client-jobDetails/${job._id}`, {
                                 state: { jobDetails: job },
-                              });
-                            }}
-                          >
                             Find Applicants
                           </button>
                         </div>
                       </div>
-                    );
-                  })}
-
                   {/* Pagination */}
-
                   <Pagination
                     totalPages={totalPages}
                     currentPage={page}
                     onPageChange={setPage}
-                  />
                 </div>
-              ) : (
                 <div className="p-5 text-lg text-center py-10">
                   You haven&apos;t post any jobs yet!
                 </div>
-              )}
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
-
 export default ClientDashboardComponent;

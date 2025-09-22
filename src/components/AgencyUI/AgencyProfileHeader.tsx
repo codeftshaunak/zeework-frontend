@@ -1,5 +1,6 @@
 
 "use client";
+import { Avatar, Image } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -131,6 +132,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
         const { body: imgBody, code: imgCode } = await uploadSingleImage(
           formData
         );
+
         if (imgCode === 200) {
           const { code, body } = await updateAgencyProfile(
             modalType === "Profile Photo"
@@ -144,7 +146,9 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
         }
       } else {
         const { body, code } = await updateAgencyProfile(data);
-        if (code === 200) setAgency(body);
+        if (code === 200) {
+          setAgency(body);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -266,47 +270,22 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
 
             <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all duration-300 bg-green-600 text-white px-4 py-2 mt-1 md:mt-0 hover:bg-transparent hover:border-2 hover:border-green-600 hover:text-black"
               onClick={handleSwitchFreelancer}
-            >
-              Switch To Your Freelancer Profile
-            </button>
-          </div>
-        </AgencyBodyLayout>
-      </div>
 
-      {/* Profile Updating Thing */}
-      {isModal && (
-        <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          title={`Update ${modalType}`}
-        >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* update profile photo */}
-            {(modalType === "Profile Photo" || modalType === "Cover Photo") && (
-              <>
-                <div className="flex flex-col gap-[16px]">
-                  <div className="flex flex-col">
-                    <div className="flex flex-col gap-[2px]">
-                      {!imageSrc && (
-                        <div
-                          {...getRootProps()}
-                          className={`w-[100%] ${
-                            fileName ? "py-5" : "py-8"
-                          } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
-                        >
-                          {!fileName && (
-                            <RiUploadCloud2Fill className="text-green-300 text-6xl mx-auto" />
-                          )}
-                          <input
-                            {...getInputProps()}
-                            className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
-                            placeholder="Select an image"
-                            onChange={() => {
-                              const file = getInputProps().files[0];
-                              if (file) {
-                                setFileName(file.name);
-                              }
-                              setErrorMessage("");
+                              onChange={(e) => {
+
+
+                                const file = e.target.files?.[0];
+
+
+                                if (code === 200) {
+          // Handle file upload
+
+
+                                
+        }
+
+
+                              }}
                             }}
                           />
 
@@ -317,47 +296,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                           ) : (
                             <p className="text-center">
                               Drag &apos;n&apos; drop image file here, or click
-                              to select file
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      {fileName && (
-                        <p className="text-center mt-2 -mb-4 text-green-600">
-                          {fileName}
-                        </p>
-                      )}
-                      {errorMessage && (
-                        <p className="text-sm text-red-500">{errorMessage}</p>
-                      )}
-                    </div>
-                  </div>
-                  {imageSrc && (
-                    <>
-                      <div className="relative w-full h-64">
-                        <Cropper
-                          image={imageSrc}
-                          crop={crop}
-                          zoom={zoom}
-                          aspect={modalType === "Profile Photo" ? 1 : 3 / 1}
-                          showGrid={false}
-                          onCropChange={isCropped ? undefined : setCrop}
-                          onZoomChange={isCropped ? undefined : setZoom}
-                          onCropComplete={onCropComplete}
-                          cropShape={modalType === "Profile Photo" && "round"}
-                        />
-                      </div>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="flex items-center gap-1 w-full sm:w-96">
-                          <TiMinus />
-                          <Slider
-                            aria-label="zoom-slider"
-                            value={zoom}
-                            min={1}
-                            max={3}
-                            step={0.1}
-                            onChange={(val) => {
-                              !isCropped && setZoom(val);
+
                             }}
                           >
                             <SliderTrack className="bg-slate-300">
@@ -391,15 +330,17 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                             style={{ display: "none" }}
                             onChange={(e) => {
                               const file = e.target.files[0];
-                              if (file) {
-                                setFileName(file.name);
-                                setFullImage([file]);
-                                setErrorMessage("");
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = () => {
-                                  setImageSrc(reader.result);
-                                };
+                              onChange={(e) => {
+
+                                const file = e.target.files?.[0];
+
+                                if (code === 200) {
+          // Handle file upload
+
+                                
+        }
+
+                              }};
                               }
                             }}
                           />
@@ -433,77 +374,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                               } rounded py-1 px-3 text-white w-fit mt-2`}
                               onClick={handleRevert}
                               disabled={!isCropped}
-                            >
-                              <TiArrowBack /> Revert
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-                {imageSrc && (
-                  <div className="text-right mt-10">
-                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-green-600 text-white px-7 py-2 hover:bg-green-700 disabled:opacity-50"
-                      disabled={isLoading}
-                      onClick={() => onSubmit()}
-                    >
-                      {isLoading ? (
-                        <>
-                          <BtnSpinner />
-                          Uploading
-                        </>
-                      ) : (
-                        "Upload"
-                      )}
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-            {/* update agency name */}
-            {modalType === "Agency Name" && (
-              <input
-                type="text"
-                {...register("agency_name")}
-                required
-                defaultValue={modalData}
-                className="px-3 py-1 border rounded w-full"
-              />
-            )}
-            {/* update agency tagline */}
-            {modalType === "Agency Tagline" && (
-              <input
-                type="text"
-                {...register("agency_tagline")}
-                required
-                defaultValue={modalData}
-                className="px-3 py-1 border rounded w-full"
-              />
-            )}
 
-            {modalType !== "Profile Photo" && modalType !== "Cover Photo" && (
-              <div className="text-right mt-10">
-                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-green-600 text-white px-4 py-2 hover:bg-green-700 disabled:opacity-50"
-                  disabled={isLoading}
-                  type="submit"
-                >
-                  {isLoading ? (
-                    <>
-                      <BtnSpinner />
-                      Submit
-                    </>
-                  ) : (
-                    "Submit"
-                  )}
-                </button>
-              </div>
-            )}
-          </form>
-        </UniversalModal>
-      )}
-    </>
-  );
 };
 
 export default AgencyProfileHeader;

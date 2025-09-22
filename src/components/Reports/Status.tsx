@@ -1,5 +1,8 @@
 
 "use client";
+import { Card } from "@/components/ui/card";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
 
 import {
@@ -263,7 +266,7 @@ export const OthersPayment = () => {
          
          className="absolute">
           <div className="flex flex-col gap-4 w-[700px]">
-            <img src="./images/zeework_logo.png" />
+            <img alt="" src="./images/zeework_logo.png" />
             <span>
               Welcome to ZeeWork!
             </span>

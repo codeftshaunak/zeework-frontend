@@ -1,15 +1,6 @@
 import { handleApiError } from "./common";
 import { API } from "./proxy";
 
-const makeApiRequest = async (
-  method,
-  endpoint,
-  data = null,
-  customHeaders = {},
-  contentType = "application/json"
-) => {
-  const authtoken = localStorage.getItem("authtoken");
-
   const headers = {
     ...customHeaders,
     token: authtoken,
@@ -34,17 +25,8 @@ const makeApiRequest = async (
   }
 };
 
-export const addPaymentMethods = async (body) =>
-  makeApiRequest("post", "/payment/save", body);
-
-export const makePayment = async (body) =>
-  makeApiRequest("post", "/payment/purchase", body);
-
-export const getPaidFreelancerWithdrawal = async (body) =>
-  makeApiRequest("post", "/payment/request", body);
-
-export const getBankDetails = async () =>
-  makeApiRequest("get", "/bank-details");
-
-export const deleteBankDetails = async (body) =>
-  makeApiRequest("patch", "/delete/bank-details", body);
+export 
+export 
+export 
+export 
+export 

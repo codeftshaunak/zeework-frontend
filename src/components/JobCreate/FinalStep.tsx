@@ -65,18 +65,7 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
             How long will our work take?
           </div>
           <div className="w-max-[530px] mt-2 text-gray-700 text-sm font-normal font-['SF Pro Text'] leading-tight">
-            This won`t restrict any proposals, but helps match expertise to your
-            budget.
-          </div>
-          {errors?.durations && <ErrorMsg msg={errors.durations.message} />}
-        </div>
 
-        {options.map((option, index) => (
-          <div
-            key={index}
-            className="flex p-[1.12rem] items-center border border-outline-primary w-full md:w-[446px] rounded-xl active-checkbox cursor-pointer bg-white"
-            onClick={() => {
-              const radioValue = option.key;
               reset({ durations: radioValue });
             }}
           >

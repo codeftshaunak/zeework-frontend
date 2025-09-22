@@ -32,11 +32,7 @@ API.interceptors.response.use(
   }
 );
 
-export const signUp = async (data) => {
-  try {
-    const response = await API.post("/register", data, {
-      headers: { "Access-Control-Allow-Credentials": true },
-    });
+export 
     return response.data;
   } catch (error) {
     console.log(error);
@@ -44,22 +40,14 @@ export const signUp = async (data) => {
   }
 };
 
-export const signIn = async (data) => {
-  try {
-    const response = await API.post("/login", data, {
-      headers: { "Access-Control-Allow-Credentials": true },
-    });
+export 
     return response.data;
   } catch (error) {
     return error.response.data;
   }
 };
 
-export const verifyMail = async (data) => {
-  try {
-    const response = await API.post("/email/verification", data, {
-      headers: { "Access-Control-Allow-Credentials": true },
-    });
+export 
     return response.data;
   } catch (error) {
     return error.response.data;

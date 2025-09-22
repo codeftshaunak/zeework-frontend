@@ -56,19 +56,7 @@ const LatestOffers = ({ marketplace }) => {
   }, [latestOffer]);
 
   useEffect(() => {
-    if (
-      purchasedGigs?.length > 0 &&
-      (!pendingOrder?.length || !rejectedOrder?.length)
-    ) {
-      setPendingOrder(
-        purchasedGigs
-          .filter((gig) => gig?.status === "pending")
-          .map((gig) => ({
-            ...gig?.gig_details,
-            _id: gig?.gig_id,
-            status: gig?.status,
-          }))
-      );
+
       setRejectedOrder(
         purchasedGigs
           .filter((gig) => gig?.status === "rejected")
@@ -87,51 +75,7 @@ const LatestOffers = ({ marketplace }) => {
         onChange={(index) => setTabIndex(index)}
         variant="unstyled"
         paddingX="16px"
-      >
-        {!marketplace && (
-          <Tabs.List className="flex flex-wrap">
-            <Tab>All</Tabs.Trigger>
-            <Tab>Pending</Tabs.Trigger>
-            <Tab>In Progress</Tabs.Trigger>
-            <Tab>Completed</Tabs.Trigger>
-          </Tabs.List>
-        )}
-        {!marketplace && (
-          <Tabs.Indicator
-            mt="-1.5px"
-            className="sm:bg-fg-brand"
-          />
-        )}
 
-        <SmoothMotion key={tabIndex}>
-          <Tabs.Content>
-            <Tabs.Content>
-              <GigDisplayCards
-                allOffers={latestOffer}
-                purchasesReq={purchasedGigs || []}
-                tabIndex={tabIndex}
-                isLoading={isLoading}
-              />
-            </Tabs.Content>
-            <Tabs.Content>
-              <GigDisplayCards
-                allOffers={pendingOrder}
-                tabIndex={tabIndex}
-                isLoading={isLoading}
-              />
-            </Tabs.Content>
-            <Tabs.Content>
-              <GigDisplayCards
-                allOffers={rejectedOrder}
-                tabIndex={tabIndex}
-                isLoading={isLoading}
-              />
-            </Tabs.Content>
-          </Tabs.Content>
-        </SmoothMotion>
-      </Tabs.Root>
-    </>
-  );
 };
 
 export default LatestOffers;

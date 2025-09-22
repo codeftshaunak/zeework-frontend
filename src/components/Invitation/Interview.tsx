@@ -1,21 +1,22 @@
-"use client";
+"use client";"
 
-import React, { useContext, useEffect, useState } from "react";
-import { toast } from "@/lib/toast";
-import queryString from "query-string";
+import { Box } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";"
+import { toast } from "@/lib/toast";"
+import queryString from "query-string";"
 import {
   acceptInvitation,
   invitationDetails,
-} from "../../helpers/APIs/freelancerApis";
-import { useRouter } from "next/navigation";
-import { JobDetailsSection } from "./JobDetails";
-import { SocketContext } from "../../contexts/SocketContext";
-import Modal from "./Modal";
-import { ClientDetailsSection } from "./ClientDetailsSection";
-import InvitationSkeleton from "../Skeletons/InvitationSkeleton";
-import DataNotAvailable from "../DataNotAvailable/DataNotAvailable";
-import { clearMessageState } from "../../redux/messageSlice/messageSlice";
-import { useDispatch } from "react-redux";
+} from "../../helpers/APIs/freelancerApis";"
+import { useRouter } from "next/navigation";"
+import { JobDetailsSection } from "./JobDetails";"
+import { SocketContext } from "../../contexts/SocketContext";"
+import Modal from "./Modal";"
+import { ClientDetailsSection } from "./ClientDetailsSection";"
+import InvitationSkeleton from "../Skeletons/InvitationSkeleton";"
+import DataNotAvailable from "../DataNotAvailable/DataNotAvailable";"
+import { clearMessageState } from "../../redux/messageSlice/messageSlice";"
+import { useDispatch } from "react-redux";"
 
 const Interview = () => {
   const router = useRouter();
@@ -62,72 +63,54 @@ const Interview = () => {
       if (code === 200) {
         toast.default(statusValue == 1
               ? "You’ve accept the interview request"
-              : "You’ve reject the interview request");
-        router.push("/");
+              : "You’ve reject the interview request");"
+        router.push("/");"
       } else {
         toast.default(msg);
       }
     } catch (error) {
-      toast.default(error?.response?.data?.msg || "Error performing action");
+      toast.default(error?.response?.data?.msg || "Error performing action");"
     }
     setIsLoading({ isLoading: false, statusValue: null });
   };
 
-  const sendMessage = (message) => {
-    if (socket) {
-      socket.emit(
-        "card_message",
-        {
-          sender_id: jobDetails?.receiver_id,
-          receiver_id: jobDetails?.sender_id,
-          message: message,
-          // message_type: "invitation",
-          contract_ref: jobDetails._id,
-        },
-        {
-          title: jobDetails.job_details[0].title,
-          type: "accepted_job_interview",
-          job_type: jobDetails.job_details[0].job_type,
-          amount: jobDetails.job_details[0].amount,
-        }
-      );
-    }
+      }
     dispatch(clearMessageState());
   };
 
   useEffect(() => {
     if (socket) {
-      socket.emit("connect_user", { user_id: jobDetails?.receiver_id });
+      socket.emit("connect_user", { user_id: jobDetails?.receiver_id });"
 
       // Example: Listening for a custom event
-      socket.on("chat_message", (data) => {
-        // console.log("Received message:", data);
+      socket.on("chat_message", (data) => {"
+        // console.log("Received message:", data);"
       });
 
       // Cleanup function
       return () => {
-        // console.log("Socket disconnected");
-        socket.off("chat_message");
+        // console.log("Socket disconnected");"
+        socket.off("chat_message");"
       };
     }
   }, [socket, jobDetails]);
 
   const acceptInvite = (messages) =>
-    performAction({ messages, statusValue: "1" });
+    performAction({ messages, statusValue: "1" });"
 
-  const rejectInvite = () => performAction({ statusValue: "2" });
+  const rejectInvite = () => performAction({ statusValue: "2" });"
 
   return (
-    <Box className="w-full">
+    <Box className="w-full">"
       <Text}
         marginTop={{ base: 3, sm: 5, lg: 10 }}
-       className="font-medium">
+       className="font-medium">"
         Invitation to Interview
       </Text>
       {loading ? (
         <InvitationSkeleton />
       ) : jobDetails?.job_details ? (
-        <div className="grid lg:grid-cols-3 sm:gap-5 mt-3 sm:mt-5 lg:mt-10">
+        <div className="grid lg:grid-cols-3 sm:gap-5 mt-3 sm:mt-5 lg:mt-10">"
           <JobDetailsSection jobDetails={jobDetails} />
           <ClientDetailsSection
             clientDetails={jobDetails?.client_details?.[0]}
@@ -135,22 +118,7 @@ const Interview = () => {
             setOpenModal={setOpenModal}
             rejectInvite={rejectInvite}
             isLoading={isLoading}
-          />
 
-          {openModal && (
-            <Modal
-              openModal={openModal}
-              setOpenModal={setOpenModal}
-              acceptInvite={acceptInvite}
-              isLoading={isLoading}
-            />
-          )}
-        </div>
-      ) : (
-        <DataNotAvailable onRefresh={getInvitationDetails} />
-      )}
-    </Box>
-  );
 };
 
 export default Interview;

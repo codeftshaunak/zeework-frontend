@@ -27,10 +27,7 @@ axiosInstance.interceptors.request.use((config) => {
 //   });
 // };
 
-export const hireFreelancerService = (data) => async (dispatch) => {
-  try {
-    const res = await axiosInstance.post("offer/send", data);
-    // Uncomment and adjust the dispatch as needed
+export     // Uncomment and adjust the dispatch as needed
     // dispatch(updateCode(res.status));
     return res.data;
   } catch (error) {

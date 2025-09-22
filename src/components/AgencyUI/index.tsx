@@ -38,8 +38,7 @@ const AgencyDashboard = () => {
     }
   };
 
-  // const handleDelete = async (id) => {
-  //   console.log(id);
+  // 
   // };
 
   useEffect(() => {

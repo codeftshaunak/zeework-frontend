@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, ReactNode } from "react";
 
 interface FormContextType {
   formState: Record<string, unknown>;
+  setFormState: (state: Record<string, unknown>) => void;
   insertToFormState: (
     v: Record<string, unknown>
   ) => Record<string, unknown> | void;
@@ -12,16 +13,14 @@ interface FormContextType {
 
 export const FormContext = createContext<FormContextType>({
   formState: {},
-  insertToFormState: (v: Record<string, unknown>) => {},
+  setFormState: () => {},
+  insertToFormState: () => {},
   clearFormState: () => {},
 });
 
-export const useFormState = () => useContext(FormContext);
-
-import { ReactNode } from "react";
-
-export const FormStateProvider = ({ children }: { children: ReactNode }) => {
+export const FormProvider = ({ children }: { children: ReactNode }) => {
   const [formState, setFormState] = useState<Record<string, unknown>>({});
+
   // insert new data to the state
   const insertToFormState = (v: Record<string, unknown>) => {
     if (!v) return formState;
@@ -38,6 +37,7 @@ export const FormStateProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo(
     () => ({
       formState,
+      setFormState,
       insertToFormState,
       clearFormState,
     }),
@@ -47,4 +47,12 @@ export const FormStateProvider = ({ children }: { children: ReactNode }) => {
   // console.log(value);
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
+};
+
+export const useFormContext = () => {
+  const context = useContext(FormContext);
+  if (!context) {
+    throw new Error("useFormContext must be used within a FormProvider");
+  }
+  return context;
 };

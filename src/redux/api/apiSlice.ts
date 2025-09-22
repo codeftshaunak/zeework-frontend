@@ -32,11 +32,6 @@ const baseQueryWithAuth: BaseQueryFn<
 
   const result = await baseQuery(args, api, extraOptions);
 
-  // Handle 401 errors (unauthorized)
-  if (result.error && result.error.status === 401) {
-    // Clear auth data from store
-    api.dispatch(clearAuthData());
-
     // Clear localStorage only on client side
     if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
@@ -72,7 +67,7 @@ export const apiSlice = createApi({
   refetchOnMountOrArgChange: 30, // Refetch data if it's older than 30 seconds
   refetchOnFocus: true, // Refetch when window regains focus
   refetchOnReconnect: true, // Refetch when connection is restored
-  endpoints: () => ({}), // Individual endpoints will be defined in separate files
+  endpoints: () => ({})}, // Individual endpoints will be defined in separate files
 });
 
 // Export hooks for usage in functional components

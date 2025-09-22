@@ -52,22 +52,25 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
-        {title && (
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900 capitalize">{title}</h2>
+        {/* Modal Header */}
+        {(title || isCloseBtn) && (
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            {title && (
+              <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+            )}
+            {isCloseBtn && (
+              <button
+                onClick={handleClose}
+                className="p-1 hover:bg-gray-100 rounded transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            )}
           </div>
         )}
 
-        {isCloseBtn && (
-          <button
-            onClick={handleClose}
-            className="absolute top-4 right-4 p-1.5 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
-        )}
-
-        <div className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto">
+        {/* Modal Body */}
+        <div className="p-6 flex-1 overflow-y-auto">
           {children}
         </div>
       </MotionContent>

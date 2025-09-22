@@ -1,3 +1,4 @@
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -25,11 +26,11 @@ const JobTimeSheet = ({ data, isLoading }) => {
 
   function formatTimeInHours(minutes) {
     // Calculate hours and remaining minutes
-    let hours = Math.floor(minutes / 60);
-    let remainingMinutes = minutes % 60;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
     // Format the time string
-    let timeString = "";
+    const timeString = "";
     if (hours > 0 || remainingMinutes > 0) {
       timeString += hours < 10 ? "0" + hours : hours;
       timeString += ":";
@@ -42,8 +43,7 @@ const JobTimeSheet = ({ data, isLoading }) => {
     return timeString;
   }
 
-  // const calculatedMinutes = (milliseconds = 0) => {
-  //   return Number((milliseconds / (1000 * 60)).toFixed());
+  // 
   // };
 
   const currentWeekNumber = getCurrentWeek();

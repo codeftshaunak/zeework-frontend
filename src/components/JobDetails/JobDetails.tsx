@@ -43,7 +43,7 @@ import {
 // Type definitions
 interface JobDetailsProps {
   setPage?: (page: number) => void;
-  setDetails?: (details: any[]) => void;
+  setDetails?: (details: unknown[]) => void;
   jobId?: string;
 }
 
@@ -83,7 +83,7 @@ const JobDetails = ({
   setPage = () => {},
   setDetails = () => {},
 }: JobDetailsProps) => {
-  const profile = useSelector((state: any) => state.profile);
+  const profile = useSelector((state: unknown) => state.profile);
   const [cookies] = useCookies(["activeagency"]);
   const activeagency = cookies.activeagency;
   const { id } = useParams();
@@ -102,7 +102,7 @@ const JobDetails = ({
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<unknown>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [fullImage, setFullImage] = useState<File[] | null>(null);
   const [croppedImage, setCroppedImage] = useState<File[] | null>(null);
@@ -114,20 +114,19 @@ const JobDetails = ({
 
   // upload profile photo of freelancer and agency
   const handleUploadPhoto = async () => {
-    if (!fullImage || !fullImage[0]) {
-      return setErrorMessage("Please select an image file!");
-    }
+    if (code === 200) {
+          return setErrorMessage("Please select an image file!");
+    
+        }
 
     setIsImgLoading(true);
     try {
       // upload agency profile
-      if (activeagency) {
-        const formData = new FormData();
-        formData.append(
-          "imageFile",
-          (isCropped && croppedImage ? croppedImage[0] : fullImage[0]) as File
-        );
-        const { body: imgBody, code: imgCode } =
+      if (code === 200) {
+          const formData = new FormData();
+
+        const { body: imgBody, code: imgCode 
+        } =
           await uploadSingleImage(formData);
 
         const { code, body } =
@@ -138,22 +137,20 @@ const JobDetails = ({
             : {};
 
         if (code === 200) {
-          dispatch(agencyData({ agency: body }));
+          dispatch(agencyData({ agency: body 
+        }));
         }
       } else {
         // upload freelancer profile
         const formData = new FormData();
-        const compressedImage = await compressImageToWebP(
-          isCropped && croppedImage ? croppedImage[0] : fullImage[0],
-          0.8,
-          800
-        );
+        const compressedImage = await compressImageToWebP(imageFile);
         formData.append("file", compressedImage);
 
         const { code, body } = await uploadImage(formData);
 
         if (code === 200) {
-          dispatch(profileData({ profile: body }));
+          dispatch(profileData({ profile: body 
+        }));
         }
       }
     } catch (error) {
@@ -175,14 +172,15 @@ const JobDetails = ({
     try {
       const { code, body } = await getSingleJobDetails(id as string);
       if (code === 200) {
-        setJobDetails(body);
+          setJobDetails(body);
         setDetails(body);
-        const { applied_jobs } = activeagency
+        const { applied_jobs 
+        } = activeagency
           ? await getAgencyAllJobs()
           : await userAllJobs();
 
         setIsAlreadyApplied(
-          !!applied_jobs.find((item: any) => item?._id === id)
+          !!applied_jobs.find((item: unknown) => item?._id === id)
         );
       }
     } catch (error) {
@@ -230,23 +228,12 @@ const JobDetails = ({
 
   // Filter client history based on active tab
   const filteredHistory = clientHistory.filter((job) => {
-    if (activeTab === "all") return true;
-    if (activeTab === "open") return job.status === "open";
-    if (activeTab === "completed") return job.status === "completed" || job.status === "close" || job.status === "closed";
-    return true;
-  });
-
-  // Show first 3 jobs or all based on showAllJobs state
-  const displayedJobs = showAllJobs
-    ? filteredHistory
-    : filteredHistory.slice(0, 3);
-
-  // Count jobs by status
-  const jobCounts = {
-    all: clientHistory.length,
+    if (code === 200) {
+          all: clientHistory.length,
     open: clientHistory.filter(job => job.status === "open").length,
     completed: clientHistory.filter(job => job.status === "completed" || job.status === "close" || job.status === "closed").length,
-  };
+  
+        };
 
   // handle photo drag 'n' drop with photo cropping
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -270,20 +257,19 @@ const JobDetails = ({
   });
 
   const onCropComplete = useCallback(
-    (_croppedArea: any, croppedAreaPixels: any) => {
+    (_croppedArea: unknown, croppedAreaPixels: unknown) => {
       setCroppedAreaPixels(croppedAreaPixels);
     },
     []
   );
 
   const handleCrop = async () => {
-    if (!imageSrc) return;
-
-    try {
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+    if (code === 200) {
+          const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
       const file = new File([croppedImage as BlobPart], fileName, {
         type: "image/jpeg",
-      });
+      
+        });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {
@@ -388,9 +374,10 @@ const JobDetails = ({
                   ) : (
                     <ShadButton
                       onClick={() => {
-                        if (isProfileImg) {
-                          setPage(2);
-                        } else {
+                        if (code === 200) {
+          setPage(2);
+                        
+        } else {
                           setIsPopUp(true);
                         }
                       }}
@@ -426,204 +413,7 @@ const JobDetails = ({
                     <div
                       className="prose prose-base max-w-none text-gray-700 leading-relaxed"
                       dangerouslySetInnerHTML={{
-                        __html: jobDetails[0]?.description,
-                      }}
-                    />
 
-                    {jobDetails[0]?.file && (
-                      <div className="mt-8 pt-8 border-t border-gray-100">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                          Attachments
-                        </h3>
-                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                          <Link
-                            href={jobDetails[0].file}
-                            target="_blank"
-                            className="inline-flex items-center gap-3 text-green-600 hover:text-green-700 transition-colors duration-200 font-medium"
-                          >
-                            <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                              <svg
-                                className="h-4 w-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                                />
-                              </svg>
-                            </div>
-                            View Attachment
-                          </Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column - Client Info */}
-              <div className="lg:col-span-1 xl:col-span-2 space-y-8">
-                {/* About the Client */}
-                <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm">
-                  <div className="p-8">
-                    <h3 className="text-xl font-bold text-gray-900 mb-6">
-                      About the client
-                    </h3>
-
-                    {/* Payment Verification */}
-                    <div className="flex items-center gap-3 mb-6">
-                      {payment_verified ? (
-                        <div className="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
-                          <Shield className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-700">
-                            Payment verified
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
-                          <Shield className="h-4 w-4 text-gray-500" />
-                          <span className="text-sm font-medium text-gray-600">
-                            Payment unverified
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Reviews */}
-                    {avg_review > 0 && (
-                      <div className="mb-6">
-                        <div className="flex items-center gap-3 mb-2">
-                          <StarRatings
-                            rating={Number(avg_review)}
-                            starDimension="18px"
-                            starSpacing="2px"
-                            starRatedColor="#22C35E"
-                            starEmptyColor="#e5e7eb"
-                          />
-                          <span className="text-lg font-bold text-gray-900">
-                            {avg_review.toFixed(1)}
-                          </span>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          {hired_freelancers} reviews
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Location */}
-                    {clientLocation && (
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
-                          <MapPin className="h-4 w-4 text-blue-600" />
-                        </div>
-                        <span className="text-base font-medium text-gray-900">
-                          {clientLocation}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Stats */}
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {job_posted}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Jobs posted
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {hiredPercentage.toFixed()}%
-                          </div>
-                          <div className="text-sm text-gray-600">Hire rate</div>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            ${total_spend?.toFixed() || "0"}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Total spent
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {hired_freelancers}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Total hires
-                          </div>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {active_freelancers}
-                          </div>
-                          <div className="text-sm text-gray-600">Active</div>
-                        </div>
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-2xl font-bold text-gray-900">
-                            {total_hours}
-                          </div>
-                          <div className="text-sm text-gray-600">Hours</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Share Job */}
-                <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm">
-                  <div className="p-8">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                      Job link
-                    </h4>
-                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono text-gray-600 break-all mb-4">
-                      {typeof window !== "undefined"
-                        ? window.location.origin
-                        : ""}
-                      /find-job/{jobDetails[0]._id}
-                    </div>
-                    <ShadButton
-                      onClick={handleCopyLink}
-                      variant="outline"
-                      size="sm"
-                      className="w-full text-green-600 border-green-200 hover:bg-green-50 transition-all duration-200"
-                    >
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy link
-                    </ShadButton>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Client History - Full Width */}
-            {clientHistory?.length > 0 && (
-              <div className="bg-white border border-gray-200/60 rounded-lg shadow-sm mt-8">
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold text-gray-900">
-                      Client's Job History
-                    </h2>
-                    <span className="text-sm text-gray-500">
-                      {jobCounts.all} total jobs
-                    </span>
-                  </div>
-
-                  {/* Tabs */}
-                  <div className="flex items-center gap-2 mb-6 border-b border-gray-200">
-                    <button
-                      onClick={() => {
-                        setActiveTab("all");
                         setShowAllJobs(false);
                       }}
                       className={`px-4 py-3 text-sm font-semibold transition-all duration-200 border-b-2 ${
@@ -819,46 +609,7 @@ const JobDetails = ({
                       ) : (
                         <p className="text-center">
                           Drag &apos;n&apos; drop image file here, or click to
-                          select file
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  {fileName && (
-                    <p className="mt-2 -mb-4 text-center text-green-600">
-                      {fileName}
-                    </p>
-                  )}
-                  {errorMessage && (
-                    <p className="text-sm text-red-500">{errorMessage}</p>
-                  )}
-                </div>
-              </div>
-              {imageSrc && (
-                <>
-                  <div className="relative w-full h-64">
-                    <Cropper
-                      image={imageSrc}
-                      crop={crop}
-                      zoom={zoom}
-                      aspect={1}
-                      showGrid={false}
-                      onCropChange={isCropped ? () => {} : setCrop}
-                      onZoomChange={isCropped ? () => {} : setZoom}
-                      onCropComplete={onCropComplete}
-                      cropShape="round"
-                    />
-                  </div>
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="flex items-center w-full gap-1 sm:w-96">
-                      <TiMinus />
-                      <Slider
-                        value={[zoom]}
-                        min={1}
-                        max={3}
-                        step={0.1}
-                        onValueChange={(val) => {
-                          !isCropped && setZoom(val[0]);
+
                         }}
                         className="w-full"
                       />
@@ -889,15 +640,16 @@ const JobDetails = ({
                         style={{ display: "none" }}
                         onChange={(e) => {
                           const file = e.target.files?.[0];
-                          if (file) {
-                            setFileName(file.name);
+                          if (code === 200) {
+          setFileName(file.name);
                             setFullImage([file]);
                             setErrorMessage("");
                             const reader = new FileReader();
                             reader.readAsDataURL(file);
                             reader.onload = () => {
                               setImageSrc(reader.result as string);
-                            };
+                            
+        };
                           }
                         }}
                       />
@@ -931,31 +683,7 @@ const JobDetails = ({
                           } rounded py-1 px-3 text-white w-fit mt-2`}
                           onClick={handleRevert}
                           disabled={!isCropped}
-                        >
-                          <TiArrowBack /> Revert
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-            {imageSrc && (
-              <div className="mt-10 text-right">
-                <Button
-                  isLoading={isImgLoading}
-                  onClick={() => handleUploadPhoto()}
-                  className="px-7"
-                >
-                  {isImgLoading ? <BtnSpinner /> : "Upload"}
-                </Button>
-              </div>
-            )}
-          </div>
-        </UniversalModal>
-      )}
-    </>
-  );
+
 };
 
 export default JobDetails;

@@ -6,7 +6,7 @@ interface AuthResponse {
   msg: string;
   body?: {
     authtoken: string;
-    user: any;
+    user: unknown;
   };
 }
 

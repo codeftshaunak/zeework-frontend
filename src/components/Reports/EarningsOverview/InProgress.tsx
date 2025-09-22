@@ -7,8 +7,7 @@ const InProgress = ({ balance }) => {
   const paymentStatus = useSelector(
     (state) => state.profile.profile.payment_verified
   );
-  const router = useRouter();
-
+  
   return (
     <div className="mt-5 border border-[var(--bordersecondary)] p-8 rounded-lg bg-white grid gap-8">
       <div>

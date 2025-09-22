@@ -1,5 +1,6 @@
 "use client";
 
+import { HStack } from "@chakra-ui/react";
 import { toast } from "@/lib/toast";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,9 +8,8 @@ import { verifyMail } from "../../../helpers/APIs/apiRequest";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import HomeLayout from "../../Layouts/HomeLayout";
 
-export const VerifySuccess = () => {
-  const [loading, setLoading] = useState(false);
-  const pathname = usePathname();
+export 
+  
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const token = searchParams.get("token");
@@ -44,16 +44,5 @@ export const VerifySuccess = () => {
         textColor={"var(--primarycolor)"}
         opacity={0.5}
        className="items-center justify-center">
-        {loading && (
-          // <Spinner
-          //   backgroundColor="#"
-          //
-          //
-          //
-          // />
-          <BtnSpinner size={50} />
-        )}
-      </HStack>
-    </HomeLayout>
-  );
+
 };

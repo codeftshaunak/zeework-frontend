@@ -7,8 +7,7 @@ import ActiveJobDetailsComponent from "../../../components/MyJobsComponentUi/Act
 
 const EndContract = () => {
   const role = useSelector((state) => state.auth.role);
-  const router = useRouter();
-
+  
   return (
     <>
       <HomeLayout>{<ActiveJobDetailsComponent />}</HomeLayout>

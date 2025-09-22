@@ -77,60 +77,69 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
               setIsModal(true);
             }}
           >
-            {overviewValue ? <RiEdit2Fill /> : <FiPlus />}
+            <RiEdit2Fill size={10} />
           </div>
         </div>
-        {overviewValue && (
-          <article >
-            <div dangerouslySetInnerHTML={{ __html: overviewValue }} />
-          </article>
-        )}
+        <div className="bg-[#f8f9fa] p-4 rounded">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: overviewValue || "No overview provided",
+            }}
+          />
+        </div>
       </div>
 
-      {/* update overview */}
-      {isModal && (
-        <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          title={`Update Profile Overview`}
-        >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div >
-              <QuillToolbar />
-              <Controller
-                name="agency_overview"
-                control={control}
-                render={({ field }) => (
-                  <ReactQuill
-                    theme="snow"
-                    value={field.value}
-                    onChange={(content) => {
-                      const cleanedContent = removeTrailingEmptyTags(content);
-                      field.onChange(cleanedContent);
-                    }}
-                    className="h-64 [&>*]:rounded-b-md"
-                    modules={modules}
-                    formats={formats}
-                  />
-                )}
-              />
-              {errors.agency_overview && (
-                <ErrorMsg msg={errors.agency_overview.message} />
+      <UniversalModal
+        isOpen={isModal}
+        onClose={() => setIsModal(false)}
+        title="Update Agency Overview"
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Agency Overview
+            </label>
+            <QuillToolbar />
+            <Controller
+              name="agency_overview"
+              control={control}
+              render={({ field }) => (
+                <ReactQuill
+                  {...field}
+                  theme="snow"
+                  onChange={(content) => {
+                    const cleanedContent = removeTrailingEmptyTags(content);
+                    field.onChange(cleanedContent);
+                  }}
+                  className="h-64 [&>*]:rounded-b-md"
+                  modules={modules}
+                  formats={formats}
+                />
               )}
-            </div>
-            <div className="text-right mt-10">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                isLoading={isLoading}
-                loadingText="Submit"
-                type="submit"
-                spinner={<BtnSpinner />}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </UniversalModal>
-      )}
+            />
+            {errors.agency_overview && (
+              <ErrorMsg msg={errors.agency_overview.message} />
+            )}
+          </div>
+
+          <div className="flex justify-end space-x-2 pt-16">
+            <button
+              type="button"
+              onClick={() => setIsModal(false)}
+              className="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+            >
+              {isLoading ? <BtnSpinner /> : "Update Overview"}
+            </button>
+          </div>
+        </form>
+      </UniversalModal>
     </>
   );
 };

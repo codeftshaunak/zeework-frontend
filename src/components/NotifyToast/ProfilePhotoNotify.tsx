@@ -21,8 +21,8 @@ import { BiImages, BiSolidCrop } from "react-icons/bi";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
 const ProfilePhotoNotify = () => {
-  const profile = useSelector((state: any) => state.profile.profile);
-  const role = useSelector((state: any) => state.auth.role);
+  const profile = useSelector((state: unknown) => state.profile.profile);
+  const role = useSelector((state: unknown) => state.auth.role);
   const [isCloseNotification, setIsCloseNotification] = useState(
     typeof window !== "undefined" ? sessionStorage.getItem("profileImgNotify") : null
   );
@@ -50,8 +50,7 @@ const ProfilePhotoNotify = () => {
     pathname !== "/signup" &&
     pathname !== "/onboarding" &&
     role == 1 &&
-    !profile.profile_image &&
-    !isCloseNotification;
+    !sessionStorage.getItem("profileImgNotify");
 
   const handleUploadPhoto = async () => {
     if (!fullImage || fullImage.length === 0) {
@@ -171,117 +170,53 @@ const ProfilePhotoNotify = () => {
         isModal={isModal}
         setIsModal={setIsModal}
       >
-        <>
-          <div className="flex flex-col gap-[16px]">
+        <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col">
               <div className="flex flex-col gap-[2px]">
-                {!imageSrc && (
-                  <div
-                    {...getRootProps()}
-                    className={`w-[100%] ${
-                      fileName ? "py-5" : "py-8"
-                    } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
-                  >
-                    {!fileName && (
-                      <RiUploadCloud2Fill className="text-green-300 text-6xl mx-auto" />
-                    )}
-                    <input
-                      {...getInputProps()}
-                      className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
-                      placeholder="Select an image"
-                      onChange={() => {
-                        const file = getInputProps().files[0];
-                        if (file) {
-                          setFileName(file.name);
-                        }
-                        setErrorMessage("");
-                      }}
-                    />
-
-                    {isDragActive ? (
-                      <p className="text-center ">Drop the files here ... </p>
-                    ) : (
-                      <p className="text-center ">
-                        Drag &apos;n&apos; drop image file here, or click to
-                        select file
-                      </p>
-                    )}
-                  </div>
-                )}
-                {fileName && (
-                  <p className="text-center mt-2 -mb-4 text-green-600">
-                    {fileName}
-                  </p>
-                )}
-                {errorMessage && (
-                  <p className="text-sm text-red-500">{errorMessage}</p>
-                )}
-              </div>
-            </div>
-            {imageSrc && (
-              <>
-                <div className="relative w-full h-64">
-                  <Cropper
-                    image={imageSrc}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    showGrid={false}
-                    onCropChange={isCropped ? undefined : setCrop}
-                    onZoomChange={isCropped ? undefined : setZoom}
-                    onCropComplete={onCropComplete}
-                    cropShape="round"
+                <div
+                  {...getRootProps()}
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-gray-400 transition-colors"
+                >
+                  <input
+                    {...getInputProps()}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setFileName(file.name);
+                      }
+                      setErrorMessage("");
+                    }}
                   />
+                  {isDragActive ? (
+                    <p className="text-center">Drop the files here ...</p>
+                  ) : (
+                    <p className="text-center">
+                      Drag &apos;n&apos; drop image file here, or click to select
+                    </p>
+                  )}
                 </div>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="flex items-center gap-1 w-full sm:w-96">
-                    <TiMinus />
-                    <input
-                      type="range"
-                      min="1"
-                      max="3"
-                      step="0.1"
-                      value={zoom}
-                      onChange={(e) => !isCropped && setZoom(parseFloat(e.target.value))}
-                      className="flex-1 h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer"
-                    />
-                    <TiPlus />
-                  </div>
-                  <div className="flex items-center justify-center gap-x-5 flex-wrap">
-                    <button
-                      type="button"
-                      disabled={isCropped}
-                      className={`flex items-center gap-1 ${
-                        isCropped
-                          ? "cursor-no-drop bg-slate-400"
-                          : "bg-slate-500"
-                      } rounded py-1 px-3 text-white w-fit mt-2`}
-                      onClick={() => {
-                        document.getElementById("file-input").click();
-                      }}
-                    >
-                      <BiImages /> Changed File
-                    </button>
-                    <input
-                      id="file-input"
-                      type="file"
-                      {...getInputProps()}
-                      style={{ display: "none" }}
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                          setFileName(file.name);
-                          setFullImage([file]);
-                          setErrorMessage("");
-                          const reader = new FileReader();
-                          reader.readAsDataURL(file);
-                          reader.onload = () => {
-                            setImageSrc(reader.result);
-                          };
-                        }
-                      }}
-                    />
-                    <div className="flex items-center justify-center gap-5">
+
+                <input
+                  id="file-input"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setFileName(file.name);
+                      setFullImage([file]);
+                      setErrorMessage("");
+                      const reader = new FileReader();
+                      reader.readAsDataURL(file);
+                      reader.onload = () => {
+                        setImageSrc(reader.result);
+                      };
+                    }
+                  }}
+                />
+
+                <div className="flex items-center justify-center gap-5">
                       <button
                         type="button"
                         className={`flex items-center gap-1 ${
@@ -312,28 +247,12 @@ const ProfilePhotoNotify = () => {
                         onClick={handleRevert}
                         disabled={!isCropped}
                       >
-                        <TiArrowBack /> Revert
+                        <BiReset /> Revert
                       </button>
-                    </div>
-                  </div>
                 </div>
-              </>
-            )}
-          </div>
-          {imageSrc && (
-            <div className="text-right mt-10">
-              <button
-                type="button"
-                onClick={handleUploadPhoto}
-                disabled={!croppedImage && !fullImage || isLoading}
-                className="inline-flex items-center px-7 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading && <BtnSpinner size="16" />}
-                {isLoading ? "Uploading" : "Upload"}
-              </button>
+              </div>
             </div>
-          )}
-        </>
+        </div>
       </UniversalModal>
     </>
   );

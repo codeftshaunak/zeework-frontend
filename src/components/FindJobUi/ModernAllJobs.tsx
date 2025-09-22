@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { getAllJobs } from "../../helpers/APIs/jobApis";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ import Greetings from "../Common/Greetings";
 import { IoMdRefreshCircle } from "react-icons/io";
 
 const ModernAllJobs = () => {
-  const jobs = useSelector((state: any) => state.pages.findWork.jobsList);
+  const jobs = useSelector((state: unknown) => state.pages.findWork.jobsList);
   const latestJobs = jobs?.slice(0, 4);
   const router = useRouter();
   const { hasAgency, activeAgency } = useContext(CurrentUserContext);
@@ -141,52 +142,13 @@ const ModernAllJobs = () => {
           <div className="flex items-center justify-between gap-2 mt-3">
             <p className="text-xl font-bold capitalize">Latest Job Postings</p>
             <IoMdRefreshCircle
-              className={`text-2xl sm:text-3xl text-primary hover:text-green-400 active:text-primary cursor-pointer ${
-                isLoading && "animate-spin cursor-not-allowed"
-              }`}
-              onClick={() => {
-                if (!isLoading) getAllJobList();
-              }}
+              className="text-2xl sm:text-3xl text-primary hover:text-green-400 active:text-primary cursor-pointer"
             />
           </div>
 
           <div className="w-full">
             <ModernJobCard isLoading={isLoading} jobs={latestJobs} />
           </div>
-
-          {latestJobs?.length > 0 && (
-            <div className="mx-auto mt-4">
-              <button
-                className="bg-[#E7F2EB] text-[#22C55E] border-2 w-[130px] m-auto border-[#22C55E] px-4 py-2 rounded-md flex items-center gap-2"
-                onClick={() => router.push("/search-job")}
-              >
-                See More{" "}
-                <img
-                  src="/images/dashboard/zeework_button-drop.png"
-                  className="pt-1"
-                  alt="dropdown"
-                />
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Sidebar */}
-        <div className="hidden pl-6 lg:block">
-          {hasAgency && activeAgency ? (
-            <>
-              <AgencyUserCard />
-              <br />
-              <UserProfileCard />
-            </>
-          ) : (
-            <>
-              <UserProfileCard />
-              <br />
-              <AgencyUserCard />
-            </>
-          )}
-          <TimerDownloadCard />
         </div>
       </div>
     </div>

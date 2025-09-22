@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 
 import { useEffect, useRef, useState } from "react";
@@ -188,7 +189,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
           </div>
         ) : (
           <div className="mt-[20px]">
-            <img src="/images/404not-added.png" className="m-[auto]"></img>
+            <img alt="" src="/images/404not-added.png" className="m-[auto]"></img>
             <span className="mt-[1.5rem] font-semibold text-center">
               You haven&apos;t added any projects yet!
             </span>

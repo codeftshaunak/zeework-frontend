@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, Box, VStack, Text } from "@chakra-ui/react";
 import { toast } from "@/lib/toast";
 import { useState } from "react";
 import { MainButtonRounded } from "../Button/MainButton";
@@ -22,9 +23,7 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
     freelancer_id,
     _id,
   } = member || {};
-  const router = useRouter();
-
-  const handleEndContract = async () => {
+    const handleEndContract = async () => {
     setIsLoading(true);
     try {
       const { message, code, body, msg } = await endContractOfFreelancer({
@@ -43,56 +42,6 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
     setIsModal(false);
   };
 
-  return (
-    <>
-      <VStack
-        className="shadow border p-4 rounded-md leading-[20px] relative bg-white justify-between"
-        w="300px"
-       
-       className="mt-[10px] p-4">
-        <Box className="text-center">
-          <Avatar
-            src={profile_image}
-            name={first_name + " " + first_name}
-            size="lg"
-          />
-          <Text mt={2} className="text-2xl font-semibold">
-            {first_name + " " + last_name}
-          </Text>
-          <Text
-            my={1}
-           className="text-center overflow-hidden w-full text-sm">
-            {professional_role}
-          </Text>
-        </Box>
-        <MainButtonRounded
-          onClick={() => router.push(`/profile/f/${freelancer_id}`)}
-        >
-          View Profile
-        </MainButtonRounded>
-
-        <Box>
-          <BiDotsVerticalRounded
-            className="absolute top-1 left-1 text-2xl text-gray-400 rounded-full bg-slate-100 hover:bg-slate-300 transition cursor-pointer z-0"
-            onClick={() => setIsMenu(!isMenu)}
-          />
-        </Box>
-        {isMenu && (
-          <div
-            className="bg-black/5 w-full h-full absolute top-0 left-0"
-            onClick={() => setIsMenu(!isMenu)}
-          >
-            <div className="absolute left-1 top-8 p-2 shadow bg-white rounded">
-              <div
-                className="px-3 py-1 hover:bg-gray-200/20 rounded cursor-pointer transition"
-                onClick={() => setIsMenu(false)}
-              >
-                Pause
-              </div>
-              <div
-                className="px-3 py-1 hover:bg-gray-200/20 rounded cursor-pointer transition"
-                onClick={() => {
-                  setIsModal(true), setIsMenu(false);
                 }}
               >
                 End

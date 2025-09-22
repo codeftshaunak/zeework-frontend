@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
@@ -17,7 +17,6 @@ import ModernJobCard from "./ModernJobCard";
 import UserProfileCard from "./UserCard";
 import AgencyUserCard from "./AgencyUserCard";
 import TimerDownloadCard from "../Common/TimerDownloadCard";
-import { cn } from "@/lib/utils";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
@@ -34,12 +33,12 @@ interface CategoryOption {
 }
 
 interface JobsData {
-  data?: any[];
+  data?: unknown[];
   totalLength?: number;
 }
 
 const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
-  const pathname = usePathname();
+  
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<CategoryOption[]>([]);
@@ -51,7 +50,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const { hasAgency, activeAgency } = useContext(CurrentUserContext);
-  const profile = useSelector((state: any) => state.profile);
+  const profile = useSelector((state: unknown) => state.profile);
 
   // Payment and rate filters
   const [paymentType, setPaymentType] = useState("none");
@@ -69,7 +68,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   // Get categories
   const getCategory = async () => {
     const { body, code } = await getCategories();
-    if (code === 200) {
+    // TODO: Fix incomplete if statement
       setCategoryOptions(
         body?.map((item: Category) => ({
           value: item._id,
@@ -84,22 +83,20 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   }, []);
 
   // Search with filters
-  const searchWithFilters = useCallback(async (params: any) => {
-    if (!params) return;
-
-    try {
+  const searchWithFilters = useCallback(async (params: unknown) => {
+    if (params) {
       setLoading(true);
 
       // Update URL parameters
       const queryParams = new URLSearchParams(window.location.search);
 
-      if (params?.page) {
+      if (params.page && params.page > 1) {
         queryParams.set("page", params.page.toString());
       } else {
         queryParams.set("page", "1");
       }
 
-      if (params?.category?.length) {
+      if (params.category && params.category.length > 0) {
         queryParams.set(
           "category",
           params.category.map((cat: CategoryOption) => cat.value).join(",")
@@ -108,25 +105,25 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
         queryParams.delete("category");
       }
 
-      if (params.paymentType !== "none") {
+      if (params.paymentType && params.paymentType !== "none") {
         queryParams.set("payment", params.paymentType);
       } else {
         queryParams.delete("payment");
       }
 
-      if (params?.experience?.length) {
+      if (params.experience && params.experience.length > 0) {
         queryParams.set("experience", params.experience.join(","));
       } else {
         queryParams.delete("experience");
       }
 
-      if (params?.contractType?.length) {
+      if (params.contractType && params.contractType.length > 0) {
         queryParams.set("contractType", params.contractType.join(","));
       } else {
         queryParams.delete("contractType");
       }
 
-      if (params?.searchTerm) {
+      if (params.searchTerm && params.searchTerm.trim()) {
         queryParams.set("searchTerm", params.searchTerm);
       } else {
         queryParams.delete("searchTerm");
@@ -168,17 +165,6 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
     });
   }, [category, experience, contractType, paymentType]);
 
-  const handleSearch = () => {
-    searchWithFilters({
-      searchTerm,
-      page: 1,
-      category,
-      experience,
-      contractType,
-      paymentType,
-    });
-  };
-
   const clearSearch = () => {
     setSearchTerm("");
     setShowHighlightedSearchTerm(false);
@@ -196,7 +182,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   };
 
   const handleExperienceChange = (level: string, checked: boolean) => {
-    if (checked) {
+    // TODO: Fix incomplete if statement
       setExperience([...experience, level]);
     } else {
       setExperience(experience.filter(exp => exp !== level));
@@ -205,7 +191,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   };
 
   const handleContractTypeChange = (type: string, checked: boolean) => {
-    if (checked) {
+    // TODO: Fix incomplete if statement
       setContractType([...contractType, type]);
     } else {
       setContractType(contractType.filter(ct => ct !== type));
@@ -217,34 +203,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
     <div className="w-full mx-auto">
       <div className="flex w-full py-6">
         <div className="w-[40%] pr-6 max-lg:hidden">
-          {!profile?.agency?.isError && isFreelancer && (
-            <div className="mb-6">
-              {hasAgency && activeAgency ? (
-                <>
-                  <AgencyUserCard />
-                  <br />
-                  <UserProfileCard />
-                </>
-              ) : (
-                <>
-                  <UserProfileCard />
-                  <br />
-                  <AgencyUserCard />
-                </>
-              )}
-            </div>
-          )}
 
-          <div className="flex items-start justify-center p-5">
-            <div className="w-full lg:w-[350px] bg-white p-7 rounded-2xl">
-              <div className="flex flex-row items-center justify-between">
-                <span className="text-2xl font-medium">Filters</span>
-                <RefreshCw
-                  className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
-                    loading && "animate-spin cursor-not-allowed"
-                  }`}
-                  onClick={() => {
-                    if (!loading) resetFilters();
                   }}
                 />
               </div>
@@ -351,18 +310,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
                     searchWithFilters({ searchTerm: e.target.value });
                 }}
                 value={searchTerm}
-              />
-              {searchTerm && (
-                <X
-                  className="text-var(--primarycolor) z-50 mx-2 text-1.5rem cursor-pointer"
-                  onClick={clearSearch}
-                />
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setShowFilters(!showFilters);
+
               }}
               className="lg:hidden"
             >
@@ -391,33 +339,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
               jobs={loading ? [] : jobsData?.data || []}
               searchTerm={searchTerm}
               showHighlightedSearchTerm={showHighlightedSearchTerm}
-            />
 
-            {/* Simple Pagination */}
-            {totalPages > 1 && !loading && (
-              <div className="flex justify-center items-center space-x-2 mt-8">
-                <button
-                  className="px-4 py-2 border rounded disabled:opacity-50"
-                  onClick={() => setPage(page - 1)}
-                  disabled={page <= 1}
-                >
-                  Previous
-                </button>
-                <span className="px-4 py-2">Page {page} of {totalPages}</span>
-                <button
-                  className="px-4 py-2 border rounded disabled:opacity-50"
-                  onClick={() => setPage(page + 1)}
-                  disabled={page >= totalPages}
-                >
-                  Next
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 export default ModernSearchPage;

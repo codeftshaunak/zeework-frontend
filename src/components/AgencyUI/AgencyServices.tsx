@@ -42,30 +42,50 @@ const AgencyServices = ({ agency, setAgency }) => {
     reset,
   } = useForm();
 
-  useEffect(() => {
-    getCategoryList();
-    existingService();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getCategoryList = async () => {
+    try {
+      const { body, code } = await getCategories();
+      if (code === 200) {
+        setCategories(
+          body?.map((c) => ({
+            ...c,
+            label: c.category_name,
+            value: c.category_name,
+          }))
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  useEffect(() => {
-    if (categoryList) getSubCategoryList(categoryList);
-  }, [categoryList]);
+  const getSubCategoryList = async () => {
+    try {
+      const subCategoryPromises = categories.map((c) => getSubCategory(c._id));
+      const subCategoryResponses = await Promise.all(subCategoryPromises);
 
-  useEffect(() => {
-    if (modalType === "Skills") getAllSkills();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalType]);
+      const allSubCategory = subCategoryResponses?.flatMap(({ code, body }) => {
+        if (code === 200) {
+          return body?.map((c) => ({
+            ...c,
+            label: c.sub_category_name,
+            value: c.sub_category_name,
+          }));
+        }
+        return [];
+      });
 
-  const handleUpdate = (type: string) => {
-    setIsModal(true);
-    setIsModalType(type);
+      setSubCategories(allSubCategory || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    if (type === "Services") {
-      existingService();
-      const cData = categoryList?.map((d) => ({
-        _id: d._id,
-        category_name: d.category_name,
+  const existingService = () => {
+    if (agency_services?.category?.length) {
+      const cData = category?.map((i) => ({
+        _id: i._id,
+        category_name: i.category_name,
       }));
 
       const sData = subCategoryList?.map((d) => ({
@@ -86,273 +106,156 @@ const AgencyServices = ({ agency, setAgency }) => {
     }
   };
 
-  const getCategoryList = async () => {
-    try {
-      const { body, code } = await getCategories();
-      if (code === 200)
-        setCategories(
-          body?.map((c) => ({
-            ...c,
-            label: c.category_name,
-            value: c.category_name,
-          }))
-        );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getSubCategoryList = async (categories) => {
-    setSubCLoading(true);
-    try {
-      const subCategoryPromises = categories.map((c) => getSubCategory(c._id));
-      const subCategoryResponses = await Promise.all(subCategoryPromises);
-
-      const allSubCategory = subCategoryResponses?.flatMap(({ code, body }) => {
-        if (code === 200) {
-          return body?.map((c) => ({
-            ...c,
-            label: c.sub_category_name,
-            value: c.sub_category_name,
-          }));
-        }
-      });
-
-      setSubCategories(allSubCategory);
-    } catch (error) {
-      console.log(error);
-    }
-    setSubCLoading(false);
-  };
-
-  const existingService = () => {
-    setCategoryList(
-      category?.map((i) => ({
-        ...i,
-        label: i.category_name,
-        value: i.category_name,
-      }))
-    );
-    setSubCategoryList(
-      subCategory?.map((i) => ({
-        ...i,
-        label: i.sub_category_name,
-        value: i.sub_category_name,
-      }))
-    );
-  };
-
-  const getAllSkills = async () => {
-    if (modalType === "Skills") {
-      setSkillsIsLoading(true);
-      try {
-        const skillsPromises = category?.map((c) => getSkills(c._id, c._id));
-        const skillsResponses = await Promise.all(skillsPromises);
-        const skills = skillsResponses?.flatMap(({ code, body }) => {
-          if (code === 200) {
-            return body?.map((item) => ({
-              label: item.skill_name,
-              value: item.skill_name,
-            }));
-          }
-        });
-        setSkills(skills);
-      } catch (error) {
-        console.log(error);
-      }
-      setSkillsIsLoading(false);
-    }
-  };
-
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
       const { body, code } = await updateAgencyProfile(data);
-      if (code === 200) setAgency(body);
+      if (code === 200) {
+        setAgency(body);
+      }
     } catch (error) {
       console.log(error);
     }
-    setIsModal(false);
     setIsLoading(false);
+    setIsModal(false);
     reset();
   };
 
+  useEffect(() => {
+    getCategoryList();
+    existingService();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      getSubCategoryList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories]);
+
   return (
     <>
-      <div className="flex flex-col">
-        {/* Services Header */}
+      <div>
         <div className="flex flex-row items-center mt-4 mb-2">
-          <span className="font-semibold">Services</span>
+          <span className="font-semibold text-lg">Services</span>
           <div
-            className="flex items-center justify-center w-5 h-5 ml-2 transition border rounded cursor-pointer hover:border-primary hover:text-primary"
-            onClick={() => handleUpdate("Services")}
+            className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+            onClick={() => {
+              setIsModalType("Services");
+              setIsModal(true);
+            }}
           >
-            {agency_services ? <RiEdit2Fill /> : <FiPlus />}
+            <RiEdit2Fill />
           </div>
         </div>
 
-        {/* Services List */}
-        <div>
-          <div className="flex flex-wrap gap-2">
-            {category?.map((i) => (
-              <span
-                key={i._id}
-                className="flex items-center gap-1 px-4 py-1 bg-[#E7F2EB] rounded text-sm"
-              >
-                <AiOutlineBorderlessTable /> {i.category_name}
-              </span>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2 mt-4">
-            {subCategory?.map((d, i) => (
-              <span key={i} className="px-4 py-1 bg-[#E7F2EB] rounded text-sm">
-                {d.sub_category_name}
-              </span>
-            ))}
-          </div>
-        </div>
+        <div className="space-y-2">
+          {agency_services?.category?.length ? (
+            <div>
+              <p className="font-medium">Categories:</p>
+              <div className="flex flex-wrap gap-2">
+                {agency_services.category.map((cat, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded"
+                  >
+                    {cat.category_name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
-        {/* Skills Header */}
-        <div className="flex flex-row items-center mt-4 mb-2">
-          <span className="font-semibold">Skills</span>
-          <div
-            className="flex items-center justify-center w-5 h-5 ml-2 transition border rounded cursor-pointer hover:border-primary hover:text-primary"
-            onClick={() => handleUpdate("Skills")}
-          >
-            {agency_skills?.length ? <RiEdit2Fill /> : <FiPlus />}
-          </div>
-        </div>
+          {agency_skills?.length ? (
+            <div>
+              <p className="font-medium">Skills:</p>
+              <div className="flex flex-wrap gap-2">
+                {agency_skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
-        {/* Skills List */}
-        <div className="flex flex-wrap gap-2">
-          {agency_skills?.map((item) => (
-            <span
-              key={item}
-              className="px-4 py-1 bg-[#E7F2EB] rounded text-sm capitalize"
-            >
-              {item}
-            </span>
-          ))}
+          {!agency_services?.category?.length && !agency_skills?.length && (
+            <p className="text-gray-500">No services specified</p>
+          )}
         </div>
       </div>
 
-      {/* Update Agency Service Modal */}
       {isModal && (
         <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          title={`Update ${modalType}`}
+          isOpen={isModal}
+          onClose={() => setIsModal(false)}
+          title="Update Services"
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Update services */}
-            {modalType === "Services" && (
-              <>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Services & Skills
+              </label>
+              <p className="text-sm text-gray-600 mb-4">
+                Configure your agency's service categories and skills
+              </p>
+
+              <div className="space-y-4">
                 <div>
-                  <span className="text-lg">Category</span>
-                  <Select
-                    {...register("agency_services.category", {
-                      required: "Services Category is required",
-                    })}
-                    isMulti
-                    closeMenuOnSelect={false}
-                    placeholder="Select Your Category"
-                    options={categories}
-                    value={categoryList}
-                    onChange={(data) => {
-                      const newData = data?.map((d) => ({
-                        _id: d._id,
-                        category_name: d.category_name,
-                      }));
-                      const matchedSubCategories = subCategoryList.filter(
-                        (subCategory) =>
-                          newData.some(
-                            (category) =>
-                              category._id === subCategory.category_id
-                          )
-                      );
-                      setCategoryList(data);
-                      setValue("agency_services.category", newData);
-                      setSubCategories([]);
-                      setValue(
-                        "agency_services.subCategory",
-                        matchedSubCategories
-                      );
-                      setSubCategoryList(matchedSubCategories);
-                      trigger("agency_services.category");
-                    }}
+                  <label className="block text-sm font-medium mb-1">Categories</label>
+                  <Controller
+                    name="agency_services.category"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        isMulti
+                        options={categories}
+                        className="w-full"
+                        placeholder="Select categories..."
+                      />
+                    )}
                   />
-                  {errors.agency_services?.category && (
-                    <ErrorMsg msg={errors.agency_services?.category.message} />
-                  )}
                 </div>
 
                 <div>
-                  <span className="text-lg">Sub Category</span>
-                  <Select
-                    {...register("agency_services.subCategory", {
-                      required: "Services Sub-Category is required",
-                    })}
-                    isMulti
-                    closeMenuOnSelect={false}
-                    placeholder="Select Your Sub Category"
-                    options={subCategories}
-                    value={subCategoryList}
-                    isDisabled={!categoryList?.length}
-                    isLoading={subCLoading}
-                    onChange={(data) => {
-                      setSubCategoryList(data);
-                      const newData = data?.map((d) => ({
-                        category_id: d.category_id,
-                        sub_category_name: d.sub_category_name,
-                      }));
-                      setValue("agency_services.subCategory", newData);
-                      trigger("agency_services.subCategory");
-                    }}
+                  <label className="block text-sm font-medium mb-1">Skills</label>
+                  <Controller
+                    name="agency_skills"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        isMulti
+                        isCreatable
+                        options={skills}
+                        className="w-full"
+                        placeholder="Select or create skills..."
+                      />
+                    )}
                   />
-                  {errors.agency_services?.subCategory && (
-                    <ErrorMsg
-                      msg={errors.agency_services?.subCategory.message}
-                    />
-                  )}
                 </div>
-              </>
-            )}
-
-            {/* Update skills */}
-            {modalType === "Skills" && (
-              <div>
-                <Controller
-                  control={control}
-                  name="agency_skills"
-                  rules={{ required: "Skills are required" }}
-                  render={({ field: { onChange, ref } }) => (
-                    <Select
-                      inputRef={ref}
-                      closeMenuOnSelect={false}
-                      onChange={(val) => {
-                        setSkillList(val);
-                        onChange(val.map((c) => c.value));
-                      }}
-                      options={skills}
-                      value={skillList}
-                      isMulti
-                      isLoading={skillsIsLoading}
-                    />
-                  )}
-                />
-                {errors.agency_skills && (
-                  <ErrorMsg msg={errors.agency_skills.message} />
-                )}
               </div>
-            )}
+            </div>
 
-            <div className="mt-10 text-right">
+            <div className="flex justify-end space-x-2">
+              <button
+                type="button"
+                onClick={() => setIsModal(false)}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50"
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors border rounded-md hover:bg-accent hover:text-accent-foreground"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
               >
-                {isLoading ? <BtnSpinner /> : "Update"}
+                {isLoading ? <BtnSpinner /> : "Update Services"}
               </button>
             </div>
           </form>

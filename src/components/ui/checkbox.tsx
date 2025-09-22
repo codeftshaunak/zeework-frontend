@@ -55,33 +55,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             />
             <div
               className={cn(
-                "flex h-5 w-5 items-center justify-center rounded border-2 border-gray-300 bg-white transition-colors",
-                "hover:border-green-400 focus-within:border-green-500 focus-within:ring-2 focus-within:ring-green-500 focus-within:ring-offset-2",
-                isChecked && "border-green-500 bg-green-500",
-                error && "border-red-500",
-                props.disabled && "opacity-50 cursor-not-allowed",
-                className
-              )}
-            >
-              {isChecked && <Check className="w-3 h-3 text-white" />}
-            </div>
-          </div>
-          {label && (
-            <span
-              className={cn(
-                "text-sm text-gray-700 leading-5",
-                props.disabled && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              {label}
-            </span>
-          )}
-        </label>
-        {error && (
-          <p className="ml-8 text-sm font-medium text-red-500">{error}</p>
-        )}
-      </div>
-    );
+
   }
 );
 

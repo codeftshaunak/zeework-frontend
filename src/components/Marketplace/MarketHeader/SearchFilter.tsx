@@ -16,14 +16,7 @@ import Select from "react-select";
 import { getSkills } from "../../../helpers/APIs/freelancerApis";
 import { IoMdRefreshCircle } from "react-icons/io";
 
-export const SearchFilter = ({
-  categoryOptions,
-  loading,
-  setText,
-  route,
-  routeCategory,
-}) => {
-  const [skillsOption, setSkillsOption] = useState([]);
+export 
   const [selectedCategories, setSelectedCategories] = useState(
     routeCategory
       ? categoryOptions.filter((i) => i.value === routeCategory)
@@ -109,12 +102,6 @@ export const SearchFilter = ({
     setSelectedPrice("");
     setText("");
 
-    router.push(
-      `${route}${routeCategory && `category=${selectedCategories?.[0].value}`}`,
-      {
-        replace: true,
-      }
-    );
   };
 
   return (
@@ -126,86 +113,6 @@ export const SearchFilter = ({
 
         <IoMdRefreshCircle
           className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
-            loading && "animate-spin cursor-not-allowed"
-          }`}
-          onClick={() => {
-            if (!loading) resetSearching();
-          }}
-        />
-      </div>
-      {!routeCategory && (
-        <div className="mt-[10px] flex flex-col items-start w-full">
-          <span className="font-semibold">
-            Category
-          </span>
-          <Select
-            placeholder="Select Your Category"
-            className="w-full"
-            closeMenuOnSelect={false}
-            isMulti={true}
-            options={categoryOptions}
-            onChange={(value) => setSelectedCategories(value)}
-            value={selectedCategories}
-          />
-        </div>
-      )}
-      <div className="mt-[10px] flex flex-col items-start w-full">
-        <span className="font-semibold">
-          Technology
-        </span>
-        <Select
-          placeholder="Select Your Technology"
-          className="w-full"
-          isMulti={true}
-          isDisabled={!skillsOption?.length}
-          closeMenuOnSelect={false}
-          options={skillsOption}
-          onChange={(value) => setSelectedSkills(value)}
-          value={selectedSkills}
-          isLoading={isLoading}
-        />
-      </div>
-      <div className="flex flex-col items-start justify-start mt-5"
-      >
-        <span className="font-semibold">
-          Price Range
-        </span>
-        <div className="flex flex-col items-start max-lg:!flex-row gap-4 max-[540px]:!flex-col"
-        >
-          <div className="min-w-max flex flex-col">
-            <div className="flex flex-col items-start justify-start ml-5 w-full">
-              <RadioGroup.Root
-                colorScheme="primary"
-                value={selectedPrice}
-                onValueChange={(value) => setSelectedPrice(value)}
-              >
-                <div className="flex flex-col gap-2">
-                  <RadioGroup.Item value="">
-                    <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>Any Price Range</RadioGroup.ItemText>
-                  </RadioGroup.Item>
-                  <RadioGroup.Item value="10-100">
-                    <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>$10 - $100</RadioGroup.ItemText>
-                  </RadioGroup.Item>
-                  <RadioGroup.Item value="100-500">
-                    <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>$100 - $500</RadioGroup.ItemText>
-                  </RadioGroup.Item>
-                  <RadioGroup.Item value="500-">
-                    <RadioGroup.ItemHiddenInput />
-                    <RadioGroup.ItemIndicator />
-                    <RadioGroup.ItemText>$500 - $1000 or above</RadioGroup.ItemText>
-                  </RadioGroup.Item>
-                </div>
-              </RadioGroup.Root>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+
+
 };

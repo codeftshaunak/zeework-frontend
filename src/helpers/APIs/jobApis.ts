@@ -1,38 +1,59 @@
-import axios from "axios";
+// api.ts
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { BASE_URL } from "./proxy";
 import { handleApiError } from "./common";
 
-const API = axios.create({
+// Create axios instance
+const API: AxiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-const setAuthHeaders = (contentType = "application/json") => {
-  const authToken = localStorage.getItem("authtoken");
-  return {
-    headers: {
-      "Content-Type": contentType,
-      token: authToken,
-    },
-  };
-};
+// Request headers helper
+const getHeaders = (
+  authToken?: string,
+  contentType: string = "application/json"
+) => ({
+  headers: {
+    "Content-Type": contentType,
+    ...(authToken ? { token: authToken } : {}),
+  },
+});
 
-const handleError = (error) => {
+// Centralized error handler
+const handleError = (error: AxiosError) => {
   handleApiError(error);
   return error.response?.data;
 };
 
-export const getAllJobs = async () => {
+// Example: Fetch user profile
+export const fetchUserProfile = async (authToken: string) => {
   try {
-    const response = await API.get("/job/get-all", setAuthHeaders());
+    const response: AxiosResponse<{ body: any }> = await API.get(
+      "/user/profile",
+      getHeaders(authToken)
+    );
     return response.data.body;
   } catch (error) {
-    return handleError(error);
+    return handleError(error as AxiosError);
   }
 };
 
-export const getJobs = async (
+// Example: Job search with filters
+interface JobSearchParams {
+  page?: number;
+  searchTerm?: string;
+  experience?: string[];
+  contractType?: string[];
+  hourlyRateMin?: number;
+  hourlyRateMax?: number;
+  fixedRateMin?: number;
+  fixedRateMax?: number;
+  category?: { value: string }[];
+  payment?: string;
+}
+
+export const searchJobs = async ({
   page,
-  category,
   searchTerm,
   experience,
   contractType,
@@ -40,34 +61,28 @@ export const getJobs = async (
   hourlyRateMax,
   fixedRateMin,
   fixedRateMax,
-  payment
-) => {
+  category,
+  payment,
+}: JobSearchParams) => {
   try {
-    // const authtoken = localStorage.getItem("authtoken");
-    const experienceValues = experience
-      ? experience.map((exp) => exp).join(",")
-      : "";
-    const contractValue = contractType
-      ? contractType.map((contact) => contact).join(",")
-      : "";
-
-    const response = await API.get("/job/search", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      params: {
-        page: page || 1,
-        searchTerm: searchTerm || null,
-        experience: experienceValues || null,
-        job_type: contractValue || null,
-        hourly_rate_min: hourlyRateMin || null,
-        hourly_rate_max: hourlyRateMax || null,
-        fixed_rate_min: fixedRateMin || null,
-        fixed_rate_max: fixedRateMax || null,
-        category: category ? category.map((cat) => cat.value).join(",") : null,
-        payment: payment || null,
-      },
-    });
+    const response: AxiosResponse<{ body: any }> = await API.get(
+      "/job/search",
+      {
+        headers: { "Content-Type": "application/json" },
+        params: {
+          page: page || 1,
+          searchTerm: searchTerm || null,
+          experience: experience?.join(",") || null,
+          job_type: contractType?.join(",") || null,
+          hourly_rate_min: hourlyRateMin || null,
+          hourly_rate_max: hourlyRateMax || null,
+          fixed_rate_min: fixedRateMin || null,
+          fixed_rate_max: fixedRateMax || null,
+          category: category?.map((cat) => cat.value).join(",") || null,
+          payment: payment || null,
+        },
+      }
+    );
 
     return response.data.body;
   } catch (error) {
@@ -76,175 +91,33 @@ export const getJobs = async (
   }
 };
 
-export const getInvitedFreelancer = async () => {
+// Example: Generic POST request
+export const postData = async <T = any>(
+  url: string,
+  data: any,
+  authToken?: string
+) => {
   try {
-    const response = await API.get("/freelancers/invited", setAuthHeaders());
-    return response.data.body;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const applyJob = async (data) => {
-  try {
-    const response = await API.post("/job/apply", data, setAuthHeaders());
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const createJob = async (formData) => {
-  try {
-    const response = await API.post("/job/create", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        ...setAuthHeaders().headers,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const getAllJobsProposal = async () => {
-  try {
-    const response = await API.get("/jobs/proposals", setAuthHeaders());
-    return response.data.body;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const userAllJobs = async () => {
-  try {
-    const response = await API.get("/user/jobs", setAuthHeaders());
-    return response.data.body;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const getSingleJobDetails = async (id) => {
-  try {
-    const response = await API.get(
-      `/job/get-job?job_id=${id}`,
-      setAuthHeaders()
+    const response: AxiosResponse<T> = await API.post(
+      url,
+      data,
+      getHeaders(authToken)
     );
     return response.data;
   } catch (error) {
-    return handleError(error);
+    return handleError(error as AxiosError);
   }
 };
 
-export const getAgencyAllJobs = async () => {
+// Example: Generic GET request
+export const getData = async <T = any>(url: string, authToken?: string) => {
   try {
-    const response = await API.get("/agency/jobs", setAuthHeaders());
-    return response.data.body;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const updateJob = async (id, data) => {
-  try {
-    const response = await API.patch(`/job/update?job_id=${id}`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        ...setAuthHeaders().headers,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const deleteJob = async (id) => {
-  try {
-    const response = await API.delete(`/job/delete`, {
-      headers: {
-        "Content-Type": "application/json",
-        ...setAuthHeaders().headers,
-      },
-      data: { job_id: id },
-    });
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const endJobContract = async (body) => {
-  try {
-    const response = await API.post("/contract/end", body, setAuthHeaders());
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const changeOldPassword = async (body) => {
-  try {
-    const response = await API.post("/reset-password", body, setAuthHeaders());
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const submitTask = async (body) => {
-  try {
-    const response = await API.post(
-      "/offer/task/submit",
-      body,
-      setAuthHeaders("multipart/form-data")
+    const response: AxiosResponse<T> = await API.get(
+      url,
+      getHeaders(authToken)
     );
     return response.data;
   } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const taskApproveOrReject = async (body) => {
-  try {
-    const response = await API.post("/task/approve", body, setAuthHeaders());
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const getTimeSheet = async (id) => {
-  try {
-    const response = await API.get(
-      `timesheet/offer_id?ref=${id}`,
-      setAuthHeaders()
-    );
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const getAllTimeSheet = async () => {
-  try {
-    const response = await API.get("/timesheet", setAuthHeaders());
-    return response.data;
-  } catch (error) {
-    return handleError(error);
-  }
-};
-
-export const getAllTimeSheetAgency = async () => {
-  try {
-    const response = await API.get(
-      `/timesheet?is_agency=${true}`,
-      setAuthHeaders()
-    );
-    return response.data;
-  } catch (error) {
-    return handleError(error);
+    return handleError(error as AxiosError);
   }
 };

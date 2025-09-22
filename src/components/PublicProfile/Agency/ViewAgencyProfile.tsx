@@ -14,7 +14,7 @@ import DataNotAvailable from "../../DataNotAvailable/DataNotAvailable";
 // Types
 interface AgencyDetails {
   agency_name?: string;
-  [key: string]: any; // Allow for additional properties
+  [key: string]: unknown; // Allow for additional properties
 }
 
 interface ApiResponse {

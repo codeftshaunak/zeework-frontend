@@ -32,7 +32,7 @@ export const MainButtonRounded = ({
       style={buttonStyles}
       onClick={onClick}
     >
-      {isLoading && <BtnSpinner />} {children}
+      {isLoading ? "Loading..." : children}
     </button>
   );
 };
@@ -48,15 +48,7 @@ MainButtonRounded.propTypes = {
   type: PropTypes.oneOf(["reset", "button", "submit"]),
 };
 
-// export const MainButtonTranparentRounded = ({
-//   children,
-//   onClick,
-//   noRounded,
-// }) => {
-//   const buttonStyles = {
-//     borderRadius: noRounded ? "5px" : "50px",
-//   };
-
+// export 
 //   return (
 //     <button
 //       className="text-center font-semibold py-[6px] px-5 m-auto border transition duration-700 bg-white text-[var(--primarycolor)] hover:bg-[var(--primarycolor)] hover:text-white"

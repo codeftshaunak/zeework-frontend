@@ -9,7 +9,7 @@ import ClientSettings from "./ClientSettings/ClientSettings";
 import { useParams, useRouter } from "next/navigation";
 
 const ProfileSettingTemplate = () => {
-  const role = useSelector((state: any) => state?.auth?.role);
+  const role = useSelector((state: unknown) => state?.auth?.role);
   const { step: navStep } = useParams();
   const [step, setStep] = useState(navStep ? navStep : "password");
   const router = useRouter();
@@ -89,9 +89,6 @@ const ProfileSettingTemplate = () => {
 };
 
 export default ProfileSettingTemplate;
-
-const SettingsNav = ({ title, noBorder, active, setStep, step }) => {
-  const router = useRouter();
 
   const handleClick = () => {
     const newUrl = `/setting/${step}`;

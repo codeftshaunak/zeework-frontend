@@ -6,28 +6,23 @@ import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 import { SocketProvider } from "../contexts/SocketContext";
 import { CurrentUserProvider } from "../contexts/CurrentUser";
-import { FormStateProvider } from "../contexts/FormContext";
+import { FormProvider } from "../contexts/FormContext";
 import { Toaster } from "@/components/ui/sonner";
 import store from "../redux/store";
 
-// export const toaster = createToaster({
-//   placement: "top",
-// });
-
-
-
+// export 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       <CookiesProvider>
         <CurrentUserProvider>
           <SocketProvider>
-            <FormStateProvider>
+            <FormProvider>
 
               {children}
               <Toaster />
 
-            </FormStateProvider>
+            </FormProvider>
           </SocketProvider>
         </CurrentUserProvider>
       </CookiesProvider>

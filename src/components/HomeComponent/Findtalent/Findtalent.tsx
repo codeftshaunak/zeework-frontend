@@ -1,4 +1,5 @@
 /* eslint-disable react/no-children-prop */
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GreenButton } from "../../utils/Buttons/Buttons";
 
@@ -25,11 +26,11 @@ const Findtalent = () => {
                 src="./images/Underline.svg"
                 alt=""
               />
-              <img
+              <img alt=""
                 className="absolute z-10 left-[2%] -bottom-[7%] max-[1439px]:hidden"
                 src="./images/TalentEllipse.svg"
               />
-              <img
+              <img alt=""
                 className="absolute z-10 left-[25%] bottom-0 max-[1439px]:hidden"
                 src="./images/TalentCircle3.svg"
               />
@@ -53,15 +54,15 @@ const Findtalent = () => {
             </div>
           </div>
           <div className="w-full max-2xl:flex-1 xl:w-[755px] flex justify-center max-md:hidden relative">
-            <img
+            <img alt=""
               className="absolute z-10 -left-[5%] -bottom-[10%]"
               src="./images/TalentCircle1.svg"
             />
-            <img
+            <img alt=""
               className="absolute z-10 right-[calc(40.5%)] -bottom-[10%]"
               src="./images/TalentCircle2.svg"
             />
-            <img
+            <img alt=""
               className="absolute z-10 right-0 -bottom-[27.5%]"
               src="./images/TalentEllipse2.svg"
             />
@@ -69,14 +70,14 @@ const Findtalent = () => {
               <div className="flex gap-8 flex-col justify-between basis-[50%]">
                 <div className="basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                   <div className="bg-gradient-to-br from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                  <img
+                  <img alt=""
                     className="h-full w-full z-0"
                     src="images/TalentSectionImg1.png"
                   />
                 </div>
                 <div className="basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                   <div className="bg-gradient-to-l from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                  <img
+                  <img alt=""
                     className="h-full w-full z-0"
                     src="images/TalentSectionImg2.png"
                   />
@@ -84,7 +85,7 @@ const Findtalent = () => {
               </div>
               <div className="h-full basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                 <div className="bg-gradient-to-bl from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                <img
+                <img alt=""
                   className="h-full w-full z-0"
                   src="images/TalentSectionImg3.png"
                 />

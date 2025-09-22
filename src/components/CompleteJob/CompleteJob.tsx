@@ -1,5 +1,6 @@
 
 "use client";
+import { Avatar } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -120,72 +121,7 @@ const CompleteJob = () => {
                         />{" "}
                         <div>
                           <p className="text-2xl font-semibold">
-                            {client_details?.[0]?.firstName +
-                              " " +
-                              client_details?.[0]?.lastName}
-                          </p>{" "}
-                          {client_details?.[0]?.avg_review && (
-                            <div className="flex items-center">
-                              <StarRatings
-                                rating={client_details?.[0]?.avg_review}
-                                starDimension="18px"
-                                starSpacing="1px"
-                                starRatedColor="#22C35E"
-                                starEmptyColor="#8ab89b"
-                              />{" "}
-                              ({client_details?.[0]?.avg_review}) Reviews
-                            </div>
-                          )}
-                          {client_details?.[0]?.location && (
-                            <p className="flex items-center gap-1">
-                              <FaLocationDot />
-                              {client_details?.[0]?.location}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-lg font-semibold">Contract Title:</p>
-                        <p className="text-lg capitalize">
-                          {jobDetails?.contract_title}
-                        </p>
-                      </div>
 
-                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
-                        isDisabled={freelancer_review}
-                        onClick={() =>
-                          !freelancer_review &&
-                          router.push(`/submit-review/${_id}`, {
-                            state: {
-                              jobDetails: jobDetails,
-                              receiverDetails: client_details?.[0],
-                            },
-                          })
-                        }
-                      >
-                        {freelancer_review
-                          ? "Already Given Feedback"
-                          : "Send Feedback For Client"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <DataNotAvailable onRefresh={getInvitationDetails} />
-              )}
-            </Tabs.Content>
-            {jobDetails?.job_type === "hourly" && (
-              <Tabs.Content paddingX={0}>
-                {timeSheetLoading ? (
-                  <HorizontalCardSkeleton className="mt-3 sm:mt-5 lg:mt-10" />
-                ) : timeSheet?.details ? (
-                  <div className="mt-3 sm:mt-5 lg:mt-10">
-                    <JobTimeSheet data={timeSheet} />
-                  </div>
-                ) : (
-                  <DataNotAvailable
-                    onRefresh={() => {
-                      setTimeSheetLoading(true);
                       getOfferTimeSheet();
                     }}
                   />

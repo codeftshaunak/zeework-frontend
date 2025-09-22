@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, HStack, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import {
@@ -34,12 +35,7 @@ const InterviewPage = () => {
   //     getInvitationDetails();
   // }, [invite_id]);
 
-  // const performAction = async ({ statusValue }) => {
-  //     try {
-  //         const response = await acceptAgencyInvitation({
-  //             "invite_id": invite_id,
-  //             "status": statusValue,
-  //         });
+  // 
   //         if (response.code === 200) {
   //             const message = statusValue === "1" ? "Invitation Accepted Successfully!!!" : "You've Rejected Interview!!!";
   //             toast.default(message);
@@ -50,8 +46,7 @@ const InterviewPage = () => {
   //     }
   // };
 
-  // const sendMessage = (message) => {
-  //     console.log(message);
+  // 
   //     if (socket) {
   //         socket.emit("chat_message", {
   //             sender_id: jobDetails?.receiver_id,

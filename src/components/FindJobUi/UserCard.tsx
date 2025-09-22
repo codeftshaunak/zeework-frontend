@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 
@@ -20,7 +20,7 @@ const UserProfileCard = () => {
   const [cookies, setCookie] = useCookies(["activeagency"]);
   const { hasAgency, activeAgency, userAgencyLoading } =
     useContext(CurrentUserContext);
-  const profile = useSelector((state: any) => state.profile.profile);
+  const profile = useSelector((state: unknown) => state.profile.profile);
   const {
     profile_image,
     firstName,

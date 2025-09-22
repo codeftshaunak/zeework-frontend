@@ -73,12 +73,12 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
     agency_totalJob,
   } = agency || {};
 
-  const [stateData] = useState<any[]>([]);
-  const [cityData] = useState<any[]>([]);
+  const [stateData] = useState<unknown[]>([]);
+  const [cityData] = useState<unknown[]>([]);
   const [stateCode, setStateCode] = useState<string>("");
 
   const { name: countryName } =
-    (useSelector((state: any) => state?.profile?.agency?.agency_location) as {
+    (useSelector((state: unknown) => state?.profile?.agency?.agency_location) as {
       name?: string;
     }) || {};
 
@@ -136,157 +136,115 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
               className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
               onClick={() => handleUpdate("Office Location")}
             >
-              {agency_officeLocation?.country ? <RiEdit2Fill /> : <FiPlus />}
+              <RiEdit2Fill />
             </div>
           </div>
-
-          {!!agency_officeLocation?.country &&
-            agency_officeLocation?.street &&
-            agency_officeLocation?.state && (
-              <div className="flex items-center gap-1">
-                <MdLocationPin />
-                <span>
-                  {agency_officeLocation?.street},{" "}
-                  {agency_officeLocation?.state}
-                </span>
-              </div>
-            )}
+          <div className="flex items-center gap-2">
+            <MdLocationPin />
+            <span>
+              {agency_officeLocation?.state}, {agency_officeLocation?.country}
+            </span>
+          </div>
         </div>
 
-        {/* Company Info */}
-        <div className="flex flex-col gap-3 mt-6">
-          <AgencyTitle noAdded={true} isSmall={true}>
-            Company Information
-          </AgencyTitle>
-
-          {/* Agency Size */}
-          <div className="flex items-start gap-2">
+        {/* Agency Size */}
+        <div className="relative mt-3">
+          <div className="flex items-center mb-2">
+            <span className="font-semibold">Agency Size</span>
             <div
-              className="flex items-center justify-center w-5 h-5 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
-              onClick={() => handleUpdate("Agency Size", agency_size)}
+              className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+              onClick={() => handleUpdate("Agency Size")}
             >
-              {agency_size ? <RiEdit2Fill /> : <FiPlus />}
+              <RiEdit2Fill />
             </div>
-            {agency_size ? (
-              <div>
-                <span className="text-base font-medium">Agency Size: </span>
-                <span>{agency_size}</span>
-              </div>
-            ) : (
-              <span className="text-base font-medium">
-                Add Your Agency Size
-              </span>
-            )}
           </div>
+          <span>{agency_size || "Not specified"} team members</span>
+        </div>
 
-          {/* Founded Year */}
-          <div className="flex items-start gap-2">
+        {/* Founded Year */}
+        <div className="relative mt-3">
+          <div className="flex items-center mb-2">
+            <span className="font-semibold">Founded</span>
             <div
-              className="flex items-center justify-center w-5 h-5 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
-              onClick={() => handleUpdate("Founded", agency_foundedYear)}
+              className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+              onClick={() => handleUpdate("Founded")}
             >
-              {agency_foundedYear ? <RiEdit2Fill /> : <FiPlus />}
+              <RiEdit2Fill />
             </div>
-            {agency_foundedYear ? (
-              <div>
-                <span className="text-base font-medium">Agency Founded: </span>
-                <span>{agency_foundedYear}</span>
-              </div>
-            ) : (
-              <span className="text-base font-medium">
-                Add Year Agency Founded
-              </span>
-            )}
           </div>
+          <span>{agency_foundedYear || "Not specified"}</span>
+        </div>
 
-          {/* Focus */}
-          <div className="flex items-start gap-2">
+        {/* Focus Areas */}
+        <div className="relative mt-3">
+          <div className="flex items-center mb-2">
+            <span className="font-semibold">Focus</span>
             <div
-              className="flex items-center justify-center w-5 h-5 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+              className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
               onClick={() => handleUpdate("Focus")}
             >
-              {agency_focus?.length ? <RiEdit2Fill /> : <FiPlus />}
-            </div>
-            <div>
-              {agency_focus?.length ? (
-                <div>
-                  <span className="text-base font-medium">Agency Focus:</span>
-                  <ul className="flex flex-wrap gap-1 mt-1">
-                    {agency_focus.map((item, index) => (
-                      <li
-                        key={index}
-                        className="px-2 text-sm border rounded-full"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                <span className="text-base font-medium">
-                  Add Your Client Focus
-                </span>
-              )}
+              <RiEdit2Fill />
             </div>
           </div>
+          <div className="flex flex-wrap gap-2">
+            {agency_focus?.map((focus, index) => (
+              <span
+                key={index}
+                className="px-2 py-1 text-xs bg-gray-100 rounded"
+              >
+                {focus}
+              </span>
+            )) || <span>No focus areas specified</span>}
+          </div>
+        </div>
 
-          {/* Language */}
-          <div className="flex items-start gap-2">
+        {/* Language */}
+        <div className="relative mt-3">
+          <div className="flex items-center mb-2">
+            <span className="font-semibold">Language</span>
             <div
-              className="flex items-center justify-center w-5 h-5 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+              className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
               onClick={() => handleUpdate("Language")}
             >
-              {agency_language ? <RiEdit2Fill /> : <FiPlus />}
+              <RiEdit2Fill />
             </div>
-            {agency_language ? (
-              <div>
-                <span className="text-base font-medium">Language: </span>
-                <span>{agency_language}</span>
-              </div>
-            ) : (
-              <span className="text-base font-medium">Add Languages</span>
-            )}
           </div>
+          <span>{agency_language || "Not specified"}</span>
         </div>
       </div>
 
-      {/* Universal Modal */}
-      {isModal && (
+      {/* Modal */}
+      {modalOpen && (
         <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
           title={`Update ${modalType}`}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Hourly Rate */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {modalType === "Hourly Rate" && (
               <div>
-                <input
-                  type="number"
-                  {...register("agency_hourlyRate", {
-                    required: "Hourly rate is required",
-                  })}
-                  defaultValue={Number(value)}
-                  className="w-full px-3 py-1 border rounded"
+                <label className="block text-sm font-medium">Hourly Rate ($)</label>
+                <Controller
+                  name="agency_hourlyRate"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="number"
+                      className="w-full px-3 py-2 border rounded-md"
+                      placeholder="Enter hourly rate"
+                    />
+                  )}
                 />
                 {errors.agency_hourlyRate && (
-                  <ErrorMsg msg={errors.agency_hourlyRate.message || ""} />
+                  <ErrorMsg msg={errors.agency_hourlyRate.message} />
                 )}
               </div>
             )}
 
-            {/* Office Location */}
             {modalType === "Office Location" && (
-              <div>
-                <p>Your Country</p>
-                <select
-                  className="w-full px-2 py-1 border rounded"
-                  {...register("agency_officeLocation.country")}
-                  defaultValue={countryName}
-                >
-                  <option value={countryName}>{countryName}</option>
-                </select>
-                <div className="flex w-full gap-5 mt-3">
+              <div className="space-y-4">
+                <div className="flex gap-4">
                   <div className="w-1/2">
                     <p>Select State</p>
                     <Controller
@@ -296,7 +254,7 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
                         <Select
                           className="w-full"
                           inputRef={ref}
-                          onChange={(val: any, action: any) => {
+                          onChange={(val: unknown, action: unknown) => {
                             if (action.action === "create-option") {
                               onChange(action.option.value);
                               setStateCode("");
@@ -325,7 +283,7 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
                         <Select
                           className="w-full"
                           inputRef={ref}
-                          onChange={(val: any, action: any) => {
+                          onChange={(val: unknown, action: unknown) => {
                             if (action.action === "create-option") {
                               onChange(action.option.value);
                             } else {

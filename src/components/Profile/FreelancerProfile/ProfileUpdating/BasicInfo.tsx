@@ -123,76 +123,14 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ setIsModal }) => {
                   type="text"
                   className="w-full py-1.5 px-2 outline-none text-[14px] text-[#000] font-[400] border border-[var(--bordersecondary)] rounded-md"
                   placeholder="Professional Role"
-                  {...register("professional_role")}
-                />
-                {errors.professional_role && (
-                  <ErrorMsg msg={errors.professional_role.message} />
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-[2px]">
-              <p className="text-[14px] font-[500] text-[#374151]">Hourly</p>
-              <div>
-                <input
-                  type="number"
-                  className="w-full py-1.5 px-2 outline-none text-[14px] text-[#000] font-[400] border border-[var(--bordersecondary)] rounded-md"
-                  placeholder="Hourly Rate"
-                  {...register("hourly_rate")}
-                />
-                {errors.hourly_rate && (
-                  <ErrorMsg msg={errors.hourly_rate.message} />
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-[2px]">
-              <p className="text-[14px] font-[500] text-[#374151]">
-                Description
-              </p>
-              <div className="w-[100%]">
-                <QuillToolbar />
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactQuill
-                      {...field}
-                      onChange={(content) => {
-                        const cleanedContent = removeTrailingEmptyTags(content);
+
                         field.onChange(cleanedContent);
                       }}
                       theme="snow"
                       className="h-36 [&>*]:rounded-b-md"
                       modules={modules}
                       formats={formats}
-                    />
-                  )}
-                />
-                {errors.description && (
-                  <ErrorMsg msg={errors.description.message} />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-end gap-2 pt-5 w-full">
-          <button
-            disabled={isLoading}
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-          >
-            {isLoading ? (
-              <>
-                <BtnSpinner />
-                <span className="ml-2">Updating</span>
-              </>
-            ) : (
-              "Update Info"
-            )}
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+
 };
 
 export default BasicInfo;

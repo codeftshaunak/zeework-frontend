@@ -29,38 +29,8 @@ const ActiveJobSlider = ({ activeJobList }) => {
         }}
         modules={[Navigation]}
         navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-      >
-        {activeJobList?.length > 0 &&
-          activeJobList?.map((job, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <ActiveJobCard job={job} />
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
 
-      {activeJobList.length && (
-        <>
-          <button
-            ref={prevRef}
-            className="absolute top-1/2 -left-2 z-20 bg-green-100 rounded-full shadow -mt-4"
-          >
-            <IoArrowBack className="text-4xl p-2 text-green-500" />
-          </button>
-          <button
-            ref={nextRef}
-            className="absolute top-1/2 -right-2 z-20 bg-green-100 rounded-full shadow -mt-4"
-          >
-            <IoArrowForwardSharp className="text-4xl p-2 text-green-500" />
-          </button>
-        </>
-      )}
-    </div>
-  );
+
 };
 
 export default ActiveJobSlider;

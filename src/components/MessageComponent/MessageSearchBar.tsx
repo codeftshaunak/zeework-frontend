@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react";"
 
-import { FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";"
 
 interface MessageSearchBarProps {
   query: string;
@@ -10,7 +10,7 @@ interface MessageSearchBarProps {
 const MessageSearchBar: React.FC<MessageSearchBarProps> = ({ query, handleSearchingUser }) => {
   return (
     <div}}
-     className="relative">
+     className="relative">"
       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
         type="text"
         placeholder="Search Message by Name"
@@ -18,10 +18,10 @@ const MessageSearchBar: React.FC<MessageSearchBarProps> = ({ query, handleSearch
         pr={3}
         borderColor="gray.600"
         value={query}
-        onChange={(e) => handleSearchingUser(e.target.value)}
+        onChange={(e)  />=> handleSearchingUser(e.target.value)}
         className="truncate"
       />
-      <FaSearch className="absolute left-3 top-3.5 text-gray-300" />
+      <FaSearch className="absolute left-3 top-3.5 text-gray-300" />"
     </div>
   );
 };

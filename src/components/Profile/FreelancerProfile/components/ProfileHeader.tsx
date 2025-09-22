@@ -40,8 +40,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
     toast.success("Profile URL copied to clipboard");
   };
 
-  const getInitials = (firstName: string, lastName: string) => {
-    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  
   };
 
   return (
@@ -56,84 +55,5 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 name={`${profile.firstName} ${profile.lastName}`}
                 size="xl"
                 className="border-4 border-white shadow-lg"
-              />
-              {isOwner && (
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full p-0 shadow-md"
-                  onClick={onEditProfile}
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
 
-            <div className="flex-1">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                <div>
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                    {profile.firstName} {profile.lastName.charAt(0)}.
-                  </h1>
-                  <h2 className="text-lg lg:text-xl text-gray-600 font-medium">
-                    {profile.professional_role}
-                  </h2>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      <span className="capitalize">{profile.location}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{localTime} local time</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Badge variant="secondary" className="text-lg font-semibold px-4 py-2">
-                    ${profile.hourly_rate}/hr
-                  </Badge>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Description */}
-        {profile.description && (
-          <div className="mt-6">
-            <div
-              className="text-gray-700 leading-relaxed prose prose-gray max-w-none"
-              dangerouslySetInnerHTML={{ __html: profile.description }}
-            />
-          </div>
-        )}
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-3 mt-6">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopyProfileURL}
-            className="gap-2"
-          >
-            <Share2 className="h-4 w-4" />
-            Share Profile
-          </Button>
-
-          {isOwner && (
-            <Button
-              variant="gradient"
-              onClick={onSettingsClick}
-              className="gap-2"
-            >
-              <Settings className="h-4 w-4" />
-              Profile Settings
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
-  );
 };

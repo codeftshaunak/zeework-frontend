@@ -12,19 +12,7 @@ import ViewFreelancerProfile from "../PublicProfile/Freelancer/ViewFreelancerPro
 import ViewAgencyProfile from "../PublicProfile/Agency/ViewAgencyProfile";
 import DataNotAvailable from "../DataNotAvailable/DataNotAvailable";
 
-export const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: " 0",
-    borderRadius: "12px",
-  },
-};
-
+export 
 const UserProfile = () => {
   const { user_id, agency_profile } = useSelector(
     (state) => state.profile.profile

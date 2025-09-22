@@ -1,4 +1,5 @@
 /* eslint-disable react/no-children-prop */
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "../../ui/button";
 import { Badge } from "../../ui/badge";

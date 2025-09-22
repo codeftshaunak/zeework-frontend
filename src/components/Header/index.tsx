@@ -1,48 +1,46 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-
-
-import { Avatar } from "@/components/ui/migration-helpers";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { Avatar } from "@chakra-ui/react";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { differenceInHours, differenceInMinutes, format } from "date-fns";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+// Icons
 import { RiSearchLine } from "react-icons/ri";
 import { BsSearch } from "react-icons/bs";
-import { useCookies } from "react-cookie";
 import { LuSettings } from "react-icons/lu";
 import { BiExit, BiHelpCircle } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
-import { clearAuthData } from "../../redux/authSlice/authSlice";
-import { clearProfileData } from "../../redux/authSlice/profileSlice";
 import { FaUsers } from "react-icons/fa";
 import { IoBagCheck } from "react-icons/io5";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import useNotificationListener from "../../hooks/useNotificationListener";
-import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";
 import { FiBell, FiChevronLeft } from "react-icons/fi";
-import {
-  getNotifications,
-  readAsNotification,
-} from "../../helpers/APIs/userApis";
-import { differenceInHours, differenceInMinutes, format } from "date-fns";
-import {
-  clearMessageState,
-  setMessageUsers,
-} from "../../redux/messageSlice/messageSlice";
-import {
-  clearNotificationState,
-  setNotification,
-} from "../../redux/notificationSlice/notificationSlice";
-import { getMessageUsers } from "../../helpers/APIs/messageApis";
 import { HiMenu, HiOutlineX, HiOutlineXCircle } from "react-icons/hi";
 import { TbLogout } from "react-icons/tb";
 import { GoArrowSwitch } from "react-icons/go";
-import { motion } from "framer-motion";
+
+// Redux
+import { clearAuthData } from "../../redux/authSlice/authSlice";
+import { clearProfileData } from "../../redux/authSlice/profileSlice";
+import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";
+import { clearMessageState, setMessageUsers } from "../../redux/messageSlice/messageSlice";
+import { clearNotificationState, setNotification } from "../../redux/notificationSlice/notificationSlice";
+
+// APIs
+import { getNotifications, readAsNotification } from "../../helpers/APIs/userApis";
+import { getMessageUsers } from "../../helpers/APIs/messageApis";
+
+// Hooks
+import useNotificationListener from "../../hooks/useNotificationListener";
 import useUserActivityListener from "../../hooks/useUserActivityListener";
 
-export const Header = () => {
+const Header = () => {
   const router = useRouter();
 
   const navigation = [
@@ -70,6 +68,7 @@ export const Header = () => {
               />
             </div>
           </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden min-[840px]:flex items-center space-x-8">
             {navigation.map((item, i) => (
@@ -83,99 +82,104 @@ export const Header = () => {
               </button>
             ))}
           </nav>
+
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Search Button - Mobile (placeholder for future search functionality) */}
+            {/* Search Button (placeholder for future search functionality) */}
             <button
               onClick={() => {
                 // TODO: Implement search functionality
                 console.log("Search clicked");
               }}
-              className="min-[840px]:hidden p-2 text-gray-600 hover:text-green-600 transition-colors duration-200"
+              className="hidden min-[840px]:block text-gray-700 hover:text-green-600 p-2 rounded-lg transition-colors duration-200"
             >
-              <RiSearchLine className="w-5 h-5" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </button>
 
             {/* Desktop Auth Buttons */}
             <div className="hidden min-[840px]:flex items-center space-x-3">
               <button
                 onClick={() => router.push("/login")}
-                className="text-gray-700 hover:text-green-600 font-medium transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-gray-50"
+                className="text-gray-700 hover:text-green-600 font-medium px-4 py-2 rounded-lg transition-colors duration-200"
               >
                 Log In
               </button>
               <button
                 onClick={() => router.push("/signup")}
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
               >
                 Sign Up
               </button>
             </div>
-          </div>
 
-          {/* Mobile menu button */}
-          <div className="min-[840px]:hidden">
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-green-600 transition-colors duration-200"
+              className="min-[840px]:hidden text-gray-700 hover:text-green-600 p-2"
             >
-              {isOpen ? <HiOutlineX className="w-6 h-6" /> : <HiMenu className="w-6 h-6" />}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
-      </div>
 
-          {/* Mobile menu */}
-          {isOpen && (
-            <div className="fixed inset-0 z-40 bg-white min-[840px]:hidden">
-              <div className="px-4 pt-20 pb-8">
-                <div className="space-y-6">
-                  {/* Mobile Navigation Links */}
-                  <div className="space-y-1">
-                    {navigation.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          router.push(item.href);
-                          setIsOpen(false);
-                        }}
-                        className="block w-full text-left px-4 py-3 text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                      >
-                        {item.title}
-                      </button>
-                    ))}
-                  </div>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="min-[840px]:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+              {/* Mobile Navigation Links */}
+              <div className="space-y-1">
+                {navigation.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      router.push(item.href);
+                      setIsOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-3 text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                  >
+                    {item.title}
+                  </button>
+                ))}
+              </div>
 
-                  {/* Mobile Auth Buttons */}
-                  <div className="pt-6 space-y-3 border-t border-gray-200">
-                    <button
-                      onClick={() => {
-                        router.push("/login");
-                        setIsOpen(false);
-                      }}
-                      className="block w-full text-center py-3 text-lg font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
-                    >
-                      Log In
-                    </button>
-                    <button
-                      onClick={() => {
-                        router.push("/signup");
-                        setIsOpen(false);
-                      }}
-                      className="block w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-medium transition-colors duration-200"
-                    >
-                      Sign Up
-                    </button>
-                  </div>
-                </div>
+              {/* Mobile Auth Buttons */}
+              <div className="pt-6 space-y-3 border-t border-gray-200">
+                <button
+                  onClick={() => {
+                    router.push("/login");
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-center py-3 text-lg font-medium text-gray-700 hover:text-green-600 transition-colors duration-200"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => {
+                    router.push("/signup");
+                    setIsOpen(false);
+                  }}
+                  className="block w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-medium transition-colors duration-200"
+                >
+                  Sign Up
+                </button>
               </div>
             </div>
-          )}
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
 
-export const AuthHeader = ({ role }: { role: number }) => {
+export const AuthHeader = ({ role }: { role: string }) => {
   const messageUsers = useSelector((state: any) => state.message.users);
   const notifications = useSelector((state: any) => state.notification.notification);
   const [openInfo, setOpenInfo] = useState(false);
@@ -187,7 +191,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   const pathname = usePathname();
   const isMessagePage = pathname.startsWith("/message");
   const activeAgency = cookie?.activeagency;
-  const selectModalRef = useRef<HTMLDivElement>(null);
+  const selectModalRef = useRef(null);
   const profile = useSelector((state: any) => state.profile);
   const {
     profile_image,
@@ -208,17 +212,17 @@ export const AuthHeader = ({ role }: { role: number }) => {
   const [isMenuRef, setIsMenuRef] = useState(false);
 
   // Create a Set to store unique receiver_id values
-  const unReadMsg = messageUsers?.filter((user) => {
+  const unReadMsg = messageUsers?.filter((user: any) => {
     const hasContractRef = user.contract_details?.contract_ref;
     const isUnread = !user.isRead;
     return hasContractRef && isUnread;
   });
 
-  const sortedNotifications = [...notifications].sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  const sortedNotifications = [...(notifications || [])].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
   let hasUnreadNotifications = notifications?.some(
-    (notification) => !notification.isRead
+    (notification: any) => !notification.isRead
   );
 
   const handleProfileButton = (event: React.MouseEvent) => {
@@ -227,12 +231,13 @@ export const AuthHeader = ({ role }: { role: number }) => {
   };
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleLogout = () => {
     dispatch(clearMessageState());
     setCookie("activeagency", false);
-    dispatch(clearAuthData()); // Dispatch the clearAuthData action to reset the state
-    dispatch(clearProfileData()); // Dispatch the clearAuthData action to reset the state
+    dispatch(clearAuthData());
+    dispatch(clearProfileData());
     dispatch(clearPagesState());
     dispatch(clearMessageState());
     dispatch(clearNotificationState());
@@ -241,13 +246,11 @@ export const AuthHeader = ({ role }: { role: number }) => {
 
   const handleUserProfile = () => {
     router.push(
-      `/profile/${role == 2 ? "c" : activeAgency ? "a" : "f"}/${
+      `/profile/${Number(role) == 2 ? "c" : activeAgency ? "a" : "f"}/${
         activeAgency ? agency_profile : user_id
       }`
     );
   };
-
-  const router = useRouter();
 
   const getInitialSelectedRole = () => {
     if (pathname === "/marketplace") {
@@ -257,14 +260,12 @@ export const AuthHeader = ({ role }: { role: number }) => {
     } else if (pathname === "/search-job") {
       return "job";
     } else {
-      return role == 2 ? "talent" : "job";
+      return Number(role) == 2 ? "talent" : "job";
     }
   };
 
   const [selectedRole, setSelectedRole] = useState(getInitialSelectedRole);
   const [searchTerm, setSearchTerm] = useState("");
-
-  // ======= search for jobs and talent
 
   const handelSelectedValue = (value: string) => {
     setSelectedRole(value);
@@ -290,10 +291,10 @@ export const AuthHeader = ({ role }: { role: number }) => {
   };
 
   // handle close select option when click on outside
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = (event: any) => {
     if (
       selectModalRef.current &&
-      !selectModalRef.current.contains(event.target as Node)
+      !(selectModalRef.current as any).contains(event.target)
     ) {
       setOpenInfo(false);
       setIsSelectModal(false);
@@ -303,7 +304,6 @@ export const AuthHeader = ({ role }: { role: number }) => {
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isSelectModal, openInfo, isOpenNotification]);
 
@@ -318,7 +318,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
             if (!newUser)
               dispatch(
                 setMessageUsers(
-                  messageUsers.map((item) => {
+                  messageUsers.map((item: any) => {
                     if (
                       item.contract_details.contract_ref ===
                         data.contract_ref &&
@@ -347,7 +347,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
           if (userId == data.user_id) {
             dispatch(setNotification(data.notifications));
             hasUnreadNotifications = notifications?.some(
-              (notification) => !notification.isRead
+              (notification: any) => !notification.isRead
             );
           }
         },
@@ -361,7 +361,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   useUserActivityListener((data: any) => {
     if (data && messageUsers?.length) {
       const isUser = messageUsers?.find(
-        (i) =>
+        (i: any) =>
           i.user_details.user_id === data.user.user_id ||
           i.user_details._id === data.user?.agency_id
       );
@@ -369,7 +369,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
       if (isUser) {
         dispatch(
           setMessageUsers(
-            messageUsers.map((i) =>
+            messageUsers.map((i: any) =>
               i.user_details.user_id === data.user.user_id ||
               i.user_details._id === data.user?.agency_id
                 ? {
@@ -415,6 +415,10 @@ export const AuthHeader = ({ role }: { role: number }) => {
     markType = "single",
     status = true,
     notificationId = "",
+  }: {
+    markType?: string;
+    status?: boolean;
+    notificationId?: string;
   }) => {
     try {
       const { code, body } = await readAsNotification({
@@ -429,12 +433,11 @@ export const AuthHeader = ({ role }: { role: number }) => {
     }
   };
 
-  const getTimeDifference = (date: any) => {
+  const getTimeDifference = (date: string | Date) => {
     if (!date) return "Invalid date";
 
-    // Parse the date if it is a string
     const parsedDate = typeof date === "string" ? new Date(date) : date;
-    if (isNaN(parsedDate)) return "Invalid date";
+    if (isNaN(parsedDate.getTime())) return "Invalid date";
 
     const now = new Date();
 
@@ -451,7 +454,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
 
   // slice any type of string
   const truncateString = (str: string, num: number) => {
-    if (!str || !num) return;
+    if (!str || !num) return "";
 
     if (str?.length <= num) {
       return str;
@@ -465,9 +468,9 @@ export const AuthHeader = ({ role }: { role: number }) => {
   }, [activeAgency]);
 
   return (
-    <nav className="bg-white/98 backdrop-blur-lg w-full border-b border-gray-100 shadow-sm">
-      <div className="w-full px-6 lg:px-12">
-        <div className="flex items-center md:justify-between justify-between h-20">
+    <nav className="bg-white w-full shadow-slate-700 border-b-[1px] items-center">
+      <div className="w-[90%] mx-auto sm:py-1 justify-between max-w-[1200px]">
+        <div className=" flex m-auto items-center md:justify-between justify-between h-16">
           <div className="inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
             {isOpen && isMenuRef ? (
@@ -489,33 +492,33 @@ export const AuthHeader = ({ role }: { role: number }) => {
             )}
           </div>
           <div className="flex items-center flex-1 max-sm:justify-center">
-            <div className="flex md:w-[140px] items-center">
-              <div
-                className="cursor-pointer group"
+            <div className="flex md:w-[130px] items-center">
+              <p
+                className="text-[22px] font-bold text-green-500 cursor-pointer text-right mb-0 pb-0"
                 onClick={() => router.push("/")}
               >
                 <img
                   src="/images/zeework_logo.png"
-                  alt="ZeeWork"
-                  className="h-6 w-auto transition-transform group-hover:scale-105"
+                  style={{
+                    width: "100px",
+                    marginTop: "3px",
+                    margin: "auto",
+                  }}
                 />
-              </div>
+              </p>
             </div>
             <div className="hidden sm:flex sm:ml-2 md:ml-6 flex-1 max-lg:justify-center">
               <div className="flex gap-3 min-[920px]:gap-9">
                 <NavItem
-                  title={role == 1 ? "Find Work" : "Dashboard"}
-                  url={role == 1 ? "/find-job" : "/client-dashboard"}
-                  additionalActiveRoutes={role == 1 ? ["/search-job"] : []}
+                  title={Number(role) == 1 ? "Find Work" : "Dashboard"}
+                  url={Number(role) == 1 ? "/find-job" : "/client-dashboard"}
+                  additionalActiveRoutes={Number(role) == 1 ? ["/search-job"] : []}
                 />
 
-                {role == 1 && <NavItem title="My Jobs" url="/my-jobs" />}
-                <NavItem title="My Stats" url="/my-stats" />
-                {/* {role == 2 && (
-                  <NavItem title="Marketplace" url="/marketplace" />
-                )} */}
+                {Number(role) == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
+                <NavItem title={"My Stats"} url="/my-stats" />
                 <NavItem
-                  title="Messages"
+                  title={"Messages"}
                   url="/message"
                   isNotification={unReadMsg?.length}
                 />
@@ -524,23 +527,26 @@ export const AuthHeader = ({ role }: { role: number }) => {
           </div>
           <div className="right-0 flex sm:block items-center sm:static sm:inset-auto md:ml-6 sm:pr-0">
             <div className="hidden sm:hidden lg:flex whitespace-no-wrap items-center justify-center my-2 pl-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md  focus:outline-none focus:shadow-outline-indigo transition ease-in-out duration-150">
-              <div className="flex w-[300px] xl:w-[400px] mr-3">
-                {/* Professional Search Bar */}
+              <div className="flex w-[320px] xl:w-[400px] mr-3">
+                {/* ========== search ======= */}
                 <div
-                  className={`flex w-full items-center rounded-lg border transition-all duration-200 ${
-                    isHover || isActiveInput
-                      ? "border-green-300 bg-white shadow-md"
-                      : "border-gray-200 bg-gray-50"
-                  }`}
+                  className={`flex w-[400px] items-center rounded-full border-[var(--bordersecondary)] border-[1px] justify-between mr-3 bg-[#F0F2F5]
+                  `}
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
                 >
-                  <div className="w-full rounded-lg flex items-center gap-2 py-2 pl-3">
-                    <BsSearch className={`text-sm ${isHover || isActiveInput ? "text-green-600" : "text-gray-400"} transition-colors`} />
+                  <div
+                    className={`w-full rounded-full flex items-center gap-2 py-2 pl-4 ${
+                      isHover || isActiveInput
+                        ? "bg-white border-r border-[var(--bordersecondary)]"
+                        : "bg-[#F0F2F5]"
+                    }`}
+                  >
+                    <BsSearch />
                     <input
-                      placeholder="Search..."
+                      placeholder="Search"
                       type="text"
-                      className="border-none outline-none text-sm bg-transparent w-full placeholder:text-gray-400"
+                      className={`border-none outline-none text-[15px] bg-transparent`}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       onFocus={() => setIsActiveInput(true)}
                       onBlur={() => setIsActiveInput(false)}
@@ -553,71 +559,53 @@ export const AuthHeader = ({ role }: { role: number }) => {
                     />
                   </div>
 
-                  <div className="relative border-l border-gray-200 pl-3">
-                    <button
-                      className="px-4 py-2 capitalize cursor-pointer flex items-center gap-2 text-gray-700 hover:text-green-600 font-medium transition-colors rounded-lg hover:bg-gray-50"
+                  <div className="relative">
+                    <p
+                      className="px-3 capitalize cursor-pointer flex items-center gap-2"
                       onClick={(event) => {
                         setIsSelectModal(!isSelectModal),
                           event.stopPropagation();
                       }}
                     >
                       {selectedRole}
-                      {isSelectModal ? <IoIosArrowUp className="text-sm" /> : <IoIosArrowDown className="text-sm" />}
-                    </button>
+                      {isSelectModal ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                    </p>{" "}
                     {isSelectModal && (
                       <>
                         <ul
-                          className="absolute top-[50px] right-0 bg-white border border-gray-200 shadow-xl transition-all rounded-xl overflow-hidden w-56 z-50"
+                          className="absolute top-[42px] right-2 bg-white border-slate-200 border transition-all rounded-md overflow-hidden w-48 z-50"
                           ref={selectModalRef}
                         >
                           <li
-                            className="px-4 py-3 hover:bg-green-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0"
+                            className="px-3 py-1 hover:bg-slate-100 cursor-pointer"
                             onClick={() => {
                               handelSelectedValue("job");
                             }}
                           >
-                            <div className="flex gap-3 items-center">
-                              <div className="p-2 rounded-lg bg-blue-100">
-                                <IoBagCheck className="text-lg text-blue-600" />
-                              </div>
+                            <div className="flex gap-2">
+                              <IoBagCheck className="text-xl mt-1" />{" "}
                               <div>
-                                <p className="font-semibold text-gray-900">Jobs</p>
-                                <p className="text-sm text-gray-500">
-                                  Apply to job postings
+                                <p>Jobs</p>{" "}
+                                <p className="text-[12px] -mt-1">
+                                  Apply to job posted
                                 </p>
                               </div>
                             </div>
                           </li>
                           <li
-                            className="px-4 py-3 hover:bg-green-50 cursor-pointer transition-colors"
+                            className="px-3 py-1 hover:bg-slate-100 cursor-pointer"
                             onClick={() => handelSelectedValue("talent")}
                           >
-                            <div className="flex gap-3 items-center">
-                              <div className="p-2 rounded-lg bg-green-100">
-                                <FaUsers className="text-lg text-green-600" />
-                              </div>
+                            <div className="flex gap-2">
+                              <FaUsers className="text-xl mt-1" />{" "}
                               <div>
-                                <p className="font-semibold text-gray-900">Talent</p>
-                                <p className="text-sm text-gray-500">
+                                <p>Talent</p>{" "}
+                                <p className="text-[12px] -mt-1">
                                   Hire professionals
                                 </p>
                               </div>
                             </div>
                           </li>
-                          {/* <li
-                            className="px-3 py-1 hover:bg-slate-100 cursor-pointer"
-                            onClick={() => handelSelectedValue("marketplace")}
-                          >
-                            <div className="flex gap-2">
-                              <AiFillAppstore className="text-xl mt-1" />
-                              <div>
-                                <p>Marketplace</p>{" "}
-                                <p className="text-[12px] -mt-1">
-                                  Find professional gigs
-                                </p>
-                              </div>
-                            </div>
-                          </li> */}
                         </ul>
                         <div className="h-5 w-5 bg-slate-200 shadow-sm rotate-45 absolute top-[38px] right-10"></div>
                       </>
@@ -626,23 +614,21 @@ export const AuthHeader = ({ role }: { role: number }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 relative">
+              <div className="flex items-center gap-6 relative">
                 <div
-                  className={`relative p-2 rounded-lg transition-all duration-200 ${
-                    isOpenNotification ? "bg-green-50" : "hover:bg-gray-50"
+                  className={`relative p-2 rounded-full ${
+                    isOpenNotification && "bg-slate-100"
                   }`}
                 >
                   <FiBell
-                    className={`text-lg cursor-pointer transition-colors ${
-                      isOpenNotification ? "text-green-600" : "text-gray-500 hover:text-green-600"
-                    }`}
+                    className={`text-2xl text-gray-400 cursor-pointer`}
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsOpenNotification(!isOpenNotification);
                     }}
                   />
                   {hasUnreadNotifications && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500 absolute top-2 right-2 animate-pulse"></div>
+                    <div className="w-2 h-2 rounded-full bg-red-500 absolute top-2 right-2.5"></div>
                   )}
                   {isOpenNotification && (
                     <>
@@ -664,7 +650,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                         )}
                         <div className="w-full overflow-y-auto text-sm flex flex-col">
                           {sortedNotifications?.length ? (
-                            sortedNotifications?.map((item) => (
+                            sortedNotifications?.map((item: any) => (
                               <div
                                 key={item._id}
                                 className={`${
@@ -703,13 +689,13 @@ export const AuthHeader = ({ role }: { role: number }) => {
                   )}
                 </div>
                 <div
-                  className="flex items-center justify-center rounded-full cursor-pointer p-1 hover:bg-gray-50 transition-colors overflow-hidden"
-                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
+                  className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer"
+                  onClick={(e) => handleProfileButton(e)}
                 >
                   {firstName || profile?.agency?.agency_name ? (
                     <Avatar
                       src={
-                        role == 1
+                        Number(role) == 1
                           ? activeAgency
                             ? profile?.agency?.agency_profileImage
                             : profile_image
@@ -720,54 +706,51 @@ export const AuthHeader = ({ role }: { role: number }) => {
                           ? profile?.agency?.agency_name
                           : firstName + " " + lastName
                       }
-                      boxSize="36px"
-                      className="object-cover rounded-full overflow-hidden"
+                      boxSize="40px"
                     />
                   ) : (
-                    <Avatar boxSize="36px" className="object-cover rounded-full overflow-hidden" />
+                    <Avatar boxSize="40px" />
                   )}
                 </div>
                 {openInfo && (
                   <>
                     <div
-                      className="absolute bg-white p-3 rounded-xl right-12 top-2 w-48 border border-gray-200 shadow-xl transition-all z-50"
+                      className="absolute bg-white p-2 rounded-lg right-12 top-2 w-[120px] gap-5 border-slate-200 border transition-all z-50"
                       ref={selectModalRef}
                     >
                       <div
-                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
+                        className="flex  items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={handleUserProfile}
                       >
-                        <CgProfile className="text-lg text-gray-600 group-hover:text-green-600" />
-                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Profile</p>
+                        <CgProfile />
+                        <p className="text-sm ml-2">Profile</p>
                       </div>
                       <div
-                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
+                        className="flex items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={() => {
                           router.push("/setting"), setOpenInfo(false);
                         }}
                       >
-                        <LuSettings className="text-lg text-gray-600 group-hover:text-green-600" />
-                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Settings</p>
+                        <LuSettings />
+                        <p className="text-sm ml-2">Settings</p>
                       </div>
 
                       <div
-                        className="flex items-center w-full cursor-pointer hover:bg-green-50 py-3 px-3 rounded-lg transition-colors group"
+                        className="flex items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={() => {
                           router.push("/help"), setOpenInfo(false);
                         }}
                       >
-                        <BiHelpCircle className="text-lg text-gray-600 group-hover:text-green-600" />
-                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-green-700">Help</p>
+                        <BiHelpCircle />
+                        <p className="text-sm ml-2">Help</p>
                       </div>
 
-                      <hr className="my-2 border-gray-200" />
-
                       <div
-                        className="flex items-center w-full cursor-pointer hover:bg-red-50 py-3 px-3 rounded-lg transition-colors group"
+                        className="flex  items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={() => handleLogout()}
                       >
-                        <BiExit className="text-lg text-gray-600 group-hover:text-red-600" />
-                        <p className="text-sm ml-3 font-medium text-gray-700 group-hover:text-red-700">Logout</p>
+                        <BiExit />
+                        <p className="text-sm ml-2">Logout</p>
                       </div>
                     </div>
                     <div className="h-5 w-5 bg-slate-200 shadow-sm rotate-45 absolute top-3 right-11"></div>
@@ -791,14 +774,13 @@ export const AuthHeader = ({ role }: { role: number }) => {
 
           <div className="hidden sm:flex lg:hidden gap-3 relative ">
             <div
-              className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer overflow-hidden"
+              className="flex items-center justify-center rounded-full w-[36px] h-[36px] cursor-pointer"
               onClick={(e) => handleProfileButton(e)}
             >
               <Avatar
                 src={profile_image}
                 name={firstName && firstName + " " + lastName}
                 boxSize="40px"
-                className="object-cover rounded-full overflow-hidden"
               />
             </div>
             {openInfo && (
@@ -859,20 +841,16 @@ export const AuthHeader = ({ role }: { role: number }) => {
               <div>
                 <div className="grid gap-3 tracking-wide">
                   <NavItem
-                    title={role == 1 ? "Find Work" : "Dashboard"}
-                    url={role == 1 ? "/find-job" : "/client-dashboard"}
+                    title={Number(role) == 1 ? "Find Work" : "Dashboard"}
+                    url={Number(role) == 1 ? "/find-job" : "/client-dashboard"}
                   />
 
-                  {role == 1 && <NavItem title="My Jobs" url="/my-jobs" />}
+                  {Number(role) == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
 
-                  <NavItem title="My Stats" url="/my-stats" />
-
-                  {/* {role == 2 && (
-                    <NavItem title="Marketplace" url="/marketplace" />
-                  )} */}
+                  <NavItem title={"My Stats"} url="/my-stats" />
 
                   <NavItem
-                    title="Messages"
+                    title={"Messages"}
                     url="/message"
                     isNotification={unReadMsg?.length}
                   />
@@ -881,7 +859,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                   <div className="p-2 rounded bg-slate-100 transition duration-300">
                     <div className="flex justify-between items-center gap-3">
                       <div className="flex items-center gap-2">
-                        {role == 1 ? (
+                        {Number(role) == 1 ? (
                           <>
                             {!activeAgency ? (
                               <>
@@ -889,8 +867,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                                   src={profile_image}
                                   name={firstName + " " + lastName}
                                   boxSize="40px"
-                                  className="object-cover rounded-full overflow-hidden"
-                                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
+                                  onClick={(e) => handleProfileButton(e)}
                                 />
                                 <div>
                                   <p className="font-medium text-lg">
@@ -905,8 +882,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                                   src={agency_profileImage}
                                   name={agency_name}
                                   boxSize="40px"
-                                  className="object-cover rounded-full overflow-hidden"
-                                  onClick={(e: React.MouseEvent) => handleProfileButton(e)}
+                                  onClick={(e) => handleProfileButton(e)}
                                 />
                                 <div>
                                   <p className="font-medium text-lg">
@@ -930,8 +906,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                               src={profile_image}
                               name={firstName + " " + lastName}
                               boxSize="40px"
-                              className="object-cover rounded-full overflow-hidden"
-                              onClick={(e: React.MouseEvent) => handleProfileButton(e)}
+                              onClick={(e) => handleProfileButton(e)}
                             />
                             <div>
                               <p className="font-medium text-lg">
@@ -942,7 +917,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
                           </>
                         )}
                       </div>
-                      {role == 1 && (
+                      {Number(role) == 1 && (
                         <div
                           className="w-fit"
                           onClick={() =>
@@ -955,9 +930,8 @@ export const AuthHeader = ({ role }: { role: number }) => {
                     </div>
                     <div
                       className={
-                        openInfo
-                          ? "bg-white p-2 rounded-lg w-full transition-all mt-2"
-                          : ""
+                        openInfo &&
+                        "bg-white p-2 rounded-lg w-full transition-all mt-2"
                       }
                     >
                       <motion.div
@@ -969,15 +943,15 @@ export const AuthHeader = ({ role }: { role: number }) => {
                         {openInfo && (
                           <div ref={selectModalRef} className="grid gap-1">
                             <NavItem
-                              title="Profile"
+                              title={"Profile"}
                               url={`/profile/${
-                                role == 2 ? "c" : activeAgency ? "a" : "f"
+                                Number(role) == 2 ? "c" : activeAgency ? "a" : "f"
                               }/${activeAgency ? agency_profile : user_id}`}
                             />
 
-                            <NavItem title="Setting" url="/setting" />
+                            <NavItem title={"Setting"} url={"/setting"} />
 
-                            <NavItem title="Help" url="/help" />
+                            <NavItem title={"Help"} url={"/help"} />
 
                             <div
                               className="flex gap-1 items-center cursor-pointer font-semibold"
@@ -1098,4 +1072,4 @@ const NavItem = ({
   );
 };
 
-export default NavItem;
+export default Header;

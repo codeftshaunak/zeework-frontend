@@ -1,6 +1,7 @@
 
-"use client";
-import React from "react";
+"use client";"
+import { Checkbox } from "@chakra-ui/react";
+import React from "react";"
 
 import {
   Checkbox,
@@ -10,32 +11,32 @@ import {
   InputLeftElement,
   Textarea,
   VStack,
-} from "@/components/ui/migration-helpers";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import * as yup from "yup";
-import { GigCreateLayout } from "../GigCreate";
-import { PiHourglassMediumFill } from "react-icons/pi";
-import { MdOutlineRepeat } from "react-icons/md";
+} from "@/components/ui/migration-helpers";"
+import { yupResolver } from "@hookform/resolvers/yup";"
+import { useEffect } from "react";"
+import { Controller, FormProvider, useForm } from "react-hook-form";"
+import * as yup from "yup";"
+import { GigCreateLayout } from "../GigCreate";"
+import { PiHourglassMediumFill } from "react-icons/pi";"
+import { MdOutlineRepeat } from "react-icons/md";"
 
 // validation schema
 const schema = yup.object().shape({
   pricing: yup.object().shape({
-    // custom_title: yup.string().label("Pricing Title").required(),
-    // custom_description: yup.string().label("Description").required(),
+    // custom_title: yup.string().label("Pricing Title").required(),"
+    // custom_description: yup.string().label("Description").required(),"
     service_price: yup
       .number()
-      .label("Service Price")
-      .required("Service price is required")
-      .min(10, "Service price must be at least $10"),
+      .label("Service Price")"
+      .required("Service price is required")"
+      .min(10, "Service price must be at least $10"),"
     delivery_days: yup
       .number()
-      .label("Delivery Days")
-      .required("Delivery days is required")
-      .min(1, "Delivery days must be at least 1 day")
+      .label("Delivery Days")"
+      .required("Delivery days is required")"
+      .min(1, "Delivery days must be at least 1 day")"
       .default(0),
-    revisions: yup.number().label("Revisions").required().default(1),
+    revisions: yup.number().label("Revisions").required().default(1),"
     // service_options: yup
     //   .object()
     //   .shape({
@@ -45,8 +46,8 @@ const schema = yup.object().shape({
     //     source_code: yup.boolean(),
     //   })
     //   .test(
-    //     "atLeastOneRequired",
-    //     "Please select at least one service option.",
+    //     "atLeastOneRequired","
+    //     "Please select at least one service option.","
     //     (value) => {
     //       return Object.values(value).some((option) => option === true);
     //     }
@@ -57,8 +58,8 @@ const schema = yup.object().shape({
 // default values for the step
 const defaultValues = {
   pricing: {
-    custom_title: "",
-    custom_description: "",
+    custom_title: "","
+    custom_description: "","
     service_price: null,
     delivery_days: null,
     revisions: 1,
@@ -102,184 +103,24 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Gig Price & Scope" onBackward={onBack}>
-          <div className="flex flex-col className="items-start">
-            {/* <label htmlFor="" className="text-2xl font-[600] pb-0 capitalize">
+        <GigCreateLayout title="Gig Price & Scope" onBackward={onBack}>"
+          <div className="flex flex-col className="items-start">"
+            {/* <label htmlFor="" className="text-2xl font-[600] pb-0 capitalize">"
               Create pricing tiers
             </label> */}
-            {/* <label htmlFor="" className="text-xl font-[600] pb-0">
+            {/* <label htmlFor="" className="text-xl font-[600] pb-0">"
               Custom Title
             </label> */}
             {/* <Controller
-              name="pricing.custom_title"
+              name="pricing.custom_title""
               control={control}
               render={({ field, fieldState }) => (
                 <>
                   <spanarea
                     {...field}
-                    placeholder="Web Application"
+                    placeholder="Web Application""
                   / className="mt-[5px] bg-white">
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </>
-              )}
-            /> */}
-            {/* <p className="text-right w-full">0/30 characters</p> */}
-          </div>
-
-          <div className="flex flex-col className="items-start">
-            {/* <label htmlFor="" className="text-xl font-[600] pb-0">
-              Custom Description
-            </label> */}
-            {/* <Controller
-              name="pricing.custom_description"
-              control={control}
-              render={({ field, fieldState }) => (
-                <>
-                  <spanarea
-                    {...field}
-                    placeholder="Web Application"
-                  / className="mt-[5px] bg-white">
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </>
-              )}
-            /> */}
-            {/* <p className="text-right w-full">0/80 characters</p> */}
-          </div>
-
-          <div className="flex flex-row items-center} className="items-center"}
-          >
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Gig Price
-            </label>
-            <Controller
-              name="pricing.service_price"
-              control={control}
-              render={({ field, fieldState }) => (
-                <div className="relative w-full md:w-1/2">
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
-                   
-                  >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
-                      pointerEvents="none"
-                    >
-                      $
-                    </InputLeftElement>
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      type="number"
-                      {...field}
-                      value={field.value === null ? "" : field.value}
-                      onChange={(e) => {
-                        e.target.value === ""
-                          ? field.onChange(null)
-                          : field.onChange(e.target.value);
-                      }}
-                    />
-                  </InputGroup>
-
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </div>
-              )}
-            />
-          </div>
-
-          <div className="flex flex-row items-center} className="items-center"}
-          >
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Days Until Delivery
-            </label>
-            <Controller
-              name="pricing.delivery_days"
-              control={control}
-              render={({ field, fieldState }) => (
-                <div className="relative w-full md:w-1/2">
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
-                   
-                  >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
-                      pointerEvents="none"
-                    >
-                      <PiHourglassMediumFill />
-                    </InputLeftElement>{" "}
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      type="number"
-                      {...field}
-                      value={field.value === null ? "" : field.value}
-                      onChange={(e) => {
-                        e.target.value === ""
-                          ? field.onChange(null)
-                          : field.onChange(e.target.value);
-                      }}
-                    />
-                  </InputGroup>
-
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </div>
-              )}
-            />
-          </div>
-
-          <div className="flex flex-row items-center} className="items-center"}
-          >
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Number Of Revisions
-            </label>
-            <Controller
-              name="pricing.revisions"
-              control={control}
-              render={({ field, fieldState }) => (
-                <div className="relative w-full md:w-1/2 flex items-center bg-white px-3 border rounded-md">
-                  <MdOutlineRepeat className="mr-2 text-gray-300 text-lg" />{" "}
-                  <select {...field} className="w-[100%] outline-none py-2">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </div>
-              )}
-            />
-          </div>
-
-          {/* <div className="flex flex-col className="items-start w-full">
-            <label htmlFor="" className="text-2xl font-[600] pb-0 mb-4">
-              Services Options
-            </label>
-
-            <Controller
-              name="pricing.service_options.design_customization"
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  colorScheme="green"
-                  size="lg"
-                  isChecked={field.value}
-                  onChange={(e) => {
-                    setValue(
-                      "pricing.service_options.design_customization",
-                      e.target.checked
-                    );
-                    clearErrors("pricing.service_options");
+                    clearErrors("pricing.service_options");"
                   }}
                 >
                   Design Customization
@@ -288,19 +129,19 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
 
             <Controller
-              name="pricing.service_options.content_upload"
+              name="pricing.service_options.content_upload""
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  colorScheme="green"
-                  size="lg"
+                  colorScheme="green""
+                  size="lg""
                   isChecked={field.value}
                   onChange={(e) => {
                     setValue(
-                      "pricing.service_options.content_upload",
+                      "pricing.service_options.content_upload","
                       e.target.checked
                     );
-                    clearErrors("pricing.service_options");
+                    clearErrors("pricing.service_options");"
                   }}
                 >
                   Content Upload
@@ -309,19 +150,19 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
 
             <Controller
-              name="pricing.service_options.responsive_design"
+              name="pricing.service_options.responsive_design""
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  colorScheme="green"
-                  size="lg"
+                  colorScheme="green""
+                  size="lg""
                   isChecked={field.value}
                   onChange={(e) => {
                     setValue(
-                      "pricing.service_options.responsive_design",
+                      "pricing.service_options.responsive_design","
                       e.target.checked
                     );
-                    clearErrors("pricing.service_options");
+                    clearErrors("pricing.service_options");"
                   }}
                 >
                   Responsive Design
@@ -330,36 +171,19 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
 
             <Controller
-              name="pricing.service_options.source_code"
+              name="pricing.service_options.source_code""
               control={control}
               render={({ field }) => (
                 <Checkbox
-                  colorScheme="green"
-                  size="lg"
+                  colorScheme="green""
+                  size="lg""
                   isChecked={field.value}
                   onChange={(e) => {
                     setValue(
-                      "pricing.service_options.source_code",
+                      "pricing.service_options.source_code","
                       e.target.checked
                     );
                     clearErrors("pricing.service_options");
-                  }}
-                >
-                  Source Code
-                </Checkbox>
-              )}
-            />
-
-            {errors.pricing?.service_options && (
-              <p style={{ color: "red", marginTop: "5px" }}>
-                {errors.pricing?.service_options?.root?.message}
-              </p>
-            )}
-          </div> */}
-        </GigCreateLayout>
-      </form>
-    </FormProvider>
-  );
 };
 
 export default Step1;

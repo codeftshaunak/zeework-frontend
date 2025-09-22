@@ -1,21 +1,21 @@
 
-"use client";
-import React from "react";
+"use client";"
+import React from "react";"
 
-import { toast } from "@/lib/toast";
-import { useState } from "react";
+import { toast } from "@/lib/toast";"
+import { useState } from "react";"
 
-import Complete from "../../JobCreate/Completed";
-import FinalStep from "../../JobCreate/FinalStep";
-import FirstStep from "../../JobCreate/FirstStep";
-import Preview from "../../JobCreate/Preview";
-import SecondStep from "../../JobCreate/SecondStep";
-import Steps from "../../JobCreate/Steps";
-import { FormStateProvider } from "../../../contexts/FormContext";
-import HomeLayout from "../../Layouts/HomeLayout";
-import { createJob } from "../../../helpers/APIs/jobApis";
-import { useDispatch, useSelector } from "react-redux";
-import { setDashboard } from "../../../redux/pagesSlice/pagesSlice";
+import Complete from "../../JobCreate/Completed";"
+import FinalStep from "../../JobCreate/FinalStep";"
+import FirstStep from "../../JobCreate/FirstStep";"
+import Preview from "../../JobCreate/Preview";"
+import SecondStep from "../../JobCreate/SecondStep";"
+import Steps from "../../JobCreate/Steps";"
+import { FormStateProvider } from "../../../contexts/FormContext";"
+import HomeLayout from "../../Layouts/HomeLayout";"
+import { createJob } from "../../../helpers/APIs/jobApis";"
+import { useDispatch, useSelector } from "react-redux";"
+import { setDashboard } from "../../../redux/pagesSlice/pagesSlice";"
 
 const JobPost = () => {
   const [step, setStep] = useState(1);
@@ -28,14 +28,14 @@ const JobPost = () => {
     const formData = new FormData();
     for (const key in data) {
       if (data[key] instanceof Array) {
-        if (key === "categories") {
+        if (key === "categories") {"
           data[key].forEach((item, index) => {
             for (const itemKey in item) {
-              formData.append(`${key}[${index}][${itemKey}]`, item[itemKey]);
+              formData.append(`${key}[${index}][${itemKey}]`, item[itemKey]);`
             }
           });
         } else {
-          data[key].forEach((item) => formData.append(`${key}[]`, item));
+          data[key].forEach((item) => formData.append(`${key}[]`, item));`
         }
         continue;
       }
@@ -46,17 +46,17 @@ const JobPost = () => {
     if (response?.code === 200)
       dispatch(setDashboard({ jobs: [...jobs, response.body] }));
     if (response.success) {
-      toast.success("Job post created successfully");
+      toast.success("Job post created successfully");"
 
       setStep(4);
     } else {
-      toast.warning("Failed to create job post!");
+      toast.warning("Failed to create job post!");"
     }
     setIsLoading(false);
   };
 
   return (
-    <HomeLayout displaydir="row">
+    <HomeLayout displaydir="row">"
       <FormStateProvider>
         {step < 4 ? (
           <div className="flex flex-row items-center className="justify-space-around w-full items-flex-start"

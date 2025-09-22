@@ -1,5 +1,6 @@
 "use client";
 
+import { Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState, useCallback } from "react";
 import ContractTerms from "./ContractTerms";
 import FreelancerProfile from "./FreelancerProfile";
@@ -21,7 +22,7 @@ import { ErrorState } from "../utils/Error/ErrorState";
 const HireFreelancerPage = () => {
   const { socket } = useContext(SocketContext);
   const { profile } = useContext(CurrentUserContext);
-  const pathname = usePathname();
+  
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -250,10 +251,7 @@ const HireFreelancerPage = () => {
 
   if (loading) {
     return <HireFreelancerSkeleton />;
-  }
 
-  if (!freelancerInfo && !agencyInfo) {
-    return <ErrorState onNavigate={() => router.push("/client-dashboard")} />;
   }
 
   return (
@@ -307,19 +305,7 @@ const HireFreelancerPage = () => {
             <button
               type="submit"
               className={`py-2 px-5 text-white cursor-pointer rounded-full bg-green-500 w-fit flex items-center transition-all ${
-                (!formData.accept_terms_condition || isSubmitting) &&
-                "opacity-50 cursor-not-allowed"
-              }`}
-              disabled={!formData.accept_terms_condition || isSubmitting}
-            >
-              {isSubmitting && <BtnSpinner />}
-              {isSubmitting ? "Sending..." : "Continue"}
-            </button>
-          </div>
-        </div>
-      </form>
-    </section>
-  );
+
 };
 
 export default HireFreelancerPage;

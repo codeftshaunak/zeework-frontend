@@ -1,8 +1,9 @@
 
-"use client";
-import React from "react";
+"use client";"
+import { Avatar } from "@chakra-ui/react";
+import React from "react";"
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";"
 
 import {
   
@@ -11,28 +12,28 @@ import {
   
   
   Tabs,
-} from "@/components/ui/migration-helpers";
-import { useParams, useRouter } from "next/navigation";
-import { toast } from "@/lib/toast";
-import StarRatings from "react-star-ratings";
-import { FaLocationDot } from "react-icons/fa6";
-import { useForm } from "react-hook-form";
-import { LuMessagesSquare } from "react-icons/lu";
-import { SocketContext } from "../../../contexts/SocketContext";
-import { offerDetails } from "../../../helpers/APIs/freelancerApis";
-import { getTimeSheet, submitTask } from "../../../helpers/APIs/jobApis";
-import InvitationSkeleton from "../../Skeletons/InvitationSkeleton";
-import UniversalModal from "../../Modals/UniversalModal";
-import BtnSpinner from "../../Skeletons/BtnSpinner";
-import { JobDetails } from "./JobDetails";
-import DataNotAvailable from "../../DataNotAvailable/DataNotAvailable";
-import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
-import JobTimeSheet from "../../Reports/JobTimeSheet";
-import { clearMessageState } from "../../../redux/messageSlice/messageSlice";
-import { useDispatch } from "react-redux";
-import ErrorMsg from "../../utils/Error/ErrorMsg";
-import { motion, AnimatePresence } from "framer-motion";
-import SmoothMotion from "../../utils/Animation/SmoothMotion";
+} from "@/components/ui/migration-helpers";"
+import { useParams, useRouter } from "next/navigation";"
+import { toast } from "@/lib/toast";"
+import StarRatings from "react-star-ratings";"
+import { FaLocationDot } from "react-icons/fa6";"
+import { useForm } from "react-hook-form";"
+import { LuMessagesSquare } from "react-icons/lu";"
+import { SocketContext } from "../../../contexts/SocketContext";"
+import { offerDetails } from "../../../helpers/APIs/freelancerApis";"
+import { getTimeSheet, submitTask } from "../../../helpers/APIs/jobApis";"
+import InvitationSkeleton from "../../Skeletons/InvitationSkeleton";"
+import UniversalModal from "../../Modals/UniversalModal";"
+import BtnSpinner from "../../Skeletons/BtnSpinner";"
+import { JobDetails } from "./JobDetails";"
+import DataNotAvailable from "../../DataNotAvailable/DataNotAvailable";"
+import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";"
+import JobTimeSheet from "../../Reports/JobTimeSheet";"
+import { clearMessageState } from "../../../redux/messageSlice/messageSlice";"
+import { useDispatch } from "react-redux";"
+import ErrorMsg from "../../utils/Error/ErrorMsg";"
+import { motion, AnimatePresence } from "framer-motion";"
+import SmoothMotion from "../../utils/Animation/SmoothMotion";"
 
 const AssignedContractDetails = () => {
   const { socket } = useContext(SocketContext);
@@ -62,7 +63,7 @@ const AssignedContractDetails = () => {
       const { body, code } = await offerDetails(id);
       if (code === 200) {
         setJobDetails(body[0]);
-        if (body[0]?.job_type === "hourly") getOfferTimeSheet();
+        if (body[0]?.job_type === "hourly") getOfferTimeSheet();"
       }
     } catch (error) {
       console.error(error);
@@ -82,24 +83,24 @@ const AssignedContractDetails = () => {
 
   useEffect(() => {
     getInvitationDetails();
-  }, []);
+  },[]);
 
   const handleSubmitTask = async (data) => {
     setIsSubmitLoading(true);
     try {
       const formData = new FormData();
-      formData.append("file", data.file[0]);
-      formData.append("message", data.message);
-      formData.append("client_id", jobDetails.client_id);
-      formData.append("job_id", jobDetails.job_id);
-      formData.append("contract_ref", jobDetails._id);
+      formData.append("file", data.file[0]);"
+      formData.append("message", data.message);"
+      formData.append("client_id", jobDetails.client_id);"
+      formData.append("job_id", jobDetails.job_id);"
+      formData.append("contract_ref", jobDetails._id);"
 
       const { code, msg } = await submitTask(formData);
       toast.default(msg);
       if (code === 200) {
         if (socket) {
           socket.emit(
-            "card_message",
+            "card_message","
             {
               sender_id: jobDetails.assigned_member.freelancer_id,
               receiver_id: jobDetails.client_id,
@@ -110,19 +111,19 @@ const AssignedContractDetails = () => {
               job_id: jobDetails.job_id,
               title: jobDetails.job_title,
               job_offer_id: jobDetails._id,
-              type: "Job Task Submitted",
+              type: "Job Task Submitted","
               job_type: jobDetails.job_type,
               amount: jobDetails.hourly_rate || jobDetails.budget,
               url: {
-                freelancer: `/assigned-contract/${jobDetails.assigned_member.freelancer_id}`,
-                client: `/contract/${jobDetails._id}`,
+                freelancer: `/assigned-contract/${jobDetails.assigned_member.freelancer_id}`,`
+                client: `/contract/${jobDetails._id}`,`
               },
             }
           );
         }
 
         dispatch(clearMessageState());
-        router.push("/my-jobs");
+        router.push("/my-jobs");"
       }
     } catch (error) {
       console.error(error);
@@ -133,10 +134,10 @@ const AssignedContractDetails = () => {
 
   return (
     <>
-      <div className="w-full py-5">
-        <div className="top-profile-section">
-          <div className="my-4">
-            <h2 className="my-3 text-2xl font-bold text-[1.6rem] text-[#374151]">
+      <div className="w-full py-5">"
+        <div className="top-profile-section">"
+          <div className="my-4">"
+            <h2 className="my-3 text-2xl font-bold text-[1.6rem] text-[#374151]">"
               Assigned Contract Details
             </h2>
           </div>
@@ -147,9 +148,9 @@ const AssignedContractDetails = () => {
               onChange={(index) => setActiveTab(index)}
             >
               <Tabs.List>
-                <Tabs.Trigger className="font-semibold text-[1.5rem]">Overview</Tabs.Trigger>
-                {jobDetails?.job_type === "hourly" && (
-                  <Tabs.Trigger className="font-semibold text-[1.5rem] !hidden sm:!block">
+                <Tabs.Trigger className="font-semibold text-[1.5rem]">Overview</Tabs.Trigger>"
+                {jobDetails?.job_type === "hourly" && ("
+                  <Tabs.Trigger className="font-semibold text-[1.5rem] !hidden sm:!block">"
                     Work Sheet
                   </Tabs.Trigger>
                 )}
@@ -159,23 +160,23 @@ const AssignedContractDetails = () => {
               />
               <SmoothMotion key={activeTab}>
                 <Tabs.Content>
-                  <Tabs.Content key="overview" paddingX={0}>
+                  <Tabs.Content key="overview" paddingX={0}>"
                     {isLoading ? (
                       <InvitationSkeleton />
                     ) : dataAvailable ? (
-                      <div className="grid lg:grid-cols-3 gap-5">
+                      <div className="grid lg:grid-cols-3 gap-5">"
                         <JobDetails jobDetails={jobDetails} />
-                        <div className="lg:col-span-1 w-full h-fit bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
-                          <div className="flex gap-3 mb-4">
+                        <div className="lg:col-span-1 w-full h-fit bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">"
+                          <div className="flex gap-3 mb-4">"
                             <Avatar
                               size="lg"
-                              name={`${clientDetails?.firstName} ${clientDetails?.lastName}`}
+                              name={`${clientDetails?.firstName} ${clientDetails?.lastName}`}`
                             />
                             <div>
-                              <p className="text-sm lg:text-xl font-semibold">
-                                {`${clientDetails?.firstName} ${clientDetails?.lastName}`}
+                              <p className="text-sm lg:text-xl font-semibold">"
+                                {`${clientDetails?.firstName} ${clientDetails?.lastName}`}`
                               </p>
-                              <div className="flex items-center flex-wrap">
+                              <div className="flex items-center flex-wrap">"
                                 <StarRatings
                                   rating={clientDetails?.avg_review}
                                   starDimension="14px"
@@ -183,30 +184,30 @@ const AssignedContractDetails = () => {
                                   starRatedColor="#22C35E"
                                   starEmptyColor="#8ab89b"
                                 />
-                                <p className="text-sm">
+                                <p className="text-sm">"
                                   ({clientDetails?.avg_review}) Reviews
                                 </p>
                               </div>
-                              <p className="flex items-center gap-1">
+                              <p className="flex items-center gap-1">"
                                 <FaLocationDot />
                                 {clientDetails?.location}
                               </p>
                             </div>
                           </div>
                           <div>
-                            <p className="sm:text-lg font-semibold">
+                            <p className="sm:text-lg font-semibold">"
                               Contract Title:
                             </p>
-                            <p className="sm:text-lg capitalize">
+                            <p className="sm:text-lg capitalize">"
                               {jobDetails?.contract_title}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2 mt-5">
-                            <p className="sm:text-lg font-semibold">
+                          <div className="flex items-center gap-2 mt-5">"
+                            <p className="sm:text-lg font-semibold">"
                               Job Status:
                             </p>
-                            <p className="border border-green-500 px-3 capitalize rounded-full bg-green-50 w-fit font-semibold">
-                              {jobDetails?.status?.replace(/_/g, " ")}
+                            <p className="border border-green-500 px-3 capitalize rounded-full bg-green-50 w-fit font-semibold">"
+                              {jobDetails?.status?.replace(/_/g, " ")}"
                             </p>
                           </div>
 
@@ -215,31 +216,31 @@ const AssignedContractDetails = () => {
                             borderColor="green.200"
                             leftIcon={<LuMessagesSquare />}
                             onClick={() =>
-                              router.push(`/message/${jobDetails.client_id}`)
+                              router.push(`/message/${jobDetails.client_id}`)`
                             }
                           >
                             Message
                           </button>
                           {/* for freelancer */}
-                          {jobDetails?.status === "completed" ? (
+                          {jobDetails?.status === "completed" ? ("
                             <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                               borderColor="yellow.200"
                             >
                               Job Already Completed
                             </button>
                           ) : (
-                            jobDetails?.job_type === "fixed" && (
+                            jobDetails?.job_type === "fixed" && ("
                               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                 borderColor="green.200"
                                 onClick={() => {
-                                  if (jobDetails?.status !== "task_submitted")
+                                  if (jobDetails?.status !== "task_submitted")"
                                     reset(), setIsSubmitTask(true);
                                 }}
                                 mt={3}
                               >
                                 {jobDetails?.status === "task_submitted"
                                   ? "Already Submitted"
-                                  : "Submit Work"}
+                                  : "Submit Work"}"
                               </button>
                             )
                           )}
@@ -250,8 +251,8 @@ const AssignedContractDetails = () => {
                     )}
                   </Tabs.Content>
 
-                  {jobDetails?.job_type === "hourly" && (
-                    <Tabs.Content key="timesheet" paddingX={0}>
+                  {jobDetails?.job_type === "hourly" && ("
+                    <Tabs.Content key="timesheet" paddingX={0}>"
                       {sheetLoading ? (
                         <HorizontalCardSkeleton />
                       ) : timeSheet?.details ? (
@@ -261,75 +262,7 @@ const AssignedContractDetails = () => {
                           onRefresh={() => {
                             setSheetLoading(true);
                             getOfferTimeSheet();
-                          }}
-                        />
-                      )}
-                    </Tabs.Content>
-                  )}
-                </Tabs.Content>
-              </SmoothMotion>
-            </Tabs.Root>
-          </div>
-        </div>
-      </div>
-      {isSubmitTask && (
-        <UniversalModal
-          isModal={isSubmitTask}
-          setIsModal={setIsSubmitTask}
-          title="Send completed task"
-        >
-          <form onSubmit={handleSubmit(handleSubmitTask)}>
-            <div className="grid gap-5">
-              <div className="w-full grid gap-3">
-                <label
-                  htmlFor="file"
-                  className="block font-medium text-gray-700"
-                >
-                  Upload File:
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  {...register("file", {
-                    required: "Task file is required",
-                  })}
-                  className="p-2 border rounded"
-                />
-                {errors.file && <ErrorMsg msg={errors.file.message} />}
-              </div>
-              <div className="w-full grid gap-3">
-                <label
-                  htmlFor="message"
-                  className="block font-medium text-gray-700"
-                >
-                  Task Description:
-                </label>
-                <textarea
-                  id="message"
-                  {...register("message", {
-                    required: "Submission message is required",
-                  })}
-                  placeholder="Description.."
-                  className="p-2 border rounded"
-                ></textarea>
-                {errors.message && <ErrorMsg msg={errors.message.message} />}
-              </div>
-            </div>
-            <div className="text-right mt-10">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                isLoading={isSubmitLoading}
-                loadingText="Submitting"
-                type="submit"
-                spinner={<BtnSpinner />}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </UniversalModal>
-      )}
-    </>
-  );
+
 };
 
 export default AssignedContractDetails;

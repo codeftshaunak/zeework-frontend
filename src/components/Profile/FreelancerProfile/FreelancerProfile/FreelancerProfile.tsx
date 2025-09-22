@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
 import { toast } from "@/lib/toast";
@@ -45,11 +46,11 @@ interface ProfileState {
   hourly_rate: number;
   description: string;
   skills: string[];
-  experience: any[];
-  education: any[];
-  portfolio: any[];
-  linked_accounts: any[];
-  categories?: any[];
+  experience: unknown[];
+  education: unknown[];
+  portfolio: unknown[];
+  linked_accounts: unknown[];
+  categories?: unknown[];
   user_id?: string;
 }
 
@@ -60,7 +61,7 @@ interface RootState {
 }
 
 interface WorkHistoryItem {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface AgencyDetails {
@@ -85,7 +86,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
   const [workHistory, setWorkHistory] = useState<WorkHistoryItem[]>([]);
   const [associateAgency, setAssociateAgency] = useState<AgencyDetails>({});
   const [type, setType] = useState<string>("");
-  const [defaultValue, setDefaultValue] = useState<any>(null);
+  const [defaultValue, setDefaultValue] = useState<unknown>(null);
   const [isModal, setIsModal] = useState(false);
   const [localTime, setLocalTime] = useState<string>("");
 
@@ -148,7 +149,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
     toast.success("Zeework Profile Copied.");
   };
 
-  const openUpdatingModal = (type: string, data: any = null): void => {
+  const openUpdatingModal = (type: string, data: unknown = null): void => {
     setDefaultValue(data);
     setType(type);
     setIsModal(true);
@@ -171,132 +172,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
         <div className="w-[100%] justify-center m-auto flex flex-col gap-[24px]">
           <div className="w-[100%] bg-white flex items-center justify-between border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg max-sm:flex-col max-sm:gap-4">
             <div className="flex gap-[14px] items-center max-[380px]:gap-0">
-              {!viewAs && (
-                <div className="absolute top-0 left-0 cursor-pointer z-1">
-                  <div
-                    className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                    onClick={() => openUpdatingModal("Update Profile Photo")}
-                  >
-                    <TbPencil className="text-gray-300" />
-                  </div>
-                </div>
-              )}
 
-              {!profile_image ||
-              profile_image === "null" ||
-              profile_image === null ? (
-                <Avatar name={`${firstName} ${lastName}`} />
-              ) : (
-                <img
-                  src={profile_image}
-                  alt={`${firstName} ${lastName}`}
-                  className="w-[60px] object-cover h-[60px] rounded-full shadow-md"
-                />
-              )}
-            </div>
-            <div className="flex flex-col justify-start">
-              <p className="text-[24px] max-[380px]:text-sm text-[#374151] font-semibold pl-3">
-                {firstName} {lastName?.slice(0, 1)}.
-              </p>
-              <HStack className="text-[16px] max-[380px]:text-xs text-[#374151] font-[400]">
-                <CiLocationOn />
-                <p className="capitalize">
-                  {location}, {localTime} local time
-                </p>
-              </HStack>
-            </div>
-          </div>
-          <div className="flex items-center gap-[12px]">
-            <div
-              className="flex items-center cursor-pointer justify-center w-[36px] h-[36px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] max-sm:hidden"
-              onClick={handleCopyProfileURL}
-            >
-              <BsLink45Deg />
-            </div>
-            {!viewAs && (
-              <button
-                className="py-[8px] px-[12px] rounded-[6px] text-[14px] font-500 text-[#fff] bg-[#22C55E]"
-                onClick={() => router.push("/setting")}
-              >
-                Profile Settings
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="flex gap-[24px] w-full">
-          <div className="flex w-[30%] gap-[24px] flex-col max-lg:hidden">
-            {/* ==================== Freelance Stats ====================== */}
-            <div className="w-full flex py-6 bg-white  relative flex-col gap-[24px] border-[1px] px-[24px] border-[var(--bordersecondary)] rounded-lg">
-              <p className="text-[20px] text-[#374151] font-[600]">
-                Freelance Stats
-              </p>
-              <div className="flex flex-col justify-center p-4 bg-gray-100 rounded shadow-sm">
-                <span className="font-semibold text-center">
-                  Updated Freelancer Stats <br /> Coming Soon
-                </span>
-              </div>
-            </div>
-
-            {/* ==================== View associated agency ====================== */}
-            {associateAgency?.agency_details && (
-              <div className="w-full flex py-6 bg-white  relative flex-col gap-3 border-[1px] px-[24px] border-[var(--bordersecondary)] rounded-lg">
-                <p className="text-[20px] text-[#374151] font-[600]">
-                  Associate with
-                </p>
-
-                <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-                  <Avatar
-                    name={
-                      associateAgency?.agency_details?.agency_name || "Agency"
-                    }
-                    src={associateAgency?.agency_details?.agency_profileImage}
-                  />
-                  <div className="text-gray-600">
-                    <p
-                      className="flex items-center gap-1 font-medium cursor-pointer text-primary"
-                      onClick={() =>
-                        router.push(`/profile/a/${associateAgency?.agency_id}`)
-                      }
-                    >
-                      {associateAgency?.agency_details?.agency_name}{" "}
-                      {associateAgency?.agency_details?.agency_officeLocation
-                        ?.country &&
-                        `from ${associateAgency?.agency_details?.agency_officeLocation?.country}`}
-                    </p>
-                    <p className="flex items-center gap-1 font-medium">
-                      From{" "}
-                      {associateAgency?.join_date
-                        ? format(new Date(associateAgency.join_date), "MM/yy")
-                        : "N/A"}{" "}
-                      to{" "}
-                      {associateAgency?.leave_date
-                        ? format(new Date(associateAgency.leave_date), "MM/yy")
-                        : "Present"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ==================== Education ====================== */}
-            <div className="flex w-full flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
-              <div className="flex items-center justify-between">
-                <p className="text-[20px] text-[#374151] font-[600]">
-                  Education
-                </p>
-                {!viewAs && (
-                  <div
-                    className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                    onClick={() => openUpdatingModal("Add Education")}
-                  >
-                    <BsPlus />
-                  </div>
-                )}
-              </div>
-              {education?.length > 0 &&
-                education?.map((edu, index) => {
-                  const startDate = new Date(edu.start_date);
                   const endDate = new Date(edu.end_date);
                   const startYear = startDate.getFullYear();
                   const endYear = endDate.getFullYear();
@@ -308,36 +184,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
                           {edu?.institution}
                         </p>
                         <div className="flex items-center gap-[12px]">
-                          {!viewAs && (
-                            <div
-                              className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                              onClick={() =>
-                                openUpdatingModal("Update Education", edu)
-                              }
-                            >
-                              <TbPencil className="text-gray-300" />
-                            </div>
-                          )}
-                          {!viewAs && (
-                            <div
-                              className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                              onClick={() =>
-                                openUpdatingModal("Delete Education", edu)
-                              }
-                            >
-                              <HiOutlineTrash className="text-gray-300" />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {edu?.degree_name}
-                      </p>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {startYear} to {endYear}
-                      </p>
-                    </div>
-                  );
+
                 })}
             </div>
 
@@ -345,20 +192,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
             <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg  bg-white">
               <div className="flex items-center justify-between">
                 <p className="text-[20px] text-[#374151] font-[600]">
-                  Experience
-                </p>
-                {!viewAs && (
-                  <div
-                    className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                    onClick={() => openUpdatingModal("Add Experience")}
-                  >
-                    <BsPlus />
-                  </div>
-                )}
-              </div>
-              {experience?.length > 0 &&
-                experience?.map((exp, index) => {
-                  const startDate = new Date(exp.start_date);
+
                   const endDate = new Date(exp.end_date);
                   const startYear = startDate.getFullYear();
                   const endYear = endDate.getFullYear();
@@ -369,41 +203,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
                           {exp?.company_name}
                         </p>
                         <div className="flex items-center gap-[12px]">
-                          {!viewAs && (
-                            <div
-                              className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                              onClick={() =>
-                                openUpdatingModal("Update Experience", exp)
-                              }
-                            >
-                              <TbPencil className="text-gray-300" />
-                            </div>
-                          )}
-                          {!viewAs && (
-                            <div
-                              className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                              onClick={() =>
-                                openUpdatingModal("Delete Experience", exp)
-                              }
-                            >
-                              <HiOutlineTrash className="text-gray-300" />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <p className="text-[14px] text-[#374151]  font-bold">
-                        {exp?.position}
-                      </p>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {exp?.job_location} | {startYear} to {endYear}
-                      </p>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {exp?.job_description?.length > 100
-                          ? exp.job_description.slice(0, 100) + "..."
-                          : exp.job_description}
-                      </p>
-                    </div>
-                  );
+
                 })}
             </div>
 
@@ -421,50 +221,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
 
                 <div className="flex gap-5">
                   <p className="text-[20px] text-[#374151] font-[600]">
-                    ${hourly_rate}/hr
-                  </p>
-                  {!viewAs && (
-                    <div
-                      className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                      onClick={() => openUpdatingModal("Update Basic Info")}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M2.66699 13.3332H5.33366L12.3337 6.33321C13.07 5.59683 13.07 4.40292 12.3337 3.66654C11.5973 2.93016 10.4034 2.93016 9.66699 3.66654L2.66699 10.6665V13.3332"
-                          stroke="#6B7280"
-                          strokeWidth="1.25"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M9 4.33301L11.6667 6.99967"
-                          stroke="#6B7280"
-                          strokeWidth="1.25"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-              </div>
 
-              <div className="h-max">
-                <div
-                  className={`${
-                    showDetails ? "line-clamp-none" : "line-clamp-3"
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: description || "" }}
-                ></div>
-                {description && description.length >= 300 && (
-                  <button
-                    className="underline text-[#16833E]"
-                    onClick={() => {
-                      setShowDetails(!showDetails);
                     }}
                   >
                     {showDetails ? "less" : "more"}
@@ -474,37 +231,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
             </div>
             {/* ===================== skills ============= */}
             <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
-              {!viewAs && (
-                <div className="flex items-center justify-between">
-                  <p className="text-[20px] text-[#374151] font-[600]">
-                    Skills
-                  </p>
-                  <div
-                    className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                    onClick={() => openUpdatingModal("Update Skills")}
-                  >
-                    <TbPencil className="text-gray-300" />
-                  </div>
-                </div>
-              )}
-              <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
-                {skills?.length > 0 &&
-                  skills?.map((skill, idx) => (
-                    <SkillCard title={skill.value} key={skill._id || idx} />
-                  ))}
-              </div>
-            </div>
-            {/* ======================= portfolio =============== */}
-            <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
-              <div className="flex items-center justify-between">
-                <p className="text-[20px] text-[#374151] font-[600]">
-                  Portfolio Projects
-                </p>
-                {!viewAs && (
-                  <div
-                    className="flex items-center justify-center w-[28px] h-[28px] bg-[#F9FAFB] rounded-[6px] border-[1px] border-[var(--bordersecondary)] cursor-pointer"
-                    onClick={() => {
-                      openUpdatingModal("Add New Project");
+
                     }}
                   >
                     <BsPlus />
@@ -530,45 +257,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
                         },
                       }}
                       pagination={{
-                        clickable: true,
-                      }}
-                    >
-                      {portfolio?.length > 0 &&
-                        portfolio
-                          ?.slice()
-                          .reverse()
-                          .map((port, idx) => (
-                            <SwiperSlide key={idx}>
-                              <PortfolioCard
-                                portfolio={port}
-                                categories={profile?.profile?.categories}
-                              />
-                            </SwiperSlide>
-                          ))}
-                    </Swiper>
-                    {portfolio?.length > 1 && (
-                      <>
-                        <button
-                          ref={prevRef}
-                          className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -left-2"
-                        >
-                          <IoArrowBack className="p-2 text-4xl text-green-500" />
-                        </button>
-                        <button
-                          ref={nextRef}
-                          className="absolute z-20 -mt-4 bg-green-100 rounded-full shadow top-1/2 -right-2"
-                        >
-                          <IoArrowForwardSharp className="p-2 text-4xl text-green-500" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex justify-center">
-                    <button
-                      className="text-start px-3 py-1 rounded-md border-2 border-[var(--primarytextcolor)] hover:text-white hover:bg-[var(--primarytextcolor)] transition h-fit w-fit font-semibold mt-3"
-                      onClick={() => {
-                        openUpdatingModal("Add New Project");
+
                       }}
                     >
                       Add Portfolio For Attract Client & Get Offer
@@ -586,67 +275,5 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
                 <hr />
                 <br />
                 <p className="mt-3">
-                  Projects are a new way to earn on ZeeWork. Create project
-                  offerings that highlight your strengths and attract more
-                  clients.
-                </p>
-                <br />
-                {!viewAs && (
-                  <button
-                    className="text-start px-5 py-1 rounded-full border-2 border-[var(--primarytextcolor)] hover:text-white hover:bg-[var(--primarytextcolor)] transition h-fit w-fit font-semibold mt-3"
-                    onClick={() => router.push("/freelancer/gig")}
-                  >
-                    Manage Gigs
-                  </button>
-                )}
-                <div className="w-full mt-10">
-                  <ProfileGigCards />
-                </div>
-              </div>
 
-              <div className="grid grid-cols-3 gap-4"></div>
-            </div>
-
-            <div className="hidden flex-[0.5] gap-[24px] flex-col w-full max-lg:flex">
-              {/* Mobile view education and experience sections */}
-              {/* ... (similar structure as above) ... */}
-            </div>
-            {/* ================= work history ====================== */}
-            <div className="border-[1px] pt-8 overflow-hidden border-[var(--bordersecondary)] bg-white rounded-xl">
-              <div className="flex flex-col gap-6 px-6 ">
-                <div className="flex items-center justify-between">
-                  <p className="text-[20px] text-[#374151] font-[600]">
-                    Work History
-                  </p>
-                </div>
-                <div className="flex flex-col gap-[6px]">
-                  <p className="text-[14px] text-[#22C35E] font-[600] cursor-pointer">
-                    Completed Jobs
-                  </p>
-                  <div className="h-[2px] w-[60px] bg-[#22C35E]"></div>
-                </div>
-              </div>
-
-              {workHistory?.length ? (
-                workHistory?.map((item, index) => (
-                  <ReviewCard key={index} workDetails={item} />
-                ))
-              ) : (
-                <p className="p-6 text-center">No completed jobs yet.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      </ProfileContainer>
-
-      {/* Manage Profile Updating Thing */}
-      <ProfileUpdating
-        type={type}
-        defaultValue={defaultValue}
-        setDefaultValue={setDefaultValue}
-        isModal={isModal}
-        setIsModal={setIsModal}
-      />
-    </>
-  );
 };

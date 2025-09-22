@@ -1,5 +1,7 @@
 "use client";
 
+import { Box, HStack, VStack } from "@chakra-ui/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -245,7 +247,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
         onMouseLeave={() => setIsHover(false)}
       >
         <div className="overflow-hidden">
-          <img
+          <img alt=""
             src={attachements?.[0]}
             className="h-48 object-cover rounded-t w-full"
           />
@@ -543,7 +545,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
               {attachements?.length &&
                 attachements?.map((img, idx) => (
                   <SwiperSlide key={idx}>
-                    <img src={img} className="w-full h-fit" />
+                    <img alt="" src={img} className="w-full h-fit" />
                   </SwiperSlide>
                 ))}
             </Swiper>

@@ -11,7 +11,7 @@ function Complete({ setStep }) {
   const router = useRouter();
   const { clearFormState } = useFormState();
   const [isPaymentVerified, setIsPaymentVerified] = useState(
-    useSelector((state: any) => state?.profile?.profile.payment_verified)
+    useSelector((state: unknown) => state?.profile?.profile.payment_verified)
   );
 
   useEffect(() => {

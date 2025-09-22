@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import select from "../../assets/select.png";
 const DesktopNotification = () => {
@@ -10,19 +11,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
@@ -38,19 +39,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src={select} />
+              <img alt="" src={select} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>

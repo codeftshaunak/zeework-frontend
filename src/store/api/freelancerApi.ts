@@ -57,8 +57,8 @@ interface FreelancerProfile {
     github_url?: string;
     category?: string;
   }>;
-  linked_accounts: any[];
-  categories?: any[];
+  linked_accounts: unknown[];
+  categories?: unknown[];
   user_id: string;
 }
 
@@ -153,7 +153,7 @@ export const freelancerApi = createApi({
     }),
 
     // Update experience
-    updateExperience: builder.mutation<any, { id: string; data: any }>({
+    updateExperience: builder.mutation<any, { id: string; data: unknown }>({
       query: ({ id, data }) => ({
         url: `/freelancer/experience/${id}`,
         method: 'PUT',
@@ -182,7 +182,7 @@ export const freelancerApi = createApi({
     }),
 
     // Update education
-    updateEducation: builder.mutation<any, { id: string; data: any }>({
+    updateEducation: builder.mutation<any, { id: string; data: unknown }>({
       query: ({ id, data }) => ({
         url: `/freelancer/education/${id}`,
         method: 'PUT',
@@ -211,7 +211,7 @@ export const freelancerApi = createApi({
     }),
 
     // Update portfolio project
-    updatePortfolioProject: builder.mutation<any, { id: string; data: any }>({
+    updatePortfolioProject: builder.mutation<any, { id: string; data: unknown }>({
       query: ({ id, data }) => ({
         url: `/freelancer/portfolio/${id}`,
         method: 'PUT',

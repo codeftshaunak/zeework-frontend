@@ -18,7 +18,7 @@ import { profileData } from "../../../../../redux/authSlice/profileSlice";
 // Types
 interface LinkedAccount {
   user_id: string;
-  [key: string]: any; // Allow for additional properties
+  [key: string]: unknown; // Allow for additional properties
 }
 
 interface ProfileState {
@@ -39,7 +39,7 @@ interface OAuthResponse {
 
 interface ProfileResponse {
   code?: number;
-  body?: any;
+  body?: unknown;
 }
 
 // Component
@@ -94,9 +94,6 @@ const LinkedAccounts: React.FC = () => {
     ): Promise<void> => {
       const { code, provider: queryProvider } = getCodeFromQuery();
 
-      if (code && provider === queryProvider) {
-        try {
-          const response = await accessTokenFn({ code });
           const accessToken = response?.body?.access_token;
 
           if (accessToken) {
@@ -147,67 +144,7 @@ const LinkedAccounts: React.FC = () => {
           <div
             className="flex items-center justify-center bg-gray-100 border border-gray-200 rounded-md cursor-pointer w-7 h-7"
             onClick={() => setIsModal(true)}
-          >
-            <BsPlus />
-          </div>
-        </div>
 
-        {linkedAccounts.length > 0 && (
-          <div className="p-3 rounded-md bg-slate-50">
-            {linkedAccounts.map((item: LinkedAccount) => (
-              <ProfilesCard key={item.user_id} data={item} />
-            ))}
-          </div>
-        )}
-      </div>
-
-      <UniversalModal isModal={isModal} setIsModal={setIsModal}>
-        <p className="mb-5 text-2xl font-semibold text-gray-800">
-          Select Your Account
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-10 px-5 py-10 rounded-md bg-slate-100">
-          {/* GitHub Button */}
-          <button
-            className="inline-flex items-center justify-center px-4 py-2 text-sm text-2xl font-medium text-white transition-colors bg-black rounded-md hover:bg-accent hover:text-accent-foreground"
-            onClick={handleConnectGithub}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <BtnSpinner />
-                <span className="ml-2">Connecting...</span>
-              </>
-            ) : (
-              <>
-                <IoLogoGithub className="mr-2" />
-                <span>Connect GitHub</span>
-              </>
-            )}
-          </button>
-
-          {/* StackOverflow Button */}
-          <button
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground text-2xl bg-[#f48024] text-white px-4 py-2"
-            onClick={handleConnectStackOverflow}
-            disabled={isStackOverflowLoading}
-          >
-            {isStackOverflowLoading ? (
-              <>
-                <BtnSpinner />
-                <span className="ml-2">Connecting...</span>
-              </>
-            ) : (
-              <>
-                <IoLogoStackoverflow className="mr-2" />
-                <span>Connect StackOverflow</span>
-              </>
-            )}
-          </button>
-        </div>
-      </UniversalModal>
-    </>
-  );
 };
 
 export default LinkedAccounts;

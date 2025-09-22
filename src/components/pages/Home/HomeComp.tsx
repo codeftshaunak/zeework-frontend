@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import homesidbar from "../../assets/img/home-sidebar.png";
 import girl from "../../assets/img/girl.png";
 import StarIcon from "../../assets/icons/star";
@@ -190,7 +191,7 @@ function HomeComp() {
                 </div>
               </div>
             </div>
-            <img
+            <img alt=""
               className="w-[620.98px] h-[695px] absolute -top-8 right-0"
               src={homesidbar}
             />
@@ -451,7 +452,7 @@ function HomeComp() {
         <Fade>
           <div className="w-[1279.50px] h-[702px] justify-start items-center gap-[67px] inline-flex mt-20">
             <div className="w-[574.50px] h-[549px] relative">
-              <img className="w-100 left-[1px] top-0 absolute " src={girl} />
+              <img alt="" className="w-100 left-[1px] top-0 absolute " src={girl} />
             </div>
             <div className="flex-col justify-start items-start gap-9 inline-flex">
               <div className="flex-col justify-start items-start gap-3 flex">

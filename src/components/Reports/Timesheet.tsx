@@ -1,3 +1,5 @@
+import { Card } from "@/components/ui/card";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import React from "react";
 import {
   Box,
@@ -20,11 +22,11 @@ const Timesheet = ({ activeJobs, isLoading }) => {
 
   function formatTime(minutes) {
     // Calculate hours and remaining minutes
-    let hours = Math.floor(minutes / 60);
-    let remainingMinutes = minutes % 60;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
     // Format the time string
-    let timeString = "";
+    const timeString = "";
     if (hours > 0 || remainingMinutes > 0) {
       timeString += hours < 10 ? "0" + hours : hours;
       timeString += ":";
@@ -38,7 +40,7 @@ const Timesheet = ({ activeJobs, isLoading }) => {
   }
 
   // function calculatedMinutes(milliseconds = 0) {
-  //   let totalMinutes = milliseconds / (1000 * 60);
+  //   const totalMinutes = milliseconds / (1000 * 60);
 
   //   return Number(totalMinutes?.toFixed());
   // }
@@ -80,31 +82,9 @@ const Timesheet = ({ activeJobs, isLoading }) => {
                         <Th
                           textColor="black"
                           className="mb-[1.5rem]"
-                        >
-                          Hourly Contracts
-                        </Th>
-                        <Th>Mon</Th>
-                        <Th>Tue</Th>
-                        <Th>Wed</Th>
-                        <Th>Thu</Th>
-                        <Th>Fri</Th>
-                        <Th>Sat</Th>
-                        <Th>Sun</Th>
-                        <Th>Hours</Th>
-                        <Th>Rate</Th>
-                        <Th>Amount</Th>
-                      </Tr>
-                      <br />
-                    </Thead>
-                    <Tbody>
-                      {/* {activeJobs &&
-                    activeJobs?.map((contract, index) => {
-                      const this_week = contract?.data && contract?.data?.filter(
-                        (item) => item.week_number === week_number
-                      );
+
                       const date_time = this_week?.[0]?.date_time;
                       const this_week_time =
-                        this_week && this_week?.[0]?.total_time;
 
                       const total_earning =
                         this_week_time *
@@ -143,14 +123,6 @@ const Timesheet = ({ activeJobs, isLoading }) => {
                           </Td>
                         </Tr>
                       );
-                    })} */}
-                      {activeJobs &&
-                        activeJobs.map((contract, index) => {
-                          const this_week = Array.isArray(contract?.data)
-                            ? contract.data.filter(
-                                (item) => item.week_number === week_number
-                              )
-                            : [];
 
                           const date_time = this_week?.[0]?.date_time || [];
                           const this_week_time =

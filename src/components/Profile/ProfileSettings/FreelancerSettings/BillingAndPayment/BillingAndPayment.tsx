@@ -46,32 +46,7 @@ const BillingAndPayment = () => {
         >
           <Tabs.List
             flexDirection={{ base: "column", sm: "row" }}
-          >
-            {bankDetails?.payment_details && (
-              <Tabs.Trigger>Current Payment Details</Tabs.Trigger>
-            )}
-            <Tabs.Trigger>Add Payment Method</Tabs.Trigger>
-          </Tabs.List>
-          <SmoothMotion key={tab}>
-            <Tabs.Content>
-              {bankDetails?.payment_details && (
-                <Tabs.Content padding={0}>
-                  <PaymentDetails
-                    data={bankDetails}
-                    setData={setBankDetails}
-                    setTab={setTab}
-                  />
-                </Tabs.Content>
-              )}
-              <Tabs.Content padding={0}>
-                <AddPaymentDetails setBank={setBankDetails} setTab={setTab} />
-              </Tabs.Content>
-            </Tabs.Content>
-          </SmoothMotion>
-        </Tabs.Root>
-      </Skeleton>
-    </div>
-  );
+
 };
 
 export default BillingAndPayment;

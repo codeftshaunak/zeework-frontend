@@ -21,13 +21,10 @@ import Step3 from "./Steps/Step3";
 import Step4 from "./Steps/Step4";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
-export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
-  const [gigData, setGigData] = useState({});
+export 
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
-  const path = pathname;
-  const router = useRouter();
+    const router = useRouter();
   const { id } = useParams();
 
   // update form data with previous data
@@ -48,20 +45,6 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
         response?.body[0]?.sub_category
       );
 
-      if (response && categories) {
-        const updatedData = {
-          ...response.body[0],
-          ...categories,
-          skills:
-            response.body[0].skills?.map((item) => ({
-              value: item,
-              label: item,
-            })) || [],
-
-          images:
-            response.body[0].images?.map((item) => ({ preview: item })) || [],
-          video: { preview: response.body[0].video || "" },
-        };
         setGigData(updatedData);
       }
     } catch (error) {
@@ -70,10 +53,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   };
 
   // get existing category and sub category label, value using id
-  const getCategorySubCategory = async (category_id, sub_category_id) => {
-    try {
-      const { body: categories } = await getCategories();
-      const category = categories?.find((item) => item._id === category_id);
+        const category = categories?.find((item) => item._id === category_id);
       if (category) {
         const { body } = await getSubCategory(category_id);
         const subCategory = body?.find((item) => item._id === sub_category_id);
@@ -136,12 +116,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
           if (code === 200) uploadResponse.images.push(...body.images);
         } catch (error) {
           console.error("Error uploading images:", error);
-        }
-      }
 
-      if (formData.video && formData.video.file) {
-        // Prepare uploading form state for video
-        const videoFormData = new FormData();
         videoFormData.append("videoFile", formData.video.file);
         videoFormData.append("ref_id", ref_id);
         videoFormData.append("ref", "gig");
@@ -262,46 +237,5 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   );
 };
 
-export const GigCreateLayout = ({
-  children,
-  title,
-  onBackward = () => {},
-  onForward = () => {},
-  backwardBtnText = "Back",
-  forwardBtnText = "Save & Continue",
-  isLoading,
-}) => {
-  return (
-    <div className="sm:w-full lg:w-[60%]">
-      <Text className="text-left font-semibold">
-        {title}
-      </Text>
-      <br />
-      <div className="w-full flex flex-col gap-5">{children}</div>
-      <div className="mt-4 flex gap-4">
-        <button
-          onClick={onBackward}
-          disabled={isLoading}
-          className="mr-5 px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
-        >
-          {backwardBtnText}
-        </button>
-        <button
-          disabled={isLoading}
-          type="submit"
-          onClick={onForward}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
-        >
-          {isLoading ? (
-            <>
-              <BtnSpinner />
-              <span className="ml-2">{forwardBtnText}</span>
-            </>
-          ) : (
-            forwardBtnText
-          )}
-        </button>
-      </div>
-    </div>
-  );
+export 
 };

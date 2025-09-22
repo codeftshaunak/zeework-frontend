@@ -28,8 +28,8 @@ const ViewJobPost = () => {
   // const jobDetails = location.state && location?.state?.jobDetails;
   const [isModalType, setIsModalType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const profile = useSelector((state: any) => state.profile.profile) || {};
-  const jobs = useSelector((state: any) => state.pages.dashboard.jobs);
+  const profile = useSelector((state: unknown) => state.profile.profile) || {};
+  const jobs = useSelector((state: unknown) => state.pages.dashboard.jobs);
   const dispatch = useDispatch();
 
   const {
@@ -49,8 +49,6 @@ const ViewJobPost = () => {
   const formattedTime = format(currentDate, "HH:mm");
 
   const createdAtAgo =
-    jobDetails?.created_at &&
-    formatDistanceToNow(new Date(jobDetails?.created_at), { addSuffix: true });
 
   const [isJobLoading, setIsJobLoading] = useState(false);
 

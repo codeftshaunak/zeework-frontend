@@ -1,5 +1,6 @@
 
 "use client";
+import { Avatar, Tooltip } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -56,7 +57,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [activeTab, setActiveTab] = useState(0);
   const { socket } = useContext(SocketContext);
   const router = useRouter();
-  const pathname = usePathname();
+  
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 
@@ -64,7 +65,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(searchResults?.totalLength / 20);
 
-  let params = useParams();
+  const params = useParams();
   let { id } = params;
 
   // update user activity status
@@ -158,14 +159,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
       } = freelancerInfo;
 
       router.push(`/client/hire?job=${id}&freelancer=${user_id}`);
-      // const formData = {
-      //   freelencer_id: isUserId,
-      //   job_id: id,
-      //   budget: amount
-      // }
-      // try {
-      //   let result = await dispatch(hireFreelancerService(formData));
-      //   if (result?.code == 200) {
+      //       //   if (result?.code == 200) {
       //     setOpen(false);
       //     setMessage("");
       //     toaster.create({
@@ -189,7 +183,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
         setErrorMessage("Please enter a message.");
       } else {
         try {
-          let res = await sendJobInvitation({
+          const res = await sendJobInvitation({
             receiver_id: isUserId,
             message: message,
             job_id: id,
@@ -197,27 +191,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
           });
 
           if (res.code == 200) {
-            if (socket && profile.profile.user_id && isUserId) {
-              socket.emit(
-                "card_message",
-                {
-                  sender_id: profile.profile.user_id,
-                  receiver_id: isUserId,
-                  message: message,
-                  message_type: "invitation",
-                  contract_ref: res.body?.job_invite_id,
-                },
-                {
-                  title: jobDetails.title,
-                  type: "job_invitation",
-                  job_type: jobDetails.job_type,
-                  amount: jobDetails.amount,
-                  url: {
-                    freelancer: `/message/invitation?job_id=${jobDetails._id}&invite_id=${res.body?.job_invite_id}`,
-                    client: `/client-jobDetails/${jobDetails._id}`,
-                  },
-                }
-              );
+
             }
             dispatch(clearMessageState());
             fetchData();
@@ -236,7 +210,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
     }
     setIsLoadingInvite(false);
   };
-  const paymentStatus = useSelector((state: any) => state.toast.visible);
+  const paymentStatus = useSelector((state: unknown) => state.toast.visible);
   console.log("Come from the job post method", paymentStatus);
   // check client payment status send freelancer hire request
   const handleHireFreelancer = (searchResult) => {
@@ -334,83 +308,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                             {searchResult?.lastName}
                                           </h2>
                                           {searchResult?.activity ===
-                                            "online" && (
-                                              <div className="sm:ml-5 px-2 rounded text-xs font-medium border border-primary text-primary text-center">
-                                                Available Now
-                                              </div>
-                                            )}
-                                        </div>
 
-                                        <p className="text-md">
-                                          {searchResult?.professional_role}
-                                        </p>
-
-                                        <p className="text-md">
-                                          ${searchResult?.hourly_rate}/hr
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div>
-                                      <div className="flex"
-                                        direction="row"
-                                        spacing={4}
-                                        
-                                      >
-                                        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                                          onClick={() =>
-                                            handleHireFreelancer(searchResult)
-                                          }
-                                        >
-                                          Hire
-                                        </button>
-                                        <Tooltip
-                                          hasArrow
-                                          // label={
-                                          //   "Freelancer already applied for this job"
-                                          // }
-                                          placement="top"
-                                          isDisabled={!alreadyApplied}
-                                        >
-                                          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                                            isDisabled={alreadyApplied}
-                                            onClick={() =>
-                                              HandleOpenModal(
-                                                "inviteToJob",
-                                                searchResult
-                                              )
-                                            }
-                                          >
-                                            {searchResult?.invitation_status ===
-                                              0
-                                              ? "Invited"
-                                              : "Invite to Job"}
-                                          </button>
-                                        </Tooltip>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex spacing={4}"
-                                      direction="row"
-                                      
-                                    >
-                                      {searchResult?.length > 0 &&
-                                        searchResult?.skills.map(
-                                          (skill, idx) => (
-                                            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                                              key={idx}
-                                            >
-                                              {skill}
-                                            </button>
-                                          )
-                                        )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
                         })}
 
                         {/* Pagination */}
@@ -467,52 +365,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
           isModal={open}
           setIsModal={setOpen}
           title={
-            isHire
-              ? "Are you hire this freelancer?"
-              : "Enter your message for invite"
-          }
-        >
-          <div>
-            {!isHire && (
-              <div>
-                <textarea
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                  placeholder="Enter your message..."
-                  rows="4"
-                  value={message}
-                  onChange={HandleTextValue}
-                />
-                <p className="text-red-500 text-sm">{errorMessage}</p>
-              </div>
-            )}
-            <div className="flex justify-end mt-5">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                onClick={closeModal}
-                marginRight={5}
-              >
-                Cancel
-              </button>
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                isLoading={isLoadingInvite}
-                loadingText={isHire ? "Sure" : "Send"}
-                type="submit"
-                spinner={<BtnSpinner />}
-                onClick={() => handleSend()}
-              >
-                {isHire ? "Sure" : "Send"}
-              </button>
-            </div>
-          </div>
-        </UniversalModal>
-      </div>
 
-      {/* Notify Payment Status Before Hiring a Freelancer */}
-      <AddPaymentNotifyModal
-        isOpen={paymentVerifiedModal}
-        setIsOpen={setPaymentVerifiedModal}
-      />
-    </>
-  );
 };
 
 export default InviteFreelancer;

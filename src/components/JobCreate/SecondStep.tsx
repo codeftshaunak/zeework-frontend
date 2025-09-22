@@ -66,18 +66,7 @@ function SecondStep({ setStep, defaultValues }) {
             What level experience you need?
           </div>
           <div className="w-max-[530px] mt-2 text-gray-700 text-sm font-normal font-['SF Pro Text'] leading-tight">
-            This won`t restrict any proposals, but helps match expertise to your
-            budget.
-          </div>
-        </div>
-        {errors?.experience && <ErrorMsg msg={errors.experience.message} />}
 
-        {options.map((option, index) => (
-          <div
-            className={`flex p-5 items-center  w-full md:w-[446px] h-[88px] rounded-xl border border-outline-primary active-checkbox cursor-pointer bg-white`}
-            key={index}
-            onClick={() => {
-              const radioValue = option.key;
               reset({ experience: radioValue });
             }}
           >

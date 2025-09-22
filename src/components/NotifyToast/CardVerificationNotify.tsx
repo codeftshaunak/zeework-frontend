@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter, usePathname } from "next/navigation";
 import { hideToast } from "../../redux/toastSlice/toastSlice";
 const CardVerificationNotify = () => {
-  const role = useSelector((state: any) => state.auth.role);
+  const role = useSelector((state: unknown) => state.auth.role);
   const pathname = usePathname();
 
   const router = useRouter();
 
-  const paymentStatus = useSelector((state: any) => state.toast.visible);
+  const paymentStatus = useSelector((state: unknown) => state.toast.visible);
 
   const dispatch = useDispatch();
 

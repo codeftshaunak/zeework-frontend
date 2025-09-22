@@ -10,9 +10,8 @@ import { useEffect, useState } from "react";
 import { getProposals } from "../../helpers/APIs/clientApis";
 import useUserActivityListener from "../../hooks/useUserActivityListener";
 
-export const ClientJobPostViewComponent = () => {
-  const { id } = useParams();
-  const pathname = usePathname();
+export 
+  
   const router = useRouter();
   const [page, setPage] = useState(0);
   const jobDetails = location?.state && location?.state?.jobDetails;
@@ -132,31 +131,5 @@ export const ClientJobPostViewComponent = () => {
         </div>
         {/* <Tabs.Root onChange={(index) => setPage(index)} variant="unstyled">
           <Tabs.List gap={10}>
-            <Tab>View Job Post</Tabs.Trigger>
-            <Tab>Invite Freelancer</Tabs.Trigger>
-            <Tab>
-              Review Proposals (
-              {jobDetails?.proposal_details &&
-                jobDetails.proposal_details.length}
-              )
-            </Tabs.Trigger>
-            <Tab>Hire (0)</Tabs.Trigger>
-          </Tabs.List>
-          <Tabs.Indicator
-            className=" bg-fg-brand"
-          />
-        </Tabs.Root> */}
-      </div>
 
-      {page === 0 && <ViewJobPost />}
-      {page === 1 && <InviteFreelancer appliedUsers={userIds} />}
-      {page === 2 && (
-        <ReviewProposal
-          proposals={proposals}
-          isProposalsLoading={proposalLoading}
-        />
-      )}
-      {page === 3 && <Hire />}
-    </div>
-  );
 };

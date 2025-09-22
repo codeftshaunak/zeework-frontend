@@ -30,8 +30,8 @@ const Reports = () => {
   const [cookies] = useCookies(["activeagency"]);
   const activeAgency = cookies.activeagency;
   // const [reports, setReports] = useState([]);
-  const reports = useSelector((state: any) => state.pages.myStats.reports);
-  const userJobs = useSelector((state: any) => state.pages.myJobs.userJobs);
+  const reports = useSelector((state: unknown) => state.pages.myStats.reports);
+  const userJobs = useSelector((state: unknown) => state.pages.myJobs.userJobs);
   const timeSheet = useSelector((stats) => stats.pages.myStats.timeSheet);
   const [isLoading, setIsLoading] = useState(false);
   const [jobIsLoading, setJobIsLoading] = useState(false);
@@ -93,9 +93,7 @@ const Reports = () => {
     }
     if (Object.keys(userJobs).length === 0) {
       getHourlyJobs();
-    }
-    if (!activeAgency && !timeSheet.length) {
-      getTimeSheet();
+
     }
 
     if (activeAgency) {

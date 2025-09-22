@@ -36,25 +36,7 @@ const Modal = ({
           onChange={HandleTextValue}
         />
         <p className="text-red-500 text-sm">
-          {!messages && "Messages is required"}
-        </p>
-      </div>
 
-      <div className="flex justify-end gap-5 mt-2">
-        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-          onClick={() => setOpenModal(false)}
-          colorScheme="primary"
-          variant="outline"
-        >
-          Cancel
-        </button>
-        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-          isLoading={isLoading}
-          loadingText={offer ? "Accept Offer" : "Accept Interview"}
-          type="submit"
-          spinner={<BtnSpinner />}
-          onClick={() => {
-            if (messages) acceptInvite(messages);
           }}
         >
           {offer ? "Accept Offer" : "Accept Interview"}

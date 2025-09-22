@@ -31,34 +31,15 @@ const AgencyTitle: React.FC<AgencyTitleProps> = ({
           {children}
         </span>
 
-        {isValue && (
+        {!noAdded && (
           <div
-            className="flex items-center justify-center w-5 h-5 ml-2 transition duration-200 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
+            className="flex items-center justify-center w-5 h-5 ml-2 transition duration-300 border rounded cursor-pointer hover:border-primary hover:bg-transparent hover:text-primary"
             onClick={() => setIsModal(true)}
           >
-            <RiEdit2Fill size={14} />
-          </div>
-        )}
-
-        {!isValue && noAdded && (
-          <div
-            className="flex items-center justify-center ml-2 transition duration-200 border rounded cursor-pointer h-7 w-7 hover:border-primary hover:bg-transparent hover:text-primary"
-            onClick={() => setIsModal(true)}
-          >
-            <FiPlus size={16} />
+            {isValue ? <RiEdit2Fill /> : <FiPlus />}
           </div>
         )}
       </div>
-
-      {/* {isModal && (
-        <AgencyUpdatedModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          title={children}
-          data={data}
-          setAgency={setAgency}
-        />
-      )} */}
     </>
   );
 };

@@ -6,7 +6,7 @@ export interface User {
   last_name: string;
   email: string;
   role: number;
-  agency_profile?: any;
+  agency_profile?: unknown;
 }
 
 export interface Agency {
@@ -18,7 +18,7 @@ export interface Agency {
 
 export interface JobDetails {
   _id: string;
-  assigned_member?: any;
+  assigned_member?: unknown;
   title?: string;
   description?: string;
   budget?: number;
@@ -38,8 +38,8 @@ export interface ButtonProps extends ComponentProps {
 }
 
 export interface FormProps extends ComponentProps {
-  onSubmit?: (data: any) => void;
-  initialValues?: any;
+  onSubmit?: (data: unknown) => void;
+  initialValues?: unknown;
 }
 
 // Redux state interfaces

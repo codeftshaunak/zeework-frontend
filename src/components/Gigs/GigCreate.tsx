@@ -15,13 +15,7 @@ import UniversalModal from "../Modals/UniversalModal";
 import { MdImageNotSupported } from "react-icons/md";
 import { compressImageToWebP } from "../../helpers/manageImages/imageCompressed";
 
-export const GigCreate = ({
-  activeStep,
-  setActiveStep,
-  goForward,
-  goBackward,
-}) => {
-  const [formData, setFormData] = useState({});
+export 
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
@@ -70,12 +64,7 @@ export const GigCreate = ({
           }
         } catch (error) {
           console.error("Error uploading images:", error);
-        }
-      }
 
-      if (formData.video && formData.video?.file) {
-        // prepare uploading form state for video
-        const videoFormData = new FormData();
         videoFormData.append("videoFile", formData.video.file);
         videoFormData.append("ref_id", ref_id);
         videoFormData.append("ref", "gig");
@@ -194,188 +183,8 @@ export const GigCreate = ({
             submitCallback={updateFormData}
             formValues={formData}
             isLoading={isLoading}
-          />
-        )}
-      </div>
 
-      {isModal && (
-        <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          isCloseBtn={false}
-        >
-          {modalType === "success" && (
-            <div className="grid gap-6 justify-center">
-              <div className="w-[72px] h-[72px] flex items-center justify-center bg-green-50 rounded-full mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                >
-                  <g id="20/Click">
-                    <path
-                      id="Path"
-                      d="M15.6002 32.4004L11.2002 36.8004"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      id="Path_2"
-                      d="M24 24L42 30L34 34L30 42L24 24"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      id="Path_3"
-                      d="M6 24H12"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      id="Path_4"
-                      d="M32.4004 15.6002L36.8004 11.2002"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      id="Path_5"
-                      d="M15.6002 15.6002L11.2002 11.2002"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      id="Path_6"
-                      d="M24 6V12"
-                      stroke="#22C35E"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </g>
-                </svg>
-              </div>
-              <div className="text-gray-700 text-2xl font-semibold font-['SF Pro Text'] leading-loose text-center">
-                Congratulations
-              </div>
-              <div className="text-center text-gray-700 font-medium font-['SF Pro Text'] leading-tight">
-                Thank you for posting your gig! It is currently under review and
-                will be live in approximately 30 minutes.
-              </div>
-              <div className="text-lg text-center text-gray-700 font-medium font-['SF Pro Text'] leading-tight">
-                Ready to post your next gig?
-              </div>
-              <div className="w-full flex justify-between items-center gap-6">
-                <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
-                  <div
-                    className="self-stretch grow shrink basis-0 px-3 py-2 bg-gray-50 rounded-md shadow border border-gray-300 justify-center items-center gap-1 inline-flex cursor-pointer"
-                    onClick={() => router.push("/find-job")}
-                  >
-                    <div className="text-center text-gray-700 text-sm font-medium font-['SF Pro Text'] leading-tight">
-                      Back to Home
-                    </div>
-                  </div>
-                </div>
-
-                <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
-                  <div
-                    className="self-stretch h-9 px-3 py-2 bg-green-500 rounded-md shadow justify-center items-center gap-1 inline-flex cursor-pointer"
-                    onClick={createNextGig}
-                  >
-                    <div className="text-center text-white text-sm font-medium font-['SF Pro Text'] leading-tight">
-                      Create Another Gig
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          {modalType === "imgFail" && (
-            <div className="grid gap-6 justify-center">
-              <div className="w-[72px] h-[72px] flex items-center justify-center bg-green-50 rounded-full mx-auto">
-                <MdImageNotSupported className="text-4xl text-primary" />
-              </div>
-              <div className="text-gray-700 text-2xl font-semibold font-['SF Pro Text'] leading-loose text-center">
-                Congratulations
-              </div>
-              <div className="text-center text-gray-700 font-medium font-['SF Pro Text'] leading-tight">
-                Your gig has been successfully created, but you need to upload
-                the media file again.
-              </div>
-              <div className="text-lg text-center text-gray-700 font-medium font-['SF Pro Text'] leading-tight">
-                Please upload the media file again!
-              </div>
-              <div className="w-full flex justify-between items-center gap-6">
-                <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
-                  <div
-                    className="self-stretch h-9 px-3 py-2 bg-green-500 rounded-md shadow justify-center items-center gap-1 inline-flex cursor-pointer"
-                    onClick={() =>
-                      router.push(`/freelancer/gig/edit/${storedGigId}`)
-                    }
-                  >
-                    <div className="text-center text-white text-sm font-medium font-['SF Pro Text'] leading-tight">
-                      Edit Created Gig
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </UniversalModal>
-      )}
-    </>
-  );
 };
 
-export const GigCreateLayout = ({
-  children,
-  title,
-  onBackward = () => {},
-  onForward = () => {},
-  backwardBtnText = "Back",
-  forwardBtnText = "Save & Continue",
-  isLoading,
-}) => {
-  return (
-    <div className="sm:w-full lg:w-[60%]">
-      <div className="text-left font-semibold text-lg">
-        {title}
-      </div>
-      <br />
-      <div className="w-full flex flex-col gap-5">{children}</div>
-      <div className="mt-10 flex gap-4">
-        <button
-          onClick={onBackward}
-          disabled={isLoading}
-          className="mr-5 px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition disabled:opacity-50"
-        >
-          {backwardBtnText}
-        </button>
-        <button
-          disabled={isLoading}
-          type="submit"
-          onClick={onForward}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
-        >
-          {isLoading ? (
-            <>
-              <BtnSpinner />
-              <span className="ml-2">{forwardBtnText}</span>
-            </>
-          ) : (
-            forwardBtnText
-          )}
-        </button>
-      </div>
-    </div>
-  );
+export 
 };

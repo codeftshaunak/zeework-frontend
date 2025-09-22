@@ -19,7 +19,7 @@ const MessageInput = ({
   };
 
   const stripHtml = (html) => {
-    let div = document.createElement("div");
+    const div = document.createElement("div");
     div.innerHTML = html;
     return div.textContent || div.innerText || "";
   };
@@ -47,7 +47,7 @@ const MessageInput = ({
             : "bg-slate-100 cursor-not-allowed"
         }`}
         onClick={() => {
-          if (!isLoading && msgLength) handleSendMessage();
+
         }}
       >
         {isLoading ? (

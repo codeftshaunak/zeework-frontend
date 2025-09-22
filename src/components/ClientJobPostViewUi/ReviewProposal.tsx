@@ -1,5 +1,6 @@
 
 "use client";
+import { Avatar } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -39,11 +40,10 @@ import { useDispatch } from "react-redux";
 import ErrorMsg from "../utils/Error/ErrorMsg";
 import AddPaymentNotifyModal from "../Modals/AddPaymentNotifyModal";
 
-export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
-  const { profile } = useContext(CurrentUserContext);
+export 
   const [paymentModal, setPaymentModal] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
-  const pathname = usePathname();
+  
   const jobDetails = location.state && location.state.jobDetails;
   const [open, setOpen] = useState(false);
   const [msgIsOpen, setMsgIsOpen] = useState(null);
@@ -102,7 +102,7 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
   const handleInterviewRequest = async (data) => {
     setIsLoading(true);
     try {
-      let res = await sendJobInvitation({
+      const res = await sendJobInvitation({
         receiver_id: hireProfile.user_id,
         message: data.message,
         job_id: hireProfile.job_id,
@@ -110,27 +110,7 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
       });
 
       if (res.code == 200) {
-        if (socket && profile.profile.user_id) {
-          socket.emit(
-            "card_message",
-            {
-              sender_id: profile.profile.user_id,
-              receiver_id: hireProfile.user_id,
-              message: data.message,
-              message_type: "invitation",
-              contract_ref: res.body?.job_invite_id,
-            },
-            {
-              title: jobDetails.title,
-              type: "job_invitation",
-              job_type: jobDetails.job_type,
-              amount: jobDetails.amount,
-              url: {
-                freelancer: `/message/invitation?job_id=${jobDetails._id}&invite_id=${res.body?.job_invite_id}`,
-                client: `/client-jobDetails/${jobDetails._id}`,
-              },
-            }
-          );
+
         }
         dispatch(clearMessageState());
       }
@@ -378,66 +358,5 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 placeholder="Enter your message..."
                 rows="4"
-                {...register("message", {
-                  required: "Interview message is required",
-                })}
-              />
-              {errors.message && <ErrorMsg msg={errors.message.message} />}
-            </div>
-            <div className="flex justify-end mt-5">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                onClick={() => setMsgIsOpen(false)}
-                colorScheme="primary"
-                variant="outline"
-                marginRight={5}
-              >
-                Cancel
-              </button>
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                loadingText="Sending"
-                spinner={<BtnSpinner />}
-                type="submit"
-                isLoading={isLoading}
-              >
-                Send
-              </button>
-            </div>
-          </div>
-        </form>
-      </UniversalModal>
 
-      {/* Send Job Offer Request */}
-      <UniversalModal
-        isModal={open}
-        setIsModal={setOpen}
-        title="Are you sure?"
-      >
-        <div className="flex justify-end mt-5">
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-            onClick={() => setOpen(false)}
-            colorScheme="primary"
-            variant="outline"
-            marginRight={5}
-          >
-            Cancel
-          </button>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-            onClick={() => handleSend()}
-            colorScheme="primary"
-            isLoading={isLoading}
-            loadingText="Sure"
-            spinner={<BtnSpinner />}
-          >
-            Sure
-          </button>
-        </div>
-      </UniversalModal>
-
-      {/* Notify Payment Status Before Hiring a Freelancer */}
-      <AddPaymentNotifyModal
-        isOpen={paymentModal}
-        setIsOpen={setPaymentModal}
-      />
-    </>
-  );
 };

@@ -32,7 +32,7 @@ interface AgencyServices {
 
 interface PortfolioItem {
   _id: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface AgencyDetails {

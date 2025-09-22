@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, HStack } from "@chakra-ui/react";
 import { toast } from "@/lib/toast";
 import { useEffect, useState } from "react";
 import { FormStateProvider } from "../../contexts/FormContext";
@@ -15,11 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDashboard } from "../../redux/pagesSlice/pagesSlice";
 
 const UpdateJob = () => {
-  const existJobs = useSelector((state: any) => state.pages.dashboard.jobs);
+  const existJobs = useSelector((state: unknown) => state.pages.dashboard.jobs);
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
+  
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 

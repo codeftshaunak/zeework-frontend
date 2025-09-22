@@ -1,23 +1,17 @@
-
 "use client";
 import React from "react";
-
-
 import { useSelector } from "react-redux";
-import { AuthHeader, Header } from "../../Header";
+import Header from "../../Header";
 import Notifications from "../../NotifyToast/Notifications";
-
 interface HomeLayoutProps {
   width?: string;
   gap?: string | number;
   bg?: string;
   children: React.ReactNode;
 }
-
 const HomeLayout: React.FC<HomeLayoutProps> = (props) => {
-  const token = useSelector((state: any) => state.auth.authtoken);
-  const role = useSelector((state: any) => state.auth.role);
-
+  const token = useSelector((state: unknown) => state.auth.authtoken);
+  const role = useSelector((state: unknown) => state.auth.role);
   return (
     <div className="flex flex-col w-full">
       {token ? <AuthHeader role={role} /> : <Header />}
@@ -28,5 +22,4 @@ const HomeLayout: React.FC<HomeLayoutProps> = (props) => {
     </div>
   );
 };
-
 export default HomeLayout;

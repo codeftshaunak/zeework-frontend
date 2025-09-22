@@ -21,9 +21,9 @@ import { educationSchema } from "../../../../schemas/freelancer-profile-schema";
 // TypeScript interfaces
 interface EducationProps {
   type: string;
-  defaultValue: any;
+  defaultValue: unknown;
   setIsModal: (isOpen: boolean) => void;
-  setDefaultValue: (value: any) => void;
+  setDefaultValue: (value: unknown) => void;
 }
 
 interface EducationData {
@@ -34,7 +34,7 @@ interface EducationData {
 }
 
 interface ProfileState {
-  education: any[];
+  education: unknown[];
 }
 
 interface RootState {
@@ -158,13 +158,13 @@ const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, s
   // Delete the education
   const handleDelete = async () => {
     setIsLoading(true);
-    let newPayload = { educationId: defaultValue._id };
+    const newPayload = { educationId: defaultValue._id };
 
     try {
       const { code, msg } = await deleteEducation(newPayload);
 
       if (code === 200) {
-        let newProfile = { ...existProfile };
+        const newProfile = { ...existProfile };
         newProfile.education = existProfile.education?.filter(
           (item) => item._id !== defaultValue._id
         );
@@ -194,127 +194,7 @@ const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, s
                 <Input
                   borderColor={"var(--bordersecondary)"}
                   placeholder="Degree"
-                  {...register("degree_name")}
-                />
 
-                {errors.degree_name && (
-                  <ErrorMsg msg={errors.degree_name.message} />
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-[2px]">
-              <p className="font-[500] text-[#374151]">Institution</p>
-              <div>
-                <Input
-                  borderColor={"var(--bordersecondary)"}
-                  placeholder="Institution"
-                  {...register("institution")}
-                />
-
-                {errors.institution && (
-                  <ErrorMsg msg={errors.institution.message} />
-                )}
-              </div>
-            </div>
-            <HStack className="justify-between">
-              <div className="flex flex-col gap-[2px] w-[49%]">
-                <p className="font-[500] text-[#374151]">Start Date</p>
-                <div>
-                  <Input
-                    borderColor={"var(--bordersecondary)"}
-                    type="date"
-                    placeholder="Start Date"
-                    {...register("start_date")}
-                  />
-
-                  {errors.start_date && (
-                    <ErrorMsg msg={errors.start_date.message} />
-                  )}
-                </div>
-              </div>
-              <div className="flex flex-col gap-[2px] w-[49%]">
-                <p className="font-[500] text-[#374151]">End Date</p>
-                <div>
-                  <Input
-                    borderColor={"var(--bordersecondary)"}
-                    type="date"
-                    placeholder="End Date"
-                    {...register("end_date")}
-                  />
-
-                  {errors.end_date && (
-                    <ErrorMsg msg={errors.end_date.message} />
-                  )}
-                </div>
-              </div>
-            </HStack>
-          </div>
-          <div className="flex items-center justify-end gap-2 pt-5 w-full">
-            <Button
-              variant="gradient"
-              disabled={isLoading}
-              type="submit"
-              className="gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <BtnSpinner />
-                  {type === "Add Education" ? "Adding..." : "Updating..."}
-                </>
-              ) : (
-                type === "Add Education" ? "Add Education" : "Update Education"
-              )}
-            </Button>
-          </div>
-        </form>
-      )}
-
-      {/* Delete the education */}
-      {type === "Delete Education" && (
-        <div className="text-center space-y-6">
-          <div className="w-16 h-16 flex items-center justify-center bg-red-50 rounded-full mx-auto">
-            <Trash2 className="h-8 w-8 text-red-500" />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Delete Education
-            </h3>
-            <p className="text-gray-600">
-              Are you sure you want to delete this education entry? This action cannot be undone.
-            </p>
-          </div>
-
-          <div className="flex gap-3 justify-center">
-            <Button
-              variant="outline"
-              onClick={() => setIsModal(false)}
-              className="min-w-[100px]"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={isLoading}
-              onClick={handleDelete}
-              className="gap-2 min-w-[100px]"
-            >
-              {isLoading ? (
-                <>
-                  <BtnSpinner />
-                  Deleting...
-                </>
-              ) : (
-                <>
-                  <Trash2 className="h-4 w-4" />
-                  Delete
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
-      )}
-    </>
-  );
 };
 
 export default Education;

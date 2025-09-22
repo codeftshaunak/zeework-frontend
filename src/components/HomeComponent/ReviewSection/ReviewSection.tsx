@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable react/no-unescaped-entities */
+import Image from "next/image";
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -17,7 +18,7 @@ const ReviewCard = () => {
       </h1>
       <div className="mt-[30px] flex flex-col items-center justify-between">
         <div className="flex flex-col items-center gap-4">
-          <img
+          <img alt=""
             className="h-[80px] w-[80px] rounded-[15px] object-cover"
             src="./images/ReviewSectionImg1.png"
           />
@@ -37,19 +38,19 @@ const ReviewSection = () => {
   return (
     <section className="bg-gradient-to-t from-[#84B3B1]/[0.05] to-[#C5FFB0]/[0.05] mt-16">
       <div className="mt-16 pt-5 pb-12 md:w-[85%] w-[90%] max-w-[1400px] mx-[auto] relative">
-        <img
+        <img alt=""
           className="h-[80px] w-[80px] rounded-[15px] absolute blur-sm right-[100px] top-[180px] max-xl:hidden opacity-60"
           src="./images/ReviewSectionImg2.png"
         />
-        <img
+        <img alt=""
           className="h-[80px] w-[80px] rounded-[15px] absolute blur-sm left-[100px] top-[180px] max-xl:hidden opacity-60"
           src="./images/ReviewSectionImg3.png"
         />
-        <img
+        <img alt=""
           className="h-[80px] w-[80px] rounded-[15px] absolute blur-sm bottom-[80px] right-[280px] max-xl:hidden opacity-60"
           src="./images/ReviewSectionImg4.png"
         />
-        <img
+        <img alt=""
           className="h-[80px] w-[80px] rounded-[15px] absolute blur-sm bottom-[80px] left-[280px] max-xl:hidden opacity-60"
           src="./images/ReviewSectionImg5.png"
         />

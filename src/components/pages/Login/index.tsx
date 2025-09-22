@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 
@@ -52,12 +51,8 @@ const Login = () => {
         
         const res = await getAllDetailsOfUser();
         const data = res?.body;
-        const detailsFound =
-          data?.categories?.length > 0 &&
-          data?.skills?.length > 0 &&
-          data?.hourly_rate;
+        const detailsFound = await getAllDetailsOfUser();
         const clientDetailsFound =
-          data?.businessName?.length > 0 && data?.briefDescription?.length > 0;
 
       const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       await delay(1500);

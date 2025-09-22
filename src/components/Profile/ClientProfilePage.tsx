@@ -42,7 +42,7 @@ interface RootState {
 }
 
 interface WorkHistoryItem {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 import ReviewCard from "./FreelancerProfile/FreelancerProfile/ReviewCard";
 
@@ -94,7 +94,7 @@ export const ClientProfilePage: React.FC = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<unknown>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [fullImage, setFullImage] = useState<File[] | null>(null);
   const [croppedImage, setCroppedImage] = useState<File[] | null>(null);
@@ -131,9 +131,11 @@ export const ClientProfilePage: React.FC = () => {
     try {
       const { code, body } = await getWorkHistory();
 
-      if (code === 200) setWorkHistory(body);
+      if (code === 200) {
+        setWorkHistory(body || []);
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -176,12 +178,13 @@ export const ClientProfilePage: React.FC = () => {
       // update profile photo and other info
       if (modalType === "Profile Photo") {
         response = await updateProfilePhoto();
-      } else {
+      
+        } else {
         response = await updateClientProfile(data);
       }
 
       // dispatch profile info in redux
-      if (response?.code === 200) {
+      if (response && response.code === 200) {
         dispatch(
           profileData({
             profile: response.body,
@@ -221,7 +224,7 @@ export const ClientProfilePage: React.FC = () => {
     multiple: false,
   });
 
-  const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+  const onCropComplete = useCallback((croppedArea: unknown, croppedAreaPixels: unknown) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
@@ -356,257 +359,216 @@ export const ClientProfilePage: React.FC = () => {
 
                 {[...workHistory]?.reverse()?.map((item, index) => (
                   <ReviewCard key={index} workDetails={item} role={role} />
-                ))}
+                )) || (
+                  <div className="text-center py-8 text-gray-500">
+                    No work history available
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </ProfileContainer>
 
-      {/* Updating Profile Information */}
-      {isModal && (
-        <UniversalModal
-          isModal={isModal}
-          setIsModal={setIsModal}
-          title={`Update ${modalType}`}
-        >
-          <form onSubmit={handleSubmit(handleUpdateProfile)}>
-            {modalType === "Profile Photo" && (
-              <>
-                <div className="flex flex-col gap-[16px]">
-                  <div className="flex flex-col">
-                    <div className="flex flex-col gap-[2px]">
-                      {!imageSrc && (
-                        <div
-                          {...getRootProps()}
-                          className={`w-[100%] ${
-                            fileName ? "py-5" : "py-8"
-                          } px-3 outline-none border-2 rounded-md border-dashed border-primary cursor-pointer bg-green-100 font-medium tracking-wide`}
-                        >
-                          {!fileName && (
-                            <RiUploadCloud2Fill className="text-green-300 text-6xl mx-auto" />
-                          )}
-                          <input
-                            {...getInputProps()}
-                            className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
-                            placeholder="Select an image"
-                            onChange={() => {
-                              const file = getInputProps().files[0];
-                              if (file) {
-                                setFileName(file.name);
-                              }
-                              setErrorMessage("");
-                            }}
-                          />
+      {/* Modal for editing profile */}
+      <UniversalModal
+        title={modalType}
+        isModal={isModal}
+        setIsModal={setIsModal}
+      >
+        {modalType === "Profile Photo" && (
+          <div className="flex flex-col gap-4">
+            <div
+              {...getRootProps()}
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-gray-400"
+            >
+              <input {...getInputProps()} />
+              <RiUploadCloud2Fill className="mx-auto h-12 w-12 text-gray-400" />
+              {isDragActive ? (
+                <p className="text-center">Drop the files here ...</p>
+              ) : (
+                <p className="text-center">
+                  Drag &apos;n&apos; drop image file here, or click to select
+                </p>
+              )}
+            </div>
 
-                          {isDragActive ? (
-                            <p className="text-center">
-                              Drop the files here ...{" "}
-                            </p>
-                          ) : (
-                            <p className="text-center">
-                              Drag &apos;n&apos; drop image file here, or click
-                              to select file
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      {fileName && (
-                        <p className="text-center mt-2 -mb-4 text-green-600">
-                          {fileName}
-                        </p>
-                      )}
-                      {errorMessage && (
-                        <p className="text-sm text-red-500">{errorMessage}</p>
-                      )}
-                    </div>
-                  </div>
-                  {imageSrc && (
-                    <>
-                      <div className="relative w-full h-64">
-                        <Cropper
-                          image={imageSrc}
-                          crop={crop}
-                          zoom={zoom}
-                          aspect={1}
-                          showGrid={false}
-                          onCropChange={isCropped ? undefined : setCrop}
-                          onZoomChange={isCropped ? undefined : setZoom}
-                          onCropComplete={onCropComplete}
-                          cropShape={modalType === "Profile Photo" && "round"}
-                        />
-                      </div>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="flex items-center gap-1 w-full sm:w-96">
-                          <TiMinus />
-                          <Slider
-                            aria-label="zoom-slider"
-                            value={zoom}
-                            min={1}
-                            max={3}
-                            step={0.1}
-                            onChange={(val: number) => {
-                              !isCropped && setZoom(val);
-                            }}
-                          >
-                            <SliderTrack className="bg-slate-300">
-                              <SliderFilledTrack />
-                            </SliderTrack>
-                            <SliderThumb boxSize={6}>
-                              <div className="text-slate-500" as={TiZoom} />
-                            </SliderThumb>
-                          </Slider>
-                          <TiPlus />
-                        </div>
-                        <div className="flex items-center justify-center gap-x-5 flex-wrap">
-                          <button
-                            type="button"
-                            disabled={isCropped}
-                            className={`flex items-center gap-1 ${
-                              isCropped
-                                ? "cursor-no-drop bg-slate-400"
-                                : "bg-slate-500"
-                            } rounded py-1 px-3 text-white w-fit mt-2`}
-                            onClick={() => {
-                              document.getElementById("file-input").click();
-                            }}
-                          >
-                            <BiImages /> Changed File
-                          </button>
-                          <input
-                            id="file-input"
-                            type="file"
-                            {...getInputProps()}
-                            style={{ display: "none" }}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                setFileName(file.name);
-                                setFullImage([file]);
-                                setErrorMessage("");
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = () => {
-                                  setImageSrc(reader.result as string);
-                                };
-                              }
-                            }}
-                          />
-                          <div className="flex items-center justify-center gap-5">
-                            <button
-                              type="button"
-                              className={`flex items-center gap-1 ${
-                                isCropped
-                                  ? "cursor-no-drop bg-slate-400"
-                                  : "bg-slate-500"
-                              } rounded py-1 px-3 text-white w-fit mt-2`}
-                              onClick={handleCrop}
-                              disabled={isCropped}
-                            >
-                              {isCropped ? (
-                                <>
-                                  <IoMdCheckmarkCircleOutline /> Cropped
-                                </>
-                              ) : (
-                                <>
-                                  <BiSolidCrop /> Crop photo
-                                </>
-                              )}
-                            </button>
-                            <button
-                              type="button"
-                              className={`flex items-center gap-1 ${
-                                !isCropped
-                                  ? "cursor-no-drop bg-slate-400"
-                                  : "bg-slate-500"
-                              } rounded py-1 px-3 text-white w-fit mt-2`}
-                              onClick={handleRevert}
-                              disabled={!isCropped}
-                            >
-                              <TiArrowBack /> Revert
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </>
+            {imageSrc && (
+              <div className="relative">
+                <Cropper
+                  image={imageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  onCropChange={setCrop}
+                  onCropComplete={onCropComplete}
+                  onZoomChange={setZoom}
+                />
+                <div className="flex items-center gap-2 mt-4">
+                  <TiMinus />
+                  <Slider
+                    value={zoom}
+                    min={1}
+                    max={3}
+                    step={0.1}
+                    onChange={(value) => setZoom(value)}
+                    className="flex-1"
+                  >
+                    <SliderTrack className="bg-slate-300">
+                      <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderThumb boxSize={6}>
+                      <TiZoom className="text-slate-500" />
+                    </SliderThumb>
+                  </Slider>
+                  <TiPlus />
+                </div>
+                <div className="flex items-center justify-center gap-x-5 flex-wrap mt-4">
+                  <button
+                    type="button"
+                    disabled={isCropped}
+                    className={`flex items-center gap-1 ${
+                      isCropped
+                        ? "cursor-no-drop bg-slate-400"
+                        : "bg-slate-500"
+                    } rounded py-1 px-3 text-white w-fit`}
+                    onClick={() => {
+                      document.getElementById("file-input")?.click();
+                    }}
+                  >
+                    <BiImages /> Change File
+                  </button>
+                  <input
+                    id="file-input"
+                    type="file"
+                    style={{ display: "none" }}
+                    accept="image/*"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setFileName(file.name);
+                        setFullImage([file]);
+                        setErrorMessage("");
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => {
+                          setImageSrc(reader.result as string);
+                        };
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className={`flex items-center gap-1 ${
+                      isCropped
+                        ? "cursor-no-drop bg-slate-400"
+                        : "bg-slate-500"
+                    } rounded py-1 px-3 text-white w-fit`}
+                    onClick={handleCrop}
+                    disabled={isCropped}
+                  >
+                    {isCropped ? (
+                      <>
+                        <IoMdCheckmarkCircleOutline /> Cropped
+                      </>
+                    ) : (
+                      <>
+                        <BiSolidCrop /> Crop photo
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    className={`flex items-center gap-1 ${
+                      !isCropped
+                        ? "cursor-no-drop bg-slate-400"
+                        : "bg-slate-500"
+                    } rounded py-1 px-3 text-white w-fit`}
+                    onClick={handleRevert}
+                    disabled={!isCropped}
+                  >
+                    <TiArrowBack /> Revert
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {errorMessage && <ErrorMsg message={errorMessage} />}
+
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                type="button"
+                onClick={() => setIsModal(false)}
+                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => handleUpdateProfile()}
+                disabled={isLoading || !imageSrc}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+              >
+                {isLoading ? <BtnSpinner /> : "Upload Photo"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {(modalType === "Business Name" || modalType === "Brief Description") && (
+          <form onSubmit={handleSubmit(handleUpdateProfile)}>
+            <div className="space-y-4">
+              {modalType === "Business Name" && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Business Name
+                  </label>
+                  <input
+                    {...register("businessName", { required: "Business name is required" })}
+                    className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                  />
+                  {errors.businessName && (
+                    <ErrorMsg message={errors.businessName.message} />
                   )}
                 </div>
-                {imageSrc && (
-                  <div className="text-right mt-10">
-                    <button
-                      type="button"
-                      disabled={isLoading}
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-7 py-2 bg-blue-600 text-white disabled:opacity-50"
-                      onClick={() => handleUpdateProfile()}
-                    >
-                      {isLoading ? (
-                        <>
-                          <BtnSpinner />
-                          <span className="ml-2">Uploading</span>
-                        </>
-                      ) : (
-                        "Upload"
-                      )}
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
+              )}
 
-            {modalType === "Business Name" && (
-              <div>
-                <input
-                  type="text"
-                  className="w-full p-1 outline-none text-[#000] font-[400] border border-[var(--bordersecondary)] rounded"
-                  placeholder="Business Name..."
-                  {...register("businessName", {
-                    required: "Please enter business name!",
-                  })}
-                />
-                {errors.businessName && (
-                  <ErrorMsg msg={errors.businessName.message as string} />
-                )}
-              </div>
-            )}
+              {modalType === "Brief Description" && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Brief Description
+                  </label>
+                  <textarea
+                    {...register("briefDescription", { required: "Description is required" })}
+                    rows={4}
+                    className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                  />
+                  {errors.briefDescription && (
+                    <ErrorMsg message={errors.briefDescription.message} />
+                  )}
+                </div>
+              )}
 
-            {modalType === "Brief Description" && (
-              <div>
-                <textarea
-                  className="w-full p-1 outline-none text-[#000] font-[400] border border-[var(--bordersecondary)] rounded"
-                  placeholder="Description..."
-                  rows={3}
-                  {...register("briefDescription", {
-                    required: "Please enter brief description!",
-                  })}
-                ></textarea>
-                {errors.briefDescription && (
-                  <ErrorMsg msg={errors.briefDescription.message as string} />
-                )}
-              </div>
-            )}
-
-            {/* On Submit Button */}
-            {modalType !== "Profile Photo" && (
-              <div className="text-right mt-5">
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsModal(false)}
+                  className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-7 py-2 bg-blue-600 text-white disabled:opacity-50"
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
                 >
-                  {isLoading ? (
-                    <>
-                      <BtnSpinner />
-                      <span className="ml-2">Updating</span>
-                    </>
-                  ) : (
-                    "Update"
-                  )}
+                  {isLoading ? <BtnSpinner /> : "Save Changes"}
                 </button>
               </div>
-            )}
+            </div>
           </form>
-        </UniversalModal>
-      )}
+        )}
+      </UniversalModal>
     </>
   );
 };

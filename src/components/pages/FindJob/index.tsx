@@ -7,8 +7,7 @@ import { AllJobs, SearchJobPage } from "../../FindJobUi";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-export const FindJob = () => {
-  const role = useSelector((state) => state.auth.role);
+export 
   const router = useRouter();
 
   useEffect(() => {
@@ -32,9 +31,7 @@ export const FindJob = () => {
   );
 };
 
-export const SearchPage = () => {
-  const role = useSelector((state) => state.auth.role);
-
+export 
   return (
     <HomeLayout>
       <div className="flex flex-col p-0 w-full">

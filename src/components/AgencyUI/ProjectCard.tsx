@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "@/lib/toast";
 import {
@@ -60,7 +61,7 @@ interface ProjectCardProps {
   info: ProjectInfo;
   setIsDeleteAgencyId: (id: string) => void;
   isPrivate: boolean;
-  skills: any;
+  skills: unknown;
 }
 
 interface RootState {
@@ -210,9 +211,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
         getSkills(c._id)
       );
       const skillsResponses = await Promise.all(skillsPromises);
-      const skills = skillsResponses?.flatMap(({ code, body }: any) => {
+      const skills = skillsResponses?.flatMap(({ code, body }: unknown) => {
         if (code === 200) {
-          return body?.map((item: any) => ({
+          return body?.map((item: unknown) => ({
             label: item.skill_name,
             value: item.skill_name,
           }));
@@ -331,7 +332,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
                 {project_images?.length &&
                   project_images?.map((img, idx) => (
                     <SwiperSlide key={idx}>
-                      <img src={img} className="w-full h-fit" />
+                      <img alt="" src={img} className="w-full h-fit" />
                     </SwiperSlide>
                   ))}
               </Swiper>

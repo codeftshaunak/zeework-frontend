@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import CTAButton from "../CTAButton";

@@ -48,11 +48,11 @@ const getSchema = (page: number, role: number) => {
 const ModernProcess = () => {
   const [page, setPage] = useState(0);
   const router = useRouter();
-  const [userDetails, setUserDetails] = useState<any>([]);
+  const [userDetails, setUserDetails] = useState<unknown>([]);
   const [options, setOptions] = useState<MultiSelectOption[]>([]);
   const [skillOptions, setSkillOptions] = useState<MultiSelectOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const state = useSelector((state: any) => state);
+  const state = useSelector((state: unknown) => state);
   const role = state.auth.role;
   const [selectedSubCategory, setSelectedSubCategory] = useState<MultiSelectOption[]>([]);
   const [subCategoryOption, setSubCategoryOption] = useState<MultiSelectOption[]>([]);
@@ -74,7 +74,7 @@ const ModernProcess = () => {
     resolver: yupResolver(getSchema(page, role)),
   });
 
-  const onSubmit = async (body: any) => {
+  const onSubmit = async (body: unknown) => {
     setIsLoading(true);
     try {
       const { code, msg } = await updateFreelancerProfile(body);
@@ -138,7 +138,7 @@ const ModernProcess = () => {
     const { code, body } = await getCategories();
     if (code === 200)
       setOptions(
-        body?.map((item: any) => ({
+        body?.map((item: unknown) => ({
           value: item.category_name,
           label: item.category_name,
           _id: item._id,
@@ -154,11 +154,11 @@ const ModernProcess = () => {
 
       if (code === 200) {
         const uniqueIds = new Set(subCategoryOption.map((item) => item._id));
-        const uniqueItems = body.filter((item: any) => !uniqueIds.has(item._id));
+        const uniqueItems = body.filter((item: unknown) => !uniqueIds.has(item._id));
 
         setSubCategoryOption((prev) => [
           ...prev,
-          ...uniqueItems.map((item: any) => ({
+          ...uniqueItems.map((item: unknown) => ({
             value: item.sub_category_name,
             label: item.sub_category_name,
             _id: item._id,
@@ -173,7 +173,7 @@ const ModernProcess = () => {
   };
 
   // get skills options category wise
-  const getCategorySkills = async (categoryIds: any[]) => {
+  const getCategorySkills = async (categoryIds: unknown[]) => {
     try {
       const validCategoryIds = categoryIds.filter((category) => category._id);
 
@@ -186,7 +186,7 @@ const ModernProcess = () => {
         try {
           const { body, code } = await getSkills(_id);
           if (code === 200) {
-            return body.map((item: any) => ({
+            return body.map((item: unknown) => ({
               value: item?.skill_name,
               label: item?.skill_name,
               category_id: item?.category_id,
@@ -332,19 +332,7 @@ const ModernProcess = () => {
             }}
             placeholder="Select your categories..."
             error={errors.categories?.message}
-          />
-        </div>
 
-        {selectedOptions?.length > 0 && (
-          <div className="space-y-4">
-            <label className="text-base font-semibold text-gray-900">
-              Sub Categories
-            </label>
-            <MultiSelect
-              options={subCategoryOption}
-              selected={selectedSubCategory}
-              onChange={(selected) => {
-                setSelectedSubCategory(selected);
                 setValue(
                   "sub_categories",
                   selected.map((option) => ({
@@ -384,88 +372,9 @@ const ModernProcess = () => {
             {...register("professional_role")}
             placeholder="e.g., Full Stack Developer, UI/UX Designer"
             className="h-12 text-base"
-          />
-          {errors.professional_role && (
-            <p className="text-sm text-red-500 font-medium">{errors.professional_role.message}</p>
-          )}
-        </div>
 
-        <div className="space-y-4">
-          <label className="text-base font-semibold text-gray-900">
-            Hourly Rate (USD)
-          </label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <Input
-              {...register("hourly_rate")}
-              type="number"
-              placeholder="25"
-              className="h-12 text-base pl-10"
-            />
-          </div>
-          {errors.hourly_rate && (
-            <p className="text-sm text-red-500 font-medium">{errors.hourly_rate.message}</p>
-          )}
-        </div>
-
-        <div className="space-y-4">
-          <label className="text-base font-semibold text-gray-900">
-            Professional Summary
-          </label>
-          <Textarea
-            {...register("description")}
-            placeholder="Tell clients about your experience, skills, and what makes you unique..."
-            className="min-h-[120px] text-base resize-none"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
               setValue("description", e.target.value);
-            }}
-          />
-          {errors.description && (
-            <p className="text-sm text-red-500 font-medium">{errors.description.message}</p>
-          )}
-        </div>
-      </div>
-    </OnboardingLayout>
-  )
 
-  // Freelancer Skills Step
-  const renderSkillsStep = () => (
-    <OnboardingLayout
-      currentStep={4}
-      totalSteps={4}
-      title="Add Your Skills"
-      description="Select the skills that showcase your expertise"
-      onNext={handleSubmit(onSubmit)}
-      onBack={() => setPage(3)}
-      isLoading={isLoading}
-      nextText="Complete Profile"
-    >
-      <div className="space-y-6">
-        <div className="space-y-4">
-          <label className="text-base font-semibold text-gray-900">
-            Your Skills
-          </label>
-          <p className="text-gray-600 text-sm">
-            Add skills that are relevant to the work you want to do. Include software, tools, and techniques.
-            <br />
-            <span className="font-medium">
-              Minimum 5 skills required • No maximum limit
-            </span>
-            {selectedSkills.length > 0 && (
-              <span className={`font-medium ml-2 ${selectedSkills.length >= 5 ? 'text-green-600' : 'text-orange-600'}`}>
-                ({selectedSkills.length} skill{selectedSkills.length !== 1 ? 's' : ''} selected
-                {selectedSkills.length < 5 && ` • ${5 - selectedSkills.length} more needed`})
-              </span>
-            )}
-          </p>
-
-          <MultiSelect
-            options={skillOptions}
-            selected={selectedSkills}
-            onChange={(selected) => {
-              console.log("onChange called with:", selected.length, "skills");
               console.log("Selected skills:", selected);
               setSelectedSkills(selected);
 
@@ -491,63 +400,6 @@ const ModernProcess = () => {
   )
 
   // Client Info Step
-  const renderClientStep = () => (
-    <OnboardingLayout
-      currentStep={2}
-      totalSteps={2}
-      title="Tell Us About Your Business"
-      description="Help us understand your company and hiring needs"
-      onNext={handleSubmit(onSubmit)}
-      onBack={() => setPage(1)}
-      isLoading={isLoading}
-      nextText="Complete Setup"
-    >
-      <div className="space-y-6">
-        <div className="space-y-4">
-          <label className="text-base font-semibold text-gray-900">
-            Business Name
-          </label>
-          <Input
-            {...register("businessName")}
-            placeholder="Your company name"
-            className="h-12 text-base"
-          />
-          {errors.businessName && (
-            <p className="text-sm text-red-500 font-medium">{errors.businessName.message}</p>
-          )}
-        </div>
-
-        <div className="space-y-4">
-          <label className="text-base font-semibold text-gray-900">
-            Business Description
-          </label>
-          <Textarea
-            {...register("briefDescription")}
-            placeholder="Describe your business and what kind of talent you're looking to hire..."
-            className="min-h-[120px] text-base resize-none"
-          />
-          {errors.briefDescription && (
-            <p className="text-sm text-red-500 font-medium">{errors.briefDescription.message}</p>
-          )}
-        </div>
-      </div>
-    </OnboardingLayout>
-  )
-
-  return (
-    <>
-      {/* Welcome Page */}
-      {(page === 0 || page === 1) && renderWelcomeStep()}
-
-      {/* Freelancer Flow */}
-      {role === 1 && page === 2 && renderCategoriesStep()}
-      {role === 1 && page === 3 && renderInfoStep()}
-      {role === 1 && page === 4 && renderSkillsStep()}
-
-      {/* Client Flow */}
-      {role === 2 && page === 2 && renderClientStep()}
-    </>
-  );
-};
+  };
 
 export default ModernProcess;

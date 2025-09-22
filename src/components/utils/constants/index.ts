@@ -17,11 +17,11 @@ export function calculateProfileCompletion(profile) {
     // linked_accounts: 5,
   };
 
-  let totalWeight = 0;
-  let completedWeight = 0;
-  let uncompletedAttributes = [];
+  const totalWeight = 0;
+  const completedWeight = 0;
+  const uncompletedAttributes = [];
 
-  for (let attribute in profileAttributes) {
+  for (const attribute in profileAttributes) {
     totalWeight += profileAttributes[attribute];
     if (Array.isArray(profile[attribute])) {
       if (profile[attribute].length > 0) {

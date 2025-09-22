@@ -1,22 +1,37 @@
+import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
 import { handleApiError } from "./common";
-import { API } from "./proxy";
+import { API } from "./proxy"; // axios.create({ baseURL: ... })
 
-const makeApiRequest = async (
-  method,
+interface ApiRequestOptions {
+  endpoint: string;
+  method?: Method;
+  data?: any;
+  authToken?: string;
+  contentType?: string;
+  customHeaders?: Record<string, string>;
+}
+
+interface ApiErrorResponse {
+  path?: string;
+  message: string;
+  isError: boolean;
+}
+
+export const apiRequest = async <T = any>({
   endpoint,
-  data = null,
+  method = "GET",
+  data,
+  authToken,
+  contentType = "application/json",
   customHeaders = {},
-  contentType = "application/json"
-) => {
-  const authtoken = localStorage.getItem("authtoken");
-
+}: ApiRequestOptions): Promise<T | ApiErrorResponse> => {
   const headers = {
     "Content-Type": contentType,
-    token: authtoken,
-    ...customHeaders, // Allow for custom headers
+    ...(authToken ? { token: authToken } : {}),
+    ...customHeaders,
   };
 
-  const config = {
+  const config: AxiosRequestConfig = {
     method,
     url: endpoint,
     headers,
@@ -24,32 +39,10 @@ const makeApiRequest = async (
   };
 
   try {
-    const response = await API(config);
-
+    const response: AxiosResponse<T> = await API(config);
     return response.data;
-  } catch (error) {
-    // Use the error handling hook
-    // const { handleApiError } = useApiErrorHandling();
+  } catch (error: any) {
     const { path, message, isError } = handleApiError(error);
     return { path, message, isError };
   }
 };
-
-export const getMessageUsers = async (profile) =>
-  makeApiRequest(
-    "get",
-    `/user-chat-list${profile ? `?profile=${profile}` : ""}`
-  );
-
-export const getMessageDetails = async (receiverId, contractRef, profile) =>
-  makeApiRequest(
-    "get",
-    `/message-list?receiver_id=${receiverId}${
-      contractRef ? `&contract_ref=${contractRef}` : ""
-    }`,
-    null,
-    { profile: profile }
-  );
-
-export const deleteSingleMessage = async (body) =>
-  makeApiRequest("post", `/message/delete`, body);

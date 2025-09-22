@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa6";
 import { Card, CardContent } from "../../ui/card";
 import { ArrowRight, DollarSign, Users, Zap } from "lucide-react";

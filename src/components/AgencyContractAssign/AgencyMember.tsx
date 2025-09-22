@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, Box, VStack, Text } from "@chakra-ui/react";
 import { toast } from "@/lib/toast";
 import { MainButtonRounded } from "../Button/MainButton";
 import { useContext, useState } from "react";
@@ -31,27 +32,6 @@ const AgencyMember = ({ details, contractRef, setJobDetails }) => {
         setIsAssigned(true);
         setJobDetails((prev) => ({ ...prev, ...body }));
 
-        if (socket && details.user_id) {
-          socket.emit(
-            "card_message",
-            {
-              sender_id: body.freelancer_id,
-              receiver_id: details.user_id,
-              message: " ",
-              message_type: "agency_contract",
-              contract_ref: body._id,
-            },
-            {
-              type: "assigned_agency_contract",
-              position: body.contract_title,
-              job_type: body.job_type,
-              // amount: jobDetails.amount,
-              url: {
-                freelancer: `/assigned-contract/${body._id}`,
-                agency: `/contract-assign/${body._id}`,
-              },
-            }
-          );
         }
         dispatch(clearMessageState());
       }

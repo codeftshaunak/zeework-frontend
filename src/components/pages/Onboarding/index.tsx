@@ -30,7 +30,6 @@ const Onboarding = () => {
     }
   }, [isAuth, isComplete, router]);
 
-  return <>{isAuth && !isComplete && <ModernProcess />}</>;
 };
 
 export default Onboarding;

@@ -37,8 +37,8 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     pageNumbers.push(1);
 
     // Determine start and end pages to display around the current page
-    let startPage = Math.max(currentPage - pageBuffer, 2);
-    let endPage = Math.min(currentPage + pageBuffer, totalPages - 1);
+    const startPage = Math.max(currentPage - pageBuffer, 2);
+    const endPage = Math.min(currentPage + pageBuffer, totalPages - 1);
 
     // Show ellipsis if there are pages between 1 and startPage
     if (startPage > 2) {

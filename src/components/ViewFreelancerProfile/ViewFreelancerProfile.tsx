@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, VStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
@@ -21,7 +22,7 @@ import PortfolioCard from "./PortfolioCard";
 import { useSelector } from "react-redux";
 
 const ViewFreelancerProfile = () => {
-  const role = useSelector((state: any) => state.auth.role);
+  const role = useSelector((state: unknown) => state.auth.role);
   const [freelancerDetails, setFreelancerDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -134,37 +135,7 @@ const ViewFreelancerProfile = () => {
               <div className="flex w-full flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
                 <div className="flex items-center justify-between">
                   <p className="text-[20px] text-[#374151] font-[600]">
-                    Education
-                  </p>
-                </div>
-                {education?.length > 0 &&
-                  education?.map((edu) => (
-                    <div className="flex flex-col gap-[8px]" key={edu._id}>
-                      <div className="flex items-center justify-between">
-                        <p className="text-[16px] text-[#374151] font-[600]">
-                          {edu?.institution}
-                        </p>
-                      </div>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {edu?.degree_name}
-                      </p>
-                      <p className="text-[14px] text-[#374151] font-[400]">
-                        {edu?.end_date}
-                      </p>
-                    </div>
-                  ))}
-              </div>
 
-              {/* ==================== Experience ====================== */}
-              <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg  bg-white">
-                <div className="flex items-center justify-between">
-                  <p className="text-[20px] text-[#374151] font-[600]">
-                    Experience
-                  </p>
-                </div>
-                {experience?.length > 0 &&
-                  experience?.map((experience, index) => {
-                    const startDate = new Date(experience.start_date);
                     const endDate = new Date(experience.end_date);
                     const startYear = startDate.getFullYear();
                     const endYear = endDate.getFullYear();
@@ -210,92 +181,12 @@ const ViewFreelancerProfile = () => {
               {/* ===================== skills ============= */}
               <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                 <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
-                  {skills?.length > 0 &&
-                    skills?.map((skill, idx) => {
-                      return <SkillCard title={skill} key={idx} />;
+
                     })}
                 </div>
               </div>
               {/* ======================= portfolio =============== */}
-              {portfolio && (
-                <>
-                  <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
-                    <div className="flex items-center justify-between">
-                      <p className="text-[20px] text-[#374151] font-[600]">
-                        Portfolio
-                      </p>
-                    </div>
-                    <div className="-z-0">
-                      <Swiper
-                        slidesPerView={1}
-                        spaceBetween={30}
-                        freeMode={true}
-                        breakpoints={{
-                          768: {
-                            // width: 768,
-                            slidesPerView: 2,
-                          },
-                          1024: {
-                            // width: 1024,
-                            slidesPerView: 3,
-                          },
-                        }}
-                        pagination={{
-                          clickable: true,
-                        }}
-                        // modules={[FreeMode, Pagination]}
-                      >
-                        {portfolio?.length > 0 &&
-                          portfolio
-                            ?.slice()
-                            .reverse()
-                            .map((port, idx) => (
-                              <SwiperSlide key={idx}>
-                                <PortfolioCard portfolio={port} />
-                              </SwiperSlide>
-                            ))}
-                      </Swiper>
-                    </div>
-                  </div>
-                </>
-              )}
 
-              {/* <div className="flex flex-col gap-[24px]  border-[1px] pt-[20px] px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
-              <div>
-                <hr />
-                <div className="mt-10 w-full"><ProfileGigCards /></div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4"></div>
-            </div> */}
-
-              {/* ================= work history ====================== */}
-              <div className="flex flex-col gap-[24px]  border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
-                <div className="flex items-center justify-between">
-                  <p className="text-[20px] text-[#374151] font-[600]">
-                    Work History
-                  </p>
-                </div>
-                <div className="flex flex-col gap-[6px]">
-                  <p className="text-[14px] text-[#22C35E] font-[600] cursor-pointer">
-                    Completed Jobs
-                  </p>
-                  <div className="h-[2px] w-[60px] bg-[#22C35E]"></div>
-                </div>
-                {/* {profile?.work_history?.length ? (
-                profile?.work_history?.map((item, index) => (
-                  <ReviewCard key={index} workDetails={item} />
-                ))
-              ) : (
-                <p>No completed jobs yet.</p>
-              )} */}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </HomeLayout>
-  );
 };
 
 export default ViewFreelancerProfile;

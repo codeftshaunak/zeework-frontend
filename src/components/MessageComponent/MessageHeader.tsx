@@ -1,10 +1,11 @@
-import React from "react";
+import { Avatar } from "@chakra-ui/react";
+import React from "react";"
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";"
 
 interface MessageHeaderProps {
-  receiverDetails?: any;
-  contractDetails?: any;
+  receiverDetails?: unknown;
+  contractDetails?: unknown;
 }
 
 const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contractDetails }) => {
@@ -12,7 +13,7 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
     receiverDetails?.agency_profileImage || receiverDetails?.profile_image;
   const name =
     receiverDetails?.agency_name ||
-    `${receiverDetails?.firstName} ${receiverDetails?.lastName}`;
+    `${receiverDetails?.firstName} ${receiverDetails?.lastName}`;`
   const title =
     contractDetails?.title ||
     receiverDetails?.professional_role ||
@@ -21,7 +22,7 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
   const router = useRouter();
   console.log(receiverDetails);
   return (
-    <div className="flex borderBottom="1px" borderColor="gray.400"}>
+    <div className="flex borderBottom="1px" borderColor="gray.400"}>"
       <Avatar
         src={profileImage}
         size="md"
@@ -29,17 +30,17 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
         marginRight="20px"
         name={name}
       >
-        <AvatarBadge`}
+        <AvatarBadge`}`
           boxSize="0.8em"
           left={-2}
           top={0}
         />
       </Avatar>
-      <div className="flex flexDir="column">
+      <div className="flex flexDir="column">"
         <span
           onClick={() =>
             router.push(
-              `/profile/${
+              `/profile/${`
                 receiverDetails?.agency_name
                   ? `a/${receiverDetails?._id}`
                   : `f/${receiverDetails?.user_id}`
@@ -47,7 +48,7 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
             )
           }
           marginBottom="0"
-          _hover={{ color: "primary.600" }}
+          _hover={{ color: "primary.600" }}"
         >
           {name}
         </span>

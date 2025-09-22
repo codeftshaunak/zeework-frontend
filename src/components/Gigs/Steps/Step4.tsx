@@ -1,5 +1,6 @@
 
 "use client";
+import { Textarea, Checkbox } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -135,13 +136,6 @@ const Step4 = ({
                 return (
                   <>
                     <Textarea {...field} className="mt-[5px] bg-white" />
-                    {fieldState.error && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {fieldState.error.message}
-                      </p>
-                    )}
-                  </>
-                );
               }}
             />
           </div>
@@ -174,105 +168,14 @@ const Step4 = ({
                           {...field}
                          
                           type="text"
-                        />
-                        {fieldState.error && (
-                          <p style={{ color: "red", marginTop: "5px" }}>
-                            {fieldState.error.message}
-                          </p>
-                        )}
-                      </>
-                    )}
-                  />
-                  <label htmlFor="" className="font-semibold">
-                    Answer
-                  </label>
-                  <Controller
-                    name={`project_description.faqs[${index}].answer`}
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <>
-                        <Textarea
-                          {...field}
-                          className="mt-[5px] bg-white"
-                        />
-                        {fieldState.error && (
-                          <p style={{ color: "red", marginTop: "5px" }}>
-                            {fieldState.error.message}
-                          </p>
-                        )}
-                      </>
-                    )}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-row items-center w-full">
-              <button
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                style={{ backgroundColor: "transparent" }}
-                onClick={() => addFaq()}
-              >
-                <FiPlus size="1.3rem" /> <span>Add a step</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-start w-full">
-            <label
-              htmlFor="fileInput"
-              className="text-xl md:text-2xl font-[600] pb-0 mb-0"
-            >
-              Terms of Service
-            </label>
-
-            <div className="flex flex-row items-center w-full">
-              <Checkbox
-                colorScheme="primary"
-                size="lg"
-                onChange={(e) => {
-                  setValue("terms", e.target.checked);
                   trigger("terms");
                 }}
               ></Checkbox>
               <span className="text-sm">
-                I understand and agree to the{" "}
-                <strong>ZeeWork Terms of Service</strong>, including the{" "}
-                <strong>User Agreement</strong> and{" "}
-                <strong>Privacy Policy</strong>
-              </span>
-            </div>
-            {errors.terms && <ErrorMsg msg={errors.terms.message} />}
-          </div>
-
-          <div className="flex flex-col items-start w-full">
-            <label
-              htmlFor="fileInput"
-              className="text-xl md:text-2xl font-[600] pb-0 mb-0"
-            >
-              Privacy Notice
-            </label>
-            <div className="flex flex-row items-center w-full">
-              <Checkbox
-                colorScheme="primary"
-                size="lg"
-                onChange={(e) => {
-                  setValue("privacy_notice", e.target.checked);
                   trigger("privacy_notice");
                 }}
               ></Checkbox>
               <span className="text-sm">
-                By submitting the project and activating it you agree to the
-                Privacy Policy.
-              </span>
-            </div>
-            {errors.privacy_notice && (
-              <ErrorMsg msg={errors.privacy_notice.message} />
-            )}
-          </div>
-        </GigCreateLayout>
-      </form>
-    </FormProvider>
-  );
 };
 
 export default Step4;

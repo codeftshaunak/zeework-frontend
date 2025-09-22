@@ -1,38 +1,39 @@
-"use client";
+"use client";"
 
-import { toast } from "@/lib/toast";
-import React, { useContext, useEffect, useState } from "react";
-import { TbMessageCancel } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "next/navigation";
-import { SocketContext } from "../../contexts/SocketContext";
-import { deleteSingleMessage } from "../../helpers/APIs/messageApis";
-import { setMessageUsers } from "../../redux/messageSlice/messageSlice";
-import UniversalModal from "../Modals/UniversalModal";
-import BtnSpinner from "../Skeletons/BtnSpinner";
-import MessageHeader from "./MessageHeader";
-import MessageInput from "./MessageInput";
-import SingleText from "./SingleText";
+import { Box, Button } from "@chakra-ui/react";
+import { toast } from "@/lib/toast";"
+import React, { useContext, useEffect, useState } from "react";"
+import { TbMessageCancel } from "react-icons/tb";"
+import { useDispatch, useSelector } from "react-redux";"
+import { useLocation, useParams } from "next/navigation";"
+import { SocketContext } from "../../contexts/SocketContext";"
+import { deleteSingleMessage } from "../../helpers/APIs/messageApis";"
+import { setMessageUsers } from "../../redux/messageSlice/messageSlice";"
+import UniversalModal from "../Modals/UniversalModal";"
+import BtnSpinner from "../Skeletons/BtnSpinner";"
+import MessageHeader from "./MessageHeader";"
+import MessageInput from "./MessageInput";"
+import SingleText from "./SingleText";"
 
 const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
-  const users = useSelector((state: any) => state.message.users);
-  const [messageData, setMessageData] = useState(data?.messages || []);
+  const users = useSelector((state: unknown) => state.message.users);
+  const [messageData, setMessageData] = useState(data?.messages ||[]);
   const [isModal, setIsModal] = useState(false);
-  const [modalType, setModalType] = useState("");
-  const [selectedMsgId, setSelectedMsgId] = useState("");
+  const [modalType, setModalType] = useState("");"
+  const [selectedMsgId, setSelectedMsgId] = useState("");"
   const [actionIsLoading, setActionIsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const receiverDetails = data?.reciever_details;
   const { contract_details } = userDetails || {};
   const { search } = usePathname();
   const searchParams = new URLSearchParams(search);
-  const contract_ref = searchParams.get("contract_ref");
+  const contract_ref = searchParams.get("contract_ref");"
   const { id } = useParams();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");"
   const { socket } = useContext(SocketContext);
-  const profile = useSelector((state: any) => state.profile);
+  const profile = useSelector((state: unknown) => state.profile);
   const senderDetails = isAgencyId ? profile.agency : profile.profile;
-  const role = useSelector((state: any) => state.auth.role);
+  const role = useSelector((state: unknown) => state.auth.role);
   const userId = isAgencyId ? isAgencyId : senderDetails.user_id;
   const socketUser = senderDetails.user_id;
   const dispatch = useDispatch();
@@ -44,13 +45,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
 
   // Mark messages as read when they are displayed
   useEffect(() => {
-    if (messageData?.length && socket) {
-      messageData?.forEach((msg) => {
-        if (!msg.is_read && msg.receiver_id === userId) {
-          socket.emit("message_read", {
-            message_id: msg._id,
-            user_id: userId,
-          });
+
         }
       });
     }
@@ -58,7 +53,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
 
   // Scroll to the bottom of the chat container
   const scrollToBottom = () => {
-    const chatContainer = document.getElementById("chat-container");
+    const chatContainer = document.getElementById("chat-container");"
     if (chatContainer) {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
@@ -67,20 +62,18 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   // Update message data when new data is received
   useEffect(() => {
     setMessageData(data?.messages);
-  }, []);
+  },[]);
 
   // Handle sending a new message
   const handleSendMessage = () => {
     sendMessage(message);
-    setMessage("");
+    setMessage("");"
   };
 
   // Send a new message to the server
-  const sendMessage = (message) => {
-    setIsLoading(true);
-    socket.emit("connect_user", { user_id: socketUser });
+      socket.emit("connect_user", { user_id: socketUser });"
     socket.emit(
-      "chat_message",
+      "chat_message","
       {
         sender_id: userId,
         receiver_id: selectedUser,
@@ -88,7 +81,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
         contract_ref: contract_details?.contract_ref,
       },
       (response) => {
-        if (response?.status === "success") {
+        if (response?.status === "success") {"
           setIsLoading(false);
           // setMessageData((prev) => [...prev, { ...response.data }]);
 
@@ -99,12 +92,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   };
 
   // Update the latest communicated user in the state
-  const updateCommunicatedUser = () => {
-    const updatedUsers = users.map((user) => {
-      const receiverId = user.user_details?.agency_name
-        ? user.user_details._id
-        : user.user_details.user_id;
-      if (
+        if (
         user.contract_details.contract_ref === contract_details.contract_ref &&
         receiverId === selectedUser
       ) {
@@ -123,14 +111,11 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
 
   // Handle receiving new messages from the socket
   useEffect(() => {
-    socket?.emit("connect_user", { user_id: socketUser });
-    socket?.on("receive_message", (data, cardDetails, newUser) => {
+    socket?.emit("connect_user", { user_id: socketUser });"
+    socket?.on("receive_message", (data, cardDetails, newUser) => {"
       data.created_at = new Date();
       setMessageData((prevMessageData) => {
         const isRepeated =
-          prevMessageData.length > 0 &&
-          prevMessageData[prevMessageData.length - 1].sender_id ===
-            data.sender_id;
 
         if (
           data.contract_ref === contract_ref &&
@@ -166,7 +151,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
     });
 
     return () => {
-      socket?.off("receive_message");
+      socket?.off("receive_message");"
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, contract_ref, id, socketUser, users, dispatch]);
@@ -176,7 +161,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
     try {
       const { code, msg } = await deleteSingleMessage({
         _id: id,
-        profile: isAgencyId ? "agency" : "user",
+        profile: isAgencyId ? "agency" : "user","
       });
 
       if (code === 200) {
@@ -186,13 +171,13 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
         );
       }
     } catch (error) {
-      toast.error(error?.message || error.response.data.msg || "Something gonna wrong!");
-      console.error("Error deleting message:", error);
+      toast.error(error?.message || error.response.data.msg || "Something gonna wrong!");"
+      console.error("Error deleting message:", error);"
     }
     setActionIsLoading(false);
     setIsModal(false);
-    setSelectedMsgId("");
-    setModalType("");
+    setSelectedMsgId("");"
+    setModalType("");"
   };
 
   const handleAction = (id, type) => {
@@ -201,12 +186,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
     setIsModal(true);
   };
 
-  const removeTrailingEmptyTags = (html) => {
-    return html.replace(
-      /(<p(?: class="ql-align-justify")?\s*>\s*<br\s*\/?>\s*<\/p>\s*)+$/,
-      ""
-    );
-  };
+    };
 
   return (
     <>
@@ -214,7 +194,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
         px="20px"
         py="1rem"
         // mt="1.5rem"
-       className="border shadow-sm bg-white pb-5 overflow-hidden w-full relative">
+       className="border shadow-sm bg-white pb-5 overflow-hidden w-full relative">"
         {/* Message Header */}
         <MessageHeader
           receiverDetails={receiverDetails}
@@ -223,21 +203,21 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
 
         {/* Message Body */}
         <VStack}
-          paddingBottom={{ md: "20px" }}
-         className="w-full h-full relative">
+          paddingBottom={{ md: "20px" }}"
+         className="w-full h-full relative">"
           <Box}
             overflowY="auto"
             overflowX="hidden"
             flexDir="column"
-            marginBottom={{ md: "1.5rem" }}
+            marginBottom={{ md: "1.5rem" }}"
             id="chat-container"
             css={{
-              "&::WebkitScrollbar": {
-                display: "none",
+              "&::WebkitScrollbar": {"
+                display: "none","
               },
-              scrollbarWidth: "none",
+              scrollbarWidth: "none","
             }}
-           className="flex items-start w-full">
+           className="flex items-start w-full">"
             {/* Messages */}
             {messageData?.length
               ? messageData.map((user, index) => (
@@ -267,27 +247,27 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
       {/* Manage actions of message */}
       <UniversalModal isModal={isModal} setIsModal={setIsModal}>
         {/* delete selected message */}
-        {modalType === "delete" && (
+        {modalType === "delete" && ("
           <>
-            <div className="w-[72px] h-[72px] flex items-center justify-center bg-red-50 rounded-full mx-auto">
-              <TbMessageCancel className="text-4xl text-red-500" />
+            <div className="w-[72px] h-[72px] flex items-center justify-center bg-red-50 rounded-full mx-auto">"
+              <TbMessageCancel className="text-4xl text-red-500" />"
             </div>
-            <p className="text-2xl font-semibold text-center">
+            <p className="text-2xl font-semibold text-center">"
               Are you want to delete this message?
             </p>
-            <p className="text-center text-gray-600 mt-1">
-              <span className="text-red-500">*</span> This action will
+            <p className="text-center text-gray-600 mt-1">"
+              <span className="text-red-500">*</span> This action will"
               permanently remove the message for both parties.
             </p>
-            <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
-              <Button
-                onClick={() = className="w-full"> setIsModal(false)}
+            <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">"
+              <Button></Button>
+                onClick={() = className="w-full"> setIsModal(false)}"
               >
                 No, cancel
               </button>
               <Button
                 isLoading={actionIsLoading}
-                loadingText="Deleting..."
+                loadingText="Deleting..."></Button>
                 spinner={<BtnSpinner />}
                 onClick={() => handleDelete(selectedMsgId)}
               >

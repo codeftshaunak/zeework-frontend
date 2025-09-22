@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image";
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'

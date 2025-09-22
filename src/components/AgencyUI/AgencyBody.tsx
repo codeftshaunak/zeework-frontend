@@ -21,14 +21,6 @@ const AgencyBody = ({ agency, setAgency }) => {
 };
 
 //  agency body layout
-export const AgencyBodyLayout = ({ children }) => {
-  return (
-    <div
-      className="w-full flex justify-center shadow-sm border p-4 bg-white"
-    >
-      {children}
-    </div>
-  );
-};
+export { AgencyBodyLayout };
 
 export default AgencyBody;

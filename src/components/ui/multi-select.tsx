@@ -76,8 +76,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
         onChange(newSelected)
       } else {
         console.log("Checking maxSelections:", maxSelections, "Current count:", selected.length);
-        if (maxSelections && selected.length >= maxSelections) {
-          console.log("❌ MAX SELECTIONS REACHED!", maxSelections, "Current:", selected.length);
+
           return
         }
         const newSelected = [...selected, option]

@@ -1,5 +1,6 @@
 
 "use client";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -27,7 +28,7 @@ const CompletedJobs = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { activeJobs } = useSelector((state: any) => state.pages.myStats);
+  const { activeJobs } = useSelector((state: unknown) => state.pages.myStats);
   const dispatch = useDispatch();
 
   const getJobList = async () => {

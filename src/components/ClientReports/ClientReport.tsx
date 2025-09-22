@@ -125,22 +125,4 @@ const ClientReport = () => {
   );
 };
 
-const OverviewCard = ({ value, label }) => (
-  <div
-    minWidth="250px"
-   
-    backgroundColor="#ffffff"
-   
-   
-    _hover={{
-      border: "1px solid var(--primarycolor)",
-      transition: "0.3s ease-in-out",
-    }}
-    className="max-md:!w-full flex flex-col cursor-pointer"
-  >
-    <p className="font-semibold text-3xl mb-2">{value}</p>
-    <p className="text-lg capitalize">{label}</p>
-  </div>
-);
-
 export default ClientReport;

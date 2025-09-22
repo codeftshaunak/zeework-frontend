@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { toast } from "@/lib/toast";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -43,7 +44,7 @@ interface FormData {
 interface RootState {
   profile: {
     profile: {
-      categories: any[];
+      categories: unknown[];
     };
   };
 }
@@ -69,7 +70,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
   });
 
   // get skills of profile categories
-  const getCategorySkills = async (categoryIds: any[]) => {
+  const getCategorySkills = async (categoryIds: unknown[]) => {
     try {
       if (!categoryIds) {
         console.error("No category IDs provided.");
@@ -175,140 +176,10 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
                       type="text"
                       className="w-full py-1.5 px-2 outline-none border-[1px] rounded-md text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
                       placeholder="Project Name"
-                      {...register("project_name")}
-                    />
-                    {errors.project_name && (
-                      <ErrorMsg msg={errors.project_name.message} />
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-[14px] font-[500] text-[#374151] mb-1">
-                    Project Description
-                  </p>
-                  <div>
-                    <textarea
-                      className="w-full py-1.5 px-2 outline-none border-[1px] rounded-md text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)] -mb-1.5"
-                      placeholder="Description"
-                      {...register("project_description")}
-                    />
-                    {errors.project_description && (
-                      <ErrorMsg msg={errors.project_description.message} />
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-[14px] font-[500] text-[#374151] mb-1">
-                    Technologies
-                  </p>
-                  <div>
-                    <Controller
-                      name="technologies"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          closeMenuOnSelect={false}
-                          components={animatedComponents}
-                          isMulti
-                          isLoading={optionsLoading}
-                          options={options}
-                          onChange={(selected) => {
-                            field.onChange(selected);
+
                             setValue("technologies", selected);
                             trigger("technologies");
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.technologies && (
-                      <ErrorMsg msg={errors.technologies.message} />
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-[14px] font-[500] text-[#374151] mb-1">
-                    Media
-                  </p>
-                  <div className="w-[100%] p-[12px] outline-none border-[1px] rounded-md flex">
-                    <div className="flex">
-                      {selectedImages?.map((image, index) => (
-                        <div
-                          key={index}
-                          className="rounded border border-green-300 mr-2 relative"
-                        >
-                          <img
-                            src={URL?.createObjectURL(image)}
-                            alt={`Selected ${index + 1}`}
-                            className="w-28 h-20 object-cover rounded"
-                          />
-                          <span
-                            className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"
-                            onClick={() => handleImageDelete(index)}
-                          >
-                            <IoMdClose />
-                          </span>
-                          {index === 0 && (
-                            <div className="absolute bottom-0 left-0 bg-black/10 backdrop-blur backdrop-filter text-white flex justify-center items-center gap-1 w-full text-sm">
-                              <FaStar />
-                              <span>Primary</span>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                    {selectedImages.length < 3 && (
-                      <div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          name="file"
-                          multiple
-                          style={{ display: "none" }}
-                          id="fileInput"
-                          disabled={selectedImages.length >= 3}
-                        />
-                        <label htmlFor="fileInput">
-                          <div
-                            className={`w-24 h-20 border border-green-400 rounded cursor-pointer bg-green-100 hover:bg-green-200 flex flex-col items-center justify-center text-center`}
-                          >
-                            <span>
-                              <FaCloudUploadAlt className="text-2xl text-center" />
-                            </span>
-                            <span className="font-semibold">
-                              {selectedImages?.length > 0 ? "Add More" : "Add"}
-                            </span>
-                          </div>
-                        </label>
-                      </div>
-                    )}
-                  </div>
-                  {errors.images && <ErrorMsg msg={errors.images.message} />}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-end gap-2 pt-5 w-full">
-              <button
-                disabled={isLoading}
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-              >
-                {isLoading ? (
-                  <>
-                    <BtnSpinner />
-                    <span className="ml-2">Adding Project</span>
-                  </>
-                ) : (
-                  "Add Project"
-                )}
-              </button>
-            </div>
-          </form>
-        </>
-      )}
-    </div>
-  );
+
 };
 
 export default PortfolioProject;

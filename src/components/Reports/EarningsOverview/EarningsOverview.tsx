@@ -37,7 +37,7 @@ const EarningsOverview = ({ balance, isLoading }) => {
   const [cookies] = useCookies(["activeagency"]);
   const activeagency = cookies.activeagency;
   const availableBalance =
-    useSelector((state: any) => state.profile.profile?.available_balance) || 0;
+    useSelector((state: unknown) => state.profile.profile?.available_balance) || 0;
 
   const truncateToTwoDecimals = (number) => {
     if (!number) return "0.00";
@@ -96,22 +96,7 @@ const EarningsOverview = ({ balance, isLoading }) => {
               ${truncateToTwoDecimals(activeagency ? balance?.available : availableBalance)}
             </p>
             <p className="text-lg">Available Funds</p>
-          </div>
-        </div>
-      )}
-      {availableBalanceDetails && (
-        <AvailableDetails
-          balance={
-            (activeagency
-              ? Number(balance?.available?.toFixed(2))
-              : Number(availableBalance?.toFixed(2))) || 0.0
-          }
-        />
-      )}
-      {inReview && <InReview />}
-      {inProgress && <InProgress />}
-    </div>
-  );
+
 };
 
 export default EarningsOverview;

@@ -1,5 +1,7 @@
 "use client";
 
+import { Box, HStack, VStack } from "@chakra-ui/react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -54,7 +56,7 @@ const PortfolioCard = ({ portfolio }) => {
                     key={item}
                     className="flex items-center justify-center"
                   >
-                    <img
+                    <img alt=""
                       src={item}
                       className="h-48 object-cover rounded-t w-full"
                     />
@@ -124,7 +126,7 @@ const PortfolioCard = ({ portfolio }) => {
                 {attachements?.length &&
                   attachements?.map((img, idx) => (
                     <SwiperSlide key={idx}>
-                      <img src={img} className="w-full h-fit" />
+                      <img alt="" src={img} className="w-full h-fit" />
                     </SwiperSlide>
                   ))}
               </Swiper>

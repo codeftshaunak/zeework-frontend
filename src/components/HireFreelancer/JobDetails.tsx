@@ -15,7 +15,7 @@ import { getClientJobs } from "../../helpers/APIs/clientApis";
 
 const JobDetails = ({ formData, setFormData, jobInfo }) => {
   const [jobsTitle, setJobsTitle] = useState([]);
-  const profile = useSelector((state: any) => state?.profile?.profile);
+  const profile = useSelector((state: unknown) => state?.profile?.profile);
 
   // Fetch Job Title
   useEffect(() => {
@@ -51,9 +51,6 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
   };
 
   const teamName =
-    profile?.businessName && profile?.businessName !== "null"
-      ? profile.businessName
-      : profile?.name;
 
   return (
     <div
@@ -87,49 +84,7 @@ const JobDetails = ({ formData, setFormData, jobInfo }) => {
       <div>
         <span
          mb={2}>
-          Related Job Posting
-          {jobInfo && (
-            <span>
-              (Optional)
-            </span>
-          )}
-        </span>
-        <Select
-          placeholder="Select an open job post"
-          maxWidth="2xl"
-          onChange={(e) => handleFormDataChange("job_title", e.target.value)}
-          required={!formData?.job_id}
-          focusBorderColor="green.500"
-        >
-          {jobsTitle?.map((job) => (
-            <option key={job._id} value={JSON.stringify(job)}>
-              {job?.title}
-            </option>
-          ))}
-        </Select>
-      </div>
 
-      {/* Contract Title Section */}
-      <div>
-        <span mb={2}>
-          Contract Title
-        </span>
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-          placeholder="Enter contract title"
-          maxWidth="2xl"
-          value={formData?.contract_title}
-          onChange={(e) =>
-            handleFormDataChange("contract_title", e.target.value?.slice(0, 50))
-          }
-          required
-          focusBorderColor="green.500"
-        />
-        <span>
-          {formData?.contract_title?.length || 0}/50 characters
-        </span>
-      </div>
-    </div>
-  );
 };
 
 export default JobDetails;

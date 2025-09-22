@@ -16,10 +16,9 @@ import { JobDetails, Agency } from "../../types";
 const AgencyContractAssign = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [jobDetails, setJobDetails] = useState<JobDetails>({} as JobDetails);
-  const [agencyMembers, setAgencyMembers] = useState<any[]>([]);
+  const [agencyMembers, setAgencyMembers] = useState<unknown[]>([]);
   const agency = useSelector((state: RootState) => state.profile.agency) as Agency;
-  // const user_id = useSelector((state: any) => state.profile.profile.user_id);
-  const { assigned_member, _id } = jobDetails;
+  //   const { assigned_member, _id } = jobDetails;
 
   const params = useParams();
   const router = useRouter();

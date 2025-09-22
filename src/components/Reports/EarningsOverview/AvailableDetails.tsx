@@ -1,5 +1,6 @@
 
 "use client";
+import { Tooltip } from "@chakra-ui/react";
 import React from "react";
 
 
@@ -51,56 +52,7 @@ const AvailableDetails = ({ balance }) => {
               <Tooltip
                 hasArrow
                 label={
-                  !balance && "You don't have sufficient balance to proceed."
-                }
-                placement="top"
-              >
-                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isDisabled={!balance}
-                  onClick={() => setIsPaidModal(true)}
-                >
-                  Get Paid Now
-                </button>
-              </Tooltip>{" "}
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                onClick={() => router.push("/setting/billing-payments")}
-              >
-                View Payment Settings
-              </button>
-            </div>
-          )}
-          {paymentStatus === "unverified" && (
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full md:w-fit"
-             
-              onClick={() => router.push("/setting/billing-payments")}
-            >
-              Verify Payment Methods
-            </button>
-          )}
-          {paymentStatus === "reviewing" && (
-            <div className="flex flex-col md:flex-row gap-5">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground" isDisabled>
-                Get Paid Now
-              </button>{" "}
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                onClick={() => router.push("/setting/billing-payments")}
-              >
-                View Submitted Details
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
 
-      {isPaidModal && (
-        <GetFreelancerPaid
-          isModal={isPaidModal}
-          setIsModal={setIsPaidModal}
-          balance={balance}
-        />
-      )}
-    </>
-  );
 };
 
 export default AvailableDetails;

@@ -1,3 +1,5 @@
+// Remove duplicate Box import since we're defining our own
+import Image from "next/image";
 import React from "react";
 import { cn, chakraPropsToTailwind } from "@/lib/utils";
 
@@ -52,7 +54,7 @@ interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: string;
   cursor?: string;
   transition?: string;
-  _hover?: Record<string, any>;
+  _hover?: Record<string, unknown>;
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -383,7 +385,9 @@ export const Text: React.FC<TextProps> = ({
 };
 
 // Center -> flex items-center justify-center
-interface CenterProps extends BoxProps {}
+interface CenterProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
+}
 
 export const Center: React.FC<CenterProps> = ({
   children,
@@ -602,7 +606,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   borderRadius?: string;
   border?: string;
-  _hover?: Record<string, any>;
+  _hover?: Record<string, unknown>;
   px?: number | string;
   py?: number | string;
   w?: string;
@@ -737,7 +741,7 @@ export const Heading: React.FC<HeadingProps> = ({
 
 // Link -> anchor with Chakra-like styling
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  as?: any;
+  as?: unknown;
   to?: string;
   color?: string;
   textDecoration?: string;
@@ -837,7 +841,7 @@ export const Checkbox: React.FC = ({
   size = "md",
   colorScheme = "green",
   ...props
-}: any) => {
+}: unknown) => {
   return (
     <label
       style={{
@@ -901,25 +905,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
       {children}
       <div className={tooltipClasses}>
         {label}
-        {hasArrow && (
-          <div
-            className={cn(
-              "absolute w-2 h-2 transform rotate-45",
-              bg === "gray.700"
-                ? "bg-gray-700"
-                : bg === "gray.500"
-                  ? "bg-gray-500"
-                  : `bg-${bg}`,
-              placement === "top" && "top-full left-1/2 -translate-x-1/2 -mt-1",
-              placement === "bottom" &&
-                "bottom-full left-1/2 -translate-x-1/2 -mb-1",
-              placement === "left" &&
-                "left-full top-1/2 -translate-y-1/2 -ml-1",
-              placement === "right" &&
-                "right-full top-1/2 -translate-y-1/2 -mr-1"
-            )}
-          />
-        )}
       </div>
     </div>
   );
@@ -934,7 +919,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
 }
 
-export const Image: React.FC<ImageProps> = ({
+export const ChakraImage: React.FC<ImageProps> = ({
   className,
   w,
   h,
@@ -1096,14 +1081,11 @@ const RadioGroupItemIndicator: React.FC<RadioGroupItemIndicatorProps> = ({
   return (
     <div
       className={cn(
-        "w-4 h-4 border-2 rounded-full flex items-center justify-center",
-        isSelected ? "border-blue-500" : "border-gray-300",
+        "w-3 h-3 rounded-full border border-gray-300",
+        isSelected ? "bg-blue-500 border-blue-500" : "bg-white",
         className
       )}
-      {...props}
-    >
-      {isSelected && <div className="w-2 h-2 bg-blue-500 rounded-full" />}
-    </div>
+    />
   );
 };
 
@@ -1135,7 +1117,6 @@ const RadioGroupItemHiddenInput: React.FC = () => {
 export const RadioGroup = {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,
-  ItemIndicator: RadioGroupItemIndicator,
   ItemText: RadioGroupItemText,
   ItemHiddenInput: RadioGroupItemHiddenInput,
 };
@@ -1225,7 +1206,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 interface AccordionItemTriggerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  _hover?: Record<string, any>;
+  _hover?: Record<string, unknown>;
   px?: number;
 }
 
@@ -1304,8 +1285,8 @@ const AccordionItemContent: React.FC<AccordionItemContentProps> = ({
 export const Accordion = {
   Root: AccordionRoot,
   Item: AccordionItem,
-  ItemTrigger: AccordionItemTrigger,
-  ItemContent: AccordionItemContent,
+  Trigger: AccordionItemTrigger,
+  Content: AccordionItemContent,
 };
 
 // Slider Components

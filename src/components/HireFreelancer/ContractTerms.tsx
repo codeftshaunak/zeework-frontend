@@ -1,5 +1,6 @@
 
 "use client";
+import { Checkbox } from "@chakra-ui/react";
 import React from "react";
 
 import { FaPen, FaQuestionCircle } from "react-icons/fa";

@@ -71,7 +71,7 @@ export function AgencyUpdatedModal({
   // handle update info
   const onSubmit = async (data) => {
     setIsLoading(true);
-    let updatedData =
+    const updatedData =
       title === "Sub Category"
         ? {
             agency_services: JSON.parse(data.agency_services),
@@ -111,8 +111,7 @@ export function AgencyUpdatedModal({
 
   // -------- Manage Services
   const getService = async () => {
-    if (!categoriesInfo?.categories && title === "Services") {
-      const { body, code } = await getCategories();
+
       if (code === 200)
         setCategoriesInfo({ ...categoriesInfo, categories: body });
     } else if (categoriesInfo?.selectedId) {
@@ -239,112 +238,7 @@ export function AgencyUpdatedModal({
                       ...categoriesInfo,
                       selectedId: e.target.value,
                     });
-                  },
-                })}
-                required
-              >
-                {categoriesInfo &&
-                  categoriesInfo?.categories?.map((item) => (
-                    <option key={item._id} value={item._id}>
-                      {item.category_name}
-                    </option>
-                  ))}
-              </select>
-              {
-                <>
-                  <p className="mt-5 font-semibold">Select Sub Category</p>
-                  <select
-                    className="px-3 py-1 border rounded w-full"
-                    {...register("agency_services.subCategory")}
-                    required
-                    disabled={!categoriesInfo?.selectedId}
-                  >
-                    {subCategories?.map((item) => (
-                      <option key={item._id} value={item._id}>
-                        {item.sub_category_name}
-                      </option>
-                    ))}
-                  </select>
-                </>
-              }
-            </>
-          )}
-          {title === "Sub Category" && (
-            <>
-              <p className="mt-5 font-semibold">Select Sub Category</p>
-              <select
-                className="px-3 py-1 border rounded w-full"
-                {...register("agency_services")}
-                required
-              >
-                {data.map((item) => (
-                  <option
-                    key={item._id}
-                    value={JSON.stringify({
-                      subCategory: item._id,
-                      category: item.category_id,
-                    })}
-                  >
-                    {item.sub_category_name}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-          {/* update skills */}
-          {title === "Skills" && skills?.length > 0 && (
-            <Controller
-              control={control}
-              name="agency_skills"
-              render={({ field: { onChange, ref } }) => (
-                <Select
-                  inputRef={ref}
-                  closeMenuOnSelect={false}
-                  onChange={(val) => onChange(val.map((c) => c.value))}
-                  options={skills}
-                  isMulti
-                  required
-                />
-              )}
-            />
-          )}
 
-          {/*------------- Right Side of Agency Profile */}
-          {/* update hourly rate */}
-          {title === "Hourly Rate" && (
-            <input
-              type="number"
-              {...register("agency_hourlyRate")}
-              defaultValue={Number(data)}
-              required
-              className="px-3 py-1 border rounded w-full"
-            />
-          )}
-          {/* update office location */}
-          {title === "Office Location" && (
-            <div>
-              <p>Your Country</p>
-              <select
-                className="w-full px-2 py-1 border rounded"
-                {...register("agency_officeLocation.country")}
-                defaultValue={countryName}
-              >
-                <option value={countryName}>{countryName}</option>
-              </select>
-              <div className="w-full flex gap-5 mt-3">
-                <div className="w-1/2">
-                  <p>Select State</p>
-                  <Controller
-                    control={control}
-                    name="agency_officeLocation.state"
-                    render={({ field: { onChange, ref } }) => (
-                      <Select
-                        className="w-full"
-                        inputRef={ref}
-                        onChange={(val, action) => {
-                          if (action.action === "create-option") {
-                            onChange(action.option.value),
-                              setStateCode("new state");
                           } else {
                             onChange(val.value), setStateCode(val.isoCode);
                           }

@@ -14,10 +14,5 @@ export const Profile = () => {
 };
 
 // Profile Setting Page
-export const ProfileSetting = () => {
-  return (
-    <HomeLayout>
-      <UserProfileSetting />
-    </HomeLayout>
-  );
+export 
 };

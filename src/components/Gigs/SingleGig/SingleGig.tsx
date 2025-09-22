@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "@/lib/toast";
 import { IoIosMore, IoMdClose } from "react-icons/io";
@@ -51,7 +52,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
         onMouseLeave={() => setIsMenu(false)}
       >
         <div className="flex gap-3 items-center">
-          {/* <img src={images[0]} className="h-16 w-28 bg-cover" /> */}
+          {/* <img alt="" src={images[0]} className="h-16 w-28 bg-cover" /> */}
           <div
             className={` h-16 w-28 bg-cover rounded`}
             style={{
@@ -73,15 +74,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
               <div
                 className="cursor-pointer border border-[var(--primarytextcolor)] bg-white hover:bg-gray-200/30 p-1 rounded-full z-0"
                 onClick={() => setIsMenu(true)}
-              >
-                <IoIosMore />
-              </div>
 
-              {isMenu && (
-                <div
-                  className="absolute right-9 -top-11 bg-white z-30"
-                  onMouseEnter={() => {
-                    setIsMenu(true);
                   }}
                   onMouseLeave={() => {
                     setIsMenu(false);
@@ -104,32 +97,7 @@ const SingleGig = ({ gig, getAllGigs }) => {
                     <div
                       className="px-3 py-1 hover:bg-gray-200/20 rounded cursor-pointer transition"
                       onClick={() => handleDelete("modal")}
-                    >
-                      Delete
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          }
-        </div>
-      </div>
-      {isModal && (
-        <UniversalModal isModal={isModal} setIsModal={setIsModal}>
-          <div className="flex flex-col justify-between h-full w-full">
-            <div>
-              <h4 className="text-3xl font-semibold text-center">
-                Are you wish to proceed?
-              </h4>
-              <p className="mt-3 text-gray-600 text-center">
-                Deleting this gig is an irreversible action. I would like to
-                implement a standard naming convention.
-              </p>
-            </div>
-            <div className="flex gap-5 font-semibold mt-auto w-full">
-              <button
-                onClick={() => {
-                  setIsModal(false);
+
                 }}
                 className="w-full px-5 py-1 border-2 border-green-500 hover:text-white hover:bg-green-500 bg-green-100 rounded-md transition"
                 disabled={isLoading}

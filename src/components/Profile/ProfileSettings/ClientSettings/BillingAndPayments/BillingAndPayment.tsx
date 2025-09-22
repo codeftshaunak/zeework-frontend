@@ -53,62 +53,7 @@ const BillingAndPayments = () => {
           padding={6}
           index={tab - 1}
           onChange={(index) => setTab(index + 1)}
-        >
-          <Tabs.List>
-            {bankDetails?.card_details && (
-              <Tabs.Trigger>Current Card Details</Tabs.Trigger>
-            )}
-            <Tabs.Trigger>Add Billing Method</Tabs.Trigger>
-          </Tabs.List>
-          <SmoothMotion key={tab}>
-            <Tabs.Content>
-              {bankDetails?.card_details && (
-                <Tabs.Content padding={0}>
-                  <div>
-                    <CurrentCard
-                      data={bankDetails}
-                      setData={setBankDetails}
-                      setTab={setTab}
-                    />
-                  </div>
-                </Tabs.Content>
-              )}
-              <Tabs.Content padding={0}>
-                <div>
-                  <div marginBottom={6}>
-                    <RadioGroup.Root value="payment-card">
-                      <RadioGroup.Item value="payment-card">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>
-                          <span>
-                            Payment Card
-                          </span>
-                        </RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                    </RadioGroup.Root>
-                  </div>
 
-                  <div marginTop={1} className="w-full xl:w-[700px]">
-                    <Elements stripe={stripePromise}>
-                      <CardDetailsForm
-                        setTab={setTab}
-                        setCard={setBankDetails}
-                      />
-                      {/* <PayPalCardForm
-                        setTab={setTab}
-                        setCard={setBankDetails}
-                      /> */}
-                    </Elements>
-                  </div>
-                </div>
-              </Tabs.Content>
-            </Tabs.Content>
-          </SmoothMotion>
-        </Tabs.Root>
-      </Skeleton>
-    </div>
-  );
 };
 
 export default BillingAndPayments;

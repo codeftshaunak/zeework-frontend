@@ -1,4 +1,6 @@
 "use client";
+import { Checkbox } from "@chakra-ui/react";
+importfrom "next/image";
 import React from "react";
 
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -7,15 +9,8 @@ import { getAllJobs, getJobs } from "../../helpers/APIs/jobApis";
 import JobCard from "./JobCard";
 import { useRouter, usePathname } from "next/navigation";
 import {
-  Box,
-  Checkbox,
-  HStack,
-  Image,
-  Input,
-  Text,
-  VStack,
-  RadioGroup,
-  Stack,
+  Checkbox
+  RadioGroup
 } from "@/components/ui/migration-helpers";
 import Select from "react-select";
 import { BiSearchAlt, BiXCircle } from "react-icons/bi";
@@ -24,12 +19,10 @@ import AgencyUserCard from "./AgencyUserCard";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { getCategories } from "../../helpers/APIs/freelancerApis";
 import { useDispatch, useSelector } from "react-redux";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Greetings from "../Common/Greetings";
 import TimerDownloadCard from "../Common/TimerDownloadCard";
 import Banner from "../Banners/Banner";
 import { CiFilter } from "react-icons/ci";
-import { parseISO } from "date-fns";
 import { setFindWorkData } from "../../redux/pagesSlice/pagesSlice";
 import { IoMdRefreshCircle } from "react-icons/io";
 import Pagination from "../utils/Pagination/Pagination";
@@ -78,10 +71,8 @@ export { default as ModernAllJobs } from "./ModernAllJobs";
 export { default as ModernSearchPage } from "./ModernSearchPage";
 export { default as ModernJobCard } from "./ModernJobCard";
 
-export const AllJobs = () => {
-  const jobs = useSelector((state: any) => state.pages.findWork.jobsList);
-  const latestJobs = jobs?.slice(0, 4);
-  const router = useRouter();
+export 
+    const router = useRouter();
   const { hasAgency, activeAgency } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -191,69 +182,11 @@ export const AllJobs = () => {
               <div
                 onClick={() => {
                   router.push("/my-jobs");
-                }}
-              >
-                <div className="text-sm font-semibold">My Jobs</div>
-                <div className="text-sm text-gray-300">
-                  View your active jobs & proposals
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="flex items-center justify-between gap-2 mt-3">
-            <p className="text-xl font-bold capitalize">Latest Job Postings</p>
-            <IoMdRefreshCircle
-              className={`text-2xl sm:text-3xl text-primary hover:text-green-400 active:text-primary cursor-pointer ${
-                isLoading && "animate-spin cursor-not-allowed"
-              }`}
-              onClick={() => {
-                if (!isLoading) getAllJobList();
-              }}
-            />
-          </div>
-          <div className="w-full">
-            <JobCard isLoading={isLoading} jobs={latestJobs} />
-          </div>
-          {latestJobs?.length > 0 && (
-            <div className="mx-auto mt-4">
-              <button
-                className="bg-[#E7F2EB] text-[#22C55E] border-2 w-[130px] m-auto border-[#22C55E] px-4 py-2 rounded-md flex items-center gap-2"
-                onClick={() => router.push("/search-job")}
-              >
-                See More{" "}
-                <img
-                  src="/images/dashboard/zeework_button-drop.png"
-                  className="pt-1"
-                  alt="dropdown"
-                />
-              </button>
-            </div>
-          )}
-        </div>
-        <div className="hidden pl-6 lg:block">
-          {hasAgency && activeAgency ? (
-            <>
-              <AgencyUserCard />
-              <br />
-              <UserProfileCard />
-            </>
-          ) : (
-            <>
-              <UserProfileCard />
-              <br />
-              <AgencyUserCard />
-            </>
-          )}
-          <TimerDownloadCard />
-        </div>
-      </div>
-    </div>
-  );
+
 };
 
-export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
-  const pathname = usePathname();
+export 
   const searchParams = new URLSearchParams(location.search);
   const [searchTerm, setSearchTerm] = useState(
     searchParams?.get("searchTerm") || ""
@@ -263,7 +196,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   const [experience, setExperience] = useState<string[]>([]);
   const [contractType, setContractType] = useState<string[]>([]);
   const { hasAgency, activeAgency } = useContext(CurrentUserContext);
-  const profile = useSelector((state: any) => state.profile);
+  const profile = useSelector((state: unknown) => state.profile);
 
   const [jobsData, setJobsData] = useState<JobsData>({});
   const [loading, setLoading] = useState<boolean>(false);
@@ -310,7 +243,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   }, []);
 
   // lessen url every changes
-  const searchWithFilters = useCallback(async (params: any) => {
+  const searchWithFilters = useCallback(async (params: unknown) => {
     if (!params) return;
 
     try {
@@ -532,9 +465,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
     setPage(1);
   };
 
-  const clearSearch = () => {
-    setSearchTerm("");
-    setShowHighlightedSearchTerm(false);
+      setShowHighlightedSearchTerm(false);
     router.push("/search-job", { replace: true });
   };
 
@@ -558,78 +489,13 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
     <div className="w-full mx-auto">
       <div className="flex w-full py-6">
         <div className="w-[40%] pr-6 max-lg:hidden">
-          {!profile?.agency?.isError && isFreelancer && (
-            <div className="mb-6">
-              {hasAgency && activeAgency ? (
-                <>
-                  <AgencyUserCard />
-                  <br />
-                  <UserProfileCard />
-                </>
-              ) : (
-                <>
-                  <UserProfileCard />
-                  <br />
-                  <AgencyUserCard />
-                </>
-              )}
-            </div>
-          )}
 
-          <Filter
-            handleCategoryChange={handleCategoryChange}
-            handleContractTypeChange={handleContractTypeChange}
-            handleExperienceChange={handleExperienceChange}
-            categoryOptions={categoryOptions}
-            setCategory={setCategory}
-            setCategoryOptions={setCategoryOptions}
-            category={category}
-            handleHourlyRateChange={handleHourlyRateChange}
-            handleFixedRateChange={handleFixedRateChange}
-            hourlyRateShow={hourlyRateShow}
-            fixedRateShow={fixedRateShow}
-            setPaymentType={setPaymentType}
-            setPage={setPage}
-            isLoading={loading}
-            handleResetFilters={handleResetFilters}
-            experience={experience}
-            paymentType={paymentType}
-          />
-          <TimerDownloadCard />
-        </div>
-        <div className="w-full">
-          <div className="flex flex-row items-center w-full justify-space-evenly mb-[0.9rem] rounded border border-tertiary overflow-hidden">
-            <img src="/images/zeework_banner_bizzzy.jpg" alt="banner" />
-          </div>
-          <div className="mb-4 text-xl font-semibold">
-            Search For Your Next Job
-          </div>
-          <div className="flex flex-row items-center w-full justify-space-evenly mx-[auto] mb-[0.9rem]">
-            <div className="w-full flex gap-2 bg-white items-center border-[#D1D5DA] border rounded-md">
-              <input
-                className="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background !border-0"
-                placeholder="Search for open positions..."
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
                   setShowHighlightedSearchTerm(false);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter")
                     searchWithFilters({ searchTerm: e.target.value });
-                }}
-                value={searchTerm}
-              />
-              {searchTerm && (
-                <BiXCircle
-                  className="text-var(--primarycolor) z-50 mx-2 text-1.5rem cursor-pointer"
-                  onClick={clearSearch}
-                />
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setShowFilter(!showFilter);
+
               }}
               className="lg:hidden"
             >
@@ -716,158 +582,7 @@ export const Filter: React.FC<FilterProps> = ({
 
           <IoMdRefreshCircle
             className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
-              isLoading && "animate-spin cursor-not-allowed"
-            }`}
-            onClick={() => {
-              if (!isLoading) handleResetFilters();
-            }}
-          />
-        </div>
-        <div className="flex flex-col items-start w-full my-5">
-          <span className="font-semibold">Category</span>
-          <Select
-            placeholder="Select Your Category"
-            className="w-full"
-            isMulti
-            closeMenuOnSelect={true}
-            options={categoryOptions}
-            onChange={handleCategoryChange}
-            value={category}
-          />
-        </div>
-        <div className="flex flex-col items-start justify-start my-6">
-          <span className="font-semibold">Experience Required</span>
-          <div className="flex flex-col items-start">
-            <Checkbox
-              colorScheme="primary"
-              onChange={() => handleExperienceChange("Entry")}
-              isChecked={experience?.includes("Entry")}
-            >
-              Entry Level
-            </Checkbox>
-            <Checkbox
-              colorScheme="primary"
-              onChange={() => handleExperienceChange("Intermediate")}
-              isChecked={experience?.includes("Intermediate")}
-            >
-              Intermediate
-            </Checkbox>
-            <Checkbox
-              colorScheme="primary"
-              onChange={() => handleExperienceChange("Expert")}
-              isChecked={experience?.includes("Expert")}
-            >
-              Expert
-            </Checkbox>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-start my-6">
-          <span className="font-semibold">Contract Type</span>
-          <div className="flex flex-col items-start max-lg:!flex-row gap-4 max-[540px]:!flex-col">
-            <div className="flex flex-col min-w-max">
-              <Checkbox
-                colorScheme="primary"
-                onChange={() => handleContractTypeChange("hourly")}
-                isChecked={hourlyRateShow}
-              >
-                Hourly Rate
-              </Checkbox>
-              {hourlyRateShow && (
-                <div className="flex flex-col items-start justify-start w-full ml-5">
-                  <RadioGroup.Root
-                    colorPalette="green"
-                    defaultValue="1"
-                    onValueChange={(details) =>
-                      handleHourlyRateChange(details.value)
-                    }
-                  >
-                    <div className="flex flex-col gap-4">
-                      <RadioGroup.Item value="1">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>
-                          Any hourly rate
-                        </RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="2">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$10 - 30$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="3">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$30 - 50$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="4">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$50 - 100$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="5">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$100 & above</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                    </div>
-                  </RadioGroup.Root>
-                </div>
-              )}
-            </div>
-            <div>
-              <Checkbox
-                colorScheme="primary"
-                onChange={() => handleContractTypeChange("fixed")}
-                isChecked={fixedRateShow}
-              >
-                Fixed Price
-              </Checkbox>
-              {fixedRateShow && (
-                <div className="flex flex-col items-start justify-start w-full ml-5">
-                  <RadioGroup.Root
-                    colorScheme="primary"
-                    defaultValue="1"
-                    onValueChange={(value) => handleFixedRateChange(value)}
-                  >
-                    <div className="flex flex-col gap-4">
-                      <RadioGroup.Item value="1">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>Any rate</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="2">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$100 - 300$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="3">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$300 - 500$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="4">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$500 - 1000$</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                      <RadioGroup.Item value="5">
-                        <RadioGroup.ItemHiddenInput />
-                        <RadioGroup.ItemIndicator />
-                        <RadioGroup.ItemText>$1000 & above</RadioGroup.ItemText>
-                      </RadioGroup.Item>
-                    </div>
-                  </RadioGroup.Root>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-start justify-start my-6">
-          <span className="font-semibold">Client Info</span>
-          <Checkbox
-            colorScheme="primary"
-            onChange={(e) => {
-              const newValue = e.target.checked ? "verified" : "none";
+
               setPaymentType(newValue);
               setPage(1);
             }}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, VStack, Text, StackDivider } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
@@ -26,7 +27,7 @@ import { CurrentUserContext } from "../../../contexts/CurrentUser";
 import AddPaymentNotifyModal from "../../Modals/AddPaymentNotifyModal";
 
 const ViewFreelancerProfile = () => {
-  const role = useSelector((state: any) => state.auth.role);
+  const role = useSelector((state: unknown) => state.auth.role);
   const { profile } = useContext(CurrentUserContext);
   const [freelancerDetails, setFreelancerDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -145,15 +146,7 @@ const ViewFreelancerProfile = () => {
               </div>
 
               {/* ==================== Education ====================== */}
-              {education?.length > 0 && (
-                <div className="flex w-full flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
-                  <div className="flex items-center justify-between">
-                    <p className="text-[20px] text-[#374151] font-[600]">
-                      Education
-                    </p>
-                  </div>
-                  {education?.map((edu) => {
-                    const startDate = new Date(edu.start_date);
+
                     const endDate = new Date(edu.end_date);
                     const startYear = startDate.getFullYear();
                     const endYear = endDate.getFullYear();
@@ -178,15 +171,7 @@ const ViewFreelancerProfile = () => {
               )}
 
               {/* ==================== Experience ====================== */}
-              {experience?.length > 0 && (
-                <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-lg bg-white">
-                  <div className="flex items-center justify-between">
-                    <p className="text-[20px] text-[#374151] font-[600]">
-                      Experience
-                    </p>
-                  </div>
-                  {experience?.map((experience, index) => {
-                    const startDate = new Date(experience.start_date);
+
                     const endDate = new Date(experience.end_date);
                     const startYear = startDate.getFullYear();
                     const endYear = endDate.getFullYear();
@@ -277,9 +262,7 @@ const ViewFreelancerProfile = () => {
               {/* ===================== skills ============= */}
               <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
                 <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
-                  {skills?.length > 0 &&
-                    skills?.map((skill, idx) => {
-                      return <SkillCard title={skill} key={idx} />;
+
                     })}
                 </div>
               </div>
@@ -311,65 +294,7 @@ const ViewFreelancerProfile = () => {
                           clickable: true,
                         }}
                         // modules={[FreeMode, Pagination]}
-                      >
-                        {portfolio?.length > 0 &&
-                          portfolio
-                            ?.slice()
-                            .reverse()
-                            .map((port, idx) => (
-                              <SwiperSlide key={idx}>
-                                <PortfolioCard portfolio={port} />
-                              </SwiperSlide>
-                            ))}
-                      </Swiper>
-                    </div>
-                  </div>
-                </>
-              ) : null}
 
-              {/* <div className="flex flex-col gap-[24px] border-[1px] pt-[20px] px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
-              <div>
-                <hr />
-                <div className="mt-10 w-full"><ProfileGigCards /></div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4"></div>
-            </div> */}
-
-              {/* ================= work history ====================== */}
-              <div className="flex flex-col gap-[24px] border-[1px] py-8 px-[24px] border-[var(--bordersecondary)] rounded-xl bg-white">
-                <div className="flex items-center justify-between">
-                  <p className="text-[20px] text-[#374151] font-[600]">
-                    Work History
-                  </p>
-                </div>
-                <div className="flex flex-col gap-[6px]">
-                  <p className="text-[14px] text-[#22C35E] font-[600] cursor-pointer">
-                    Completed Jobs
-                  </p>
-                  <div className="h-[2px] w-[60px] bg-[#22C35E]"></div>
-                </div>
-                {/* {profile?.work_history?.length ? (
-                profile?.work_history?.map((item, index) => (
-                  <ReviewCard key={index} workDetails={item} />
-                ))
-              ) : (
-                <p>No completed jobs yet.</p>
-              )} */}
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <DataNotAvailable onRefresh={getDetails} />
-      )}
-
-      <AddPaymentNotifyModal
-        isOpen={paymentNotifyModal}
-        setIsOpen={setPaymentNotifyModal}
-      />
-    </>
-  );
 };
 
 export default ViewFreelancerProfile;

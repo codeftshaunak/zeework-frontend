@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { format } from 'date-fns';
 import { useSelector } from "react-redux";
 
 const Greetings = () => {
-    const profile = useSelector((state: any) => state.profile.profile);
+    const profile = useSelector((state: unknown) => state.profile.profile);
     const todaysDate = format(new Date(), "eeee, MMMM do");
     const { firstName } = profile || [];
 

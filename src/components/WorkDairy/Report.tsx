@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Box, Button, HStack, Text, VStack } from '@/components/ui/migration-helpers';
 import React from 'react';
 import { FaCircleDot } from 'react-icons/fa6';
@@ -7,7 +8,7 @@ const Report = () => {
     return (
         <VStack  w="90%">
             <HStack>
-                <img src='./images/user.jpeg' className="w-[70px] h-[70px] rounded-full object-cover" />
+                <img alt="" src='./images/user.jpeg' className="w-[70px] h-[70px] rounded-full object-cover" />
                 <Box>
                     <Text className="text-2xl font-semibold">Shahzaib Y.</Text>
                     <Text>Lahore, Pakistan - 9:00 pm local time</Text>

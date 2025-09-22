@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, HStack, Text, Image } from "@chakra-ui/react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
 import { endJobContract } from "../../helpers/APIs/jobApis";

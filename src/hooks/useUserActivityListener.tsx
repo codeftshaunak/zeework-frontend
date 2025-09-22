@@ -3,7 +3,7 @@
 import { useEffect, useCallback, useContext } from "react";
 import { SocketContext } from "../contexts/SocketContext";
 
-const useUserActivityListener = (callback: (...args: any[]) => void) => {
+const useUserActivityListener = (callback: (...args: unknown[]) => void) => {
   const { socket } = useContext(SocketContext);
 
   const memoizedCallback = useCallback(callback, [callback]);

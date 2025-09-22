@@ -17,7 +17,7 @@ const AgencyUserCard = () => {
   const { hasAgency, activeAgency, userAgencyLoading } =
     useContext(CurrentUserContext);
   const [cookies, setCookie] = useCookies(["activeagency"]);
-  const agency = useSelector((state: any) => state.profile.agency);
+  const agency = useSelector((state: unknown) => state.profile.agency);
   const { agency_name, agency_tagline, agency_profileImage, _id } =
     agency || [];
   const dispatch = useDispatch();

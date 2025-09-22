@@ -1,5 +1,6 @@
 
 "use client";
+import Image from "next/image";
 import React from "react";
 
 import { FaClock, FaHeadSideVirus } from "react-icons/fa6";
@@ -10,8 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import UniversalModal from "../Modals/UniversalModal";
 
-export const TaskDetails = ({ jobDetails, taskDetails }) => {
-  const [isModal, setIsModal] = useState(false);
+export 
   const { job_details, project_budget, budget, hourly_rate, contract_title } =
     jobDetails || {};
   const { message, status, created_at } = taskDetails;
@@ -129,125 +129,5 @@ export const TaskDetails = ({ jobDetails, taskDetails }) => {
           {job_details?.[0]?.title}{" "}
         </span>
         <div className="flex gap-x-10 sm:gap-x-20 flex-wrap mt-1 text-sm lg:text-base">
-          {job_details?.[0]?.experience && (
-            <div className="flex flex-row items-center">
-              <span className="mt-2">
-                <FaHeadSideVirus />
-              </span>
-              <div>
-                <span className="font-semibold">
-                  {job_details?.[0]?.experience}
-                </span>
-                <span className="text-xs">
-                  Experience Level
-                </span>
-              </div>
-            </div>
-          )}
 
-          {job_details?.[0]?.categories?.[0]?.value && (
-            <div className="flex flex-row items-center">
-              <span className="mt-2">
-                <MdCategory />
-              </span>
-              <div>
-                <span className="font-semibold">
-                  {job_details?.[0]?.categories?.[0]?.value}
-                </span>
-                <span className="text-xs">
-                  Category
-                </span>
-              </div>
-            </div>
-          )}
-          {job_details?.[0]?.job_type == "fixed" && (
-            <div className="flex flex-row items-center">
-              <span className="mt-2">
-                <FaClock />
-              </span>
-              <div>
-                <span className="font-semibold">
-                  ${project_budget ? project_budget : budget}
-                </span>
-                <span className="text-xs">
-                  Fixed Budget
-                </span>
-              </div>
-            </div>
-          )}
-          {job_details?.[0]?.job_type == "hourly" && (
-            <div className="flex flex-row items-center">
-              <span className="mt-2">
-                <FaClock />
-              </span>
-              <div>
-                <span className="font-semibold">
-                  ${hourly_rate ? hourly_rate : job_details?.[0]?.amount}
-                </span>
-                <span className="text-xs">
-                  Hourly Range
-                </span>
-              </div>
-            </div>
-          )}
-          {job_details?.[0]?.durations && (
-            <div className="flex flex-row items-center">
-              <span className="mt-2">
-                <IoCalendar />
-              </span>
-              <div>
-                <span className="font-semibold">
-                  {job_details?.[0]?.durations}
-                </span>
-                <span className="text-xs">
-                  Duration
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="flex gap-4 flex-wrap mt-2">
-          {job_details?.[0]?.skills?.map((skill) => (
-            <span
-              key={skill}
-              className="capitalize px-4 py-1.5 bg-[#E7F2EB] text-[#355741] rounded-lg h-9 flex items-center"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-7">
-          <div>
-            <p className="text-lg font-medium text-gray-700">Contract Title:</p>
-            <p>{contract_title}</p>
-          </div>
-          <div>
-            <p className="text-lg font-medium text-gray-700">
-              Submission Message:
-            </p>
-            <p>{message}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <p className="text-lg font-medium text-gray-700">
-              Submission File:
-            </p>
-            <p
-              className="w-fit px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 transition duration-300 text-white cursor-pointer"
-              onClick={() => setIsModal(true)}
-            >
-              Open File
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {isModal && (
-        <UniversalModal isModal={isModal} setIsModal={setIsModal}>
-          <div>{renderFile(taskDetails)}</div>
-        </UniversalModal>
-      )}
-    </div>
-  );
 };
