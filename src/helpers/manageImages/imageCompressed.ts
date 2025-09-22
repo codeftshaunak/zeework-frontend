@@ -1,50 +1,70 @@
-export const compressImageToWebP = (file, quality = 0.5, identifier) => {
+export const compressImageToWebP = (
+  file: File,
+  quality: number = 0.5,
+  identifier: string
+): Promise<File> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
       const img = new Image();
-      img.src = event.target.result;
+      img.src = event.target?.result as string;
+
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const maxWidth = 1200;
+
         let width = img.width;
-        const height = img.height;
+        let height = img.height;
 
         // Resize the image if it exceeds the max width
         if (width > maxWidth) {
-          height *= maxWidth / width;
+          height = (height * maxWidth) / width;
           width = maxWidth;
         }
 
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext("2d");
 
-        // Apply some smoothing for better quality
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Unable to get canvas context"));
+          return;
+        }
+
+        // Apply smoothing for better quality
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = "high";
 
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert canvas content to Blob instead of data URL
+        // Convert canvas content to Blob
         canvas.toBlob(
           (blob) => {
-            // Create a new Blob with a unique name
+            if (!blob) {
+              reject(new Error("Image compression failed"));
+              return;
+            }
+
             const uniqueName = `${identifier}-${Date.now()}.webp`;
-            const uniqueBlob = new Blob([blob], { type: "image/webp" });
-            uniqueBlob.name = uniqueName;
-            resolve(uniqueBlob);
+
+            // Wrap blob in a File object for compatibility
+            const compressedFile = new File([blob], uniqueName, {
+              type: "image/webp",
+            });
+
+            resolve(compressedFile);
           },
           "image/webp",
           quality
         );
       };
+
       img.onerror = (error) => reject(error);
     };
+
     reader.onerror = (error) => reject(error);
+
+    reader.readAsDataURL(file);
   });
-};
-
-
 };
