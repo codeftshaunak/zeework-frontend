@@ -13,7 +13,7 @@ const useNotificationListener = (
   dependencies: unknown[] = [],
   condition: boolean = true
 ): void => {
-  const { socket } = useContext(SocketContext);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     if (!socket || !condition) return;

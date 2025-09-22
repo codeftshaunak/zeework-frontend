@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { differenceInHours, differenceInMinutes, format } from "date-fns";
@@ -29,16 +28,26 @@ import { GoArrowSwitch } from "react-icons/go";
 import { clearAuthData } from "../../redux/authSlice/authSlice";
 import { clearProfileData } from "../../redux/authSlice/profileSlice";
 import { clearPagesState } from "../../redux/pagesSlice/pagesSlice";
-import { clearMessageState, setMessageUsers } from "../../redux/messageSlice/messageSlice";
-import { clearNotificationState, setNotification } from "../../redux/notificationSlice/notificationSlice";
+import {
+  clearMessageState,
+  setMessageUsers,
+} from "../../redux/messageSlice/messageSlice";
+import {
+  clearNotificationState,
+  setNotification,
+} from "../../redux/notificationSlice/notificationSlice";
 
 // APIs
-import { getNotifications, readAsNotification } from "../../helpers/APIs/userApis";
+import {
+  getNotifications,
+  readAsNotification,
+} from "../../helpers/APIs/userApis";
 import { getMessageUsers } from "../../helpers/APIs/messageApis";
 
 // Hooks
 import useNotificationListener from "../../hooks/useNotificationListener";
 import useUserActivityListener from "../../hooks/useUserActivityListener";
+import { Avatar } from "../ui/migration-helpers";
 
 const Header = () => {
   const router = useRouter();
@@ -93,8 +102,18 @@ const Header = () => {
               }}
               className="hidden min-[840px]:block text-gray-700 hover:text-green-600 p-2 rounded-lg transition-colors duration-200"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </button>
 
@@ -119,11 +138,26 @@ const Header = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="min-[840px]:hidden text-gray-700 hover:text-green-600 p-2"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 )}
               </svg>
             </button>
@@ -181,7 +215,9 @@ const Header = () => {
 
 export const AuthHeader = ({ role }: { role: string }) => {
   const messageUsers = useSelector((state: any) => state.message.users);
-  const notifications = useSelector((state: any) => state.notification.notification);
+  const notifications = useSelector(
+    (state: any) => state.notification.notification
+  );
   const [openInfo, setOpenInfo] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [isActiveInput, setIsActiveInput] = useState(false);
@@ -476,7 +512,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
             {isOpen && isMenuRef ? (
               <button
                 onClick={() => {
-                  setIsMenuRef(false), onClose();
+                  (setIsMenuRef(false), onClose());
                 }}
               >
                 <HiOutlineX className="text-3xl text-gray-600" />
@@ -484,7 +520,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
             ) : (
               <button
                 onClick={() => {
-                  setIsMenuRef(true), onOpen();
+                  (setIsMenuRef(true), onOpen());
                 }}
               >
                 <HiMenu className="text-3xl text-gray-600" />
@@ -512,10 +548,14 @@ export const AuthHeader = ({ role }: { role: string }) => {
                 <NavItem
                   title={Number(role) == 1 ? "Find Work" : "Dashboard"}
                   url={Number(role) == 1 ? "/find-job" : "/client-dashboard"}
-                  additionalActiveRoutes={Number(role) == 1 ? ["/search-job"] : []}
+                  additionalActiveRoutes={
+                    Number(role) == 1 ? ["/search-job"] : []
+                  }
                 />
 
-                {Number(role) == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
+                {Number(role) == 1 && (
+                  <NavItem title={"My Jobs"} url={"/my-jobs"} />
+                )}
                 <NavItem title={"My Stats"} url="/my-stats" />
                 <NavItem
                   title={"Messages"}
@@ -563,8 +603,8 @@ export const AuthHeader = ({ role }: { role: string }) => {
                     <p
                       className="px-3 capitalize cursor-pointer flex items-center gap-2"
                       onClick={(event) => {
-                        setIsSelectModal(!isSelectModal),
-                          event.stopPropagation();
+                        (setIsSelectModal(!isSelectModal),
+                          event.stopPropagation());
                       }}
                     >
                       {selectedRole}
@@ -728,7 +768,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
                       <div
                         className="flex items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={() => {
-                          router.push("/setting"), setOpenInfo(false);
+                          (router.push("/setting"), setOpenInfo(false));
                         }}
                       >
                         <LuSettings />
@@ -738,7 +778,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
                       <div
                         className="flex items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                         onClick={() => {
-                          router.push("/help"), setOpenInfo(false);
+                          (router.push("/help"), setOpenInfo(false));
                         }}
                       >
                         <BiHelpCircle />
@@ -765,7 +805,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
             <button
               className="lg:hidden mr-4"
               onClick={() => {
-                setIsMenuRef(false), onOpen();
+                (setIsMenuRef(false), onOpen());
               }}
             >
               <RiSearchLine className="text-2xl text-gray-600" />
@@ -799,7 +839,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
                   <div
                     className="flex justify-start gap-4 items-center w-full cursor-pointer mt-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                     onClick={() => {
-                      router.push("/setting"), setOpenInfo(false);
+                      (router.push("/setting"), setOpenInfo(false));
                     }}
                   >
                     <LuSettings />
@@ -808,7 +848,7 @@ export const AuthHeader = ({ role }: { role: string }) => {
                   <div
                     className="flex justify-start gap-4 items-center w-full cursor-pointer my-1 hover:bg-gray-200/20 py-1 px-2 rounded"
                     onClick={() => {
-                      router.push("/help"), setOpenInfo(false);
+                      (router.push("/help"), setOpenInfo(false));
                     }}
                   >
                     <BiHelpCircle />
@@ -832,10 +872,12 @@ export const AuthHeader = ({ role }: { role: string }) => {
 
       {/* Mobile nav links and searching */}
       {isOpen && (
-        <div className={cn(
-          "fixed inset-0 z-50 bg-white",
-          isMenuRef ? "" : "mt-16"
-        )}>
+        <div
+          className={cn(
+            "fixed inset-0 z-50 bg-white",
+            isMenuRef ? "" : "mt-16"
+          )}
+        >
           <div className="p-4">
             {isMenuRef ? (
               <div>
@@ -845,7 +887,9 @@ export const AuthHeader = ({ role }: { role: string }) => {
                     url={Number(role) == 1 ? "/find-job" : "/client-dashboard"}
                   />
 
-                  {Number(role) == 1 && <NavItem title={"My Jobs"} url={"/my-jobs"} />}
+                  {Number(role) == 1 && (
+                    <NavItem title={"My Jobs"} url={"/my-jobs"} />
+                  )}
 
                   <NavItem title={"My Stats"} url="/my-stats" />
 
@@ -945,7 +989,11 @@ export const AuthHeader = ({ role }: { role: string }) => {
                             <NavItem
                               title={"Profile"}
                               url={`/profile/${
-                                Number(role) == 2 ? "c" : activeAgency ? "a" : "f"
+                                Number(role) == 2
+                                  ? "c"
+                                  : activeAgency
+                                    ? "a"
+                                    : "f"
                               }/${activeAgency ? agency_profile : user_id}`}
                             />
 
