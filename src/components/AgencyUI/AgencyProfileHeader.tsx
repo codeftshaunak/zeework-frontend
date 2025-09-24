@@ -53,7 +53,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
   } = agency || {};
 
   // agency active
-  // eslint-disable-next-line no-unused-vars
+   
   const [cookies, setCookie] = useCookies(["activeagency"]);
   const [isModal, setIsModal] = useState(false);
   const [modalType, setIsModalType] = useState("");

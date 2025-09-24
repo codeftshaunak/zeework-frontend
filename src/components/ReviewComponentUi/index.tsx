@@ -188,7 +188,7 @@ const ReviewComponent = () => {
 
   return (
     <>
-      <div className="flex flex-col} className= m-[auto] p-[0 0 3rem 0]"items-start"
+      <div className="flex flex-col items-start m-[auto] p-[0 0 3rem 0]"
        
       >
         <span
@@ -197,7 +197,7 @@ const ReviewComponent = () => {
           {" "}
           End contract review{" "}
         </span>
-        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}
+        <div className="flex flex-col border rounded bg-white items-start justify-start m-[auto] w-full"
          
         >
           <div className="w-[80%]">
@@ -224,8 +224,7 @@ const ReviewComponent = () => {
           </div>
         </div>
 
-        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}
-         
+        <div className="flex flex-col items-start justify-start m-[auto] w-full border rounded bg-white"
         >
           <span className="text-3xl font-semibold text-left">
             {" "}

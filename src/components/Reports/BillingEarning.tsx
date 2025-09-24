@@ -28,8 +28,8 @@ const DataListData = [
 ];
 
 const BillingEarning = () => {
-  const [active setActiveTab] = useState(0);
-  const [userActive setUserActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
+  const [userActive, setUserActiveTab] = useState(0);
   const [selectedDate, setSelectedDate] = useState(
     "Oct 01 , 2022-sep 18, 2023"
   );

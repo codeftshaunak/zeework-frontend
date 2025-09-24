@@ -18,6 +18,7 @@ import { showToast } from "../../../../../redux/toastSlice/toastSlice";
 import { MainButtonRounded } from "../../../../Button/MainButton";
 import UniversalModal from "../../../../Modals/UniversalModal";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
+import { Button } from "@/components/ui/migration-helpers";
 
 const getCardIcon = (brand) => {
   switch (brand?.toLowerCase()) {
@@ -116,10 +117,11 @@ const CurrentCard = ({ data, setData, setTab }) => {
         </p>
         <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
           <Button
-            onClick={() = className="w-full"> setIsModal(false)}
+            onClick={() => setIsModal(false)}
+            className="w-full"
           >
             No, I don&apos;t want
-          </button>
+          </Button>
           <Button
             isLoading={isLoading}
             loadingText=" Yes, I want to removed"
@@ -127,7 +129,7 @@ const CurrentCard = ({ data, setData, setTab }) => {
             onClick={() => removeCard()}
           >
             Yes, I want to removed
-          </button>
+          </Button>
         </div>
       </UniversalModal>
     </>

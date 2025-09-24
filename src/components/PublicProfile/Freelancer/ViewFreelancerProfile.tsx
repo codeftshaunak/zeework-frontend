@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
+import Avatar from "@/components/ui/Avatar";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
 import { toast } from "@/lib/toast";

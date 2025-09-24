@@ -383,7 +383,9 @@ export const Text: React.FC<TextProps> = ({
 };
 
 // Center -> flex items-center justify-center
-interface CenterProps extends BoxProps {}
+interface CenterProps extends BoxProps {
+  // Center-specific props can be added here if needed
+}
 
 export const Center: React.FC<CenterProps> = ({
   children,

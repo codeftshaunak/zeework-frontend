@@ -150,7 +150,7 @@ const TalentCard = ({ freelancer }) => {
           <div className="flex justify-between items-center max-md:flex-col max-md:gap-4">
             <div className="flex gap-3">
               <div>
-                <div className="flex flex-row items-center className="max-[480px]:!flex-col !items-center">
+                <div className="flex flex-row items-center max-[480px]:!flex-col !items-center">
                   <div className="flex gap-2 items-center">
                     <Avatar
                       src={freelancer?.profile_image}
@@ -244,7 +244,8 @@ const TalentCard = ({ freelancer }) => {
               <div className="flex justify-between">
                 <div className="flex gap-3">
                   <div>
-                    <div className="flex flex-row items-center> <h2 className="text-2xl font-semibold text-fg-brand">
+                    <div className="flex flex-row items-center">
+                      <h2 className="text-2xl font-semibold text-fg-brand">
                         {selectedFreelancer?.firstName}{" "}
                         {selectedFreelancer?.lastName}
                       </h2>

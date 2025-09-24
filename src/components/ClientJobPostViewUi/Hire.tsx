@@ -14,7 +14,7 @@ import SmoothMotion from "../utils/Animation/SmoothMotion";
 import { useState } from "react";
 
 export const Hire = () => {
-  const [active setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
   return (
     <div className="flex flex-col gap-8 md:flex-row">
       <div className="overflow-hidden border rounded-lg basis-full bg-white">

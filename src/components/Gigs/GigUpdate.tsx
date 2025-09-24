@@ -273,9 +273,9 @@ export const GigCreateLayout = ({
 }) => {
   return (
     <div className="sm:w-full lg:w-[60%]">
-      <Text className="text-left font-semibold">
+      <h3 className="text-left font-semibold">
         {title}
-      </Text>
+      </h3>
       <br />
       <div className="w-full flex flex-col gap-5">{children}</div>
       <div className="mt-4 flex gap-4">

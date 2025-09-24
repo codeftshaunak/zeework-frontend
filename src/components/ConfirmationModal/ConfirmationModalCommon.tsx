@@ -24,10 +24,8 @@ const ConfirmModalCommon: React.FC<ConfirmModalCommonProps> = ({
        className="m-[1rem 0] text-2xl font-semibold text-center">
         Are You Sure You Want To {title}?
       </span>
-      <div className="flex flex-row items-center className="justify-center mt-[2rem]">
-        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-          backgroundColor="white"
-          _hover={{}}
+      <div className="flex flex-row items-center justify-center mt-[2rem]">
+        <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground bg-white"
           onClick={() => setOpenModal(false)}
         >
           Cancel

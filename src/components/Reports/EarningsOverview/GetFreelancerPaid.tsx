@@ -158,7 +158,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
               <div className="flex flex-col gap-1 font-semibold my-5 tracking-wide">
                 <p className="text-lg sm:text-xl">Amount</p>
                 <RadioGroup.Root onValueChange={setAmountType} value={amountType}>
-                  <div className="flex> <RadioGroup.Item value="all">
+                  <div className="flex"> <RadioGroup.Item value="all">
                       <RadioGroup.ItemHiddenInput />
                       <RadioGroup.ItemIndicator />
                       <RadioGroup.ItemText>${balance}</RadioGroup.ItemText>

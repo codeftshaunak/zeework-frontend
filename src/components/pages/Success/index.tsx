@@ -40,10 +40,9 @@ export const VerifySuccess = () => {
 
   return (
     <HomeLayout>
-      <HStack
-        textColor={"var(--primarycolor)"}
-        opacity={0.5}
-       className="items-center justify-center">
+      <div
+        style={{color: "var(--primarycolor)", opacity: 0.5}}
+        className="flex items-center justify-center">
         {loading && (
           // <Spinner
           //   backgroundColor="#"
@@ -53,7 +52,7 @@ export const VerifySuccess = () => {
           // />
           <BtnSpinner size={50} />
         )}
-      </HStack>
+      </div>
     </HomeLayout>
   );
 };

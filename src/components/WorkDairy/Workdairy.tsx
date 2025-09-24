@@ -116,9 +116,10 @@ const Workdairy = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => {
             return (
               <div className="flex flex-col items-start" key={item}>
-                <Image
+                <img
                   src="https://i.ibb.co/tmNpfvL/Screenshot-2023-10-30-at-11-16-14-PM.png"
                   style={customStyles_img}
+                  alt="screenshot"
                 />
                 <div className="flex flex-row items-center gap-1">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
@@ -128,7 +129,6 @@ const Workdairy = () => {
                       style={{ backgroundColor: "#22C35E" }}
                     ></div>
                   ))}
-                </div>
                 </div>
               </div>
             );

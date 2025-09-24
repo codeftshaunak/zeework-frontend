@@ -7,33 +7,31 @@ import { Link as ReactLink } from "react-router";
 
 const NotFound: React.FC = () => {
   return (
-    <div className="flex flex-col className="h-[100vh]">
-      <div className="flex items-center justify-center className="h-[100%]">
+    <div className="flex flex-col h-[100vh]">
+      <div className="flex items-center justify-center h-[100%]">
         <div maxW="xl" className="w-full">
           <div
            
             bgSize="cover"
             bgPos="center"
           >
-            <Heading>
+            <h1 className="text-4xl font-bold">
               404
-            </Heading>
+            </h1>
           </div>
 
           <div>
-            <Heading as="h3">
+            <h3 className="text-xl font-semibold">
               {`Looks like you're lost`}
-            </Heading>
+            </h3>
 
             <span>The page you are looking for is not available!</span>
 
-            <Link as={ReactLink} to="/" textDecoration="none">
-              <div
-                _hover={{ bgColor: "#307525" }}
-              >
+            <ReactLink to="/" className="no-underline">
+              <div className="hover:bg-green-600 px-4 py-2 bg-green-500 text-white rounded">
                 Go to Home
               </div>
-            </Link>
+            </ReactLink>
           </div>
         </div>
       </div>

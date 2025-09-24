@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 
 import AgencyTitle from "./AgencyTitle";
 
@@ -11,7 +11,7 @@ const AgencyPortfolio = () => {
         <Image
           src="./images/404not-added.png"
           className="m-[auto]"
-        ></img>
+        />
         <span className="font-semibold text-center">
           You haven&apos;t added your project!
         </span>

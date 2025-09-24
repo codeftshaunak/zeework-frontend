@@ -152,7 +152,7 @@ const Offer = () => {
   const rejectInvite = () => setReject(true);
 
   return (
-    <Box className="w-full">
+    <div className="w-full">
       <br />
       <br />
       <h2 className="my-3 text-2xl font-bold text-[1.6rem] text-[#374151]">
@@ -193,7 +193,7 @@ const Offer = () => {
       ) : (
         <DataNotAvailable onRefresh={getInvitationDetails} />
       )}
-    </Box>
+    </div>
   );
 };
 

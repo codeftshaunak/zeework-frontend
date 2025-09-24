@@ -59,8 +59,7 @@ const JobPost = () => {
     <HomeLayout displaydir="row">
       <FormStateProvider>
         {step < 4 ? (
-          <div className="flex flex-row items-center className="justify-space-around w-full items-flex-start"
-            marginTop={10}}
+          <div className="flex flex-row items-center justify-around w-full items-flex-start mt-10"
           >
             <Steps step={step} setStep={setStep} />
             {step === 1 && <FirstStep setStep={setStep} />}

@@ -27,6 +27,7 @@ import { clearMessageState } from "../../../redux/messageSlice/messageSlice";
 import UniversalModal from "../../Modals/UniversalModal";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import GigDetailsSkeleton from "../../Skeletons/GigDetailsSkeleton";
+import { Button } from "@/components/ui/migration-helpers";
 
 const ClientGigDetails = () => {
   const [gigData, setGigData] = useState({ gigInfo: {}, freelancerInfo: {} });
@@ -321,7 +322,7 @@ const ClientGigDetails = () => {
                                   isDisabled={status !== "approved"}
                                 >
                                   {status !== "approved" ? status : "Purchases"}
-                                </button>
+                                </Button>
                               ) : (
                                 <Button
                                   paddingX={10}
@@ -331,14 +332,14 @@ const ClientGigDetails = () => {
                                   }
                                 >
                                   Verify Payment Method
-                                </button>
+                                </Button>
                               ))}
                             <Button
                               paddingX={10}
                               onClick={handleBackward}
                              className="tracking-wide">
                               Back
-                            </button>
+                            </Button>
                           </div>
                         </div>
                         <div className="border rounded-md px-10 py-3 mt-5 bg-slate-50">

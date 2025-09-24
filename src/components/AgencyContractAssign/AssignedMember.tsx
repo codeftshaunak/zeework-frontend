@@ -9,6 +9,7 @@ import UniversalModal from "../Modals/UniversalModal";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import { MdRemoveModerator } from "react-icons/md";
 import { endContractOfFreelancer } from "../../helpers/APIs/agencyApis";
+import { VStack, Box, Avatar, Text } from "@/components/ui/migration-helpers";
 
 const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
   const [isMenu, setIsMenu] = useState(false);
@@ -46,10 +47,8 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
   return (
     <>
       <VStack
-        className="shadow border p-4 rounded-md leading-[20px] relative bg-white justify-between"
-        w="300px"
-       
-       className="mt-[10px] p-4">
+        className="shadow border p-4 rounded-md leading-[20px] relative bg-white justify-between mt-[10px]"
+        w="300px">
         <Box className="text-center">
           <Avatar
             src={profile_image}

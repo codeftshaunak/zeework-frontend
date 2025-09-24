@@ -18,6 +18,7 @@ import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import UniversalModal from "../../../../Modals/UniversalModal";
 import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 import { getCountries } from "../../../../../helpers/APIs/freelancerApis";
+import { Box, Button } from "@/components/ui/migration-helpers";
 
 const addAccountSchema = (type) => {
   if (type === "bank") {
@@ -369,7 +370,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                 onClick={handleCancel}
               >
                 Cancel
-              </button>
+              </Button>
               <Button
                 isLoading={isLoading}
                 loadingText="Submit"
@@ -378,7 +379,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                 spinner={<BtnSpinner />}
               >
                 Submit
-              </button>
+              </Button>
             </div>
           </form>
         </Box>

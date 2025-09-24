@@ -7,8 +7,9 @@ import { useState } from "react";
 import UniversalModal from "../../../../Modals/UniversalModal";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import { deleteBankDetails } from "../../../../../helpers/APIs/payments";
+import { Button } from "@/components/ui/migration-helpers";
 
-const PaymentDetails = ({ data, set setData }) => {
+const PaymentDetails = ({ data, setData }) => {
   const [isHover, setIsHover] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -242,10 +243,11 @@ const PaymentDetails = ({ data, set setData }) => {
         </p>
         <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 mt-6 sm:mt-10">
           <Button
-            onClick={() = className="w-full"> setIsModal(false)}
+            onClick={() => setIsModal(false)}
+            className="w-full"
           >
             No, I don&apos;t want
-          </button>
+          </Button>
           <Button
             isLoading={isLoading}
             loadingText=" Yes, I want to removed"
@@ -253,7 +255,7 @@ const PaymentDetails = ({ data, set setData }) => {
             onClick={() => removePayment()}
           >
             Yes, I want to removed
-          </button>
+          </Button>
         </div>
       </UniversalModal>
     </>

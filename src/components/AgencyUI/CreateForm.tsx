@@ -1,24 +1,15 @@
 
 "use client";
-import React from "react";
 import { toast } from "@/lib/toast";
 
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  HStack,
-  Box,
-  Input,
-  Textarea,
-  Button,
-} from "@/components/ui/migration-helpers";
-import { getCategories, getCountries } from "../../helpers/APIs/freelancerApis";
-import { getSubCategory } from "../../helpers/APIs/freelancerApis";
-import { createAgency } from "../../helpers/APIs/agencyApis";
-import { useRouter } from "next/navigation";
-import { CurrentUserContext } from "../../contexts/CurrentUser";
-import BtnSpinner from "../Skeletons/BtnSpinner";
 import Select from "react-select";
+import { CurrentUserContext } from "../../contexts/CurrentUser";
+import { createAgency } from "../../helpers/APIs/agencyApis";
+import { getCategories, getCountries, getSubCategory } from "../../helpers/APIs/freelancerApis";
+import BtnSpinner from "../Skeletons/BtnSpinner";
 import ErrorMsg from "../utils/Error/ErrorMsg";
 
 const CreateForm = () => {
@@ -124,7 +115,7 @@ const CreateForm = () => {
   };
 
   return (
-    <div className="flex flex-row items-center className="w-full m-[auto] items-center">
+    <div className="flex flex-row items-center w-full m-[auto]">
       <div
         className="m-[auto] rounded"
       >

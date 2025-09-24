@@ -10,8 +10,8 @@ export const JobDetails = ({ jobDetails }) => {
 
   return (
     <div className="lg:col-span-2 w-full h-fit flex gap-10 bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
-      <div className="flex flex-col className="w-full">
-        <span}
+      <div className="flex flex-col w-full">
+        <span
          
           className="capitalize"
         >

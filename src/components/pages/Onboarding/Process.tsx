@@ -271,7 +271,7 @@ const Process = () => {
                 Ready for your next big opportunity?
               </span>
             </div>
-            <div className="flex flex-row items-center className="w-full justify-space-evenly">
+            <div className="flex flex-row items-center w-full justify-evenly">
               {/* <TbUser /> */}
               <span>
                 Join the worlds newest Freelance platform dedicated to building
@@ -404,7 +404,7 @@ const Process = () => {
                         you can edit it before your profile goes live.
                       </span>
                     </div>
-                    <div className="flex flex-col className="w-full items-start">
+                    <div className="flex flex-col w-full items-start">
                       <span className="font-medium">
                         {"Your Professional Role"}
                       </span>
@@ -422,7 +422,7 @@ const Process = () => {
                         <ErrorMsg msg={errors.professional_role.message} />
                       )}
                     </div>
-                    <div className="flex flex-col className="w-full items-start">
+                    <div className="flex flex-col w-full items-start">
                       <span className="font-medium">
                         {"Your Hourly Rate"}
                       </span>
@@ -446,7 +446,7 @@ const Process = () => {
                       )}
                     </div>
 
-                    <div className="flex flex-col className="w-full items-start">
+                    <div className="flex flex-col w-full items-start">
                       <span className="font-medium">
                         {"Profile Overview"}
                       </span>
@@ -526,7 +526,7 @@ const Process = () => {
                       How would you like to tell us about yourself?
                     </span>
 
-                    <div className="flex flex-col className="w-full items-start">
+                    <div className="flex flex-col w-full items-start">
                       <span className="font-medium">
                         {"Write Your Business Name"}
                       </span>
@@ -546,7 +546,7 @@ const Process = () => {
                       )}
                     </div>
 
-                    <div className="flex flex-col className="w-full items-start">
+                    <div className="flex flex-col w-full items-start">
                       <span className="font-medium">
                         {"Write Your Business Details"}
                       </span>
@@ -556,7 +556,7 @@ const Process = () => {
                         borderColor={"var(--bordersecondary)"}
                         style={{ resize: "none" }}
                         rows={5}
-                        onChange={(e) = className="w-full bg-white"> {
+                        onChange={(e) => {
                           setValue("brief_description", e.target.value);
                           trigger("brief_description");
                         }}

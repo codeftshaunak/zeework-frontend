@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "@/lib/toast";
@@ -184,13 +186,13 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
   // Delete the experience
   const handleDelete = async () => {
     setIsLoading(true);
-    let newPayload = { experienceId: defaultValue._id };
+    const newPayload = { experienceId: defaultValue._id };
 
     try {
       const { code, msg } = await deleteExperience(newPayload);
 
       if (code === 200) {
-        let newProfile = { ...existProfile };
+        const newProfile = { ...existProfile };
         newProfile.experience = existProfile.experience?.filter(
           (item) => item._id !== defaultValue._id
         );

@@ -18,8 +18,7 @@ export const MessageUsersSkeleton = () => {
             <Avatar size="md" round="20px" />
           </div>
           <div
-           
-            marginLeft={4}}
+            style={{marginLeft: '1rem'}}
           >
             <Skeleton></Skeleton>
             <Skeleton marginTop={3}></Skeleton>
@@ -42,13 +41,13 @@ export const MessageBodySkeleton = () => {
        
       >
         <Avatar size="md" round="20px" />
-        <div className="flex flexDir="column">
+        <div className="flex flex-col">
           <Skeleton></Skeleton>
           <Skeleton marginTop={3}></Skeleton>
         </div>
       </div>
 
-      <div className="flex flex-col className="items-start w-full h-[100%] relative"
+      <div className="flex flex-col items-start w-full h-[100%] relative"
       >
         <div
           className="h-[69vh] w-full flex"

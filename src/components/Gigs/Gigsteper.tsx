@@ -32,7 +32,7 @@ export const GigSteper = ({ activeStep }) => {
       index={activeStep}
       colorScheme="primary"
       className="items-center"
-      marginTop={10}}
+      marginTop={10}
     >
       {steps.map((step, index) => (
         <Step key={index}>

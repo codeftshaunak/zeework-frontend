@@ -65,7 +65,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Complete Your Profile</h1>
-            <p className="text-gray-600">Let's get you set up on ZeeWork</p>
+            <p className="text-gray-600">Let&apos;s get you set up on ZeeWork</p>
           </div>
 
         {/* Progress Bar */}

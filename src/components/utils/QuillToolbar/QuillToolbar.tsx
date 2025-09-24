@@ -33,10 +33,11 @@ function redoChange() {
 // Initialize Quill formats only on client side
 let isQuillInitialized = false;
 
-const initializeQuill = () => {
+const initializeQuill = async () => {
   if (typeof window !== 'undefined' && !isQuillInitialized) {
     try {
-      const { Quill } = require('react-quill');
+      const ReactQuill = await import('react-quill');
+      const { Quill } = ReactQuill;
 
       // Add sizes to whitelist and register them
       const Size = Quill.import("formats/size");

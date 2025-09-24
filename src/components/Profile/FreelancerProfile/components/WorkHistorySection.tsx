@@ -205,7 +205,7 @@ export const WorkHistorySection: React.FC<WorkHistorySectionProps> = ({
                         <div className="flex items-start gap-2">
                           <MessageSquare className="h-4 w-4 text-gray-500 mt-1" />
                           <p className="text-sm text-gray-700 italic">
-                            "{item.review}"
+                            {item.review}
                           </p>
                         </div>
                       </div>

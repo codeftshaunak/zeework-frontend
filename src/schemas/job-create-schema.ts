@@ -5,7 +5,7 @@ import * as yup from "yup";
 // const ACCEPTED_FILE_TYPES = [];
 
 const stripHtml = (html) => {
-  let div = document.createElement("div");
+  const div = document.createElement("div");
   div.innerHTML = html;
   return div.textContent || div.innerText || "";
 };

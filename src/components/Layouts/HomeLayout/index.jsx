@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+ 
 import { VStack } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { AuthHeader, Header } from "../../Components/Header";

@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getFreelancerGigs } from "../../../helpers/APIs/gigApis";
 import { useRouter } from "next/navigation";

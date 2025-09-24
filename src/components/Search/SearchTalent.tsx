@@ -378,13 +378,9 @@ export const SearchTalents = () => {
       <div className="py-6 flex w-full">
         <div className="w-[40%] max-xl:hidden">
           {/* filtering items */}
-          <divmt-[1rem] items-start"
-            className="bg-white w-[90%]"
-           
-           className="flex flex-col className= p-5">
-            <div className="flex flex-row items-center className="justify-between w-full">
+          <div className="bg-white w-[90%] flex flex-col mt-[1rem] items-start p-5">
+            <div className="flex flex-row items-center justify-between w-full">
               <span
-                paddingBottom="0rem"
                className="text-2xl font-medium">
                 Filters
               </span>

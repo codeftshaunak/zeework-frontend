@@ -90,10 +90,10 @@ const LatestOffers = ({ marketplace }) => {
       >
         {!marketplace && (
           <Tabs.List className="flex flex-wrap">
-            <Tab>All</Tabs.Trigger>
-            <Tab>Pending</Tabs.Trigger>
-            <Tab>In Progress</Tabs.Trigger>
-            <Tab>Completed</Tabs.Trigger>
+            <Tabs.Trigger>All</Tabs.Trigger>
+            <Tabs.Trigger>Pending</Tabs.Trigger>
+            <Tabs.Trigger>In Progress</Tabs.Trigger>
+            <Tabs.Trigger>Completed</Tabs.Trigger>
           </Tabs.List>
         )}
         {!marketplace && (

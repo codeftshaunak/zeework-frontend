@@ -101,7 +101,7 @@ export const SignUp = () => {
                         <Briefcase className="h-8 w-8 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Client</h3>
+                        <h3 className="font-semibold text-gray-900 mb-1">I&apos;m a Client</h3>
                         <p className="text-sm text-gray-600">Hiring for a project</p>
                       </div>
                       <div className={cn(
@@ -130,7 +130,7 @@ export const SignUp = () => {
                         <Users className="h-8 w-8 text-blue-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">I'm a Freelancer</h3>
+                        <h3 className="font-semibold text-gray-900 mb-1">I&apos;m a Freelancer</h3>
                         <p className="text-sm text-gray-600">Looking for work</p>
                       </div>
                       <div className={cn(

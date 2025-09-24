@@ -13,19 +13,14 @@ const GenaralStats = ({ stats, isLoading }) => {
           <HorizontalCardSkeleton />
         ) : (
           stats?.map((data, index) => (
-            <Card
+            <div
               key={index}
-              className="items-center rounded"
-              boxShadow="0"
-              _hover={{
-                border: "1px solid var(--primarycolor)",
-                transition: "0.3s ease-in-out",
-              }}
-              className="max-md:!w-full"
+              className="items-center rounded max-md:!w-full p-4 border hover:border-green-500 transition-all"
+              style={{boxShadow: "none"}}
             >
               <p className="font-semibold text-4xl mb-5">{data.number}</p>
               <p className="text-lg capitalize">{data.title}</p>
-            </Card>
+            </div>
           ))
         )}
       </div>

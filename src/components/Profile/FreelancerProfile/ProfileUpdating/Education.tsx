@@ -158,13 +158,13 @@ const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, s
   // Delete the education
   const handleDelete = async () => {
     setIsLoading(true);
-    let newPayload = { educationId: defaultValue._id };
+    const newPayload = { educationId: defaultValue._id };
 
     try {
       const { code, msg } = await deleteEducation(newPayload);
 
       if (code === 200) {
-        let newProfile = { ...existProfile };
+        const newProfile = { ...existProfile };
         newProfile.education = existProfile.education?.filter(
           (item) => item._id !== defaultValue._id
         );

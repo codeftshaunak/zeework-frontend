@@ -19,9 +19,9 @@ export function calculateProfileCompletion(profile) {
 
   let totalWeight = 0;
   let completedWeight = 0;
-  let uncompletedAttributes = [];
+  const uncompletedAttributes = [];
 
-  for (let attribute in profileAttributes) {
+  for (const attribute in profileAttributes) {
     totalWeight += profileAttributes[attribute];
     if (Array.isArray(profile[attribute])) {
       if (profile[attribute].length > 0) {

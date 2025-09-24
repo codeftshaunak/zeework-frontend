@@ -181,7 +181,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             {errors.images && <ErrorMsg msg={errors.images.message} />}
           </div>
 
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label className="text-xl font-[600] pb-0 mb-0">
               Project Videos
             </label>
@@ -190,8 +190,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               selectedVideo?.preview === "" ||
               selectedVideo === undefined) && (
               <label htmlFor="videoInput" className="w-full md:w-fit">
-                <div className="flex flex-col className= p-[2rem 2rem] shadow-lg rounded-lg cursor-pointer"text-center"
-                  backgroundColor="white"
+                <div className="flex flex-col p-[2rem 2rem] shadow-lg rounded-lg cursor-pointer text-center bg-white"
                  
                   onDrop={handleDrop}
                   onDragOver={(e) => e.preventDefault()}

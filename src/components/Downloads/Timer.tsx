@@ -32,7 +32,7 @@ const Timer = () => {
     if (downloadLink) {
       window.location.href = downloadLink;
     } else {
-      toast.default("Sorry);
+      toast.default("Sorry");
     }
   };
 

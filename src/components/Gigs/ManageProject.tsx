@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 const ManageProject = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col className="w-full">
-      <div className="flex flex-row items-center className="justify-between w-full">
+    <div className="flex flex-col w-full">
+      <div className="flex flex-row items-center justify-between w-full">
         <span className="font-medium text-black">
           Your Gigs
         </span>
@@ -24,7 +24,7 @@ const ManageProject = () => {
           Create A New Gig
         </button>
       </div>
-      <div className="flex flex-row items-center className="w-full mt-[1rem] border rounded bg-white"
+      <div className="flex flex-row items-center w-full mt-[1rem] border rounded bg-white"
       >
         <GigStatus />
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState, useCallback } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import ContractTerms from "./ContractTerms";
 import FreelancerProfile from "./FreelancerProfile";
 import JobDetails from "./JobDetails";

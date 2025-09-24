@@ -1,10 +1,10 @@
 import React from "react";
 
-
 import StarRatings from "react-star-ratings";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 import BtnSpinner from "../Skeletons/BtnSpinner";
+import Avatar from "@/components/ui/Avatar";
 
 export const ClientDetailsSection = ({
   clientDetails,

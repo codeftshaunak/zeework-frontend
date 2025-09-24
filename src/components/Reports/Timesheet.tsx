@@ -20,8 +20,8 @@ const Timesheet = ({ activeJobs, isLoading }) => {
 
   function formatTime(minutes) {
     // Calculate hours and remaining minutes
-    let hours = Math.floor(minutes / 60);
-    let remainingMinutes = minutes % 60;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
     // Format the time string
     let timeString = "";

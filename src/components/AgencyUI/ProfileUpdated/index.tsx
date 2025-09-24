@@ -71,7 +71,7 @@ export function AgencyUpdatedModal({
   // handle update info
   const onSubmit = async (data) => {
     setIsLoading(true);
-    let updatedData =
+    const updatedData =
       title === "Sub Category"
         ? {
             agency_services: JSON.parse(data.agency_services),

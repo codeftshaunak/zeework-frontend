@@ -24,7 +24,7 @@ import { paypalCardSchema } from "../../../../../schemas/payments";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 
-export const PayPalCardForm = ({ set setCard }) => {
+export const PayPalCardForm = ({ setCard }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -58,10 +58,10 @@ export const PayPalCardForm = ({ set setCard }) => {
   }, []);
 
   const formatCardNumber = (e) => {
-    let value = e.target.value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    let matches = value.match(/\d{4,16}/g);
-    let match = (matches && matches[0]) || "";
-    let parts = [];
+    const value = e.target.value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
+    const matches = value.match(/\d{4,16}/g);
+    const match = (matches && matches[0]) || "";
+    const parts = [];
     for (let i = 0; i < match.length; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
@@ -115,20 +115,20 @@ export const PayPalCardForm = ({ set setCard }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <span>
+      <Text>
         Card Details
-      </span>
+      </Text>
 
       <div
         className="grid"
        
        
       >
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-          <span>
+        <InputGroup>
+          <Text>
             Card Number
-          </span>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          </Text>
+          <Input
             {...register("card_number")}
             placeholder="1234 5678 9012 3456"
             maxLength={19}
@@ -137,12 +137,12 @@ export const PayPalCardForm = ({ set setCard }) => {
           {errors.card_number && <ErrorMsg msg={errors.card_number.message} />}
         </InputGroup>
 
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", md: "row" }}>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+        <InputGroup flexDir={{ base: "column", md: "row" }}>
+          <InputGroup>
+            <Text>
               Expiration Date
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("expiry")}
               placeholder="MM/YYYY"
               maxLength={7}
@@ -151,11 +151,11 @@ export const PayPalCardForm = ({ set setCard }) => {
             {errors.expiry && <ErrorMsg msg={errors.expiry.message} />}
           </InputGroup>
 
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+          <InputGroup>
+            <Text>
               CVV/CVC
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("security_code")}
               placeholder="123"
               type="password"
@@ -170,32 +170,32 @@ export const PayPalCardForm = ({ set setCard }) => {
 
       {errors.general && <ErrorMsg msg={errors.general.message} />}
 
-      <span>
+      <Text>
         Billing Address
-      </span>
+      </Text>
 
       <div
         className="grid"
        
        
       >
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+        <InputGroup flexDir={{ base: "column", xl: "row" }}>
+          <InputGroup>
+            <Text>
               First Name
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("first_name")}
               placeholder="First Name"
             />
             {errors.first_name && <ErrorMsg msg={errors.first_name.message} />}
           </InputGroup>
 
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+          <InputGroup>
+            <Text>
               Last Name
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("last_name")}
               placeholder="Last Name"
             />
@@ -204,9 +204,9 @@ export const PayPalCardForm = ({ set setCard }) => {
         </InputGroup>
 
         <div>
-          <span>
+          <Text>
             Country
-          </span>
+          </Text>
           <Select
             placeholder="Select Country"
             options={countries}
@@ -220,23 +220,23 @@ export const PayPalCardForm = ({ set setCard }) => {
           )}
         </div>
 
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+        <InputGroup flexDir={{ base: "column", xl: "row" }}>
+          <InputGroup>
+            <Text>
               City
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("city")}
               placeholder="City"
             />
             {errors.city && <ErrorMsg msg={errors.city.message} />}
           </InputGroup>
 
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-            <span>
+          <InputGroup>
+            <Text>
               Postal Code
-            </span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            </Text>
+            <Input
               {...register("zip")}
               placeholder="Postal Code"
             />
@@ -244,22 +244,22 @@ export const PayPalCardForm = ({ set setCard }) => {
           </InputGroup>
         </InputGroup>
 
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-          <span>
+        <InputGroup>
+          <Text>
             State / Province
-          </span>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          </Text>
+          <Input
             {...register("state")}
             placeholder="State"
           />
           {errors.state && <ErrorMsg msg={errors.state.message} />}
         </InputGroup>
 
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-          <span>
+        <InputGroup>
+          <Text>
             Address Line 1
-          </span>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          </Text>
+          <Input
             {...register("address_line1")}
             placeholder="Address Line 1"
           />
@@ -268,18 +268,18 @@ export const PayPalCardForm = ({ set setCard }) => {
           )}
         </InputGroup>
 
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-          <span>
-            Address Line 2 <span>(Optional)</span>
-          </span>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+        <InputGroup>
+          <Text>
+            Address Line 2 <Text as="span">(Optional)</Text>
+          </Text>
+          <Input
             {...register("address_line2")}
             placeholder="Address Line 2"
           />
         </InputGroup>
       </div>
 
-      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+      <Button
         isLoading={isLoading}
         type="submit"
         paddingX={isLoading ? 5 : 10}
@@ -287,7 +287,7 @@ export const PayPalCardForm = ({ set setCard }) => {
         spinner={<BtnSpinner />}
       >
         Save Details
-      </button>
+      </Button>
     </form>
   );
 };

@@ -10,6 +10,7 @@ import { MdAddModerator } from "react-icons/md";
 import { SocketContext } from "../../contexts/SocketContext";
 import { useDispatch } from "react-redux";
 import { clearMessageState } from "../../redux/messageSlice/messageSlice";
+import { VStack, Box, Avatar, Text } from "@/components/ui/migration-helpers";
 
 const AgencyMember = ({ details, contractRef, setJobDetails }) => {
   const { profile_image, firstName, lastName, professional_role } = details;

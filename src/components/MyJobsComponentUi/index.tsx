@@ -58,7 +58,7 @@ const MyJobsComponentUi = () => {
               <ActiveJobSlider activeJobList={active_jobs} />
             </div>
           ) : (
-            <div className="flex flex-col className="items-center justify-center border border-[var(--bordersecondary)] rounded-lg h-[10rem] bg-white"
+            <div className="flex flex-col items-center justify-center border border-[var(--bordersecondary)] rounded-lg h-[10rem] bg-white"
             >
               <span
                className="mb-[10px] text-xl font-semibold capitalize">

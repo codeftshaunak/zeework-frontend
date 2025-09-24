@@ -51,7 +51,7 @@ export const AgencyAllInvitations = () => {
   const [memburs, setMemburs] = useState([]);
   const [acceptInvitation, setAcceptInvitation] = useState([]);
   const [rejectInvitation, setRejectInvitation] = useState([]);
-  // eslint-disable-next-line no-unused-vars
+   
   const [cancelInvitations, setCancelInvitations] = useState([]);
   const [pandingInvitation, setPandingInvitation] = useState([]);
 

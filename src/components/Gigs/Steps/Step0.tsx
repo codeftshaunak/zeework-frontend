@@ -169,7 +169,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GigCreateLayout title="Gig Overview" onBackward={onBack}>
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Title
             </label>

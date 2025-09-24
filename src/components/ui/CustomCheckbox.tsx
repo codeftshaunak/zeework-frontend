@@ -8,7 +8,11 @@ export const CustomCheckbox = ({
     size = "md",
     colorScheme = "green",
     ...props
-}: any) => {
+}: {
+  size?: string;
+  colorScheme?: string;
+  [key: string]: unknown;
+}) => {
     return (
         <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
             <input

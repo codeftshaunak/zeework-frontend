@@ -55,7 +55,7 @@ const SingleContractDetails = () => {
   const [timeSheet, setTimeSheet] = useState({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
   const [feedbackModal, setFeedbackModal] = useState(false);
-  const [active setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
 
   const { socket } = useContext(SocketContext);
   const {

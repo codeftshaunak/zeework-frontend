@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import Image from "next/image";
 
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -134,13 +134,11 @@ const Help = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col gap-10 sm:mt-10 pb-12 w-full">
-        <Image
+        <img
           src="./images/help_banner.png"
           alt="cover image"
-          className="shadow bg-cover w-full"}
-         
-          objectFit="cover"
-          filter={"brightness(100%)"} className="rounded mt-[2rem]"
+          className="shadow bg-cover w-full rounded mt-[2rem]"
+          style={{objectFit: "cover", filter: "brightness(100%)"}}
         />
         <div className="flex gap-10 w-full flex-wrap">
           <div className="w-full">

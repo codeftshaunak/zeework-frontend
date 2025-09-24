@@ -612,7 +612,7 @@ const JobDetails = ({
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl font-bold text-gray-900">
-                      Client's Job History
+                      Client&apos;s Job History
                     </h2>
                     <span className="text-sm text-gray-500">
                       {jobCounts.all} total jobs

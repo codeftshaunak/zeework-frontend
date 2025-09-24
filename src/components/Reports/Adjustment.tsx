@@ -45,7 +45,7 @@ const Adjustment = () => {
         Further Information
       </h2>
       <div className="relative h-[25rem]">
-        <div className="flex flex-row items-center spacing= h-[100%] max-sm:!hidden"4">
+        <div className="flex flex-row items-center gap-4 h-[100%] max-sm:!hidden">
           {data.map((data, index) => (
             <Card
               key={index}

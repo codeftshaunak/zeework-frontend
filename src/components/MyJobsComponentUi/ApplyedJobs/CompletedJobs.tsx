@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";

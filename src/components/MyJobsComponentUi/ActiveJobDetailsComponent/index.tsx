@@ -46,7 +46,7 @@ const ActiveJobDetailsComponent = () => {
   const [taskDetails, setTaskDetails] = useState({});
   const [timeSheet, setTimeSheet] = useState({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
-  const [active setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
 
   const dispatch = useDispatch();
 

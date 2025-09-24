@@ -28,7 +28,7 @@ const ContractCard = ({ job }) => {
         >
           {status === "task_submitted" ? "Task Submited" : "Active"}
         </span>
-        <div className="flex flexFlow="column">
+        <div className="flex flex-col">
           <img src="./images/active_job.png" />
         </div>
         <div>

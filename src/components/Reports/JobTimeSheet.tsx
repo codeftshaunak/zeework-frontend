@@ -25,8 +25,8 @@ const JobTimeSheet = ({ data, isLoading }) => {
 
   function formatTimeInHours(minutes) {
     // Calculate hours and remaining minutes
-    let hours = Math.floor(minutes / 60);
-    let remainingMinutes = minutes % 60;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
     // Format the time string
     let timeString = "";
@@ -85,27 +85,27 @@ const JobTimeSheet = ({ data, isLoading }) => {
         <div className="mb-3">
           {lastWeek ? (
             <div overflowX="auto">
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th textColor="black">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="text-black text-left p-2 border">
                       Week Number
-                    </Th>
-                    <Th>Mon</Th>
-                    <Th>Tue</Th>
-                    <Th>Wed</Th>
-                    <Th>Thu</Th>
-                    <Th>Fri</Th>
-                    <Th>Sat</Th>
-                    <Th>Sun</Th>
-                    <Th>Hours</Th>
-                    <Th>Rate</Th>
-                    <Th>Amount</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td className="text-[#22C35E]">
+                    </th>
+                    <th className="text-left p-2 border">Mon</th>
+                    <th className="text-left p-2 border">Tue</th>
+                    <th className="text-left p-2 border">Wed</th>
+                    <th className="text-left p-2 border">Thu</th>
+                    <th className="text-left p-2 border">Fri</th>
+                    <th className="text-left p-2 border">Sat</th>
+                    <th className="text-left p-2 border">Sun</th>
+                    <th className="text-left p-2 border">Hours</th>
+                    <th className="text-left p-2 border">Rate</th>
+                    <th className="text-left p-2 border">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="text-[#22C35E] p-2 border">
                       {getWeekLabel(
                         lastWeek.date_time[0].date,
                         lastWeek.week_number
@@ -113,22 +113,22 @@ const JobTimeSheet = ({ data, isLoading }) => {
                     </Td>
                     {lastWeek?.date_time?.map((date, idx) => {
                       return (
-                        <Td key={idx}>
+                        <td key={idx} className="p-2 border">
                           {formatTimeInHours(date.time)}
-                        </Td>
+                        </td>
                       );
                     })}
-                    <Td>
+                    <td className="p-2 border">
                       {formatTimeInHours(lastWeekTime)}
-                    </Td>
-                    <Td>
+                    </td>
+                    <td className="p-2 border">
                       ${data?.details?.hourly_rate}
                       <sub className="font-normal">/hr</sub>
-                    </Td>
-                    <Td>${totalEarning.toFixed(2)}</Td>
-                  </Tr>
-                </Tbody>
-              </Table>
+                    </td>
+                    <td className="p-2 border">${totalEarning.toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           ) : (
             <div>No data available</div>

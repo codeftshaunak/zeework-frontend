@@ -30,7 +30,7 @@ import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 import { useDispatch } from "react-redux";
 import { hideToast } from "../../../../../redux/toastSlice/toastSlice";
 
-export const CardDetailsForm = ({ set setCard }) => {
+export const CardDetailsForm = ({ setCard }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -162,15 +162,15 @@ export const CardDetailsForm = ({ set setCard }) => {
          
          
         >
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup>
             <span className="mb-[10px]">
               Card Number
             </span>
             <CardNumberElement className="px-4 py-2.5 rounded-md border border-[var(--bordersecondary)] bg-white" />
             {errors.cardNumber && <ErrorMsg msg={errors.cardNumber.message} />}
           </InputGroup>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", md: "row" }}>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup className="flex flex-col md:flex-row">
+            <InputGroup>
               <span className="mb-[10px]">
                 Expiration Date
               </span>

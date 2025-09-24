@@ -19,7 +19,7 @@ const MessageInput = ({
   };
 
   const stripHtml = (html) => {
-    let div = document.createElement("div");
+    const div = document.createElement("div");
     div.innerHTML = html;
     return div.textContent || div.innerText || "";
   };
@@ -37,11 +37,8 @@ const MessageInput = ({
         className="h-[50px] w-full [&>*]:rounded-md overflow-y-auto"
         modules={modules}
       />
-      <div className="flex flex-col"
-       
-       
-       
-        className={`border-gray-200 ${
+      <div 
+        className={`border-gray-200 flex flex-col ${
           isLoading || msgLength
             ? "bg-green-500 cursor-pointer"
             : "bg-slate-100 cursor-not-allowed"

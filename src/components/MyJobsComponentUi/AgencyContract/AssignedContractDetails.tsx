@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import Avatar from "@/components/ui/Avatar";
 import { useContext, useEffect, useState } from "react";
 
 import {
@@ -42,7 +42,7 @@ const AssignedContractDetails = () => {
   const [isSubmitTask, setIsSubmitTask] = useState(false);
   const [timeSheet, setTimeSheet] = useState([]);
   const [sheetLoading, setSheetLoading] = useState(true);
-  const [active setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
   const {
     register,
     handleSubmit,
