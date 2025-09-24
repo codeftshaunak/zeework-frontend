@@ -29,7 +29,7 @@ import { IoMdClose } from "react-icons/io";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
-// Dynamically import ReactQuill to avoid SSR issues
+// Dynamically import ReactQuill to avoid SSR issues.
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <div className="h-32 bg-gray-100 rounded border animate-pulse" />
