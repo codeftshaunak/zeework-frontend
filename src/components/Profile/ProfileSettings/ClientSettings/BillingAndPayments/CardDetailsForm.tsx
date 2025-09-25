@@ -244,7 +244,7 @@ export const CardDetailsForm = ({ setCard }) => {
             <ErrorMsg msg={errors.address_country.message} />
           )}
         </div>
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
+        <InputGroup className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
           <InputGroup>
             <span className="mb-[10px]">
               City

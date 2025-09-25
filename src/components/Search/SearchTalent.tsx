@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 
@@ -376,15 +375,11 @@ export const SearchTalents = () => {
   return (
     <div className="w-full mx-auto">
       <div className="py-6 flex w-full">
+        {/* Left filter sidebar */}
         <div className="w-[40%] max-xl:hidden">
-          {/* filtering items */}
           <div className="bg-white w-[90%] flex flex-col mt-[1rem] items-start p-5">
             <div className="flex flex-row items-center justify-between w-full">
-              <span
-               className="text-2xl font-medium">
-                Filters
-              </span>
-
+              <span className="text-2xl font-medium">Filters</span>
               <IoMdRefreshCircle
                 className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
                   loading && "animate-spin cursor-not-allowed"
@@ -394,24 +389,32 @@ export const SearchTalents = () => {
                 }}
               />
             </div>
-            <div className="flex flex-col items-start justify-start">
+
+            {/* Category */}
+            <div className="flex flex-col items-start justify-start w-full">
               <span className="font-semibold">Category</span>
-              <div className="flex flex-col p-[0_0.5rem_0] items-start">
+              <div className="flex flex-col pl-2 items-start">
                 <RadioGroup.Root defaultValue="2">
                   <div className="flex flex-col space-y-2">
                     {categoryData?.map((category) => (
-                      <div key={category._id} className="flex flex-col space-y-2">
-                        <RadioGroup.Item 
-                          value={category._id} 
-                          checked={selectedCategories === category._id} 
-                          onClick={() => handleCategoryChange(category?._id)}
+                      <div
+                        key={category._id}
+                        className="flex flex-col space-y-2"
+                      >
+                        <RadioGroup.Item
+                          value={category._id}
+                          checked={selectedCategories === category._id}
+                          onClick={() => handleCategoryChange(category._id)}
                         >
                           <RadioGroup.ItemHiddenInput />
                           <RadioGroup.ItemIndicator />
-                          <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
+                          <RadioGroup.ItemText>
+                            {category?.category_name}
+                          </RadioGroup.ItemText>
                         </RadioGroup.Item>
-                        {selectedCategories === category?._id && subCategory.length > 0 && (
-                          <div className="flex flex-col space-y-2 pl-5">
+                        {selectedCategories === category._id &&
+                          subCategory.length > 0 && (
+                            <div className="flex flex-col space-y-2 pl-5">
                               <Select
                                 className="w-full"
                                 isMulti
@@ -432,18 +435,17 @@ export const SearchTalents = () => {
               </div>
             </div>
 
-            <div className="flex flex-col items-start justify-start w-full">
+            {/* Hourly Rate */}
+            <div className="flex flex-col items-start justify-start w-full mt-4">
               <span className="font-semibold">Hourly Rate</span>
               <RadioGroup.Root
-                padding="0 0.5rem 0"
                 value={hourlyRateStep}
-                mt={1}
                 onValueChange={(value) => {
                   setHourlyRateStep(value);
                   handleHourlyRateChange(value);
                 }}
               >
-                <div className="flex flex-col space-y-4">
+                <div className="flex flex-col space-y-4 mt-2">
                   <RadioGroup.Item value="1">
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />
@@ -474,18 +476,22 @@ export const SearchTalents = () => {
             </div>
           </div>
         </div>
+
+        {/* Right content */}
         <div className="w-full mt-4">
           <div className="border border-[var(--bordersecondary)] rounded-2xl mb-4 overflow-hidden">
             <img src={talentBanner} />
           </div>
+
           <div className="text-2xl font-semibold mb-4">
             Find Your Perfect Freelancer
           </div>
 
+          {/* Search */}
           <form onSubmit={handleSearch}>
-            <div className="flex flex-row items-center w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
-            >
-              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            <div className="flex flex-row items-center w-full justify-between mx-auto mb-4">
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="searchText"
                 placeholder="Search for freelancer..."
                 onKeyDown={(e) => {
@@ -499,52 +505,25 @@ export const SearchTalents = () => {
                 onClick={() => {
                   setShowFilter(!showFilter);
                 }}
-                className="xl:hidden"
+                className="xl:hidden ml-2"
               >
-                <div
-                  backgroundColor="white"
-                  className="text-var(--primarycolor) font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer"
-                  transition="0.3s ease-in-out"
-                  _hover={{
-                    backgroundColor: "var(--primarycolor)",
-                    color: "#fff",
-                  }}
-                >
+                <div className="text-[var(--primarycolor)] font-bold text-xl border px-3 py-2 rounded cursor-pointer">
                   <CiFilter />
                 </div>
               </button>
-              <button type="submit">
-                <div
-                  backgroundColor={"var(--primarycolor)"}
-                  className="text-white font-800 text-1.5rem border p-[5px 10px] rounded cursor-pointer"
-                  transition="0.3s ease-in-out"
-                  _hover={{
-                    backgroundColor: "#fff",
-                    color: "#000",
-                  }}
-                >
+              <button type="submit" className="ml-2">
+                <div className="bg-[var(--primarycolor)] text-white font-bold text-xl border px-3 py-2 rounded cursor-pointer">
                   <BiSearchAlt />
                 </div>
               </button>
             </div>
           </form>
-          <div
-            className={`w-full xl:hidden ${
-              showFilter === true ? "" : "hidden"
-            }`}
-          >
-            {/* filtering items */}
-            <div mt-[1rem] items-start"
-              className="bg-white w-full"
-             
-             className="flex flex-col className= p-5">
-              <div className="flex flex-row items-center className="justify-between w-full">
-                <span
-                  paddingBottom="0rem"
-                 className="text-2xl font-medium">
-                  Filters
-                </span>
 
+          {/* Mobile filters */}
+          {showFilter && (
+            <div className="w-full xl:hidden bg-white p-5 mt-4">
+              <div className="flex flex-row items-center justify-between w-full">
+                <span className="text-2xl font-medium">Filters</span>
                 <IoMdRefreshCircle
                   className={`text-2xl sm:text-4xl text-slate-500 hover:text-slate-400 active:text-slate-500 cursor-pointer ${
                     loading && "animate-spin cursor-not-allowed"
@@ -554,47 +533,58 @@ export const SearchTalents = () => {
                   }}
                 />
               </div>
-              <div className="flex flex-col className="items-flex-start justify-flex-start">
+
+              {/* Mobile category */}
+              <div className="flex flex-col items-start mt-4">
                 <span className="font-semibold">Category</span>
-                <div className="flex flex-col className="p-[0 0.5rem 0] items-flex-start">
-                  <RadioGroup.Root defaultValue="2">
-                    <div className="flex spacing={2} direction="column">
-                      {categoryData?.map((category) => (
-                        <div className="flex flex-col key={category._id} spacing={2} > <RadioGroup.Item value={category._id} checked={selectedCategories === category?._id} onClick={() => handleCategoryChange(category?._id)} > <RadioGroup.ItemHiddenInput /> <RadioGroup.ItemIndicator /> <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText> </RadioGroup.Item> {selectedCategories === category?._id && subCategory.length > 0 && ( <div className="flex flex-col
-                                spacing={2}
-                                paddingLeft={5}"
-                                direction="column"
-                              >
-                                <Select
-                                  className="w-full"
-                                  isMulti
-                                  options={subCategory.map((sub) => ({
-                                    value: sub._id,
-                                    label: sub.sub_category_name,
-                                  }))}
-                                  onChange={(selectedOptions) =>
-                                    handleSubCategoryChange(selectedOptions)
-                                  }
-                                />
-                              </div>
-                            )}
-                        </div>
-                      ))}
-                    </div>
-                  </RadioGroup.Root>
-                </div>
+                <RadioGroup.Root defaultValue="2">
+                  <div className="flex flex-col space-y-2">
+                    {categoryData?.map((category) => (
+                      <div
+                        key={category._id}
+                        className="flex flex-col space-y-2"
+                      >
+                        <RadioGroup.Item
+                          value={category._id}
+                          checked={selectedCategories === category._id}
+                          onClick={() => handleCategoryChange(category._id)}
+                        >
+                          <RadioGroup.ItemHiddenInput />
+                          <RadioGroup.ItemIndicator />
+                          <RadioGroup.ItemText>
+                            {category?.category_name}
+                          </RadioGroup.ItemText>
+                        </RadioGroup.Item>
+                        {selectedCategories === category._id &&
+                          subCategory.length > 0 && (
+                            <div className="flex flex-col space-y-2 pl-5">
+                              <Select
+                                className="w-full"
+                                isMulti
+                                options={subCategory.map((sub) => ({
+                                  value: sub._id,
+                                  label: sub.sub_category_name,
+                                }))}
+                                onChange={(selectedOptions) =>
+                                  handleSubCategoryChange(selectedOptions)
+                                }
+                              />
+                            </div>
+                          )}
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup.Root>
               </div>
 
-              <divitems-flex-start justify-flex-start"
-               className="flex flex-col className= w-full">
+              {/* Mobile hourly rate */}
+              <div className="flex flex-col items-start mt-4 w-full">
                 <span className="font-semibold">Hourly Rate</span>
                 <RadioGroup.Root
-                  padding="0 0.5rem 0"
                   defaultValue="1"
-                  mt={1}
                   onValueChange={(value) => handleHourlyRateChange(value)}
                 >
-                  <div className="flex spacing={4} direction="column">
+                  <div className="flex flex-col space-y-4 mt-2">
                     <RadioGroup.Item value="1">
                       <RadioGroup.ItemHiddenInput />
                       <RadioGroup.ItemIndicator />
@@ -624,18 +614,14 @@ export const SearchTalents = () => {
                 </RadioGroup.Root>
               </div>
             </div>
-          </div>
-          <div className="mt-10 w-[100%]">
-            <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
-              spacing={4}
-              
-              borderColor="gray.200"
-              paddingY={5}
-              paddingX={10}
-            >
+          )}
+
+          {/* Results */}
+          <div className="mt-10 w-full">
+            <div className="flex flex-col gap-4 border border-gray-200 p-5 rounded-lg">
               {loading ? (
                 [1, 2, 3].map((item) => (
-                  <div key={item} paddingY={7}>
+                  <div key={item} className="py-4">
                     <SkeletonText
                       noOfLines={4}
                       spacing="4"
@@ -655,7 +641,7 @@ export const SearchTalents = () => {
                   ))
               ) : (
                 <h1 className="text-3xl text-gray-300 text-center">
-                  Not Found{" "}
+                  Not Found
                 </h1>
               )}
             </div>

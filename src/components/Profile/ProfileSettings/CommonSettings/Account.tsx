@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import { toast } from "@/lib/toast";
@@ -62,8 +61,7 @@ const Account = () => {
   });
 
   const updateAccount = async (data) => {
-    if (isDisabled)
-      return toast.warning("You can't change the verified name");
+    if (isDisabled) return toast.warning("You can't change the verified name");
 
     setIsLoading(true);
     try {
@@ -95,61 +93,57 @@ const Account = () => {
       <h2 className="text-xl font-semibold mb-5">Account</h2>
 
       <form onSubmit={handleSubmit(updateAccount)}>
-        <div className="flex spacing={6}> <div className="flex flex-row items-center spacing={4}>
-            <div isInvalid={errors.firstName}>
+        <div className="flex gap-6">
+          <div className="flex flex-row items-center gap-4">
+            <div>
               <span>First Name</span>
-              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="firstName"
                 type="text"
                 placeholder="Enter first name"
-                isDisabled={isDisabled}
-                focusBorderColor="green.300"
+                disabled={isDisabled}
                 {...register("firstName")}
               />
               <ErrorMsg msg={errors?.firstName?.message} className="-mb-5" />
             </div>
-            <div isInvalid={errors.lastName}>
+            <div>
               <span>Last Name</span>
-              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="lastName"
                 type="text"
                 placeholder="Enter last name"
-                isDisabled={isDisabled}
-                focusBorderColor="green.300"
+                disabled={isDisabled}
                 {...register("lastName")}
               />
               <ErrorMsg msg={errors?.lastName?.message} className="-mb-5" />
             </div>
           </div>
-          <div isInvalid={errors.email}>
+
+          <div>
             <span>Email</span>
             <InputGroup>
-              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
-                pointerEvents="none"
-              >
-                @
-              </InputLeftElement>
+              <InputLeftElement pointerEvents="none">@</InputLeftElement>
               <input
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="email"
                 type="email"
                 placeholder="Enter email"
-                focusBorderColor="green.300"
                 {...register("email")}
-                isDisabled
+                disabled
               />
             </InputGroup>
             <ErrorMsg msg={errors.email?.message} />
           </div>
         </div>
+
         <div className="mt-8">
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          <button
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-8"
             type="submit"
-            paddingX={8}
-            isLoading={isLoading}
-            loadingText="Updating"
           >
-            Update
+            {isLoading ? "Updating..." : "Update"}
           </button>
         </div>
       </form>

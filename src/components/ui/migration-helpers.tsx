@@ -1105,6 +1105,20 @@ const RadioGroupItem: React.FC<RadioGroupItemProps> = ({
   );
 };
 
+interface StackDividerItemProps {
+  className?: string;
+}
+
+export const StackDivider: React.FC<StackDividerItemProps> = ({
+  className
+}) => {
+  return (
+    <div  className={cn("border-t border-gray-200", className)} />
+  );
+};
+
+
+
 interface RadioGroupItemIndicatorProps {
   className?: string;
 }
