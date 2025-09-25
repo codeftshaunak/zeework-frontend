@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Box, HStack, VStack } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles

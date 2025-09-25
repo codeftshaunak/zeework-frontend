@@ -50,10 +50,8 @@ const SocialMedia = () => {
       <Image
         src="./images/social_work.jpg"
         alt="cover image"
-        className="shadow-lg w-full"
-        //}
-       
-        filter={"brightness(100%)"} className="rounded mb-[30px]"
+        filter={"brightness(100%)"}
+        className="shadow-lg w-full rounded mb-[30px]"
       />
       <div className="flex justify-evenly sm:pt-5 text-3xl sm:text-4xl md:text-5xl text-gray-200">
         <FaFacebook className="cursor-pointer" />

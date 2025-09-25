@@ -123,13 +123,14 @@ const Account = () => {
           </div>
           <div isInvalid={errors.email}>
             <span>Email</span>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <InputGroup>
               <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
                 pointerEvents="none"
               >
                 @
               </InputLeftElement>
-              <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="email"
                 type="email"
                 placeholder="Enter email"

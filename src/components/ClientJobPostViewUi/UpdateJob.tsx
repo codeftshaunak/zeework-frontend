@@ -13,6 +13,7 @@ import { useRouter, useLocation } from "next/navigation";
 import { updateJob } from "../../helpers/APIs/jobApis";
 import { useDispatch, useSelector } from "react-redux";
 import { setDashboard } from "../../redux/pagesSlice/pagesSlice";
+import { Box, HStack } from "@/components/ui/migration-helpers";
 
 const UpdateJob = () => {
   const existJobs = useSelector((state: any) => state.pages.dashboard.jobs);

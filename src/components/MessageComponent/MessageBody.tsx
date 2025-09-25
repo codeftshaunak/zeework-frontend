@@ -222,10 +222,10 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
         />
 
         {/* Message Body */}
-        <VStack}
+        <VStack
           paddingBottom={{ md: "20px" }}
-         className="w-full h-full relative">
-          <Box}
+          className="w-full h-full relative">
+          <Box
             overflowY="auto"
             overflowX="hidden"
             flexDir="column"
@@ -281,10 +281,11 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
             </p>
             <div className="flex gap-5 sm:gap-10 mt-4 sm:mt-10">
               <Button
-                onClick={() = className="w-full"> setIsModal(false)}
+                className="w-full"
+                onClick={() => setIsModal(false)}
               >
                 No, cancel
-              </button>
+              </Button>
               <Button
                 isLoading={actionIsLoading}
                 loadingText="Deleting..."
@@ -292,7 +293,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
                 onClick={() => handleDelete(selectedMsgId)}
               >
                 Yes, delete it
-              </button>
+              </Button>
             </div>
           </>
         )}

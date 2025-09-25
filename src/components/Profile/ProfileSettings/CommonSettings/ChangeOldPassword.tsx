@@ -100,7 +100,7 @@ const ChangeOldPassword = () => {
               onClick={handleCancel}
              className="rounded-full">
               Cancel
-            </button>
+            </Button>
             <Button
               type="submit"
               paddingX={8}
@@ -109,7 +109,7 @@ const ChangeOldPassword = () => {
               spinner={<BtnSpinner />}
             >
               Update
-            </button>
+            </Button>
           </div>
         </div>
       </form>

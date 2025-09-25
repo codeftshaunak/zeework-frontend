@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, HStack, VStack } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";

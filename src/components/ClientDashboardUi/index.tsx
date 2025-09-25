@@ -5,9 +5,9 @@ import React from "react";
 import {
   Button,
   HStack,
-  StackDivider,
   VStack,
 } from "@/components/ui/migration-helpers";
+import { Progress } from "@/components/ui/progress";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { IoMdRefreshCircle } from "react-icons/io";

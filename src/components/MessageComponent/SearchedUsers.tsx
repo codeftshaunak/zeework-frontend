@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Avatar, AvatarBadge } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
 interface SearchedUsersProps {
@@ -70,10 +70,10 @@ const SearchedUsers: React.FC<SearchedUsersProps> = ({
                 if (handleOnClose) handleOnClose();
               }}
             >
-              <div className="flex justify="between">
+              <div className="flex justify-between">
                 <div>
                   <Avatar src={photo} size="md" round="20px" name={name}>
-                    <AvatarBadge`}
+                    <AvatarBadge
                       boxSize="0.8em"
                       left={-2}
                       top={0}
@@ -81,7 +81,18 @@ const SearchedUsers: React.FC<SearchedUsersProps> = ({
                   </Avatar>
                 </div>
                 <div>
-                  <div className="flex flex-row items-center> <span> {name} {user?.user_details?.businessName && ` | ${user?.user_details?.businessName}`} </span> </div> <span> {user?.contract_details?.title?.slice(0, 20)} </span> </div> </div> {user?.contract_details?.contract_ref && !user?.isRead && ( <div top={4} right={4} className="absolute"></div>
+                  <div className="flex flex-row items-center">
+                    <span>
+                      {name} {user?.user_details?.businessName && ` | ${user?.user_details?.businessName}`}
+                    </span>
+                  </div>
+                  <span>
+                    {user?.contract_details?.title?.slice(0, 20)}
+                  </span>
+                </div>
+              </div>
+              {user?.contract_details?.contract_ref && !user?.isRead && (
+                <div className="absolute top-4 right-4"></div>
               )}
             </div>
           );

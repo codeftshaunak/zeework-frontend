@@ -394,17 +394,24 @@ export const SearchTalents = () => {
                 }}
               />
             </div>
-            <div className="flex flex-col className="items-flex-start justify-flex-start">
+            <div className="flex flex-col items-start justify-start">
               <span className="font-semibold">Category</span>
-              <div className="flex flex-col className="p-[0 0.5rem 0] items-flex-start">
+              <div className="flex flex-col p-[0_0.5rem_0] items-start">
                 <RadioGroup.Root defaultValue="2">
-                  <div className="flex spacing={2} direction="column">
+                  <div className="flex flex-col space-y-2">
                     {categoryData?.map((category) => (
-                      <div className="flex flex-col key={category._id} spacing={2} > <RadioGroup.Item value={category._id} checked={selectedCategories === category._id} onClick={() => handleCategoryChange(category?._id)} > <RadioGroup.ItemHiddenInput /> <RadioGroup.ItemIndicator /> <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText> </RadioGroup.Item> {selectedCategories === category?._id && subCategory.length > 0 && ( <div className="flex flex-col
-                              spacing={2}
-                              paddingLeft={5}"
-                              direction="column"
-                            >
+                      <div key={category._id} className="flex flex-col space-y-2">
+                        <RadioGroup.Item 
+                          value={category._id} 
+                          checked={selectedCategories === category._id} 
+                          onClick={() => handleCategoryChange(category?._id)}
+                        >
+                          <RadioGroup.ItemHiddenInput />
+                          <RadioGroup.ItemIndicator />
+                          <RadioGroup.ItemText>{category?.category_name}</RadioGroup.ItemText>
+                        </RadioGroup.Item>
+                        {selectedCategories === category?._id && subCategory.length > 0 && (
+                          <div className="flex flex-col space-y-2 pl-5">
                               <Select
                                 className="w-full"
                                 isMulti
@@ -425,8 +432,7 @@ export const SearchTalents = () => {
               </div>
             </div>
 
-            <divitems-flex-start justify-flex-start"
-             className="flex flex-col className= w-full">
+            <div className="flex flex-col items-start justify-start w-full">
               <span className="font-semibold">Hourly Rate</span>
               <RadioGroup.Root
                 padding="0 0.5rem 0"
@@ -437,7 +443,7 @@ export const SearchTalents = () => {
                   handleHourlyRateChange(value);
                 }}
               >
-                <div className="flex spacing={4} direction="column">
+                <div className="flex flex-col space-y-4">
                   <RadioGroup.Item value="1">
                     <RadioGroup.ItemHiddenInput />
                     <RadioGroup.ItemIndicator />

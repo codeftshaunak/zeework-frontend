@@ -6,6 +6,7 @@ import { FaRegClock } from "react-icons/fa";
 import { addDays, format } from "date-fns";
 import { toast } from "@/lib/toast";
 import StarRatings from "react-star-ratings";
+import { Avatar } from "@/components/ui/migration-helpers";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
 import {
   MdCheckCircleOutline,

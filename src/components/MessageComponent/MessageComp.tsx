@@ -242,12 +242,10 @@ const MessageComp = () => {
   }, [messageUsers]);
 
   return (
-    <div className="flex flex-row items-center paddingTop={{ base: 2, md: 5 }}"
-     
-      maxH={{ base: "90vh", md: "90vh" }}}}
+    <div className="flex flex-row items-center pt-2 md:pt-5 max-h-[90vh]"
     >
       {/* User list for mobile devices */}
-      <div}>
+      <div>
         <Drawer
           isOpen={isOpen}
           placement="right"
@@ -263,7 +261,7 @@ const MessageComp = () => {
              
             >
               <div className="w-full md:w-[250px]">
-                <div className="flex flex-row items-center> <MessageSearchBar query={query} handleSearchingUser={handleSearchingUser} /> <DrawerCloseButton size="25px"
+                <div className="flex flex-row items-center"> <MessageSearchBar query={query} handleSearchingUser={handleSearchingUser} /> <DrawerCloseButton size="25px"
                   />
                 </div>
                 {query.length > 0 ? (
@@ -296,7 +294,7 @@ const MessageComp = () => {
       </div>
 
       {/* User list for larger devices */}
-      <div} className="min-w-[250px]">
+      <div className="min-w-[250px]">
         <MessageSearchBar
           query={query}
           handleSearchingUser={handleSearchingUser}
@@ -324,7 +322,7 @@ const MessageComp = () => {
         )}
       </div>
 
-      <div className="flex flex-col className="max-xl:w-full w-[65%] relative">
+      <div className="flex flex-col max-xl:w-full w-[65%] relative">
         {/* Open user list on mobile devices */}
         <PiUserListDuotone
           className="absolute top-5 right-5 z-10 text-4xl bg-slate-100 hover:bg-slate-200 transition duration-300 cursor-pointer rounded-full p-1 text-primary md:hidden"
@@ -347,7 +345,8 @@ const MessageComp = () => {
             />
           )
         ) : id ? (
-          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-row items-center">
+            <div className="flex flex-col items-center justify-center">
               <LuMessagesSquare className="text-8xl text-green-300 mb-4" />
               <p className="text-lg text-green-300 font-bold text-center">
                 Can&apos;t find the contract details
@@ -355,14 +354,16 @@ const MessageComp = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-row items-center> <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-row items-center">
+            <div className="flex flex-col items-center justify-center">
               <LuMessagesSquare className="text-9xl text-green-300" />
             </div>
           </div>
         )}
       </div>
 
-      <div className="flex flex-col> <div className="max-xl:hidden">
+      <div className="flex flex-col">
+        <div className="max-xl:hidden">
           {role == 1 && (
             <Card
               className="px-10 py-2 cursor-pointer text-center"

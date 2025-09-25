@@ -179,7 +179,7 @@ export const CardDetailsForm = ({ setCard }) => {
                 <ErrorMsg msg={errors.cardExpiry.message} className="-mb-5" />
               )}
             </InputGroup>
-            <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+            <InputGroup>
               <span className="mb-[10px]">
                 CVC
               </span>
@@ -206,7 +206,7 @@ export const CardDetailsForm = ({ setCard }) => {
        
       >
         <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup>
             <span className="mb-[10px]">
               First Name
             </span>
@@ -216,7 +216,7 @@ export const CardDetailsForm = ({ setCard }) => {
             />
             {errors.firstName && <ErrorMsg msg={errors.firstName.message} />}
           </InputGroup>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup>
             <span className="mb-[10px]">
               Last Name
             </span>
@@ -245,7 +245,7 @@ export const CardDetailsForm = ({ setCard }) => {
           )}
         </div>
         <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup>
             <span className="mb-[10px]">
               City
             </span>
@@ -257,7 +257,7 @@ export const CardDetailsForm = ({ setCard }) => {
               <ErrorMsg msg={errors.address_city.message} />
             )}
           </InputGroup>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+          <InputGroup>
             <span className="mb-[10px]">
               Postal Code
             </span>
@@ -270,7 +270,7 @@ export const CardDetailsForm = ({ setCard }) => {
             )}
           </InputGroup>
         </InputGroup>
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+        <InputGroup>
           <span className="mb-[10px]">
             Address Line 1
           </span>
@@ -283,7 +283,7 @@ export const CardDetailsForm = ({ setCard }) => {
             <ErrorMsg msg={errors.address_line1.message} />
           )}
         </InputGroup>
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
+        <InputGroup>
           <span className="mb-[10px]">
             Address Line 2 <span>(Optional)</span>
           </span>

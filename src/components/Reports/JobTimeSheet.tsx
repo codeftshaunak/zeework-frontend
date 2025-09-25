@@ -110,7 +110,7 @@ const JobTimeSheet = ({ data, isLoading }) => {
                         lastWeek.date_time[0].date,
                         lastWeek.week_number
                       )}
-                    </Td>
+                    </td>
                     {lastWeek?.date_time?.map((date, idx) => {
                       return (
                         <td key={idx} className="p-2 border">

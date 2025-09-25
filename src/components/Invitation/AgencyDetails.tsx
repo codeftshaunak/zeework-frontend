@@ -141,7 +141,7 @@ const AgencyDetails = () => {
                 <div className="flex justify-between">
                   <div className="flex gap-3">
                     <div>
-                      <div className="flex flex-row items-center> <h2 className="text-xl font-semibold text-green-600">
+                      <div className="flex flex-row items-center"><h2 className="text-xl font-semibold text-green-600">
                           {agency_name}
                         </h2>
                       </div>
@@ -152,7 +152,7 @@ const AgencyDetails = () => {
                   </div>
                 </div>
                 <div className="flex gap-x-6 sm:gap-x-10 flex-wrap py-3 text-sm lg:text-base">
-                  <div className="flex flex-row items-center> <span>
+                  <div className="flex flex-row items-center"> <span>
                       <FaClock />
                     </span>
                     <div>
@@ -166,7 +166,7 @@ const AgencyDetails = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-row items-center> <span>
+                  <div className="flex flex-row items-center"> <span>
                       <IoBagCheck />
                     </span>
                     <div>
@@ -178,7 +178,7 @@ const AgencyDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-row items-center> <span>
+                  <div className="flex flex-row items-center"> <span>
                       <BsTranslate />
                     </span>
                     <div>
@@ -190,7 +190,7 @@ const AgencyDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-row items-center> <span>
+                  <div className="flex flex-row items-center"> <span>
                       <IoCalendar />
                     </span>
                     <div>
@@ -202,7 +202,7 @@ const AgencyDetails = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-row items-center> <span>
+                  <div className="flex flex-row items-center"> <span>
                       <FaLocationDot />
                     </span>
                     <div>
@@ -250,7 +250,8 @@ const AgencyDetails = () => {
               <p>{invitationDetails?.invitation_details?.message}</p>
             </div>
 
-            <div className="flex flex-col> <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+            <div className="flex flex-col"> <button
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                 isLoading={isSuccess}
                 loadingText="Accept Invitation"
                 type="submit"

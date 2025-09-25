@@ -172,14 +172,15 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                 </RadioGroup.Root>
                 {amountType === "custom" && (
                   <>
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group>
-                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
+                    <InputGroup>
+                      <InputLeftElement
                         pointerEvents="none"
                         paddingRight={1}
                       >
                         $
                       </InputLeftElement>
-                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      <input 
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder-slate-300 pl-7"
                         type="number"
                         placeholder="Enter amount"
                         // {...register("withdraw_amount")}
@@ -202,8 +203,6 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
 
                           trigger("withdraw_amount");
                         }}
-                        paddingLeft={7}
-                        className="placeholder-slate-300"
                       />
                     </InputGroup>
                     <ErrorMsg

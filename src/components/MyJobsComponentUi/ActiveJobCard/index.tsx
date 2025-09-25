@@ -28,7 +28,7 @@ const ActiveJobCard = ({ job }) => {
       >
         {status === "task_submitted" ? "Task Submited" : "Active"}
       </span>
-      <div className="flex flexFlow="column">
+      <div className="flex flex-col">
         <img src="./images/active_job.png" />
       </div>
       <div>
@@ -41,7 +41,7 @@ const ActiveJobCard = ({ job }) => {
             : contract_title}
         </Link>
 
-        <div className="flex flex-col className="justify-space-around w-[200px] m-[auto]"
+        <div className="flex flex-col justify-around w-[200px] m-[auto]"
         >
           <span
            className="mb-[0] font-semibold">

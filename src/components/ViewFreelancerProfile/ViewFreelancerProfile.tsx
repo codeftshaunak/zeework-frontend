@@ -18,6 +18,7 @@ import HomeLayout from "../../components/Layouts/HomeLayout";
 import { FaLocationDot } from "react-icons/fa6";
 import AgencyProfileSkeleton from "../Skeletons/AgencyProfileSkeleton";
 import { useRouter } from "next/navigation";
+import { VStack, Text } from "@/components/ui/migration-helpers";
 import PortfolioCard from "./PortfolioCard";
 import { useSelector } from "react-redux";
 

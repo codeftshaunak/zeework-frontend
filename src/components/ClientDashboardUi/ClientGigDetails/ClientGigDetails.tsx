@@ -22,6 +22,7 @@ import { SocketContext } from "../../../contexts/SocketContext";
 import { sendGigPurchasesReq } from "../../../helpers/APIs/clientApis";
 import { getFreelancerById } from "../../../helpers/APIs/freelancerApis";
 import { getGigDetails } from "../../../helpers/APIs/gigApis";
+import { Avatar } from "@/components/ui/migration-helpers";
 import HomeLayout from "../../../Layouts/HomeLayout";
 import { clearMessageState } from "../../../redux/messageSlice/messageSlice";
 import UniversalModal from "../../Modals/UniversalModal";
@@ -480,7 +481,7 @@ const ClientGigDetails = () => {
                 isDisabled={isLoading}
               >
                 Cancel
-              </button>
+              </Button>
               <Button
                 isLoading={isLoading}
                 loadingText="Confirm"
@@ -490,7 +491,7 @@ const ClientGigDetails = () => {
                 onClick={() => handlePurchase()}
               >
                 Confirm
-              </button>
+              </Button>
             </div>
           </div>
         </UniversalModal>

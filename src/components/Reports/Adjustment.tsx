@@ -66,7 +66,7 @@ const Adjustment = () => {
           background="rgba(255, 255, 255, 0.8)"
           backdropFilter="blur(10px)"
          className="h-[max-content] p-[2rem 0] rounded border absolute">
-          <div className="flex flex-col spacing= w-[60%] max-md:!w-[80%]"4">
+          <div className="flex flex-col gap-4 w-[60%] max-md:!w-[80%]">
             <img src="./images/zeework_logo.png" />
             <span>
               Welcome to ZeeWork!

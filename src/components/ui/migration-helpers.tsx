@@ -383,11 +383,7 @@ export const Text: React.FC<TextProps> = ({
 };
 
 // Center -> flex items-center justify-center
-interface CenterProps extends BoxProps {
-  // Center-specific props can be added here if needed
-}
-
-export const Center: React.FC<CenterProps> = ({
+export const Center: React.FC<BoxProps> = ({
   children,
   className,
   ...props
@@ -773,6 +769,39 @@ export const Link: React.FC<LinkProps> = ({
     <Component className={linkClasses} {...linkProps}>
       {children}
     </Component>
+  );
+};
+
+// Skeleton -> skeleton loading wrapper
+interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  isLoaded?: boolean;
+  startColor?: string;
+  endColor?: string;
+  children?: React.ReactNode;
+}
+
+export const Skeleton: React.FC<SkeletonProps> = ({
+  isLoaded = false,
+  startColor = "gray.100",
+  endColor = "gray.200", 
+  children,
+  className,
+  ...props
+}) => {
+  if (isLoaded) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div
+      className={cn(
+        "animate-pulse bg-gradient-to-r from-gray-200 to-gray-300 rounded",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
   );
 };
 

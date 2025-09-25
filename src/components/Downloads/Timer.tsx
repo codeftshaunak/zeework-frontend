@@ -5,6 +5,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import { toast } from "@/lib/toast";
+import { Image } from "@/components/ui/migration-helpers";
 
 const Timer = () => {
   const [downloadLink, setDownloadLink] = useState("");

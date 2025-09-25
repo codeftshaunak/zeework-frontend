@@ -230,7 +230,7 @@ const ReviewComponent = () => {
             {" "}
             Private feedback{" "}
           </span>
-          <div}>
+          <div>
             <span className="text-xl">
               This is your opportunity to share feedback on{" "}
               {receiverDetails?.firstName} that you {"don't"} want posted
@@ -275,14 +275,13 @@ const ReviewComponent = () => {
                 colleague?
               </span>
               <br />
-              <div className="flex flex-col className="items-start">
-                <div className="flex flex-row items-center className= w-full"justify-between"
-                  flexWrap="wrap"
-                 
+              <div className="flex flex-col items-start">
+                <div className="flex flex-row items-center w-full justify-between flex-wrap"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                    <divtext-1.2rem justify-center rounded"
-                      className="font-600 w-[50px] h-[50px] border text-center flex flex-col key={num} className= cursor-pointer"
+                    <div
+                      key={num}
+                      className="font-semibold w-[50px] h-[50px] border text-center flex flex-col justify-center rounded cursor-pointer text-lg"
                       onClick={() => handleNumberClick(num)}
                     >
                       <span>{num}</span>
@@ -290,7 +289,7 @@ const ReviewComponent = () => {
                   ))}
                 </div>
 
-                <div className="flex flex-row items-center className="justify-between w-full mt-[1rem]"
+                <div className="flex flex-row items-center justify-between w-full mt-[1rem]"
                 >
                   <BiSolidDislike
                   />
@@ -305,9 +304,7 @@ const ReviewComponent = () => {
           </div>
         </div>
 
-        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}}
-         
-        >
+        <div className="flex flex-col items-start justify-start m-auto w-full border rounded bg-white">
           <span className="text-3xl font-semibold text-left">
             {" "}
             Public feedback{" "}

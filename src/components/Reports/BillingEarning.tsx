@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import { Tabs } from "@/components/ui/migration-helpers";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 // import { BsChevronRight } from "react-icons/bs";
 const DataListData = [

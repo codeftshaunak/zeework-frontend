@@ -41,7 +41,7 @@ const ContractCard = ({ job }) => {
               : contract_title}
           </Link>
 
-          <div className="flex flex-col className="justify-space-around w-[200px] m-[auto]"
+          <div className="flex flex-col justify-around w-[200px] m-[auto]"
           >
             <span
              className="mb-[0] font-semibold">

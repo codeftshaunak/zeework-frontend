@@ -569,7 +569,8 @@ const Process = () => {
                 )}
               </>
             )}
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+            <button 
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground max-sm:w-full mb-10"
               isLoading={isLoading}
               loadingText="Save & Continue"
               transition="0.3s ease-in-out"
@@ -579,7 +580,6 @@ const Process = () => {
               }}
               type="submit"
               spinner={<BtnSpinner />}
-              className="max-sm:w-full mb-10"
             >
               Save & Continue
             </button>

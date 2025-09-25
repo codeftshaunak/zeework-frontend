@@ -8,6 +8,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { CiFilter } from "react-icons/ci";
 
 import { SearchFilter } from "./SearchFilter";
+import { Image } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
 const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {

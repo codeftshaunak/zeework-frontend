@@ -12,6 +12,7 @@ import ActiveContract from "./ActiveContract";
 import CompletedJobs from "./CompletedJobs";
 import { useDispatch, useSelector } from "react-redux";
 import { setStatsData } from "../../redux/pagesSlice/pagesSlice";
+import { Skeleton } from "@/components/ui/migration-helpers";
 
 const ClientReport = () => {
   const [isReportsLoading, setIsReportsLoading] = useState(false);

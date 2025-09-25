@@ -103,7 +103,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GigCreateLayout title="Gig Price & Scope" onBackward={onBack}>
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             {/* <label htmlFor="" className="text-2xl font-[600] pb-0 capitalize">
               Create pricing tiers
             </label> */}
@@ -130,7 +130,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             {/* <p className="text-right w-full">0/30 characters</p> */}
           </div>
 
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             {/* <label htmlFor="" className="text-xl font-[600] pb-0">
               Custom Description
             </label> */}
@@ -154,7 +154,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             {/* <p className="text-right w-full">0/80 characters</p> */}
           </div>
 
-          <div className="flex flex-row items-center} className="items-center"}
+          <div className="flex flex-row items-center"
           >
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Gig Price
@@ -164,13 +164,50 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <div className="relative w-full md:w-1/2">
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
-                   
-                  >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
+                  <InputGroup>
+                    <InputLeftElement
                       pointerEvents="none"
                     >
                       $
+                    </InputLeftElement>
+                    <input
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      type="number"
+                      {...field}
+                      value={field.value === null ? "" : field.value}
+                      onChange={(e) => {
+                        e.target.value === ""
+                          ? field.onChange(null)
+                          : field.onChange(e.target.value);
+                      }}
+                    />
+                  </InputGroup>
+
+                  {fieldState.error && (
+                    <p style={{ color: "red", marginTop: "5px" }}>
+                      {fieldState.error.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-row items-center"
+          >
+            <label htmlFor="" className="text-xl font-[600] pb-0">
+              Days Until Delivery
+            </label>
+            <Controller
+              name="pricing.delivery_days"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="relative w-full md:w-1/2">
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                    >
+                      <PiHourglassMediumFill />
                     </InputLeftElement>
                     <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                       type="number"
@@ -194,48 +231,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
           </div>
 
-          <div className="flex flex-row items-center} className="items-center"}
-          >
-            <label htmlFor="" className="text-xl font-[600] pb-0">
-              Days Until Delivery
-            </label>
-            <Controller
-              name="pricing.delivery_days"
-              control={control}
-              render={({ field, fieldState }) => (
-                <div className="relative w-full md:w-1/2">
-                  <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-[5px] w-full"Group
-                   
-                  >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
-                      pointerEvents="none"
-                    >
-                      <PiHourglassMediumFill />
-                    </InputLeftElement>{" "}
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      type="number"
-                      {...field}
-                      value={field.value === null ? "" : field.value}
-                      onChange={(e) => {
-                        e.target.value === ""
-                          ? field.onChange(null)
-                          : field.onChange(e.target.value);
-                      }}
-                    />
-                  </InputGroup>
-
-                  {fieldState.error && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error.message}
-                    </p>
-                  )}
-                </div>
-              )}
-            />
-          </div>
-
-          <div className="flex flex-row items-center} className="items-center"}
-          >
+          <div className="flex flex-row items-center">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Number Of Revisions
             </label>

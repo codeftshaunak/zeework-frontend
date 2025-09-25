@@ -21,7 +21,7 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
   const router = useRouter();
   console.log(receiverDetails);
   return (
-    <div className="flex borderBottom="1px" borderColor="gray.400"}>
+    <div className="flex border-b border-gray-400"}>
       <Avatar
         src={profileImage}
         size="md"

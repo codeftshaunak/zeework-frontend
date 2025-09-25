@@ -113,8 +113,7 @@ const CompletedJobs = () => {
                   return (
                     <Tr
                       key={index}
-                      className="items-center"
-                      className={item === null ? "!hidden" : ""}
+                      className={`items-center ${item === null ? "!hidden" : ""}`}
                     >
                       <Td
                         className={`text-[1rem] max-[480px]:text-[0.8rem] max-lg:${hidden ? "" : "hidden"

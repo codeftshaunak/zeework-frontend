@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "@/components/ui/migration-helpers";
 
 
 const AgencyProfileCard = ({ data }) => {

@@ -338,12 +338,13 @@ const TalentCard = ({ freelancer }) => {
                           <label className="font-medium mb-2">
                             Message To Freelancer:
                           </label>
-                          <spanarea
+                          <textarea
                             placeholder="Frontend Web Application Developer"
                             name="message"
                             defaultValue={formData.message}
                             onChange={handleChange}
-                          / className="w-1/2">
+                            className="w-1/2"
+                          />
                         </div>
                       </div>
                     </div>
@@ -351,7 +352,8 @@ const TalentCard = ({ freelancer }) => {
                 </div>
               </div>
               <br />
-              <div className="flex flex-row items-center> <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+              <div className="flex flex-row items-center">
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                   isLoading={isLoading}
                   loadingText="Sending Invitation"
                   type="submit"
