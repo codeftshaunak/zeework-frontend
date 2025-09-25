@@ -9,6 +9,7 @@ import CardDetails from "./CardDetails";
 import { format, differenceInMinutes, differenceInHours } from "date-fns";
 import Linkify from "react-linkify";
 import { MdDelete } from "react-icons/md";
+import { Avatar, AvatarBadge } from "../ui/migration-helpers";
 
 const SingleText = ({
   user,

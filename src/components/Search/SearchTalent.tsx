@@ -483,7 +483,7 @@ export const SearchTalents = () => {
           </div>
 
           <form onSubmit={handleSearch}>
-            <div className="flex flex-row items-center className="w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
+            <div className="flex flex-row items-center w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
             >
               <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 name="searchText"
@@ -534,7 +534,7 @@ export const SearchTalents = () => {
             }`}
           >
             {/* filtering items */}
-            <divmt-[1rem] items-start"
+            <div mt-[1rem] items-start"
               className="bg-white w-full"
              
              className="flex flex-col className= p-5">

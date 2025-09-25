@@ -13,6 +13,7 @@ import BtnSpinner from "../Skeletons/BtnSpinner";
 import MessageHeader from "./MessageHeader";
 import MessageInput from "./MessageInput";
 import SingleText from "./SingleText";
+import { Box, Button, VStack } from "../ui/migration-helpers";
 
 const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   const users = useSelector((state: any) => state.message.users);

@@ -8,6 +8,7 @@ import { toast } from "@/lib/toast";
 import { changeOldPassword } from "../../../../helpers/APIs/jobApis";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../utils/Error/ErrorMsg";
+import { Button } from "@/components/ui/migration-helpers";
 
 const ChangeOldPassword = () => {
   const [passLoading, setPassLoading] = useState(false);

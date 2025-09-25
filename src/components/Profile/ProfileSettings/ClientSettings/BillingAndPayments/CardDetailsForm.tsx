@@ -205,7 +205,7 @@ export const CardDetailsForm = ({ setCard }) => {
        
        
       >
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group flexDir={{ base: "column", xl: "row" }}>
+        <InputGroup className="flex h-10 w-full flex-col md:flex-row rounded-md border border-input bg-background px-3 py-2 text-sm">
           <InputGroup>
             <span className="mb-[10px]">
               First Name

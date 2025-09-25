@@ -1,6 +1,6 @@
 import React from "react";
-
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarBadge } from "../ui/migration-helpers";
 
 interface MessageHeaderProps {
   receiverDetails?: any;
@@ -20,8 +20,9 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
 
   const router = useRouter();
   console.log(receiverDetails);
+
   return (
-    <div className="flex border-b border-gray-400"}>
+    <div className="flex border-b border-gray-400">
       <Avatar
         src={profileImage}
         size="md"
@@ -29,13 +30,13 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
         marginRight="20px"
         name={name}
       >
-        <AvatarBadge`}
+        <AvatarBadge
           boxSize="0.8em"
           left={-2}
           top={0}
         />
       </Avatar>
-      <div className="flex flexDir="column">
+      <div className="flex flex-col">
         <span
           onClick={() =>
             router.push(
@@ -46,14 +47,10 @@ const MessageHeader: React.FC<MessageHeaderProps> = ({ receiverDetails, contract
               }`
             )
           }
-          marginBottom="0"
-          _hover={{ color: "primary.600" }}
         >
           {name}
         </span>
-        <span>
-          {title}
-        </span>
+        <span>{title}</span>
       </div>
     </div>
   );
