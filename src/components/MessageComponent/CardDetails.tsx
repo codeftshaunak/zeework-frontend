@@ -16,10 +16,7 @@ const CardDetails: React.FC<CardDetailsProps> = ({ message, user_id, role }) => 
   return (
     <>
       <div
-        className="bg-gray.50 shadow text-left"
-        paddingX={5}
-        paddingY={3}}
-       
+        className="bg-gray-50 shadow text-left px-5 py-3"
       >
         <span className="capitalize text-sm font-bold">
           {type?.replace(/_/g, " ")}
@@ -56,7 +53,8 @@ const CardDetails: React.FC<CardDetailsProps> = ({ message, user_id, role }) => 
         </div>
         {url && (
           <span
-            onClick={() = className="font-medium text-green-500 ml-1 w-fit tracking-wide text-sm cursor-pointer">
+            className="font-medium text-green-500 ml-1 w-fit tracking-wide text-sm cursor-pointer"
+            onClick={() => {
               role == 1
                 ? url?.agency
                   ? message.sender_id === user_id
@@ -64,7 +62,7 @@ const CardDetails: React.FC<CardDetailsProps> = ({ message, user_id, role }) => 
                     : router.push(url.freelancer)
                   : router.push(url.freelancer)
                 : url?.client && router.push(url.client)
-            }
+            }}
           >
             Details
           </span>

@@ -6,6 +6,7 @@ import { endJobContract } from "../../helpers/APIs/jobApis";
 import { useState } from "react";
 import BtnSpinner from "../Skeletons/BtnSpinner";
 import UniversalModal from "../Modals/UniversalModal";
+import { Image, Text, HStack, Button } from "@/components/ui/migration-helpers";
 
 const ConfirmModal = ({
   openModal,
@@ -58,7 +59,7 @@ const ConfirmModal = ({
           onClick={() => setOpenModal(false)}
         >
           Cancel
-        </button>
+        </Button>
         <Button
           isLoading={isLoading}
           loadingText="End Contract"
@@ -66,7 +67,7 @@ const ConfirmModal = ({
           onClick={handleEndContract}
         >
           End Contract
-        </button>
+        </Button>
       </HStack>
     </UniversalModal>
   );

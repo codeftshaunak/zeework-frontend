@@ -64,8 +64,8 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(searchResults?.totalLength / 20);
 
-  let params = useParams();
-  let { id } = params;
+  const params = useParams();
+  const { id } = params;
 
   // update user activity status
   useUserActivityListener((data) => {
@@ -189,7 +189,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
         setErrorMessage("Please enter a message.");
       } else {
         try {
-          let res = await sendJobInvitation({
+          const res = await sendJobInvitation({
             receiver_id: isUserId,
             message: message,
             job_id: id,
@@ -268,8 +268,8 @@ const InviteFreelancer = ({ appliedUsers }) => {
               <Tabs.Content>
                 <Tabs.Content p={0}>
                   <div className="h-auto pt-5 pb-4">
-                    <div className="flex flex-row items-center className="w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
-                      paddingX={5}
+                    <div className="flex flex-row items-center w-full justify-space-evenly mx-[auto] mb-[0.9rem]"
+                      style={{paddingLeft: '20px', paddingRight: '20px'}}
                     >
                       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                         name="searchText"
@@ -329,7 +329,8 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                   <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 justify-between items-center">
                                     <div className="flex gap-3">
                                       <div>
-                                        <div className="flex flex-row items-center> <h2 className="text-lg font-semibold text-[var(--primarycolor)]">
+                                        <div className="flex flex-row items-center">
+                                          <h2 className="text-lg font-semibold text-[var(--primarycolor)]">
                                             {searchResult?.firstName}{" "}
                                             {searchResult?.lastName}
                                           </h2>
@@ -436,10 +437,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                       ) : invitedFreelancers?.filter(
                         (profile) => profile?.job_id === id
                       )?.length ? (
-                        <div className="flex flex-col divider={<div className="flexDivider borderColor="gray.200" />}
-                          spacing={4}
-                          
-                          padding={5}
+                        <div className="flex flex-col space-y-4 p-5"
                         >
                           {invitedFreelancers
                             ?.filter((profile) => profile?.job_id === id)

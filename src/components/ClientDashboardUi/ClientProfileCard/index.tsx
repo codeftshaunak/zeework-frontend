@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Avatar } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
 const ClientProfileCard = ({ data }) => {
@@ -14,10 +14,9 @@ const ClientProfileCard = ({ data }) => {
   };
 
   return (
-    <div className="flex flex-col w-[270px]"
-     
-      background="white"
-      className="border rounded justify-between items-center p-[1rem] max-md:!w-full"
+    <div 
+      className="flex flex-col w-[270px] border rounded justify-between items-center p-[1rem] max-md:!w-full"
+      style={{ background: "white" }}
     >
       <div className="flex flex-col"> <div className="relative">
           <Avatar

@@ -47,7 +47,7 @@ import QuillToolbar, {
 } from "../utils/QuillToolbar/QuillToolbar";
 
 const stripHtml = (html) => {
-  let div = document.createElement("div");
+  const div = document.createElement("div");
   div.innerHTML = html;
   return div.textContent || div.innerText || "";
 };
@@ -314,7 +314,7 @@ const JobApply = ({ setPage, details }) => {
                 control={control}
                 render={({ field }) => (
                   <RadioGroup.Root {...field} marginTop="4">
-                    <div className="flex> <RadioGroup.Item value="freelancer">
+                    <div className="flex"><RadioGroup.Item value="freelancer">
                         <RadioGroup.ItemHiddenInput />
                         <RadioGroup.ItemIndicator />
                         <RadioGroup.ItemText>As a freelancer</RadioGroup.ItemText>
@@ -392,7 +392,7 @@ const JobApply = ({ setPage, details }) => {
                       )}
                     />
 
-                    <div className="flex flex-row items-center justify="space-between">
+                    <div className="flex flex-row items-center justify-between">
                       <div>5% Freelancer Service Fee</div>
                       <div>
                         $
@@ -402,7 +402,7 @@ const JobApply = ({ setPage, details }) => {
                       </div>
                     </div>
 
-                    <div className="flex flex-row items-center justify="space-between">
+                    <div className="flex flex-row items-center justify-between">
                       <div>You&apos;ll receive</div>
                       <div>
                         ${calculateServiceFee().toFixed(2)}
@@ -418,7 +418,12 @@ const JobApply = ({ setPage, details }) => {
                   <div>
                     Select Proposal Rate
                   </div>
-                  <div className="flex flex-row items-center> <div>Your Profile Rate: ${hourly_rate}/hr</div> <div>Client Budget: ${details_new?.amount}/hr</div> </div> <div>What is your hourly rate for this job?</div> <Controller name="hourlyRate"
+                  <div className="flex flex-row items-center">
+                    <div>Your Profile Rate: ${hourly_rate}/hr</div>
+                    <div>Client Budget: ${details_new?.amount}/hr</div>
+                  </div>
+                  <div>What is your hourly rate for this job?</div>
+                  <Controller name="hourlyRate"
                     control={control}
                     render={({ field }) => (
                       <div isInvalid={errors.hourlyRate}>
@@ -434,14 +439,14 @@ const JobApply = ({ setPage, details }) => {
                     )}
                   />
 
-                  <div className="flex flex-row items-center justify="space-between">
+                  <div className="flex flex-row items-center justify-between">
                     <div>5% Freelancer Service Fee</div>
                     <div>
                       ${hourlyRate ? (hourlyRate * 0.05).toFixed(2) : "0.00"}
                     </div>
                   </div>
 
-                  <div className="flex flex-row items-center justify="space-between">
+                  <div className="flex flex-row items-center justify-between">
                     <div>You&apos;ll Receive</div>
                     <div>
                       ${calculateServiceFee().toFixed(2)}

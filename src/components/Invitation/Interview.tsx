@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
+import { Box, Text } from "@/components/ui/migration-helpers";
 import { toast } from "@/lib/toast";
 import queryString from "query-string";
 import {
@@ -119,9 +120,9 @@ const Interview = () => {
 
   return (
     <Box className="w-full">
-      <Text}
+      <Text
         marginTop={{ base: 3, sm: 5, lg: 10 }}
-       className="font-medium">
+        className="font-medium">
         Invitation to Interview
       </Text>
       {loading ? (

@@ -1,4 +1,4 @@
-const HorizontalCardSkeleton = ({ className }) => {
+const HorizontalCardSkeleton = ({ className } : { className?: string}) => {
   return (
     <div
       className={`w-full bg-white p-5 sm:px-7 rounded-xl border border-[var(--bordersecondary)] ${className}`}

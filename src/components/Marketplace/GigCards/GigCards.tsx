@@ -2,6 +2,7 @@ import React from "react";
 
 import { useRouter } from "next/navigation";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
+import { Tooltip } from "@/components/ui/migration-helpers";
 
 const GigCards = ({ gigs, isLoading }) => {
   const router = useRouter();

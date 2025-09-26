@@ -10,7 +10,7 @@ export const OfferDetails = ({ jobDetails }) => {
 
   return (
     <div className="lg:col-span-2 w-full h-fit flex gap-10 bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
-      <div className="flex flex-col className="w-full">
+      <div className="flex flex-col w-full">
         {/* <div className="w-full flex flex-col sm:flex-row justify-end">
           <div className="text-right">
             <span
@@ -27,15 +27,14 @@ export const OfferDetails = ({ jobDetails }) => {
             </span>
           </div>
         </div> */}
-        <span}
-         
+        <span 
           className="capitalize"
         >
           {contract_title}
         </span>
         <div className="w-full flex gap-x-10 justify-between flex-wrap mt-1 text-sm lg:text-base">
           {job_details?.[0]?.experience && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaHeadSideVirus />
               </span>
               <div>
@@ -50,7 +49,7 @@ export const OfferDetails = ({ jobDetails }) => {
           )}
 
           {job_details?.[0]?.categories?.[0]?.value && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <MdCategory />
               </span>
               <div>
@@ -64,7 +63,7 @@ export const OfferDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "fixed" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -78,7 +77,7 @@ export const OfferDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "hourly" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -92,7 +91,7 @@ export const OfferDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.durations && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <IoCalendar />
               </span>
               <div>

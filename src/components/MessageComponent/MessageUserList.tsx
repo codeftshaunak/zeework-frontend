@@ -1,6 +1,6 @@
 
 import React from "react";
-
+import { Avatar, AvatarBadge } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 
 const MessageUserList = ({
@@ -54,7 +54,7 @@ const MessageUserList = ({
               if (handleOnClose) handleOnClose();
             }}
           >
-            <div className="flex justify="between">
+            <div className="flex justify-between">
               <div className="w-[85px]">
                 <Avatar
                   size="md"
@@ -62,7 +62,7 @@ const MessageUserList = ({
                   name={name}
                   src={photo}
                 >
-                  <AvatarBadge`}
+                  <AvatarBadge
                     boxSize="0.8em"
                     left={-2}
                     top={0}
@@ -70,7 +70,13 @@ const MessageUserList = ({
                 </Avatar>
               </div>
               <div>
-                <div className="flex flex-row items-center> <span> {name} {user?.user_details?.businessName && ` | ${user?.user_details?.businessName}`} </span> </div> <span> {user?.contract_details?.title ? user?.contract_details?.title?.slice(0, 20) :"Unavailable contract"}
+                <div className="flex flex-row items-center">
+                  <span>
+                    {name} {user?.user_details?.businessName && ` | ${user?.user_details?.businessName}`}
+                  </span>
+                </div>
+                <span>
+                  {user?.contract_details?.title ? user?.contract_details?.title?.slice(0, 20) : "Unavailable contract"}
                 </span>
               </div>
             </div>

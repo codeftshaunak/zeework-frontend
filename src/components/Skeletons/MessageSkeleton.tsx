@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Avatar, Skeleton } from "@/components/ui/migration-helpers";
 
 
 
@@ -50,40 +51,33 @@ export const MessageBodySkeleton = () => {
       <div className="flex flex-col items-start w-full h-[100%] relative"
       >
         <div
-          className="h-[69vh] w-full flex"
-          overflowY="auto"
-         
-          flexDir="column"
-          className="justify-flex-start"
+          className="h-[69vh] w-full flex overflow-y-auto flex-col justify-start"
         >
-          <div className="flex flex-row items-center marginTop={2}> <Avatar size="sm" round="20px" opacity="0.5" />
-            <div className="flex flexDir="column">
+          <div className="flex flex-row items-center mt-2">
+            <Avatar size="sm" round="20px" opacity="0.5" />
+            <div className="flex flex-col">
               <Skeleton></Skeleton>
-              <Skeleton}
-              ></Skeleton>
+              <Skeleton></Skeleton>
             </div>
           </div>
-          <div className="flex flex-row items-center className="ml-[auto]">
-            <div className="flex flex-col className="justify-end items-end">
+          <div className="flex flex-row items-center ml-auto">
+            <div className="flex flex-col justify-end items-end">
               <Skeleton></Skeleton>
-              <Skeleton}
-              ></Skeleton>
+              <Skeleton></Skeleton>
             </div>
             <Avatar size="sm" round="20px" opacity="0.5" />
           </div>
-          <div className="flex flex-row items-center className="items-start" marginTop={2}>
+          <div className="flex flex-row items-center items-start mt-2">
             <Avatar size="sm" round="20px" opacity="0.5" />
-            <div className="flex flexDir="column">
+            <div className="flex flex-col">
               <Skeleton></Skeleton>
-              <Skeleton}
-              ></Skeleton>
+              <Skeleton></Skeleton>
             </div>
           </div>
-          <div className="flex flex-row items-center className="ml-[auto]">
-            <div className="flex flex-col className="justify-end items-end">
+          <div className="flex flex-row items-center ml-auto">
+            <div className="flex flex-col justify-end items-end">
               <Skeleton></Skeleton>
-              <Skeleton}
-              ></Skeleton>
+              <Skeleton></Skeleton>
             </div>
             <Avatar size="sm" round="20px" opacity="0.5" />
           </div>

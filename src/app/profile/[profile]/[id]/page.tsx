@@ -1,4 +1,4 @@
-import Profile from "../../../../components/Profile";
+import UserProfile from "../../../../components/Profile";
 
 interface ProfilePageProps {
   params: {
@@ -8,5 +8,5 @@ interface ProfilePageProps {
 }
 
 export default function ProfilePage({ params }: ProfilePageProps) {
-  return <Profile profileType={params.profile} profileId={params.id} />;
+  return <UserProfile  />;
 }

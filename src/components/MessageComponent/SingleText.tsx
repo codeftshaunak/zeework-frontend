@@ -9,6 +9,7 @@ import CardDetails from "./CardDetails";
 import { format, differenceInMinutes, differenceInHours } from "date-fns";
 import Linkify from "react-linkify";
 import { MdDelete } from "react-icons/md";
+import { Avatar, AvatarBadge } from "../ui/migration-helpers";
 
 const SingleText = ({
   user,
@@ -67,11 +68,10 @@ const SingleText = ({
   };
 
   return (
-    <div} className="w-full relative">
+    <div className="w-full relative">
       {user.sender_id === userId ? (
-        <div className="flex flex-row items-center} className="w-full">
-          <div className="flex flex-row items-center}}}
-           
+        <div className="flex flex-row items-center w-full">
+          <div className="flex flex-row items-center"
           >
             <div className="md:ml-auto">
               {!user.isRepeated && (
@@ -79,15 +79,9 @@ const SingleText = ({
                   You
                 </span>
               )}
-              <divw-full text-right"
-                flexDir="column"
-                alignContent="end"
-               
-                className="bg-#dcf7e3 relative"
-                paddingY={2}
-                paddingX={4}
-               
-                onMouseEnter={() = className="flex className= rounded-md"> setIsMore(true)}
+              <div
+                className="w-full text-right flex-col content-end bg-[#dcf7e3] relative py-2 px-4 flex rounded-md"
+                onMouseEnter={() => setIsMore(true)}
                 onMouseLeave={() => setIsMore(false)}
               >
                 <>
@@ -134,8 +128,8 @@ const SingleText = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-row items-center> <div className= w-full"flex flex-row items-center}}}
-           
+        <div className="flex flex-row items-center">
+          <div className="w-full flex flex-row items-center"
           >
             <div className="w-[32px]">
               {!user.isRepeated && (
@@ -146,7 +140,7 @@ const SingleText = ({
                   src={getProfileImage()}
                   name={getDisplayName()}
                 >
-                  <AvatarBadge`}
+                  <AvatarBadge
                     boxSize="0.8em"
                     left={-1.5}
                     top={0}
@@ -160,11 +154,10 @@ const SingleText = ({
               )}
               <div
                 flexDir="column"
-                className="bg-gray.100 relative"
+                className="bg-gray.100 relative flex rounded-md"
                 paddingY={2}
                 paddingX={4}
-               
-                onMouseEnter={() = className="flex rounded-md"> setIsMore(true)}
+                onMouseEnter={() => setIsMore(true)}
                 onMouseLeave={() => setIsMore(false)}
               >
                 <>

@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import { Tooltip } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
 

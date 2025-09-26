@@ -100,7 +100,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GigCreateLayout title="Gig Requirement & Steps" onBackward={onBack}>
-          <div className="flex flex-col className="items-start w-full">
+          <div className="flex flex-col items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
@@ -108,16 +108,15 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               Information you need from the client before you start your project
             </label>
 
-            <div className="flex flex-col backgroundColor= w-full p-[1rem 1.5rem] mt-[1rem]"white"
-             
+            <div className="flex flex-col bg-white w-full p-[1rem_1.5rem] mt-[1rem]"
             >
               {requirementFields.map((requirement, index) => (
-                <div className="flex flex-col key={index} className="items-start w-full mb-[0.8rem]"
+                <div key={index} className="flex flex-col items-start w-full mb-[0.8rem]"
                 >
                   <label htmlFor="" className="font-semibold mb-0 pb-0">
                     Requirement
                   </label>
-                  <div className="flex flex-col className="items-start w-full">
+                  <div className="flex flex-col items-start w-full">
                     <Controller
                       name={`requirements[${index}].requirement`} // Use index to create unique names
                       control={control}
@@ -128,7 +127,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                             placeholder="You will get a fantastic deliverable that drives impact"
                             className="mt-[5px]"
                           />
-                          <div className="flex flex-row items-center className="w-full">
+                          <div className="flex flex-row items-center w-full">
                             <Checkbox
                               colorScheme="green"
                               size="lg"
@@ -157,7 +156,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-row items-center className="w-full">
+            <div className="flex flex-row items-center w-full">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 backgroundColor="transparent"
                 _hover={{
@@ -170,18 +169,17 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             </div>
           </div>
 
-          <div className="flex flex-col className="items-start w-full">
+          <div className="flex flex-col items-start w-full">
             <label
               htmlFor="fileInput"
               className="text-xl md:text-2xl font-[600] pb-0 mb-0"
             >
               Steps you&apos;ll take to get the project done
             </label>
-            <div className="flex flex-col backgroundColor= p-[2rem 1.5rem] mt-[1rem] w-full"white"
-             
+            <div className="flex flex-col bg-white p-[2rem_1.5rem] mt-[1rem] w-full"
             >
               {stepFields.map((step, index) => (
-                <div className="flex flex-col key={index} className="items-start w-full shadow rounded-md p-3 mt-2"
+                <div key={index} className="flex flex-col items-start w-full shadow rounded-md p-3 mt-2"
                 >
                   <label htmlFor="" className="font-semibold">
                     Step {index + 1} title
@@ -230,7 +228,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-row items-center className="w-full">
+            <div className="flex flex-row items-center w-full">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                 backgroundColor="transparent"
                 onClick={() => addStep()}

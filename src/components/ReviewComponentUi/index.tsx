@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import { toast } from "@/lib/toast";
@@ -170,7 +169,9 @@ const ReviewComponent = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.data.msg || "Some issue happen please check everything again");
+      toast.error(
+        error.data.msg || "Some issue happen please check everything again"
+      );
     }
     setIsLoading(false);
   };
@@ -188,18 +189,12 @@ const ReviewComponent = () => {
 
   return (
     <>
-      <div className="flex flex-col items-start m-[auto] p-[0 0 3rem 0]"
-       
-      >
-        <span
-          marginTop={{ base: "4", md: "10" }}
-         className="text-4xl font-semibold text-left">
-          {" "}
-          End contract review{" "}
+      <div className="flex flex-col items-start m-[auto] p-0 pb-12">
+        <span className="text-4xl font-semibold text-left mt-10">
+          End contract review
         </span>
-        <div className="flex flex-col border rounded bg-white items-start justify-start m-[auto] w-full"
-         
-        >
+
+        <div className="flex flex-col border rounded bg-white items-start justify-start m-[auto] w-full">
           <div className="w-[80%]">
             <div>
               <span className="text-xl font-semibold text-left">
@@ -213,35 +208,30 @@ const ReviewComponent = () => {
             <br />
             <div>
               <span className="text-xl font-semibold text-left">
-                {" "}
-                Contract Title{" "}
+                Contract Title
               </span>
               <span className="text-xl text-left">
-                {" "}
-                {jobDetails?.contract_title}{" "}
+                {jobDetails?.contract_title}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-start m-[auto] w-full border rounded bg-white"
-        >
+        {/* Private feedback */}
+        <div className="flex flex-col items-start justify-start m-[auto] w-full border rounded bg-white">
           <span className="text-3xl font-semibold text-left">
-            {" "}
-            Private feedback{" "}
+            Private feedback
           </span>
-          <div}>
+          <div>
             <span className="text-xl">
               This is your opportunity to share feedback on{" "}
-              {receiverDetails?.firstName} that you {"don't"} want posted
-              publicly.
-              {"We'll"} use it to improve the user experience, but we {"won't"}{" "}
-              share it with {receiverDetails?.firstName}.
+              {receiverDetails?.firstName} that you don’t want posted publicly.
+              We’ll use it to improve the user experience, but we won’t share it
+              with {receiverDetails?.firstName}.
             </span>
             <br />
             <div>
-              <span
-               className="mb-[1rem] text-xl font-semibold text-left">
+              <span className="mb-[1rem] text-xl font-semibold text-left">
                 Primary reason for ending contract
               </span>
               <Select
@@ -263,37 +253,31 @@ const ReviewComponent = () => {
                     </option>
                   ))
                 ) : (
-                  <option value={"not found"}>Not Found</option>
+                  <option value="not found">Not Found</option>
                 )}
               </Select>
             </div>
             <br />
             <div>
               <span className="text-xl font-semibold text-left">
-                {" "}
                 How likely are you to recommend this client to a friend or a
                 colleague?
               </span>
               <br />
-              <div className="flex flex-col className="items-start">
-                <div className="flex flex-row items-center className= w-full"justify-between"
-                  flexWrap="wrap"
-                 
-                >
+              <div className="flex flex-col items-start">
+                <div className="flex flex-row items-center w-full justify-between flex-wrap">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                    <divtext-1.2rem justify-center rounded"
-                      className="font-600 w-[50px] h-[50px] border text-center flex flex-col key={num} className= cursor-pointer"
+                    <div
+                      key={num}
+                      className="font-semibold w-[50px] h-[50px] border text-center flex flex-col justify-center rounded cursor-pointer text-lg"
                       onClick={() => handleNumberClick(num)}
                     >
                       <span>{num}</span>
                     </div>
                   ))}
                 </div>
-
-                <div className="flex flex-row items-center className="justify-between w-full mt-[1rem]"
-                >
-                  <BiSolidDislike
-                  />
+                <div className="flex flex-row items-center justify-between w-full mt-[1rem]">
+                  <BiSolidDislike />
                   <span>
                     Embark on a journey to discover your preferred range of
                     choices.
@@ -305,33 +289,24 @@ const ReviewComponent = () => {
           </div>
         </div>
 
-        <div className="flex flex-col className= border rounded bg-white"items-start justify-start m-[auto] w-full"}}
-         
-        >
+        {/* Public feedback */}
+        <div className="flex flex-col items-start justify-start m-auto w-full border rounded bg-white">
           <span className="text-3xl font-semibold text-left">
-            {" "}
-            Public feedback{" "}
+            Public feedback
           </span>
-          <div}>
-            <span}>
+          <div>
+            <span>
               We&apos;ll post your feedback on {receiverDetails?.firstName}
-              &apos;s Recent History when they&apos;ve left there feedback for
-              you or after 14-day feedback period closes. Your insights can help
-              other Zeework talent choose their next job{" "}
+              &apos;s Recent History when they&apos;ve left their feedback for
+              you or after the 14-day feedback period closes. Your insights can
+              help other Zeework talent choose their next job.
             </span>
             <br />
             <div>
-              <div className="flex flex-col className="items-start">
-                <div marginTop={{ base: 10, md: 8 }}>
-                  <span}
-                   
-                  >
-                    Feedback to client
-                  </span>
-                  <div
-                    marginTop={{ base: 3, md: 6 }}
-                    className="flex flex-col gap-4 md:gap-8 w-full"
-                  >
+              <div className="flex flex-col items-start">
+                <div className="mt-8">
+                  <span>Feedback to client</span>
+                  <div className="flex flex-col gap-4 md:gap-8 w-full mt-6">
                     {options?.map((option, index) => (
                       <div
                         key={index}
@@ -359,70 +334,47 @@ const ReviewComponent = () => {
                             name={`ratings-${index}`}
                           />
                         </div>
-                        <span} className="w-full">
-                          {option}
-                        </span>
+                        <span className="w-full">{option}</span>
                       </div>
                     ))}
                   </div>
-                  <span}
-                    marginTop={{ base: 4, md: 8 }}
-                  >
-                    Total Score: {totalScore}
-                  </span>
+                  <span className="mt-8">Total Score: {totalScore}</span>
                 </div>
               </div>
             </div>
             <br />
-            <br />
             <div>
-              <span}
-               
-              >
-                Share your experience to Zeework community
-              </span>
-              <div marginTop={{ base: 3, md: 6 }}>
-                <spanarea}}}
+              <span>Share your experience to Zeework community</span>
+              <div className="mt-6">
+                <textarea
                   placeholder="Your comments will be shared publicly"
                   value={feedbackMessage}
                   onChange={(e) => setFeedbackMessage(e.target.value)}
-                  sx={{ "::placeholder": { opacity: 0.3 } }} // Adjust opacity as needed
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col marginTop={{ md: border rounded"10" }}}
-          className="justify-start w-full items-start bg-white"
-        >
-          <div marginTop={{ base: 4, md: 6 }}>
-            <span}>
+        {/* Submit section */}
+        <div className="flex flex-col justify-start w-full items-start bg-white border rounded">
+          <div className="mt-6">
+            <span>
               Ending this contract will permanently lock the Work Diary for this
-              project. {"We'll"} let your client know the job is done and send
-              you a final statement for any unpaid work.
+              project. We’ll let your client know the job is done and send you a
+              final statement for any unpaid work.
             </span>
           </div>
-          <div
-            marginTop={{ base: 2, md: 6 }}}
-          >
+          <div className="mt-6">
             <div className="flex flex-col items-center sm:flex-row md:items-center justify-center text-center gap-3 sm:gap-6 w-full">
-              <span}
-               
-                className="text-[#22c55e]"}
-              >
-                Cancel
-              </span>
-
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"}
-                isLoading={isLoading}
-                loadingText="Submitting"
+              <span className="text-[#22c55e] cursor-pointer">Cancel</span>
+              <button
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
+                disabled={isLoading}
                 type="submit"
-                spinner={<BtnSpinner />}
-                paddingX={8}
                 onClick={() => handleSubmit()}
               >
-                Submit Review
+                {isLoading ? <BtnSpinner /> : "Submit Review"}
               </button>
             </div>
           </div>
@@ -440,33 +392,33 @@ const ReviewComponent = () => {
             <div className="w-[72px] h-[72px] flex items-center justify-center bg-green-50 rounded-full mx-auto">
               <MdCheckCircle className="text-4xl text-green-500" />
             </div>
-            <div className="text-gray-700 text-2xl font-semibold font-['SF Pro Text'] leading-loose text-center">
+            <div className="text-gray-700 text-2xl font-semibold leading-loose text-center">
               Feedback Submitted
             </div>
-            <div className="text-center text-gray-700 font-medium font-['SF Pro Text'] leading-tight">
+            <div className="text-center text-gray-700 font-medium leading-tight">
               Thank you for your feedback! Your input is invaluable to us.
             </div>
             <div className="w-full flex justify-between items-center gap-6">
-              <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
+              <div className="w-full">
                 <div
-                  className="self-stretch grow shrink basis-0 px-3 py-2 bg-gray-50 rounded-md shadow border border-gray-300 justify-center items-center gap-1 inline-flex cursor-pointer"
+                  className="px-3 py-2 bg-gray-50 rounded-md shadow border border-gray-300 justify-center items-center inline-flex cursor-pointer"
                   onClick={() =>
                     router.push(role == 1 ? "/my-jobs" : "/client-dashboard")
                   }
                 >
-                  <div className="text-center text-gray-700 text-sm font-medium font-['SF Pro Text'] leading-tight">
+                  <div className="text-center text-gray-700 text-sm font-medium leading-tight">
                     Back to {role == 1 ? "my jobs" : "dashboard"}
                   </div>
-                </div>{" "}
+                </div>
               </div>
-              <div className="w-full h-9 flex-col justify-start items-start gap-2.5 inline-flex">
+              <div className="w-full">
                 <div
-                  className="self-stretch h-9 px-3 py-2 bg-green-500 rounded-md shadow justify-center items-center gap-1 inline-flex cursor-pointer"
+                  className="px-3 py-2 bg-green-500 rounded-md shadow justify-center items-center inline-flex cursor-pointer"
                   onClick={() =>
-                    router.push(role == 1 ? `/find-job` : "/my-stats")
+                    router.push(role == 1 ? "/find-job" : "/my-stats")
                   }
                 >
-                  <div className="text-center text-white text-sm font-medium font-['SF Pro Text'] leading-tight">
+                  <div className="text-center text-white text-sm font-medium leading-tight">
                     Go to {role == 1 ? "find work" : "my stats"}
                   </div>
                 </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Avatar } from "../ui/Avatar";
-
+import { Avatar, AvatarBadge } from "@/components/ui/migration-helpers";
 import { IoLocation } from "react-icons/io5";
 
 const InvitedFreelancerCard = ({ profile }) => {
@@ -45,16 +44,12 @@ const InvitedFreelancerCard = ({ profile }) => {
                 </div>
 
                 <div className="flex items-center justify-between gap-5">
-                  <div className="flex spacing={4}"
-                    direction="row"
-                    
-                    flexWrap="wrap"
-                  >
+                  <div className="flex flex-row flex-wrap gap-2">
                     {freelancer_details?.[0]?.skills?.length &&
                       freelancer_details?.[0]?.skills?.map((skill, idx) => (
                         <div
                           key={idx}
-                          paddingX={5} className="rounded bg-gray.200"
+                          className="rounded bg-gray-200 px-2 py-1"
                         >
                           {skill}
                         </div>
@@ -70,14 +65,14 @@ const InvitedFreelancerCard = ({ profile }) => {
               </div>
             </div>
             <div className="flex gap-5">
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                paddingX={5}
+              <button 
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-4 py-2"
                 onClick={() => router.push(`/profile/f/${receiver_id}`)}
               >
                 Profile
               </button>
-              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                paddingX={5}
+              <button 
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground px-4 py-2"
                 onClick={() => router.push(`/message/${receiver_id}`)}
               >
                 Message

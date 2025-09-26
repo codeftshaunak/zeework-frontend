@@ -8,6 +8,7 @@ import { toast } from "@/lib/toast";
 import { changeOldPassword } from "../../../../helpers/APIs/jobApis";
 import BtnSpinner from "../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../utils/Error/ErrorMsg";
+import { Button } from "@/components/ui/migration-helpers";
 
 const ChangeOldPassword = () => {
   const [passLoading, setPassLoading] = useState(false);
@@ -100,7 +101,7 @@ const ChangeOldPassword = () => {
               onClick={handleCancel}
              className="rounded-full">
               Cancel
-            </button>
+            </Button>
             <Button
               type="submit"
               paddingX={8}
@@ -109,7 +110,7 @@ const ChangeOldPassword = () => {
               spinner={<BtnSpinner />}
             >
               Update
-            </button>
+            </Button>
           </div>
         </div>
       </form>

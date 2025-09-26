@@ -8,6 +8,7 @@ import {
   invitationDetails,
 } from "../../../helpers/APIs/freelancerApis";
 import { useRouter } from "next/navigation";
+import { Box, Text, HStack } from "@/components/ui/migration-helpers";
 import { SocketContext } from "../../../contexts/SocketContext";
 import { ClientDetailsSection } from "../../Invitation/ClientDetailsSection";
 import Modal from "../../Invitation/Modal";

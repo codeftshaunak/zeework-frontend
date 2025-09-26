@@ -1,6 +1,7 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { InputGroup, InputLeftElement } from "@/components/ui/migration-helpers";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BiX } from "react-icons/bi";
@@ -323,15 +324,15 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
         <div className="w-full md:w-[530px] text-gray-700 font-medium leading-tight mb-2">
           Add Amount
         </div>
-        <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"Group>
-          <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
+        <InputGroup>
+          <InputLeftElement
             pointerEvents="none"
-            children="$"
-          />
+          >
+            $
+          </InputLeftElement>
           <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm rounded-md"
             borderColor={"var(--bordersecondary)"}
             _placeholder={{ color: "gray.500" }}
-           
             type="number"
             placeholder="400"
             {...register("amount")}

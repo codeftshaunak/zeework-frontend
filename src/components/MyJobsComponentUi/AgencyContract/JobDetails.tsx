@@ -19,7 +19,7 @@ export const JobDetails = ({ jobDetails }) => {
         </span>
         <div className="flex gap-x-10 sm:gap-x-20 flex-wrap mt-1 text-sm lg:text-base">
           {job_details?.[0]?.experience && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaHeadSideVirus />
               </span>
               <div>
@@ -34,7 +34,7 @@ export const JobDetails = ({ jobDetails }) => {
           )}
 
           {job_details?.[0]?.categories?.[0]?.value && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <MdCategory />
               </span>
               <div>
@@ -48,7 +48,7 @@ export const JobDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "fixed" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -62,7 +62,7 @@ export const JobDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "hourly" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -76,7 +76,7 @@ export const JobDetails = ({ jobDetails }) => {
             </div>
           )}
           {job_details?.[0]?.durations && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <IoCalendar />
               </span>
               <div>

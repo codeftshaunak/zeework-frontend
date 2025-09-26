@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 import GetFreelancerPaid from "./GetFreelancerPaid";
+import { Tooltip } from "@/components/ui/migration-helpers";
 
 const AvailableDetails = ({ balance }) => {
   const [isPaidModal, setIsPaidModal] = useState(false);

@@ -33,10 +33,11 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
 
   return (
     <div className="lg:col-span-2 w-full h-fit flex gap-10 bg-white p-5 sm:p-8 rounded-xl border border-[var(--bordersecondary)]">
-      <div className="flex flex-col className="w-full">
+      <div className="flex flex-col w-full">
         <div className="w-full flex flex-col sm:flex-row justify-between">
           <span
-            onClick={() = className="items-end cursor-pointer"> router.push(`/find-job/${jobDetails?.job_id}`)}
+            onClick={() => router.push(`/find-job/${jobDetails?.job_id}`)}
+            className="items-end cursor-pointer"
           >
             View Job Post
           </span>
@@ -51,15 +52,14 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
             </span>
           </div> */}
         </div>
-        <span}
-         
+        <span 
           className="capitalize"
         >
           {contract_title ? contract_title : job_details?.[0]?.title}
         </span>
         <div className="w-full flex gap-10 sm:gap-10 my-5 flex-wrap text-sm lg:text-base justify-between">
           {job_details?.[0]?.experience && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaHeadSideVirus />
               </span>
               <div>
@@ -74,7 +74,7 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
           )}
 
           {job_details?.[0]?.categories?.[0]?.value && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <MdCategory />
               </span>
               <div>
@@ -88,7 +88,7 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "fixed" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -102,7 +102,7 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
             </div>
           )}
           {job_details?.[0]?.job_type == "hourly" && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <FaClock />
               </span>
               <div>
@@ -116,7 +116,7 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
             </div>
           )}
           {job_details?.[0]?.durations && (
-            <div className="flex flex-row items-center> <span>
+            <div className="flex flex-row items-center"> <span>
                 <IoCalendar />
               </span>
               <div>

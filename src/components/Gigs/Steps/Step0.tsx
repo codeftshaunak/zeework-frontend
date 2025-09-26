@@ -1,7 +1,7 @@
 
 "use client";
 import React from "react";
-
+import { InputGroup, InputLeftElement, Skeleton } from "@/components/ui/migration-helpers";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
@@ -188,10 +188,10 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
                     startColor="gray.100"
                     endColor="gray.300"
                   >
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"Group
+                    <InputGroup
                       borderColor={"var(--bordersecondary)"}
                     >
-                      <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"LeftElement
+                      <InputLeftElement
                         pointerEvents="none"
                         paddingLeft={2}
                       >
@@ -209,7 +209,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
               )}
             />
           </div>
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Category
             </label>
@@ -258,7 +258,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
               }}
             />
           </div>
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Sub Category
             </label>
@@ -300,7 +300,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
               )}
             />
           </div>
-          <div className="flex flex-col className="items-start">
+          <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Skills
             </label>

@@ -5,11 +5,8 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import {
-  
-  
-  
-  
-  
+  Avatar,
+  Image,
   Tabs,
 } from "@/components/ui/migration-helpers";
 import { useRouter, useParams } from "next/navigation";
