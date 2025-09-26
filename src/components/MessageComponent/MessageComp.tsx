@@ -16,7 +16,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useCookies } from "react-cookie";
 import { LuMessagesSquare } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import {
   getMessageDetails,
   getMessageUsers,
@@ -63,7 +63,7 @@ const MessageComp = () => {
     try {
       const { body, code } = activeAgency
         ? await getMessageUsers("agency")
-        : await getMessageUsers();
+        : await getMessageUsers("freelancer");
       if (code === 200) {
         dispatch(setMessageUsers(body));
       }
@@ -76,9 +76,7 @@ const MessageComp = () => {
   // Fetch messages for a specific user
   const getMessagesList = async (receiver_id, contractRef) => {
     setIsLoading(true);
-    router.push(`/message/${receiver_id}?contract_ref=${contractRef}`, {
-      replace: true,
-    });
+    router.replace(`/message/${receiver_id}?contract_ref=${contractRef}`);
 
     try {
       if (receiver_id) {
@@ -134,7 +132,7 @@ const MessageComp = () => {
           user.user_details.user_id === id || user.user_details._id === id
       )?.user_details?.activity;
 
-      setMessageDetails((prev) => ({
+      setMessageDetails((prev : any) => ({
         ...prev,
         reciever_details: {
           ...prev.reciever_details,
@@ -142,7 +140,7 @@ const MessageComp = () => {
         },
       }));
     }
-  }, [selectedUser, messageUsers]);
+  }, [selectedUser, messageUsers, id]);
 
   // Handle user search input
   const handleSearchingUser = (query) => {
@@ -253,10 +251,9 @@ const MessageComp = () => {
           size="full"
           isFullHeight={false}
         >
-          <DrawerContent mt="4.5rem" shadow="none">
+          <DrawerContent className="mt-[4.5rem] shadow-none">
             <DrawerBody
-              mx="auto"
-              className="relative border"
+              className="relative border mx-auto"
               pt={5}
              
             >
@@ -270,7 +267,7 @@ const MessageComp = () => {
                     query={query}
                     setFilteredUser={setFilteredUser}
                     setQuery={setQuery}
-                    handleOnClose={onClose}
+                    
                   />
                 ) : usersIsLoading ? (
                   <MessageUsersSkeleton />
@@ -280,7 +277,7 @@ const MessageComp = () => {
                     contractRef={contract_ref}
                     id={id}
                     setQuery={setQuery}
-                    handleOnClose={onClose}
+                    handleOnClose={() => {}}
                   />
                 ) : (
                   <span>
@@ -314,6 +311,7 @@ const MessageComp = () => {
             contractRef={contract_ref}
             id={id}
             setQuery={setQuery}
+            handleOnClose={() => {}}
           />
         ) : (
           <span>
@@ -340,7 +338,7 @@ const MessageComp = () => {
               userDetails={messageUsers?.find(
                 (user) => user.contract_details?.contract_ref === contract_ref
               )}
-              isLoading={isLoading}
+              
               isAgencyId={activeAgency && profile.agency._id}
             />
           )

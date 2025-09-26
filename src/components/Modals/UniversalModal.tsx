@@ -10,7 +10,7 @@ interface UniversalModalProps {
   setIsModal: (open: boolean) => void;
   title?: React.ReactNode;
   children: React.ReactNode;
-  size?: "2xl" | "xl" | "lg" | "md";
+  size?: "2xl" | "xl" | "lg" | "md" | "3xl" | "4xl";
   isCloseBtn?: boolean;
 }
 
@@ -39,7 +39,9 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       {/* Modal Content */}
       <MotionContent
         className={`relative bg-white rounded-lg shadow-xl ${
-          size === "2xl"
+          size === "3xl"
+            ? "max-w-3xl"
+            : size === "2xl"
             ? "max-w-2xl"
             : size === "xl"
             ? "max-w-xl"

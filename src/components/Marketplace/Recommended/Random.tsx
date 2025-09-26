@@ -41,7 +41,7 @@ const Random = () => {
       </h1>
       <div className="text-center py-4">
         <div>
-          <GigCards gigs={gigs?.slice(0, 6)} isLoading={isLoading} />
+          <GigCards gigs={gigs?.slice(0, 6)} isLoading={false} />
         </div>
       </div>
       <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"

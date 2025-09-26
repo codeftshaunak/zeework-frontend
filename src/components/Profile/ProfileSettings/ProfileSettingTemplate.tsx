@@ -95,18 +95,16 @@ const SettingsNav = ({ title, noBorder, active, setStep, step }) => {
 
   const handleClick = () => {
     const newUrl = `/setting/${step}`;
-    router.push(newUrl, { replace: true });
+    router.push(newUrl);
     setStep(step);
   };
   return (
     <div
-      className={`w-full flex items-center text-[${
-        active ? "#22C35E" : "#374151"
-      }] justify-between py-[16px] border-b-[${
-        !noBorder ? "1px" : "none"
-      }] border-b-[${
-        !noBorder ? "var(--bordersecondary)" : "none"
-      }] px-[24px] cursor-pointer `}
+      className={`w-full flex items-center justify-between py-[16px] px-[24px] cursor-pointer ${
+        active ? "text-[#22C35E]" : "text-[#374151]"
+      } ${
+        !noBorder ? "border-b-[1px] border-b-[var(--bordersecondary)]" : ""
+      }`}
       onClick={handleClick}
     >
       <p className={`text-[16px]  font-[500]`}>{title}</p>

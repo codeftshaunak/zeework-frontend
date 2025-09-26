@@ -5,7 +5,20 @@ import { MdCategory } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 
-export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
+interface Props {
+  jobDetails: {
+    job_details?: any[];
+    project_budget?: number;
+    budget?: number;
+    hourly_rate?: number;
+    contract_title?: string;
+    status?: string;
+    job_id?: string;
+    jobStatus?: string;
+  };
+}
+
+export const JobDetailsSection = ({ jobDetails }: Props) => {
   const {
     job_details,
     project_budget,
@@ -23,7 +36,7 @@ export const JobDetailsSection = ({ jobDetails, jobStatus }) => {
 
   const router = useRouter();
   const formatDate = (dateString) => {
-    const options = { day: "numeric", month: "short", year: "numeric" };
+    const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
       "en-US",
       options

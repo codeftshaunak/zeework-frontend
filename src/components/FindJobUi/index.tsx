@@ -72,6 +72,8 @@ interface FilterProps {
   isLoading: boolean;
   experience: string[];
   handleResetFilters: () => void;
+  setCategory: React.Dispatch<React.SetStateAction<CategoryOption[]>>;
+  setCategoryOptions: React.Dispatch<React.SetStateAction<CategoryOption[]>>;
 }
 
 export { default as ModernAllJobs } from "./ModernAllJobs";
@@ -213,7 +215,7 @@ export const AllJobs = () => {
             />
           </div>
           <div className="w-full">
-            <JobCard isLoading={isLoading} jobs={latestJobs} />
+            <JobCard  jobs={latestJobs} />
           </div>
           {latestJobs?.length > 0 && (
             <div className="mx-auto mt-4">
@@ -535,7 +537,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
   const clearSearch = () => {
     setSearchTerm("");
     setShowHighlightedSearchTerm(false);
-    router.push("/search-job", { replace: true });
+    router.push("/search-job", );
   };
 
   const handleResetFilters = () => {
@@ -615,7 +617,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter")
-                    searchWithFilters({ searchTerm: e.target.value });
+                    searchWithFilters({ searchTerm: e.target.value as string });
                 }}
                 value={searchTerm}
               />
@@ -777,8 +779,8 @@ export const Filter: React.FC<FilterProps> = ({
                   <RadioGroup.Root
                     colorPalette="green"
                     defaultValue="1"
-                    onValueChange={(details) =>
-                      handleHourlyRateChange(details.value)
+                    onValueChange={(details : any) =>
+                      handleHourlyRateChange(details?.value as string)
                     }
                   >
                     <div className="flex flex-col gap-4">

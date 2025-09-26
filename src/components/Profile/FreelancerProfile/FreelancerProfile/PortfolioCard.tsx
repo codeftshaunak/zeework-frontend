@@ -122,13 +122,13 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
       ...selectedImages,
       { file: files[0], preview: URL.createObjectURL(files[0]) },
     ].slice(0, 3);
-    setValue("attachements", newImages, { shouldValidate: true });
+    setValue("attachements", newImages);
   };
 
   const handleImageDelete = (index: number) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
-    setValue("attachements", updatedImages, { shouldValidate: true });
+    setValue("attachements", updatedImages);
   };
 
   // get skills Methods
@@ -137,7 +137,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
       const validCategoryIds = categories?.filter((category) => category._id);
       const promises = validCategoryIds?.map(async ({ _id }) => {
         try {
-          const { body, code } = await getSkills(_id);
+          const { body, code } = await getSkills(_id, null);
           if (code === 200) {
             return body?.map((item) => ({
               value: item?.skill_name,
@@ -192,10 +192,10 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
       for (const image of selectedImages) {
         if (!image.file) continue;
 
-        const compressedImage = await compressImageToWebP(image.file);
+        const compressedImage = await compressImageToWebP(image.file, 0.5, "profile", 0.5, "profile");
 
         const formData = new FormData();
-        formData.append("imageFile", compressedImage);
+        formData.append("imageFile", compressedImage as Blob);
 
         const response = await uploadSingleImage(formData);
         if (response.code === 200) {
@@ -509,7 +509,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
       </UniversalModal>
 
       {/* View Portfolio Details */}
-      <UniversalModal isModal={isDetails} setIsModal={setIsDetails} size="4xl">
+      <UniversalModal isModal={isDetails} setIsModal={setIsDetails} size="3xl">
         <p
           className={`text-2xl sm:text-4xl font-semibold pb-3 px-5 -mx-6 ${
             isScrolled && "border-b shadow"
@@ -519,16 +519,13 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
         </p>
         <div
           onScroll={(e) => {
-            setIsScrolled(e.target.scrollTop !== 0);
+            setIsScrolled((e.target as any)?.scrollTop !== 0);
           }}
-          className={`overflow-y-scroll h-[600px] bg-white}`}
+          className={`overflow-y-scroll h-[600px] bg-white scrollbar-hide`}
           style={{
             WebkitOverflowScrolling: "touch",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
-            "&::WebkitScrollbar": {
-              display: "none",
-            },
           }}
         >
           <div className="rounded-lg overflow-hidden relative">

@@ -23,7 +23,7 @@ import { toast } from "@/lib/toast";
 import { useContext, useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { SocketContext } from "../../contexts/SocketContext";
 import { sendJobInvitation } from "../../helpers/APIs/clientApis";
@@ -51,9 +51,9 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isHire, setIsHire] = useState(false);
   const [isUserId, setIsUserId] = useState("");
-  const [freelancerInfo, setFreelancerInfo] = useState({});
+  const [freelancerInfo, setFreelancerInfo] = useState<Record<string, any>>({});
   const [searchText, setSearchText] = useState("");
-  const [activeTab, setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
   const { socket } = useContext(SocketContext);
   const router = useRouter();
   const pathname = usePathname();
@@ -261,10 +261,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
               </Tabs.Trigger>
               {/* <Tabs.Trigger className="px-0 text-black">My bg-green-100</Tabs.Trigger> */}
             </Tabs.List>
-            <Tabs.Indicator
-              className="bg-fg-brand"
-            />
-            <SmoothMotion key={activeTab}>
+            <SmoothMotion key={active}>
               <Tabs.Content>
                 <Tabs.Content p={0}>
                   <div className="h-auto pt-5 pb-4">
@@ -476,7 +473,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                 <textarea
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                   placeholder="Enter your message..."
-                  rows="4"
+                  rows={4}
                   value={message}
                   onChange={HandleTextValue}
                 />

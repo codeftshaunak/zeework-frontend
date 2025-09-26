@@ -105,8 +105,8 @@ const Reports = () => {
 
   return (
     <div className="w-full mx-auto">
-      <EarningsOverview balance={balance} isLoading={isLoading} />
-      <GenaralStats stats={stats} isLoading={isLoading} />
+      <EarningsOverview balance={balance}  />
+      <GenaralStats stats={stats}  />
       <Timesheet activeJobs={timeSheet} isLoading={timeSheetLoading} />
       <Adjustment />
     </div>

@@ -38,6 +38,7 @@ interface FormData {
   project_description: string;
   technologies: SkillOption[];
   attachements: ImageFile[];
+  images: File[];
 }
 
 interface RootState {
@@ -79,7 +80,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
       const validCategoryIds = categoryIds.filter((category) => category._id);
       const promises = validCategoryIds.map(async ({ _id }) => {
         try {
-          const { body, code } = await getSkills(_id);
+          const { body, code } = await getSkills(_id, null);
           if (code === 200) {
             return body?.map((item) => ({
               value: item?.skill_name,
@@ -112,10 +113,10 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
   }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files);
-    const newImages = [...selectedImages, ...files].slice(0, 3);
+    const files = Array.from(e.target.files || []);
+    const newImages = [...selectedImages, ...files.map(file => ({ file, preview: URL.createObjectURL(file) }))].slice(0, 3);
     setSelectedImages(newImages);
-    setValue("images", newImages, { shouldValidate: true });
+    setValue("images", files);
   };
 
   const handleImageDelete = (indexToRemove: number) => {
@@ -123,7 +124,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
       (_, index) => index !== indexToRemove
     );
     setSelectedImages(updatedImages);
-    setValue("images", updatedImages, { shouldValidate: true });
+    setValue("images", updatedImages.map(img => img.file).filter(Boolean) as File[]);
   };
 
   const onSubmit = async (data: FormData) => {
@@ -132,9 +133,11 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
     const formData = new FormData();
 
     // Compress and append images to FormData
-    for (const file of data.images) {
-      const compressedImage = await compressImageToWebP(file);
-      formData.append(`file`, compressedImage, file.name);
+    for (const file of selectedImages) {
+      if (file.file) {
+        const compressedImage = await compressImageToWebP(file.file, 0.5, "portfolio", 0.5, "profile");
+        formData.append(`file`, compressedImage as Blob, file.file.name);
+      }
     }
 
     data.technologies.forEach((tech) => {
@@ -238,7 +241,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
                           className="rounded border border-green-300 mr-2 relative"
                         >
                           <img
-                            src={URL?.createObjectURL(image)}
+                            src={image.preview}
                             alt={`Selected ${index + 1}`}
                             className="w-28 h-20 object-cover rounded"
                           />

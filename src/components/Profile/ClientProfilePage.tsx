@@ -117,7 +117,7 @@ export const ClientProfilePage: React.FC = () => {
       const location = await getUserLocation();
       setLocalTime(currentTime);
       return console.log(
-        `${location.latitude}, ${location.longitude} - ${currentTime} local time`
+        `${(location as any)?.latitude || 0}, ${(location as any)?.longitude || 0} - ${currentTime} local time`
       );
     } catch (error) {
       return error;
@@ -156,9 +156,9 @@ export const ClientProfilePage: React.FC = () => {
     try {
       const formData = new FormData();
       const compressedImage = await compressImageToWebP(
-        isCropped ? croppedImage[0] : fullImage[0]
+        isCropped ? croppedImage![0] : fullImage![0], 0.5, "profile"
       );
-      formData.append("file", compressedImage);
+      formData.append("file", compressedImage as Blob);
 
       const response = await uploadImage(formData);
 
@@ -209,7 +209,7 @@ export const ClientProfilePage: React.FC = () => {
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
     reader.onload = () => {
-      setImageSrc(reader.result);
+      setImageSrc(reader.result as string);
     };
   }, []);
 
@@ -227,8 +227,8 @@ export const ClientProfilePage: React.FC = () => {
 
   const handleCrop = async () => {
     try {
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-      const file = new File([croppedImage], fileName, { type: "image/jpeg" });
+      const croppedImageBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+      const file = new File([croppedImageBlob as Blob], fileName, { type: "image/jpeg" });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {
@@ -433,7 +433,7 @@ export const ClientProfilePage: React.FC = () => {
                           onCropChange={isCropped ? undefined : setCrop}
                           onZoomChange={isCropped ? undefined : setZoom}
                           onCropComplete={onCropComplete}
-                          cropShape={modalType === "Profile Photo" && "round"}
+                          cropShape={modalType === "Profile Photo" ? "round" : "rect"}
                         />
                       </div>
                       <div className="flex flex-col items-center justify-center">
@@ -441,12 +441,12 @@ export const ClientProfilePage: React.FC = () => {
                           <TiMinus />
                           <Slider
                             aria-label="zoom-slider"
-                            value={zoom}
+                            value={[zoom]}
                             min={1}
                             max={3}
                             step={0.1}
-                            onChange={(val: number) => {
-                              !isCropped && setZoom(val);
+                            onValueChange={(val: number[]) => {
+                              !isCropped && setZoom(val[0]);
                             }}
                           >
                             <SliderTrack className="bg-slate-300">

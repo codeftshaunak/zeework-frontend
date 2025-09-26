@@ -184,7 +184,7 @@ const JobApply = ({ setPage, details }) => {
 
     // Add agency_id if applicant is agency member
     if (data.applicantType === "agency_member") {
-      jobData.agency_id = profile.agency._id;
+      (jobData as any).agency_id = (profile as any).agency._id;
     }
 
     try {
@@ -471,7 +471,7 @@ const JobApply = ({ setPage, details }) => {
                         <ReactQuill
                           theme="snow"
                           value={field.value}
-                          onChange={(value) => {
+                          onChange={(value: any) => {
                             const cleanedValue = removeTrailingEmptyTags(value);
                             field.onChange(cleanedValue);
                             trigger("coverLetter");
@@ -535,7 +535,7 @@ const JobApply = ({ setPage, details }) => {
 
                 {/* Submit Button */}
                 <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isLoading={isLoading}
+                  
                   loadingText="Apply"
                   type="submit"
                   spinner={<BtnSpinner />}

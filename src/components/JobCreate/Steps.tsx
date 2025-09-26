@@ -58,6 +58,7 @@ const Steps = ({ step, setStep }) => {
         description="Basic Information"
         complete={step > 1}
         active={step === 1}
+        finalStep={false}
         setStep={() => (step > 1 ? setStep(1) : () => {})}
       />
       <Step
@@ -65,12 +66,13 @@ const Steps = ({ step, setStep }) => {
         description="Experience"
         complete={step > 2}
         active={step === 2}
+        finalStep={true}
         setStep={() => (step > 2 ? setStep(2) : () => {})}
       />
       <Step
         step={3}
         description="Scope of your Work"
-        finalStep
+        finalStep={true}
         complete={step > 3}
         active={step === 3}
         setStep={() => (step > 3 ? setStep(3) : () => {})}

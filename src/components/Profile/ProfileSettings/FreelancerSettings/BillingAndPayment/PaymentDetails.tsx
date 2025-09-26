@@ -9,7 +9,7 @@ import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import { deleteBankDetails } from "../../../../../helpers/APIs/payments";
 import { Button } from "@/components/ui/migration-helpers";
 
-const PaymentDetails = ({ data, setData }) => {
+const PaymentDetails = ({ data, setData, setTab }) => {
   const [isHover, setIsHover] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +50,12 @@ const PaymentDetails = ({ data, setData }) => {
     <>
       {!payment_method ? (
         <div className="flex justify-center mt-7">
-          <MainButtonRounded variant="outline" onClick={() => setTab(2)}>
+          <MainButtonRounded 
+            variant="outline" 
+            onClick={() => setTab(2)}
+            noRounded={false}
+            className=""
+          >
             Add Payment Method
           </MainButtonRounded>
         </div>
@@ -249,7 +254,7 @@ const PaymentDetails = ({ data, setData }) => {
             No, I don&apos;t want
           </Button>
           <Button
-            isLoading={isLoading}
+            
             loadingText=" Yes, I want to removed"
             spinner={<BtnSpinner />}
             onClick={() => removePayment()}

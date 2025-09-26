@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const getInitialToastState = () => {
   try {
     const stored = sessionStorage.getItem("paymentNotify");
-    return (stored !== "true") | "false" | "undefined" ? false : true;
+    return (stored !== "true" && stored !== "false" && stored !== "undefined") ? false : true;
   } catch (error) {
     return true;
   }

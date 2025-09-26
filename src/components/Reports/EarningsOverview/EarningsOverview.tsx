@@ -11,7 +11,7 @@ import AvailableDetails from "./AvailableDetails";
 import InProgress from "./InProgress";
 import InReview from "./InReview";
 
-const EarningsOverview = ({ balance, isLoading }) => {
+const EarningsOverview = ({ balance, isLoading=false }) => {
   const [availableBalanceDetails, setAvailableBalanceDetails] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [inReview, setInReview] = useState(false);
@@ -108,8 +108,8 @@ const EarningsOverview = ({ balance, isLoading }) => {
           }
         />
       )}
-      {inReview && <InReview />}
-      {inProgress && <InProgress />}
+      {inReview && <InReview balance={balance} />}
+      {inProgress && <InProgress balance={balance} />}
     </div>
   );
 };

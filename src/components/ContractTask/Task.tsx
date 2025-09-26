@@ -10,8 +10,8 @@ import DataNotAvailable from "../DataNotAvailable/DataNotAvailable";
 const Task = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [taskDetails, setTaskDetails] = useState({});
-  const [jobDetails, setJobDetails] = useState({});
+  const [taskDetails, setTaskDetails] = useState<Record<string, any>>({});
+  const [jobDetails, setJobDetails] = useState<Record<string, any>>({});
 
   const getTask = async () => {
     setIsLoading(true);

@@ -46,14 +46,16 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
               // Handle both string and object formats
               const skillValue = typeof skill === 'string' ? skill : skill?.value || skill;
               const skillId = typeof skill === 'object' ? skill?._id : undefined;
+              const skillText = typeof skillValue === 'string' ? skillValue : String(skillValue);
+              const keyValue = skillId || (typeof skillValue === 'string' ? skillValue : index);
 
               return (
                 <Badge
-                  key={skillId || skillValue || index}
+                  key={keyValue}
                   variant="secondary"
                   className="px-3 py-1 text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200"
                 >
-                  {skillValue}
+                  {skillText}
                 </Badge>
               );
             })}

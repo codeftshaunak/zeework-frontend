@@ -27,8 +27,8 @@ import InvitationSkeleton from "../Skeletons/InvitationSkeleton";
 
 const CompleteJob = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [jobDetails, setJobDetails] = useState({});
-  const [timeSheet, setTimeSheet] = useState({});
+  const [jobDetails, setJobDetails] = useState<Record<string, any>>({});
+  const [timeSheet, setTimeSheet] = useState<Record<string, any>>({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
   const [active, setActiveTab] = useState(0);
 
@@ -86,10 +86,7 @@ const CompleteJob = () => {
             </Tabs.Trigger>
           )}
         </Tabs.List>
-        <Tabs.Indicator
-          mt="1.5px"
-        />
-        <SmoothMotion key={activeTab}>
+        <SmoothMotion key={active}>
           <Tabs.Content>
             <Tabs.Content paddingX={0}>
               {isLoading ? (

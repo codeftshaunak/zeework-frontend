@@ -186,7 +186,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                         // {...register("withdraw_amount")}
                         onChange={(e) => {
                           const value = e.target?.value;
-                          const numValue = parseFloat(value || 0);
+                          const numValue = parseFloat(value || "0");
 
                           if (value === "") {
                             setCustomAmount(0);
@@ -232,7 +232,7 @@ const GetFreelancerPaid = ({ isModal, setIsModal, balance }) => {
                   Cancel
                 </button>
                 <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isLoading={isLoading}
+                  
                   loadingText="Get Paid"
                   spinner={<BtnSpinner />}
                   paddingX={10}

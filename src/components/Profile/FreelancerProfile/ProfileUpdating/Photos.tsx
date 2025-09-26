@@ -70,8 +70,8 @@ const Photos = ({ setIsModal }) => {
         return;
       }
 
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-      const file = new File([croppedImage], fileName, { type: "image/jpeg" });
+      const croppedImageBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+      const file = new File([croppedImageBlob as any], fileName, { type: "image/jpeg" });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {
@@ -91,10 +91,10 @@ const Photos = ({ setIsModal }) => {
     try {
       const formData = new FormData();
       const compressedImage = await compressImageToWebP(
-        isCropped ? croppedImage[0] : fullImage[0]
+        isCropped ? (croppedImage as any)[0] : fullImage[0]
       );
 
-      formData.append("file", compressedImage);
+      formData.append("file", compressedImage as Blob);
 
       const { code, body } = await uploadImage(formData);
 

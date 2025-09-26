@@ -127,7 +127,7 @@ const Education: React.FC<EducationProps> = ({ type, defaultValue, setIsModal, s
       } else if (type === "Update Education") {
         response = await updateFreelancer({
           education: {
-            educationId: formattedData._id,
+            educationId: formattedData?._id || "",
             degree_name: formattedData.degree_name,
             institution: formattedData.institution,
             start_date: formattedData.start_date,

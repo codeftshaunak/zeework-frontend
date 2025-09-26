@@ -11,7 +11,7 @@ const LatestGig = () => {
   const getAllGigs = async () => {
     try {
       setIsLoading(true);
-      const { code, body } = await getSearchGigs();
+      const { code, body } = await getSearchGigs("");
       if (code === 200) setGigs(body.gigs);
     } catch (error) {
       console.log(error);
@@ -35,8 +35,8 @@ const LatestGig = () => {
           <GigDisplayCards
             allOffers={gigs}
             purchasesReq={[]}
-            // tabIndex={tabIndex}
-            isLoading={isLoading}
+            tabIndex={0}
+            isLoading={false}
           />
         </div>
       </div>

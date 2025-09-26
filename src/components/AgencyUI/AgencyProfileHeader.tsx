@@ -107,7 +107,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
       }
 
       const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-      const file = new File([croppedImage], fileName, { type: "image/jpeg" });
+      const file = new File([croppedImage as BlobPart], fileName, { type: "image/jpeg" });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {
@@ -122,8 +122,10 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
     try {
       if (modalType === "Profile Photo" || modalType === "Cover Photo") {
         const formData = new FormData();
-        const compressedImage = await compressImageToWebP(
-          isCropped ? croppedImage?.[0] : fullImage?.[0]
+        const compressedImage : any = await compressImageToWebP(
+          isCropped ? croppedImage?.[0] : fullImage?.[0],
+          0.5,
+          "profile"
         );
 
         formData.append("imageFile", compressedImage);
@@ -161,7 +163,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
   };
 
   // handle open modal
-  const handleUpdate = (type, data) => {
+  const handleUpdate = (type, data={}) => {
     setImageSrc(null);
     setFileName("");
     setCroppedImage(null);
@@ -352,7 +354,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                           <TiMinus />
                           <Slider
                             aria-label="zoom-slider"
-                            value={zoom}
+                            value={zoom as any}
                             min={1}
                             max={3}
                             step={0.1}
@@ -446,7 +448,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                   <div className="text-right mt-10">
                     <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-green-600 text-white px-7 py-2 hover:bg-green-700 disabled:opacity-50"
                       disabled={isLoading}
-                      onClick={() => onSubmit()}
+                      onClick={() => onSubmit({})}
                     >
                       {isLoading ? (
                         <>

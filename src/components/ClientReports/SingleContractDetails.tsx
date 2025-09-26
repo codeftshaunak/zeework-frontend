@@ -40,8 +40,8 @@ import ErrorMsg from "../utils/Error/ErrorMsg";
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 
 const SingleContractDetails = () => {
-  const [jobDetails, setJobDetails] = useState({});
-  const [freelancerDetails, setFreelancerDetails] = useState({});
+  const [jobDetails, setJobDetails] = useState<any>({});
+  const [freelancerDetails, setFreelancerDetails] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isApiLoading, setIsApiLoading] = useState(false);
   const { id } = useParams();
@@ -49,7 +49,7 @@ const SingleContractDetails = () => {
   const [reviewModal, setReviewModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [taskDetails, setTaskDetails] = useState([]);
-  const [timeSheet, setTimeSheet] = useState({});
+  const [timeSheet, setTimeSheet] = useState<Record<string, any>>({});
   const [timeSheetLoading, setTimeSheetLoading] = useState(true);
   const [feedbackModal, setFeedbackModal] = useState(false);
   const [active, setActiveTab] = useState(0);
@@ -335,10 +335,7 @@ const SingleContractDetails = () => {
                 </Tabs.Trigger>
               )}
             </Tabs.List>
-            <Tabs.Indicator
-              mt="1.5px"
-            />
-            <SmoothMotion key={activeTab}>
+            <SmoothMotion key={active}>
               <Tabs.Content>
                 <Tabs.Content paddingX={0}>
                   {isLoading ? (

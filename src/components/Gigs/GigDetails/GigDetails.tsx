@@ -13,13 +13,13 @@ import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useRouter, useParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getGigDetails } from "../../../helpers/APIs/gigApis";
-import HomeLayout from "../../../Layouts/HomeLayout";
 // Import Swiper styles
 import "swiper/css";
 // import required modules
 import { Navigation } from "swiper/modules";
 import DataNotAvailable from "../../DataNotAvailable/DataNotAvailable";
 import GigDetailsSkeleton from "../../Skeletons/GigDetailsSkeleton";
+import HomeLayout from "@/components/Layouts/HomeLayout";
 
 const GigDetails = () => {
   const [gigData, setGigData] = useState({});
@@ -41,7 +41,7 @@ const GigDetails = () => {
     project_description,
     requirements,
     steps,
-  } = gigData;
+  } = gigData as any;
 
   const handlePlayPauseClick = () => {
     if (isPlaying) {
@@ -65,7 +65,7 @@ const GigDetails = () => {
 
   // handle back button
   const handleBackward = () => {
-    router.push(-1);
+    router.back();
   };
 
   // handle edit button
@@ -109,9 +109,9 @@ const GigDetails = () => {
           </button>
           <button
             onClick={handleGigEdit}
-            disabled={!gigData?.title}
+            disabled={!(gigData as any)?.title}
             className={`text-start px-10 py-1 rounded border-2 border-[var(--primarytextcolor)]  text-black  bg-white transition h-fit mt-auto w-fit font-semibold ${
-              gigData?.title
+              (gigData as any)?.title
                 ? "hover:text-white hover:bg-[var(--primarytextcolor)]"
                 : "cursor-not-allowed opacity-50"
             }`}
@@ -120,7 +120,7 @@ const GigDetails = () => {
           </button>
         </div>
         {isLoading ? (
-          <GigDetailsSkeleton />
+          <GigDetailsSkeleton isClient={false} />
         ) : title ? (
           <div className="lg:grid grid-cols-3 mt-3">
             <div className="col-span-2">

@@ -57,10 +57,11 @@ interface FormData {
 }
 
 interface ProjectCardProps {
-  info: ProjectInfo;
+  info?: ProjectInfo;
   setIsDeleteAgencyId: (id: string) => void;
   isPrivate: boolean;
   skills: any;
+  
 }
 
 interface RootState {
@@ -159,7 +160,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
       for (const image of selectedImages) {
         if (!image.file) continue;
 
-        const compressedImage = await compressImageToWebP(image.file);
+        const compressedImage = await compressImageToWebP(image.file, 0.5, "profile");
 
         const formData = new FormData();
         formData.append("imageFile", compressedImage);

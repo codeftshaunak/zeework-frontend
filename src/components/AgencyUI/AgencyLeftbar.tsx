@@ -5,7 +5,7 @@ import AgencyProjects from "./AgencyPorjects";
 import AgencyServices from "./AgencyServices";
 import AgencyWorkHistory from "./AgencyWorkHistory";
 
-const AgencyLeftbar = ({ agency, setAgency }) => {
+const AgencyLeftbar = ({ agency, setAgency }: any) => {
   const { agency_overview } = agency || {};
   return (
     <div className="flex flex-col p-5 border-r border-gray-300 lg:mr-5">

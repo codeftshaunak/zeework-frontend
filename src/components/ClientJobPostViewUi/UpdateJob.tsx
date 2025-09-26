@@ -9,7 +9,7 @@ import SecondStep from "../JobCreate/SecondStep";
 import FinalStep from "../JobCreate/FinalStep";
 import Preview from "../JobCreate/Preview";
 import HomeLayout from "../../components/Layouts/HomeLayout";
-import { useRouter, useLocation } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { updateJob } from "../../helpers/APIs/jobApis";
 import { useDispatch, useSelector } from "react-redux";
 import { setDashboard } from "../../redux/pagesSlice/pagesSlice";
@@ -53,7 +53,7 @@ const UpdateJob = () => {
     } else {
       toast.warning(msg);
 
-      router.push(-1);
+      router.back();
     }
     setIsLoading(false);
   };
@@ -83,7 +83,7 @@ const UpdateJob = () => {
                 <FinalStep
                   setStep={setStep}
                   onCallback={onSubmit}
-                  isLoading={isLoading}
+                  
                   defaultValues={jobDetails}
                 />
               )}

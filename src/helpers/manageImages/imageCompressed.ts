@@ -1,4 +1,4 @@
-export const compressImageToWebP = (file, quality = 0.5, identifier) => {
+export const compressImageToWebP = (file, quality = 0.5, identifier="") => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -32,7 +32,7 @@ export const compressImageToWebP = (file, quality = 0.5, identifier) => {
           (blob) => {
             // Create a new Blob with a unique name
             const uniqueName = `${identifier}-${Date.now()}.webp`;
-            const uniqueBlob = new Blob([blob], { type: "image/webp" });
+            const uniqueBlob : any = new Blob([blob], { type: "image/webp" });
             uniqueBlob.name = uniqueName;
             resolve(uniqueBlob);
           },

@@ -31,7 +31,7 @@ const Modal = ({
         <textarea
           className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
           placeholder="Enter your message..."
-          rows="4"
+          rows={4}
           value={messages}
           onChange={HandleTextValue}
         />
@@ -49,7 +49,7 @@ const Modal = ({
           Cancel
         </button>
         <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-          isLoading={isLoading}
+          
           loadingText={offer ? "Accept Offer" : "Accept Interview"}
           type="submit"
           spinner={<BtnSpinner />}

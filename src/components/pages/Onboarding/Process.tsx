@@ -63,18 +63,18 @@ const getSchema = (page, role) => {
 const Process = () => {
   const [page, setPage] = useState(0);
   const router = useRouter();
-  const [userDetails, setUserDetails] = useState([]);
-  const [options, setOptions] = useState([]);
-  const [skillOptions, setSkillOptions] = useState([]);
+  const [userDetails, setUserDetails] = useState([] as any);
+  const [options, setOptions] = useState([] as any);
+  const [skillOptions, setSkillOptions] = useState([] as any);
   const [isLoading, setIsLoading] = useState(false);
   const state = useSelector((state) => state);
-  const role = state.auth.role;
-  const [selectedSubCategory, setSelectedSubCategory] = useState([]);
-  const [subCategoryOption, setSubCategoryOption] = useState([]);
+  const role = (state as any).auth.role;
+  const [selectedSubCategory, setSelectedSubCategory] = useState([] as any);
+  const [subCategoryOption, setSubCategoryOption] = useState([] as any);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([] as any);
   const [description, setDescription] = useState("");
-  const { getUserDetails } = useContext(CurrentUserContext);
+  const { getUserDetails } = useContext(CurrentUserContext) || {};
   const userName = sessionStorage.getItem("userName");
 
   const {
@@ -84,10 +84,10 @@ const Process = () => {
     trigger,
     reset,
   } = useForm({
-    resolver: yupResolver(getSchema(page, role)),
+    resolver: yupResolver(getSchema(page, role) || {} as any),
   });
 
-  const onSubmit = async (body) => {
+  const onSubmit = async (body: any) => {
     setIsLoading(true);
     try {
       const { code, msg } = await updateFreelancerProfile(body);
@@ -352,7 +352,7 @@ const Process = () => {
                         isMulti
                         isLoading={!options?.length}
                       />
-                      {errors.category && (
+                      {(errors as any).category && (
                         <ErrorMsg msg={errors.category.message} />
                       )}
                     </div>
@@ -383,7 +383,7 @@ const Process = () => {
                         isLoading={!subCategoryOption?.length}
                       />
                       {errors.sub_categories && (
-                        <ErrorMsg msg={errors.sub_categories.message} />
+                        <ErrorMsg msg={errors.sub_categories.message || ''} />
                       )}
                     </div>
                   </div>
@@ -410,15 +410,14 @@ const Process = () => {
                       </span>
                       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="Professional Virtual Assistant"
-                        _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
                        
                         onChange={(e) => {
-                          setValue("professional_role", e.target.value);
+                          setValue("professional_role" as any, e.target.value);
                           trigger("professional_role");
                         }}
                       />
-                      {errors.professional_role && (
+                      {(errors as any).professional_role && (
                         <ErrorMsg msg={errors.professional_role.message} />
                       )}
                     </div>
@@ -429,7 +428,7 @@ const Process = () => {
                       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="$ Your Hourly Rate"
                         borderColor={"var(--bordersecondary)"}
-                        _placeholder={{ color: "gray.500" }}
+                        placeholder="Business Name"
                        
                         type="number"
                         onChange={(e) => {
@@ -437,11 +436,11 @@ const Process = () => {
                             e.target.value === ""
                               ? null
                               : Number(e.target.value);
-                          setValue("hourly_rate", value);
+                          setValue("hourly_rate" as any, value);
                           trigger("hourly_rate");
                         }}
                       />
-                      {errors.hourly_rate && (
+                      {(errors as any).hourly_rate && (
                         <ErrorMsg msg={errors.hourly_rate.message} />
                       )}
                     </div>
@@ -456,10 +455,10 @@ const Process = () => {
                         <ReactQuill
                           theme="snow"
                           value={description}
-                          onChange={(value) => {
+                          onChange={(value: any) => {
                             const cleanedValue = removeTrailingEmptyTags(value);
                             setDescription(value);
-                            setValue("description", cleanedValue);
+                            setValue("description" as any, cleanedValue);
                             trigger("description");
                           }}
                           className="h-64 [&>*]:rounded-b-md"
@@ -467,7 +466,7 @@ const Process = () => {
                           formats={formats}
                         />
                       </div>
-                      {errors.description && (
+                      {(errors as any).description && (
                         <ErrorMsg msg={errors.description.message} />
                       )}
                     </div>
@@ -501,7 +500,7 @@ const Process = () => {
                         onChange={(e) => {
                           handleSelectChange(e);
                           setValue(
-                            "skills",
+                            "skills" as any,
                             e.map((option) => option.value) || []
                           );
                           trigger("skills");
@@ -509,7 +508,7 @@ const Process = () => {
                         value={selectedOptions}
                         isLoading={!skillOptions?.length}
                       />
-                      {errors.skills && (
+                      {(errors as any).skills && (
                         <ErrorMsg msg={errors.skills.message} />
                       )}
                     </div>
@@ -532,17 +531,16 @@ const Process = () => {
                       </span>
                       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="Write Your Business Name"
-                        _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
                        
                         accept="image/*"
                         onChange={(e) => {
-                          setValue("business_name", e.target.value);
-                          trigger("business_name");
+                          setValue("business_name" as any, e.target.value);
+                          trigger("business_name" as any);
                         }}
                       />
-                      {errors.business_name && (
-                        <ErrorMsg msg={errors.business_name.message} />
+                      {(errors as any).business_name && (
+                        <ErrorMsg msg={(errors as any).business_name.message} />
                       )}
                     </div>
 
@@ -550,19 +548,18 @@ const Process = () => {
                       <span className="font-medium">
                         {"Write Your Business Details"}
                       </span>
-                      <spanarea
+                      <textarea
                         placeholder="Write Your Business Details"
-                        _placeholder={{ color: "gray.500" }}
                         borderColor={"var(--bordersecondary)"}
                         style={{ resize: "none" }}
                         rows={5}
                         onChange={(e) => {
-                          setValue("brief_description", e.target.value);
-                          trigger("brief_description");
+                          setValue("brief_description" as any, e.target.value);
+                          trigger("brief_description" as any);
                         }}
                       />
-                      {errors.brief_description && (
-                        <ErrorMsg msg={errors.brief_description.message} />
+                      {(errors as any).brief_description && (
+                        <ErrorMsg msg={(errors as any).brief_description.message} />
                       )}
                     </div>
                   </div>
@@ -571,7 +568,7 @@ const Process = () => {
             )}
             <button 
               className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground max-sm:w-full mb-10"
-              isLoading={isLoading}
+              disabled={isLoading}
               loadingText="Save & Continue"
               transition="0.3s ease-in-out"
               _hover={{

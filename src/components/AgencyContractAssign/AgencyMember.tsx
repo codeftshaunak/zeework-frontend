@@ -12,12 +12,12 @@ import { useDispatch } from "react-redux";
 import { clearMessageState } from "../../redux/messageSlice/messageSlice";
 import { VStack, Box, Avatar, Text } from "@/components/ui/migration-helpers";
 
-const AgencyMember = ({ details, contractRef, setJobDetails }) => {
+const AgencyMember = ({ details, contractRef, setJobDetails }: any) => {
   const { profile_image, firstName, lastName, professional_role } = details;
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isAssigned, setIsAssigned] = useState(false);
-  const { socket } = useContext(SocketContext);
+  const { socket } = useContext(SocketContext) as any;
   const dispatch = useDispatch();
 
   const assignFreelancer = async () => {
@@ -79,12 +79,11 @@ const AgencyMember = ({ details, contractRef, setJobDetails }) => {
             name={firstName + " " + lastName}
             size="lg"
           />
-          <Text mt={2} className="text-2xl font-semibold">
+          <Text className="text-2xl font-semibold mt-2">
             {firstName + " " + lastName}
           </Text>
           <Text
-            my={1}
-           className="text-center overflow-hidden w-full text-sm">
+           className="text-center overflow-hidden w-full text-sm my-1">
             {professional_role}
           </Text>
         </Box>
@@ -92,6 +91,8 @@ const AgencyMember = ({ details, contractRef, setJobDetails }) => {
         <MainButtonRounded
           onClick={() => setIsModal(true)}
           isDisable={isAssigned}
+          noRounded
+          className=""
         >
           {isAssigned ? "Already Assigned" : "Assign Contract"}
         </MainButtonRounded>

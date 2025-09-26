@@ -2,7 +2,7 @@
 
 import { toast } from "@/lib/toast";
 import { useCallback, useEffect, useState } from "react";
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import {
   getCategories,
   getSubCategory,
@@ -25,8 +25,6 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   const [gigData, setGigData] = useState({});
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
-  const path = pathname;
   const router = useRouter();
   const { id } = useParams();
 
@@ -107,12 +105,12 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
       const uploadResponse = { images: [], video: "" };
 
       // Check existing uploaded or new images
-      const existUploaded = formData.images
+      const existUploaded = (formData as any).images
         .filter((item) => !Object.prototype.hasOwnProperty.call(item, "file"))
         .map((item) => item.preview);
       uploadResponse.images = existUploaded;
 
-      const readyToUpload = formData.images.filter((item) =>
+      const readyToUpload = (formData as any).images.filter((item) =>
         Object.prototype.hasOwnProperty.call(item, "file")
       );
 
@@ -123,8 +121,8 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
         // Compress and append images to FormData
         for (const sf of readyToUpload) {
           try {
-            const compressedImage = await compressImageToWebP(sf.file);
-            imagesFormData.append("imageFiles", compressedImage);
+            const compressedImage = await compressImageToWebP(sf.file, 0.5, "profile");
+            imagesFormData.append("imageFiles", compressedImage as Blob);
           } catch (error) {
             console.error(`Error compressing image ${sf.file.name}:`, error);
             // Handle compression error if needed
@@ -139,10 +137,10 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
         }
       }
 
-      if (formData.video && formData.video.file) {
+      if ((formData as any).video && (formData as any).video.file) {
         // Prepare uploading form state for video
         const videoFormData = new FormData();
-        videoFormData.append("videoFile", formData.video.file);
+        videoFormData.append("videoFile", (formData as any).video.file);
         videoFormData.append("ref_id", ref_id);
         videoFormData.append("ref", "gig");
 
@@ -156,14 +154,14 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
 
       return uploadResponse;
     },
-    [formData.images, formData.video]
+    [(formData as any).images, (formData as any).video]
   );
 
   const handleUpdateGig = async (data) => {
     setIsLoading(true);
     // Transform data to the desired format
     const transformedData = {
-      _id: gigData._id,
+      _id: (gigData as any)._id,
       title: data?.title,
       category: data?.category?.category_id,
       sub_category: data?.sub_category._id,
@@ -188,7 +186,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
       privacy_notice: data?.privacy_notice,
     };
     try {
-      const mediaResponse = await handleUpload(gigData._id);
+      const mediaResponse = await handleUpload((gigData as any)._id);
 
       const response = await updateFreelancerGig({
         ...transformedData,
@@ -197,7 +195,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
       });
       if (response?.code === 200) {
         toast.default(response.msg);
-        router.push(-1);
+        router.back();
         setIsEdit(false);
       }
     } catch (error) {
@@ -207,7 +205,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
   };
 
   const firstPageGoBackward = () => {
-    router.push(-1);
+    router.back();
   };
 
   return (
@@ -219,7 +217,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
           submitCallback={updateFormData}
           formValues={gigData}
           isEdit={true}
-          isLoading={isLoading}
+          
         />
       )}
       {activeStep === 1 && (
@@ -228,7 +226,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
           onBack={goBackward}
           submitCallback={updateFormData}
           formValues={gigData}
-          isLoading={isLoading}
+          
         />
       )}
       {activeStep === 2 && (
@@ -237,7 +235,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
           onBack={goBackward}
           submitCallback={updateFormData}
           formValues={gigData}
-          isLoading={isLoading}
+          
         />
       )}{" "}
       {activeStep === 3 && (
@@ -246,7 +244,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
           onBack={goBackward}
           submitCallback={updateFormData}
           formValues={gigData}
-          isLoading={isLoading}
+          
         />
       )}
       {activeStep === 4 && (

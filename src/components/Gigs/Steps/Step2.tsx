@@ -114,9 +114,9 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   }, [selectedImages, setValue, trigger]);
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...(methods as any)}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Create a Gig Gallery" onBackward={onBack}>
+        <GigCreateLayout title="Create a Gig Gallery" onBackward={onBack} isLoading={false}>
           <div className="flex flex-col gap-[2px] mt-6">
             <label htmlFor="fileInput" className="text-xl font-[600] pb-0 mb-0">
               Project Images

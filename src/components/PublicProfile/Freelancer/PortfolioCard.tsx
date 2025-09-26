@@ -99,7 +99,7 @@ const PortfolioCard = ({ portfolio }) => {
             {project_name}
           </p>
           <div
-            onScroll={(e) => {
+            onScroll={(e: any) => {
               setIsScrolled(e.target.scrollTop !== 0);
             }}
             className="overflow-y-scroll h-[600px] bg-white"
@@ -110,7 +110,7 @@ const PortfolioCard = ({ portfolio }) => {
               "&::WebkitScrollbar": {
                 display: "none",
               },
-            }}
+            } as any}
           >
             <div className="rounded-lg overflow-hidden relative">
               <Swiper

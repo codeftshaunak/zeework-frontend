@@ -9,7 +9,7 @@ import {
 } from "date-fns";
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
 
-const JobTimeSheet = ({ data, isLoading }) => {
+const JobTimeSheet = ({ data, isLoading=false } : { data: any; isLoading?: boolean}) => {
   const weeks = data?.data || [];
 
   const getCurrentWeek = () => {

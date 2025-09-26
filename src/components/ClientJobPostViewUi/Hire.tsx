@@ -23,10 +23,7 @@ export const Hire = () => {
             <Tabs.Trigger className="px-0 text-black">Offers</Tabs.Trigger>
             <Tabs.Trigger className="px-0 text-black">Hired</Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Indicator
-            className=" bg-fg-brand"
-          />
-          <SmoothMotion key={activeTab}>
+          <SmoothMotion key={active}>
             <Tabs.Content>
               <Tabs.Content>
                 <div className="h-[196px] px-8 pt-8 pb-4 flex justify-center items-center ">

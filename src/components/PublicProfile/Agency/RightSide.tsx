@@ -65,7 +65,7 @@ const RightSide = ({ details }) => {
         {/* Agency Focus (optional) */}
         {/* {agency_focus?.length > 0 && (
           <div className="mb-4">
-            <Title size="sm">Agency Focus:</Title>
+            <Title size="lg" size="sm">Agency Focus:</Title>
             <ul className="flex flex-wrap gap-1 mt-1">
               {agency_focus.map((item, index) => (
                 <li key={index} className="px-2 py-1 text-sm border rounded-full">

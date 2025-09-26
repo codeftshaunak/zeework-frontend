@@ -40,7 +40,7 @@ export function AgencyUpdatedModal({
 }) {
   const [isLading, setIsLoading] = useState(false);
   const { control, register, handleSubmit, reset } = useForm();
-  const [categoriesInfo, setCategoriesInfo] = useState({});
+  const [categoriesInfo, setCategoriesInfo] = useState <Record<string, any>>({});
   const [subCategories, setSubCategories] = useState([]);
   const [skills, setSkills] = useState([]);
   const [selectedImage, setSelectedImage] = useState({});

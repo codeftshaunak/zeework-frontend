@@ -155,7 +155,7 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
       } else if (type === "Update Experience") {
         response = await updateFreelancer({
           experience: {
-            experienceId: formattedData._id,
+            experienceId: formattedData?._id || "",
             company_name: formattedData.company_name,
             start_date: formattedData.start_date,
             end_date: formattedData.end_date,
@@ -312,7 +312,7 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
                     placeholder="Select Location"
                     options={countries}
                     onChange={(data) => {
-                      setValue("job_location", data.name);
+                      setValue("job_location", data?.name || data?.value);
                       trigger("job_location");
                     }}
                   />

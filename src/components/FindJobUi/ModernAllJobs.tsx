@@ -151,7 +151,7 @@ const ModernAllJobs = () => {
           </div>
 
           <div className="w-full">
-            <ModernJobCard isLoading={isLoading} jobs={latestJobs} />
+            <ModernJobCard  jobs={latestJobs} />
           </div>
 
           {latestJobs?.length > 0 && (

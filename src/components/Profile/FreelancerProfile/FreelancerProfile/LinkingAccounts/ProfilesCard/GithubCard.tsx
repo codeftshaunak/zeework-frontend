@@ -12,7 +12,7 @@ const GithubCard = ({ data, isPublic }) => {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { user_id } = data || {};
-  const { html_url, created_at, avatar_url, name, followers } = details;
+  const { html_url, created_at, avatar_url, name, followers } = details as any || {};
 
   useEffect(() => {
     const fetchGithubProfile = async () => {

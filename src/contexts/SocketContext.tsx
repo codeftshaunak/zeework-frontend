@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState, useContext } from "react";
 import { io } from "socket.io-client";
 import { socketURL } from "../helpers/APIs/proxy";
 
-const SocketContext = createContext();
+const SocketContext = createContext<any>({});
 
 const createSocket = (userId, role) => {
   const newSocket = io(socketURL, {

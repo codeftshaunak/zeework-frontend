@@ -16,9 +16,9 @@ const Home = () => {
   useEffect(() => {
     if (token) {
       if (role == 1) {
-        router.push("/find-job", { replace: true });
+        router.push("/find-job", );
       } else {
-        router.push("/client-dashboard", { replace: true });
+        router.push("/client-dashboard", );
       }
     }
   }, [token, role, navigate]);

@@ -43,7 +43,7 @@ interface AgencyDetails {
 }
 
 interface LeftSideProps {
-  details: AgencyDetails;
+  details?: AgencyDetails;
 }
 
 const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
@@ -55,13 +55,13 @@ const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
   return (
     <div className="flex flex-col p-5">
       <div>
-        <Title>Overview</Title>
+        <Title size="lg">Overview</Title>
         <article>
           <div dangerouslySetInnerHTML={{ __html: agency_overview || "" }} />
         </article>
       </div>
       <div>
-        <Title>Services</Title>
+        <Title size="lg">Services</Title>
         <div className="flex flex-wrap gap-2">
           {agency_services?.category?.map((i) => (
             <span
@@ -83,7 +83,7 @@ const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
       <div>
         {agency_skills && agency_skills.length > 0 && (
           <>
-            <Title>Skills</Title>
+            <Title size="lg">Skills</Title>
             <div className="flex flex-wrap gap-2">
               {agency_skills.map((item, index) => (
                 <span
@@ -98,7 +98,7 @@ const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
         )}
       </div>
       <div className="w-full">
-        <Title>Projects</Title>
+        <Title size="lg">Projects</Title>
         {agency_portfolio && agency_portfolio.length > 0 ? (
           <div className="relative z-0 mt-3">
             <Swiper

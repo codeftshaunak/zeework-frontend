@@ -44,8 +44,8 @@ const AgencyProjects = ({ agency, setAgency }) => {
 
     // Compress and append images to FormData
     for (const image of selectedImages) {
-      const compressedImage = await compressImageToWebP(image);
-      if (compressedImage) imagesFormData.append("imageFiles", compressedImage);
+      const compressedImage = await compressImageToWebP(image, 0.5, "agency-project");
+      if (compressedImage) imagesFormData.append("imageFiles", compressedImage as Blob);
     }
 
     try {
@@ -77,7 +77,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
   const getAllSkills = async () => {
     try {
       const skillsPromises = agency_services?.category?.map((c) =>
-        getSkills(c._id)
+        getSkills(c._id, null)
       );
       const skillsResponses = await Promise.all(skillsPromises);
       const skills = skillsResponses?.flatMap(({ code, body }) => {
@@ -165,6 +165,8 @@ const AgencyProjects = ({ agency, setAgency }) => {
                     <ProjectCard
                       info={item}
                       setIsDeleteAgencyId={setIsDeleteAgencyId}
+                      isPrivate={false}
+                      skills={[]}
                     />
                   </SwiperSlide>
                 ))}
@@ -248,7 +250,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
                     name="technologies"
                     render={({ field: { onChange, ref } }) => (
                       <Select
-                        inputRef={ref}
+                        ref={ref}
                         required
                         closeMenuOnSelect={false}
                         onChange={(val) => onChange(val.map((c) => c.value))}
@@ -323,7 +325,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
           <div className="mt-10 text-right">
             <button
               className="inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground"
-              isLoading={isLoading}
+              
               loadingText="Submit"
               type="submit"
               spinner={<BtnSpinner />}
@@ -352,7 +354,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
           </button>
           <button
             className="inline-flex items-center justify-center w-full text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground"
-            isLoading={isLoading}
+            
             loadingText=" Yes, I want to Delete"
             onClick={handleDeleteAgency}
             spinner={<BtnSpinner />}

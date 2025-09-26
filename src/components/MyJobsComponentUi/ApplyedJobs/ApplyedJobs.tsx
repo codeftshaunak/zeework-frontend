@@ -16,7 +16,8 @@ import {
   Button,
   Box,
 } from "@/components/ui/migration-helpers";
-import { Link, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
+import Link from "next/link";
 import HorizontalCardSkeleton from "../../Skeletons/HorizontalCardSkeleton";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { useState } from "react";
@@ -94,21 +95,21 @@ const ApplyedJobs = ({ applyJobs, loading }) => {
                       >
                         <div className="text-[#22C35E] text-lg font-medium capitalize text-center">
                           <Link
-                            to={`/find-job/${item?._id}`}
+                            href={`/find-job/${item?._id}`}
                             className="max-[420px]:block hidden"
                           >
                             {item?.title.slice(0, 15)}
                             {item?.title?.length >= 15 ? "..." : ""}
                           </Link>
                           <Link
-                            to={`/find-job/${item?._id}`}
+                            href={`/find-job/${item?._id}`}
                             className="sm:hidden max-[420px]:hidden"
                           >
                             {item?.title.slice(0, 25)}
                             {item?.title?.length >= 25 ? "..." : ""}
                           </Link>
                           <Link
-                            to={`/find-job/${item?._id}`}
+                            href={`/find-job/${item?._id}`}
                             className="max-sm:hidden block"
                           >
                             {item?.title}

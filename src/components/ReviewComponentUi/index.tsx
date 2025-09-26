@@ -126,7 +126,7 @@ const ReviewComponent = () => {
       receiver_id: receiver_id,
       public_feedback: {
         ...data.public_feedback,
-        average_rating: totalScore,
+        average_rating: Number(totalScore),
         feedback_message: feedbackMessage,
       },
       private_feedback: {

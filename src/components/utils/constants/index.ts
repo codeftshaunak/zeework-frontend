@@ -1,4 +1,4 @@
-export function calculateProfileCompletion(profile) {
+export function calculateProfileCompletion(profile: any) {
   const profileAttributes = {
     professional_role: 10,
     profile_image: 10,
@@ -19,7 +19,7 @@ export function calculateProfileCompletion(profile) {
 
   let totalWeight = 0;
   let completedWeight = 0;
-  const uncompletedAttributes = [];
+  const uncompletedAttributes: string[] = [];
 
   for (const attribute in profileAttributes) {
     totalWeight += profileAttributes[attribute];

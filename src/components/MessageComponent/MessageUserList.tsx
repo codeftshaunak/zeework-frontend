@@ -48,7 +48,7 @@ const MessageUserList = ({
             onClick={() => {
               router.push(
                 `/message/${userId}?contract_ref=${user?.contract_details?.contract_ref}`,
-                { replace: true }
+                
               );
               setQuery("");
               if (handleOnClose) handleOnClose();

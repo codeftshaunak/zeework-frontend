@@ -2,7 +2,7 @@ import React from "react";
 
 import HorizontalCardSkeleton from "../Skeletons/HorizontalCardSkeleton";
 
-const GenaralStats = ({ stats, isLoading }) => {
+const GenaralStats = ({ stats, isLoading= false }) => {
   return (
     <div>
       <h2 className="mt-10 mb-8 text-[25px] font-semibold">General Stats</h2>

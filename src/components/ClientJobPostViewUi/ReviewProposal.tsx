@@ -161,7 +161,6 @@ export const ReviewProposal = ({ proposals, isProposalsLoading }) => {
               </Tabs.Trigger>
               {/* <Tab>Messaged</Tabs.Trigger> */}
             </Tabs.List>
-            <Tabs.Indicator className="bg-fg-brand" />
             <Tabs.Content className="w-full">
               {isProposalsLoading ? (
                 <div>

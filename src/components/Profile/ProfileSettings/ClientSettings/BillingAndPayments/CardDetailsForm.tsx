@@ -30,7 +30,7 @@ import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 import { useDispatch } from "react-redux";
 import { hideToast } from "../../../../../redux/toastSlice/toastSlice";
 
-export const CardDetailsForm = ({ setCard }) => {
+export const CardDetailsForm = ({ setCard, setTab }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -236,7 +236,7 @@ export const CardDetailsForm = ({ setCard }) => {
             placeholder="Select Country"
             options={countries}
             onChange={(data) => {
-              setValue("address_country", data.name),
+              setValue("address_country", data?.name || data?.value),
                 trigger("address_country");
             }}
           />
@@ -295,7 +295,7 @@ export const CardDetailsForm = ({ setCard }) => {
         </InputGroup>
       </div>
       <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-        isLoading={isLoading}
+        
         type="submit"
         paddingX={isLoading ? 5 : 10}
         loadingText="Adding Card"

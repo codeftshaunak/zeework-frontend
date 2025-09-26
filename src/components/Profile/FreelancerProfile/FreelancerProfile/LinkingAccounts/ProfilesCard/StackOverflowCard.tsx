@@ -12,7 +12,7 @@ const StackOverflowCard = ({ data, isPublic }) => {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { user_id } = data || {};
-  const { creation_date, link, profile_image, display_name } = details;
+  const { creation_date, link, profile_image, display_name } = details as any || {};
 
   useEffect(() => {
     const fetchGithubProfile = async () => {

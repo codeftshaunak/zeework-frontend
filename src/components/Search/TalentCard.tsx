@@ -2,7 +2,8 @@
 "use client";
 import React from "react";
 
-import { Link, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Avatar,
   Button,
@@ -25,10 +26,10 @@ const TalentCard = ({ freelancer }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const user_id = useSelector((state: any) => state.profile?.agency?._id);
   const { activeAgency, hasAgency } = useContext(CurrentUserContext);
-  const [selectedFreelancer, setSelectedFreelancer] = useState();
+  const [selectedFreelancer, setSelectedFreelancer] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isInvited, setIsInvited] = useState(false);
-  const { socket } = useContext(SocketContext);
+  const { socket } = useContext(SocketContext) || {};
   const agencyMembers = useSelector(
     (state) => state.profile?.agency?.agency_member
   );
@@ -43,6 +44,7 @@ const TalentCard = ({ freelancer }) => {
     agency_profile: hasAgency,
     freelancer_id: selectedFreelancer?.user_id,
     message: "",
+    member_position: "",
   });
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const TalentCard = ({ freelancer }) => {
         toast.success(msg);
 
         setFormData({
+          ...formData,
           message: "",
         });
         setIsOpenModal(false);
@@ -126,13 +129,23 @@ const TalentCard = ({ freelancer }) => {
       toast.warning(error?.response?.data?.msg || "Something wrong try again!");
     }
     setIsLoading(false);
-    setFormData({});
+    setFormData({
+      agency_profile: hasAgency,
+      freelancer_id: selectedFreelancer?.user_id,
+      message: "",
+      member_position: "",
+    });
     setIsOpenModal(false);
   };
 
   const handleCancel = () => {
     setIsOpenModal(false);
-    setFormData({});
+    setFormData({
+       agency_profile: hasAgency,
+      freelancer_id: selectedFreelancer?.user_id,
+      message: "",
+      member_position: "",
+    });
   };
 
   return (
@@ -207,7 +220,7 @@ const TalentCard = ({ freelancer }) => {
                   </button>
                 ) : (
                   <Link
-                    to={`/profile/f/${freelancer?.user_id}`}
+                    href={`/profile/f/${freelancer?.user_id}`}
                     className="max-md:!w-[70%] max-[480px]:!w-full"
                   >
                     <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground max-md:!w-full"
@@ -354,7 +367,7 @@ const TalentCard = ({ freelancer }) => {
               <br />
               <div className="flex flex-row items-center">
                 <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                  isLoading={isLoading}
+                  
                   loadingText="Sending Invitation"
                   type="submit"
                   spinner={<BtnSpinner />}

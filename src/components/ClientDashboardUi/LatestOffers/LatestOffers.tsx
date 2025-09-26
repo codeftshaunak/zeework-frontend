@@ -20,7 +20,7 @@ import { setDashboard } from "../../../redux/pagesSlice/pagesSlice";
 import SmoothMotion from "../../utils/Animation/SmoothMotion";
 import GigDisplayCards from "./GigDisplayCards";
 
-const LatestOffers = ({ marketplace }) => {
+const LatestOffers = ({ marketplace } : {marketplace?: boolean}) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { latestOffer, purchasedGigs } = useSelector(
@@ -96,12 +96,6 @@ const LatestOffers = ({ marketplace }) => {
             <Tabs.Trigger>Completed</Tabs.Trigger>
           </Tabs.List>
         )}
-        {!marketplace && (
-          <Tabs.Indicator
-            mt="-1.5px"
-            className="sm:bg-fg-brand"
-          />
-        )}
 
         <SmoothMotion key={tabIndex}>
           <Tabs.Content>
@@ -110,21 +104,23 @@ const LatestOffers = ({ marketplace }) => {
                 allOffers={latestOffer}
                 purchasesReq={purchasedGigs || []}
                 tabIndex={tabIndex}
-                isLoading={isLoading}
+                isLoading={false}
               />
             </Tabs.Content>
             <Tabs.Content>
               <GigDisplayCards
                 allOffers={pendingOrder}
+                purchasesReq={[]}
                 tabIndex={tabIndex}
-                isLoading={isLoading}
+                isLoading={false}
               />
             </Tabs.Content>
             <Tabs.Content>
               <GigDisplayCards
                 allOffers={rejectedOrder}
+                purchasesReq={[]}
                 tabIndex={tabIndex}
-                isLoading={isLoading}
+                isLoading={false}
               />
             </Tabs.Content>
           </Tabs.Content>

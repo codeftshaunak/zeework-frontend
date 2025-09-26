@@ -133,7 +133,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
       const location = await getUserLocation();
       setLocalTime(currentTime);
       console.log(
-        `${location.latitude}, ${location.longitude} - ${currentTime} local time`
+        `${(location as any)?.latitude || 0}, ${(location as any)?.longitude || 0} - ${currentTime} local time`
       );
     } catch (error) {
       console.error(error);
@@ -490,7 +490,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
               <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
                 {skills?.length > 0 &&
                   skills?.map((skill, idx) => (
-                    <SkillCard title={skill.value} key={skill._id || idx} />
+                    <SkillCard title={typeof skill === "string" ? skill : (skill as any)?.value || skill} key={(skill as any)?._id || idx} />
                   ))}
               </div>
             </div>
@@ -629,7 +629,7 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
 
               {workHistory?.length ? (
                 workHistory?.map((item, index) => (
-                  <ReviewCard key={index} workDetails={item} />
+                  <ReviewCard key={index} workDetails={item} role={item?.role || ""} />
                 ))
               ) : (
                 <p className="p-6 text-center">No completed jobs yet.</p>

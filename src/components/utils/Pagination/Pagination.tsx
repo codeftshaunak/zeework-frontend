@@ -29,7 +29,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   if (!totalPages) return;
 
   const generatePageNumbers = () => {
-    const pageNumbers = [];
+    const pageNumbers: (number | string)[] = [];
     const maxDisplayedPages = 5; // Max number of pages to display
     const pageBuffer = Math.floor(maxDisplayedPages / 2); // Number of pages to display around the current page
 

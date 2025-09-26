@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import CTAButton from "../CTAButton";
 import { ReviewProposal } from "./ReviewProposal";
 import InviteFreelancer from "./InviteFreelancer";
@@ -142,9 +142,6 @@ export const ClientJobPostViewComponent = () => {
             </Tabs.Trigger>
             <Tab>Hire (0)</Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Indicator
-            className=" bg-fg-brand"
-          />
         </Tabs.Root> */}
       </div>
 

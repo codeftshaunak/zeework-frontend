@@ -861,6 +861,7 @@ interface TooltipProps {
   bg?: string;
   color?: string;
   className?: string;
+  isDisabled?: boolean;
 }
 
 export const Checkbox: React.FC = ({
@@ -1023,6 +1024,7 @@ interface RadioGroupRootProps {
   className?: string;
   marginTop?: string;
   marginLeft?: number;
+  colorPalette?: string;
 }
 
 interface RadioGroupContextType {
@@ -1506,16 +1508,22 @@ interface TabsContextType {
 
 const TabsContext = React.createContext<TabsContextType | null>(null);
 
-export const Tabs: React.FC<TabsProps> = ({
+const TabsRoot: React.FC<TabsProps & { colorScheme?: string; padding?: number; index?: number; onChange?: (index: number) => void }> = ({
   children,
   className,
   value,
   defaultValue = "",
   onValueChange,
+  colorScheme,
+  padding,
+  index,
+  onChange,
   ...props
 }) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const [internalIndex, setInternalIndex] = React.useState(index || 0);
   const currentValue = value !== undefined ? value : internalValue;
+  const currentIndex = index !== undefined ? index : internalIndex;
 
   const handleChange = (newValue: string) => {
     if (value === undefined) {
@@ -1524,11 +1532,344 @@ export const Tabs: React.FC<TabsProps> = ({
     onValueChange?.(newValue);
   };
 
+  const handleIndexChange = (newIndex: number) => {
+    if (index === undefined) {
+      setInternalIndex(newIndex);
+    }
+    onChange?.(newIndex);
+  };
+
+  const chakraProps = { padding };
+  const tailwindClasses = chakraPropsToTailwind(chakraProps);
+
   return (
     <TabsContext.Provider value={{ value: currentValue, onValueChange: handleChange }}>
-      <div className={className} {...props}>
-        {children}
+      <div className={cn(tailwindClasses, className)} {...props}>
+        {React.Children.map(children, (child, childIndex) => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child as React.ReactElement<any>, {
+              currentIndex,
+              onIndexChange: handleIndexChange,
+            });
+          }
+          return child;
+        })}
       </div>
     </TabsContext.Provider>
   );
+};
+
+interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
+  currentIndex?: number;
+  onIndexChange?: (index: number) => void;
+}
+
+const TabsList: React.FC<TabsListProps> = ({
+  children,
+  className,
+  currentIndex = 0,
+  onIndexChange,
+  ...props
+}) => {
+  return (
+    <div className={cn("flex border-b border-gray-200", className)} {...props}>
+      {React.Children.map(children, (child, index) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            isSelected: index === currentIndex,
+            onClick: () => onIndexChange?.(index),
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+};
+
+interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isSelected?: boolean;
+}
+
+const TabsTrigger: React.FC<TabsTriggerProps> = ({
+  children,
+  className,
+  isSelected = false,
+  onClick,
+  ...props
+}) => {
+  return (
+    <button
+      className={cn(
+        "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
+        isSelected
+          ? "border-blue-500 text-blue-600"
+          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
+        className
+      )}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  currentIndex?: number;
+  padding?: number;
+}
+
+const TabsContent: React.FC<TabsContentProps> = ({
+  children,
+  className,
+  currentIndex = 0,
+  padding,
+  ...props
+}) => {
+  const chakraProps = { padding };
+  const tailwindClasses = chakraPropsToTailwind(chakraProps);
+
+  return (
+    <div className={cn("mt-4", tailwindClasses, className)} {...props}>
+      {React.Children.map(children, (child, index) => {
+        if (index === currentIndex) {
+          return child;
+        }
+        return null;
+      })}
+    </div>
+  );
+};
+
+// Export Tabs as compound component
+export const Tabs = {
+  Root: TabsRoot,
+  List: TabsList,
+  Trigger: TabsTrigger,
+  Content: TabsContent,
+};
+
+// FormErrorMessage component for form error display
+interface FormErrorMessageProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+export const FormErrorMessage: React.FC<FormErrorMessageProps> = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <div className={cn("text-red-500 text-sm mt-1", className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+// Drawer components (mobile-first modal)
+interface DrawerProps {
+  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
+  placement?: 'left' | 'right' | 'top' | 'bottom';
+  size?: string;
+  isFullHeight?: boolean;
+}
+
+export const Drawer: React.FC<DrawerProps> = ({
+  children,
+  isOpen,
+  onClose,
+  placement = 'right',
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-hidden">
+      <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose} />
+      <div className={cn(
+        "absolute bg-white shadow-lg",
+        placement === 'right' && "right-0 top-0 h-full w-80",
+        placement === 'left' && "left-0 top-0 h-full w-80",
+        placement === 'top' && "top-0 left-0 w-full h-80",
+        placement === 'bottom' && "bottom-0 left-0 w-full h-80"
+      )}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export const DrawerContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <div className={cn("p-4 h-full", className)}>{children}</div>
+);
+
+export const DrawerBody: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
+  <div className={cn("flex-1 overflow-auto", className)}>{children}</div>
+);
+
+export const DrawerCloseButton: React.FC<{ onClick: () => void; className?: string }> = ({ onClick, className }) => (
+  <button 
+    onClick={onClick}
+    className={cn("absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700", className)}
+  >
+    ×
+  </button>
+);
+
+// useDisclosure hook
+export const useDisclosure = (defaultIsOpen = false) => {
+  const [isOpen, setIsOpen] = React.useState(defaultIsOpen);
+  
+  const onOpen = React.useCallback(() => setIsOpen(true), []);
+  const onClose = React.useCallback(() => setIsOpen(false), []);
+  const onToggle = React.useCallback(() => setIsOpen(prev => !prev), []);
+  
+  return { isOpen, onOpen, onClose, onToggle };
+};
+
+// SkeletonCircle component for loading states
+interface SkeletonCircleProps {
+  size?: string | number;
+  className?: string;
+}
+
+export const SkeletonCircle: React.FC<SkeletonCircleProps> = ({ 
+  size = "40px", 
+  className = "" 
+}) => {
+  const sizeStyle = typeof size === 'number' ? `${size}px` : size;
+  
+  return (
+    <div 
+      className={cn("bg-gray-200 rounded-full animate-pulse", className)}
+      style={{ width: sizeStyle, height: sizeStyle }}
+    />
+  );
+};
+
+// Stepper Components
+interface StepperProps {
+  children: React.ReactNode;
+  index?: number;
+  orientation?: 'horizontal' | 'vertical';
+  className?: string;
+}
+
+export const Stepper: React.FC<StepperProps> = ({ 
+  children, 
+  index = 0, 
+  orientation = 'horizontal',
+  className 
+}) => {
+  return (
+    <div className={cn(
+      "stepper",
+      orientation === 'horizontal' ? "flex items-center" : "flex flex-col",
+      className
+    )}>
+      {React.Children.map(children, (child, childIndex) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            isActive: childIndex === index,
+            isCompleted: childIndex < index,
+            stepIndex: childIndex,
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+};
+
+interface StepProps {
+  children: React.ReactNode;
+  isActive?: boolean;
+  isCompleted?: boolean;
+  stepIndex?: number;
+  className?: string;
+}
+
+export const Step: React.FC<StepProps> = ({ 
+  children, 
+  isActive = false,
+  isCompleted = false,
+  stepIndex = 0,
+  className 
+}) => {
+  return (
+    <div className={cn(
+      "step flex items-center",
+      isActive && "step-active",
+      isCompleted && "step-completed",
+      className
+    )}>
+      {children}
+    </div>
+  );
+};
+
+// Step-related components for more granular control
+export const StepIndicator: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
+  children, 
+  className 
+}) => (
+  <div className={cn("step-indicator", className)}>{children}</div>
+);
+
+export const StepStatus: React.FC<{ 
+  complete?: React.ReactNode; 
+  incomplete?: React.ReactNode; 
+  active?: React.ReactNode;
+  className?: string;
+}> = ({ 
+  complete, 
+  incomplete, 
+  active, 
+  className 
+}) => (
+  <div className={cn("step-status", className)}>
+    {complete || incomplete || active}
+  </div>
+);
+
+export const StepIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <div className={cn("step-icon text-green-500", className)}>✓</div>
+);
+
+export const StepNumber: React.FC<{ className?: string }> = ({ className }) => (
+  <div className={cn("step-number w-6 h-6 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center", className)}>
+    1
+  </div>
+);
+
+export const StepSeparator: React.FC<{ className?: string }> = ({ className }) => (
+  <div className={cn("step-separator flex-1 h-0.5 bg-gray-200 mx-2", className)} />
+);
+
+// Hook for managing steps
+export const useSteps = ({ index = 0, count = 0 }) => {
+  const [activeStep, setActiveStep] = React.useState(index);
+  
+  const goToNext = React.useCallback(() => {
+    setActiveStep(prev => Math.min(prev + 1, count - 1));
+  }, [count]);
+  
+  const goToPrevious = React.useCallback(() => {
+    setActiveStep(prev => Math.max(prev - 1, 0));
+  }, []);
+  
+  const reset = React.useCallback(() => {
+    setActiveStep(index);
+  }, [index]);
+  
+  return {
+    activeStep,
+    setActiveStep,
+    goToNext,
+    goToPrevious,
+    reset,
+    isActiveStep: (step: number) => activeStep === step,
+    isCompleteStep: (step: number) => activeStep > step,
+  };
 };

@@ -1,6 +1,6 @@
 import React from "react";
-
-import { Link, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ActiveJobCard = ({ job }) => {
   const { _id, job_type, contract_title, hourly_rate, budget, status } =
@@ -13,7 +13,7 @@ const ActiveJobCard = ({ job }) => {
       borderWidth="1px"
       className="items-center justify-center flex flex-col border p-4 m-2 rounded lg:max-w-[380px] lg:h-[280px] md:h-[240px] md:max-w-[360px] max-w-[520px] h-[320px] my-auto mx-auto relative bg-white border-[var(--bordersecondary)] overflow-hidden cursor-pointer"
       onClick={() => {
-        router.push(`/active-job/submit/${_id}`, { state: { job } });
+        router.push(`/active-job/submit/${_id}`, {  });
       }}
       _hover={{
         border: "1px solid var(--primarycolor)",
@@ -33,7 +33,7 @@ const ActiveJobCard = ({ job }) => {
       </div>
       <div>
         <Link
-          to={`/active-job/submit/${_id}`}
+          href={`/active-job/submit/${_id}`}
           className="text-[1.2rem] font-bold capitalize"
         >
           {contract_title?.length > 20

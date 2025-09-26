@@ -70,7 +70,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       const validCategoryIds = categoryIds.filter((category) => category._id);
       const promises = validCategoryIds.map(async ({ _id }) => {
         try {
-          const { body, code } = await getSkills(_id);
+          const { body, code } = await getSkills(_id, null);
           if (code === 200) {
             return body?.map((item) => ({
               value: item?.skill_name,
@@ -107,8 +107,8 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
       const formattedSkills = userProfileInfo.skills.map((skill) => {
         if (typeof skill === 'string') {
           return { value: skill, label: skill };
-        } else if (typeof skill === 'object' && skill.value) {
-          return { value: skill.value, label: skill.label || skill.value };
+        } else if (typeof skill === 'object' && typeof skill === "string" ? skill : (skill as any)?.value || skill) {
+          return { value: typeof skill === "string" ? skill : (skill as any)?.value || skill, label: skill.label || typeof skill === "string" ? skill : (skill as any)?.value || skill };
         } else {
           console.warn('Invalid skill format:', skill);
           return null;
@@ -122,7 +122,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const selectedCategories = data.skills.map((skill) => skill.value);
+      const selectedCategories = data.skills.map((skill) => typeof skill === "string" ? skill : (skill as any)?.value || skill);
 
       const response = await updateFreelancerProfile({
         skills: selectedCategories,

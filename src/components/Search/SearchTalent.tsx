@@ -152,7 +152,7 @@ export const Talents = () => {
               </div>
             </div>
           </div>
-          <TimerDownloadCard />
+          <TimerDownloadCard msg="Download in progress" />
         </div>
       </div>
     </div>
@@ -210,7 +210,7 @@ export const SearchTalents = () => {
     setLoading(true);
     // Construct URLSearchParams
     const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set("page", page); // set page number
+    queryParams.set("page", page.toString()); // set page number
     if (skills.length > 0) queryParams.set("skills", skills.join(","));
     else queryParams.delete("skills");
     if (searchText) queryParams.set("squery", searchText);
@@ -313,7 +313,7 @@ export const SearchTalents = () => {
     const fetchSkills = async () => {
       if (!selectedCategories) return;
       try {
-        const { body, code } = await getSkills(selectedCategories);
+        const { body, code } = await getSkills(selectedCategories, null);
         if (code === 200) setCategorySkills(body);
       } catch (error) {
         console.error("Error fetching freelancer data:", error);
@@ -403,7 +403,6 @@ export const SearchTalents = () => {
                       >
                         <RadioGroup.Item
                           value={category._id}
-                          checked={selectedCategories === category._id}
                           onClick={() => handleCategoryChange(category._id)}
                         >
                           <RadioGroup.ItemHiddenInput />
@@ -480,7 +479,7 @@ export const SearchTalents = () => {
         {/* Right content */}
         <div className="w-full mt-4">
           <div className="border border-[var(--bordersecondary)] rounded-2xl mb-4 overflow-hidden">
-            <img src={talentBanner} />
+            <img src={talentBanner.src || talentBanner} alt="Talent Banner" />
           </div>
 
           <div className="text-2xl font-semibold mb-4">
@@ -546,7 +545,6 @@ export const SearchTalents = () => {
                       >
                         <RadioGroup.Item
                           value={category._id}
-                          checked={selectedCategories === category._id}
                           onClick={() => handleCategoryChange(category._id)}
                         >
                           <RadioGroup.ItemHiddenInput />

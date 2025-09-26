@@ -32,7 +32,7 @@ const ReviewCard = () => {
 };
 
 const ReviewSection = () => {
-  const swiperRef = useRef();
+  const swiperRef = useRef(null);
 
   return (
     <section className="bg-gradient-to-t from-[#84B3B1]/[0.05] to-[#C5FFB0]/[0.05] mt-16">

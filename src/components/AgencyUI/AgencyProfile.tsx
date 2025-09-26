@@ -16,7 +16,7 @@ const AgencyProfile = () => {
   const agencyProfile = useSelector((state: any) => state.profile.agency);
 
   useEffect(() => {
-    if (agency._id) dispatch(agencyData({ agency: agency }));
+    if ((agency as any)?._id) dispatch(agencyData({ agency: agency }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agency]);
 

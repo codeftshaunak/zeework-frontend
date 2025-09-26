@@ -155,7 +155,7 @@ const LinkedAccounts: React.FC = () => {
         {linkedAccounts.length > 0 && (
           <div className="p-3 rounded-md bg-slate-50">
             {linkedAccounts.map((item: LinkedAccount) => (
-              <ProfilesCard key={item.user_id} data={item} />
+              <ProfilesCard key={item.user_id} data={item} isPublic={false} />
             ))}
           </div>
         )}

@@ -23,6 +23,11 @@ export interface JobDetails {
   description?: string;
   budget?: number;
   status?: string;
+  job_details?: any[];
+  project_budget?: number;
+  hourly_rate?: number;
+  contract_title?: string;
+  job_id?: string;
 }
 
 export interface ComponentProps {

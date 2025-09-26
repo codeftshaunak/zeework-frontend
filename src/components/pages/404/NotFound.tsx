@@ -1,9 +1,9 @@
 
 "use client";
+import Link from "next/link";
 import React from "react";
 
 
-import { Link as ReactLink } from "react-router";
 
 const NotFound: React.FC = () => {
   return (
@@ -27,11 +27,11 @@ const NotFound: React.FC = () => {
 
             <span>The page you are looking for is not available!</span>
 
-            <ReactLink to="/" className="no-underline">
+            <Link href="/" className="no-underline">
               <div className="hover:bg-green-600 px-4 py-2 bg-green-500 text-white rounded">
                 Go to Home
               </div>
-            </ReactLink>
+            </Link>
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ const SearchingGigs = ({ gigs, isLoading, headText = "Searching Gigs" }) => {
           <GigCards
             gigs={gigs.gigs}
             isLoading={isLoading}
+            
             // currentPage={currentPage}
             // totalPages={totalPages}
             // onPageChange={(page) => setCurrentPage(page)}

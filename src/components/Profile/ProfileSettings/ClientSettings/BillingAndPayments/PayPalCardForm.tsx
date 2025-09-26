@@ -24,7 +24,7 @@ import { paypalCardSchema } from "../../../../../schemas/payments";
 import BtnSpinner from "../../../../Skeletons/BtnSpinner";
 import ErrorMsg from "../../../../utils/Error/ErrorMsg";
 
-export const PayPalCardForm = ({ setCard }) => {
+export const PayPalCardForm = ({ setCard, setTab }) => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -68,7 +68,7 @@ export const PayPalCardForm = ({ setCard }) => {
     if (parts.length) {
       const formatted = parts.join(" ");
       e.target.value = formatted;
-      setValue("card_number", formatted, { shouldValidate: true });
+      setValue("card_number", formatted);
     }
   };
 
@@ -77,7 +77,7 @@ export const PayPalCardForm = ({ setCard }) => {
     if (value.length >= 3) {
       value = `${value.slice(0, 2)}/${value.slice(2, 6)}`;
     }
-    setValue("expiry", value, { shouldValidate: true });
+    setValue("expiry", value);
   };
 
   const onSubmit = async (data) => {
@@ -211,7 +211,7 @@ export const PayPalCardForm = ({ setCard }) => {
             placeholder="Select Country"
             options={countries}
             onChange={(data) => {
-              setValue("country_code", data.value);
+              setValue("country_code", (data as any)?.value);
               trigger("country_code");
             }}
           />
@@ -280,7 +280,7 @@ export const PayPalCardForm = ({ setCard }) => {
       </div>
 
       <Button
-        isLoading={isLoading}
+        
         type="submit"
         paddingX={isLoading ? 5 : 10}
         loadingText="Adding Card"

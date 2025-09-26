@@ -67,7 +67,7 @@ const ProfilePhotoNotify = () => {
         isCropped ? croppedImage[0] : fullImage[0]
       );
 
-      formData.append("file", compressedImage);
+      formData.append("file", compressedImage as Blob);
 
       const { code, body } = await uploadImage(formData);
 
@@ -120,7 +120,7 @@ const ProfilePhotoNotify = () => {
   const handleCrop = async () => {
     try {
       const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-      const file = new File([croppedImage], fileName, { type: "image/jpeg" });
+      const file = new File([croppedImage as any], fileName, { type: "image/jpeg" });
       setCroppedImage([file]);
       setIsCropped(true);
     } catch (e) {

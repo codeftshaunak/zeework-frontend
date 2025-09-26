@@ -70,7 +70,7 @@ export const portfolioSchema = yup.object().shape({
     .test(
       "fileSize",
       "You can't add to your portfolio without project images",
-      (value) => value && value.length > 0
+      (value: any) => value && value.length > 0
     ),
 });
 
@@ -86,7 +86,8 @@ export const basicInfoSchema = yup.object().shape({
     .positive("Hourly rate must be positive"),
   description: yup
     .string()
-    .test("description", "Description is required", (value) => {
+    .test("description", "Description is required", (value: any) => {
+      if (!value) return false;
       const strippedString = value.replace(/<\/?[^>]+(>|$)/g, "").trim();
       return strippedString.length > 0;
     }),

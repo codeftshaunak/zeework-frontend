@@ -258,7 +258,7 @@ const AgencyServices = ({ agency, setAgency }) => {
                     placeholder="Select Your Category"
                     options={categories}
                     value={categoryList}
-                    onChange={(data) => {
+                    onChange={(data : any) => {
                       const newData = data?.map((d) => ({
                         _id: d._id,
                         category_name: d.category_name,
@@ -329,7 +329,7 @@ const AgencyServices = ({ agency, setAgency }) => {
                     <Select
                       inputRef={ref}
                       closeMenuOnSelect={false}
-                      onChange={(val) => {
+                      onChange={(val : any) => {
                         setSkillList(val);
                         onChange(val.map((c) => c.value));
                       }}

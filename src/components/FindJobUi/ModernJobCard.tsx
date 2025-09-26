@@ -30,7 +30,7 @@ interface ModernJobCardProps {
   jobs: Job[] | undefined | null;
   searchTerm?: string;
   showHighlightedSearchTerm?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const ModernJobCard: React.FC<ModernJobCardProps> = ({

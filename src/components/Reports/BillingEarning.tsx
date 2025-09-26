@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Tabs } from "@/components/ui/migration-helpers";
+
+const TabsTyped = Tabs as any;
 import SmoothMotion from "../utils/Animation/SmoothMotion";
 // import { BsChevronRight } from "react-icons/bs";
 const DataListData = [
@@ -29,7 +31,7 @@ const DataListData = [
 
 const BillingEarning = () => {
   const [active, setActiveTab] = useState(0);
-  const [userActive, setUserActiveTab] = useState(0);
+  const [userActiveTab, setUserActiveTab] = useState(0);
   const [selectedDate, setSelectedDate] = useState(
     "Oct 01 , 2022-sep 18, 2023"
   );
@@ -51,40 +53,40 @@ const BillingEarning = () => {
             experience preferred. Share your{" "}
           </p>
         </div>
-        <Tabs.Root variant="unstyled">
-          <Tabs.List className="w-full">
+        <TabsTyped.Root variant="unstyled">
+          <TabsTyped.List className="w-full">
             <div className="main-tab-wrapper relative lg:mb-[30px] mb-6 w-full">
               <div className="flex space-x-[26px] relative z-10">
-                <Tabs.Trigger
+                <TabsTyped.Trigger
                   onClick={() => setActiveTab(0)}
                   type="button"
                   className={` font-medium text-lg py-3 border-b-4  ${
-                    activeTab === 0
+                    active === 0
                       ? "border-primary text-primary"
                       : "border-transparent text-gray-300"
                   }`}
                 >
                   Billing & Earning
-                </Tabs.Trigger>
-                <Tabs.Trigger
+                </TabsTyped.Trigger>
+                <TabsTyped.Trigger
                   onClick={() => setActiveTab(1)}
                   type="button"
                   className={` font-medium text-lg py-3 border-b-4  ${
-                    activeTab === 1
+                    active === 1
                       ? "border-primary text-primary"
                       : "border-transparent text-gray-300"
                   }`}
                 >
                   Lifetime billed
-                </Tabs.Trigger>
+                </TabsTyped.Trigger>
               </div>
               <div className="w-full h-[1px] bg-[#E0E0E0] absolute left-0 bottom-[1.5px]"></div>
             </div>
-          </Tabs.List>
-          <SmoothMotion key={activeTab}>
+          </TabsTyped.List>
+          <SmoothMotion key={active}>
             {" "}
-            <Tabs.Content>
-              <Tabs.Content>
+            <TabsTyped.Content>
+              <TabsTyped.Content>
                 <div className="tab-body">
                   <div className="flex lg:flex-row flex-col space-y-5 lg:space-y-0 lg:justify-between lg:items-end mb-10">
                     <div>
@@ -265,11 +267,11 @@ const BillingEarning = () => {
                       </a>
                     </div>
                   </div>
-                  <Tabs.Root variant="unstyled">
+                  <div data-variant="unstyled">
                     <div className="w-full border rounded-[10px]  flex lg:flex-row flex-col min-h-[561px]">
-                      <Tabs.List>
+                      <div>
                         <div className="lg:w-[250px] w-full py-10 px-6 flex lg:flex-col lg:items-start lg:border-r lg:space-y-3 space-x-3 lg:space-x-0 flex-wrap lg:flex-nowrap">
-                          <Tabs.Trigger
+                          <button
                             onClick={() => setUserActiveTab(0)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 0
@@ -278,8 +280,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Anthony Media Group
-                          </Tabs.Trigger>
-                          <Tabs.Trigger
+                          </button>
+                          <button
                             onClick={() => setUserActiveTab(1)}
                             className={`hover:bg-primary hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 1
@@ -288,8 +290,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Benji Hochberg
-                          </Tabs.Trigger>
-                          <Tabs.Trigger
+                          </button>
+                          <button
                             onClick={() => setUserActiveTab(2)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 2
@@ -298,8 +300,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Eduardo Manetas
-                          </Tabs.Trigger>
-                          <Tabs.Trigger
+                          </button>
+                          <button
                             onClick={() => setUserActiveTab(3)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 3
@@ -308,8 +310,8 @@ const BillingEarning = () => {
                             }`}
                           >
                             Izhar Ali
-                          </Tabs.Trigger>
-                          <Tabs.Trigger
+                          </button>
+                          <button
                             onClick={() => setUserActiveTab(4)}
                             className={`hover:bg-primary  hover:text-white leading-5 px-2.5 py-[6px] rounded-md hover:font-normal font-medium transition duration-300 ease-in-out ${
                               userActiveTab === 4
@@ -318,12 +320,12 @@ const BillingEarning = () => {
                             }`}
                           >
                             Majid Tahir
-                          </Tabs.Trigger>
+                          </button>
                         </div>
-                      </Tabs.List>
+                      </div>
                       <SmoothMotion key={userActiveTab}>
-                        <Tabs.Content>
-                          <Tabs.Content p={0}>
+                        <div>
+                          <div style={{padding: 0}}>
                             <div className="flex-1 lg:px-6 lg:py-[30px]">
                               <div className="tab-body-wrapper ">
                                 <div className="border rounded-[10px] overflow-hidden">
@@ -385,21 +387,17 @@ const BillingEarning = () => {
                                 </div>
                               </div>
                             </div>
-                          </Tabs.Content>
-                          <Tabs.Content>something</Tabs.Content>
-                          <Tabs.Content>something</Tabs.Content>
-                          <Tabs.Content>something</Tabs.Content>
-                          <Tabs.Content>something</Tabs.Content>
-                        </Tabs.Content>
+                          </div>
+                        </div>
                       </SmoothMotion>
                     </div>
-                  </Tabs.Root>
+                  </div>
                 </div>
-              </Tabs.Content>
-              <Tabs.Content>Life Time</Tabs.Content>
-            </Tabs.Content>
+              </TabsTyped.Content>
+              <TabsTyped.Content>Life Time</TabsTyped.Content>
+            </TabsTyped.Content>
           </SmoothMotion>
-        </Tabs.Root>
+        </TabsTyped.Root>
       </div>
     </>
   );

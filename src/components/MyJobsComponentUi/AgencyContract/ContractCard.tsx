@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Link, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Link from "next/link"
 
 const ContractCard = ({ job }) => {
   const { _id, job_type, contract_title, hourly_rate, budget, status } =
@@ -13,7 +14,7 @@ const ContractCard = ({ job }) => {
         borderWidth="1px"
         className="items-center justify-center flex flex-col border p-4 m-2 rounded lg:max-w-[380px] lg:h-[200px] md:h-[180px] md:max-w-[360px] max-w-[520px] h-[240px] my-auto mx-auto relative bg-white border-[var(--bordersecondary)] overflow-hidden cursor-pointer"
         onClick={() => {
-          router.push(`/assigned-contract/${_id}`, { state: { job } });
+          router.push(`/assigned-contract/${_id}`);
         }}
         _hover={{
           border: "1px solid var(--primarycolor)",
@@ -33,7 +34,7 @@ const ContractCard = ({ job }) => {
         </div>
         <div>
           <Link
-            to={`/assigned-contract/${_id}`}
+            href={`/assigned-contract/${_id}`}
             className="text-[1.2rem] font-bold capitalize"
           >
             {contract_title?.length > 20

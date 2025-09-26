@@ -102,7 +102,12 @@ const CurrentCard = ({ data, setData, setTab }) => {
         </div>
       ) : (
         <div className="flex justify-center">
-          <MainButtonRounded variant="outline" onClick={() => setTab(2)}>
+          <MainButtonRounded 
+            variant="outline" 
+            onClick={() => setTab(2)}
+            noRounded={false}
+            className=""
+          >
             Add New Card
           </MainButtonRounded>
         </div>
@@ -123,7 +128,7 @@ const CurrentCard = ({ data, setData, setTab }) => {
             No, I don&apos;t want
           </Button>
           <Button
-            isLoading={isLoading}
+            
             loadingText=" Yes, I want to removed"
             spinner={<BtnSpinner />}
             onClick={() => removeCard()}

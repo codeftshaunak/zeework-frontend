@@ -21,7 +21,7 @@ export const GigCreate = ({
   goForward,
   goBackward,
 }) => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<Record<string, any>>({});
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
@@ -40,14 +40,14 @@ export const GigCreate = ({
 
   const handleUpload = useCallback(
     async (ref_id) => {
-      const uploadResponse = {};
+      const uploadResponse : Record<string, any> = {};
       if (formData?.images?.length) {
         // prepare form data for file uploading
-        const imagesFormData = new FormData();
+        const imagesFormData : any = new FormData();
         for (const image of formData.images) {
           if (!image.file) continue;
           try {
-            const compressedImage = await compressImageToWebP(image.file);
+            const compressedImage = await compressImageToWebP(image.file, 0.5, "profile");
             imagesFormData.append(`imageFiles`, compressedImage);
           } catch (error) {
             console.error(`Error compressing image ${image.file.name}:`, error);
@@ -136,14 +136,14 @@ export const GigCreate = ({
       }
     } catch (error) {
       console.log(error);
-      router.push(-1);
+      router.back();
     } finally {
       setIsLoading(false);
     }
   };
 
   const firstPageGoBackward = () => {
-    router.push(-1);
+   router.back();
   };
 
   const createNextGig = () => {
@@ -194,6 +194,7 @@ export const GigCreate = ({
             submitCallback={updateFormData}
             formValues={formData}
             isLoading={isLoading}
+            
           />
         )}
       </div>

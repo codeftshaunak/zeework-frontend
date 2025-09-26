@@ -18,7 +18,7 @@ import SmoothMotion from "../../../../utils/Animation/SmoothMotion";
 
 const BillingAndPayment = () => {
   const [tab, setTab] = useState(1);
-  const [bankDetails, setBankDetails] = useState({});
+  const [bankDetails, setBankDetails] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
 
   const getPaymentDetails = async () => {

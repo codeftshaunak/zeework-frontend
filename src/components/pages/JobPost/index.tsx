@@ -68,7 +68,7 @@ const JobPost = () => {
               <FinalStep
                 setStep={setStep}
                 onCallback={onSubmit}
-                isLoading={isLoading}
+                
               />
             )}
             <Preview />

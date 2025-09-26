@@ -120,7 +120,7 @@ const AgencyOverview = ({ overview: overviewValue, setAgency }) => {
             </div>
             <div className="text-right mt-10">
               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                isLoading={isLoading}
+                
                 loadingText="Submit"
                 type="submit"
                 spinner={<BtnSpinner />}

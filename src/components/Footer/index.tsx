@@ -1,9 +1,10 @@
 import LinkArrowIcon from "../../assets/icons/link-arrow";
-import { Link, useRouter } from "next/navigation";
+import Link from "next/link";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const HomeFooter = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/about")}
                   >
                     About
                   </div>
@@ -48,7 +49,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/contact")}
                   >
                     Contact Us
                   </div>
@@ -59,7 +60,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/about")}
                   >
                     About
                   </div>
@@ -72,7 +73,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/casestudies")}
                   >
                     Casestudies
                   </div>
@@ -83,7 +84,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/blog")}
                   >
                     Blogs
                   </div>
@@ -94,7 +95,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/events")}
                   >
                     Events
                   </div>
@@ -105,7 +106,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/communities")}
                   >
                     Community
                   </div>
@@ -118,7 +119,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/onepager")}
                   >
                     One Pager
                   </div>
@@ -129,7 +130,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/multipager")}
                   >
                     Multi Pager
                   </div>
@@ -140,7 +141,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/ecommerce")}
                   >
                     E-commerce Pages
                   </div>
@@ -151,7 +152,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/dynamiccontent")}
                   >
                     Dynamic Content Pages
                   </div>
@@ -164,7 +165,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/privacy")}
                   >
                     Privacy
                   </div>
@@ -175,7 +176,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/terms")}
                   >
                     Terms & Conditions
                   </div>
@@ -186,7 +187,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/leadership")}
                   >
                     Leadership
                   </div>
@@ -197,7 +198,7 @@ export const HomeFooter = () => {
                 <div className="w-[310px] justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg font-normal font-['Lato'] cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/team")}
                   >
                     Team
                   </div>
@@ -236,7 +237,7 @@ export const MVPFooter = () => {
                 <div className="justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg f cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/about")}
                   >
                     About Us
                   </div>
@@ -245,7 +246,7 @@ export const MVPFooter = () => {
                 <div className="justify-between items-start inline-flex">
                   <div
                     className="text-gray-700 text-lg  cursor-pointer"
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/f")}
                   >
                     Facebook
                   </div>
@@ -263,7 +264,7 @@ export const MVPFooter = () => {
                 <div className="justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg  cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/contact")}
                   >
                     Contact Us
                   </div>
@@ -272,7 +273,7 @@ export const MVPFooter = () => {
                 <div className="justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg  cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/privacy")}
                   >
                     Privacy Policy
                   </div>
@@ -281,7 +282,7 @@ export const MVPFooter = () => {
                 <div className="justify-between items-center inline-flex">
                   <div
                     className="text-gray-700 text-lg  cursor-pointer"
-                    onClick={() => router.push()}
+                    onClick={() => router.push("/terms")}
                   >
                     Terms of Service
                   </div>
@@ -325,25 +326,25 @@ export const Footer = () => {
                 </p>
                 <div className="flex gap-4 text-[22px] py-3 flex-wrap max-[425px] justify-center md:justify-start">
 
-                <Link to="/" target="_blank">
+                <Link href="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaFacebookF className="text-[#35AD41] " />
                   </div>
                 </Link>
     
-                <Link to="/" target="_blank">
+                <Link href="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaTwitter />
                   </div>
                 </Link>
 
-                <Link to="/" target="_blank">
+                <Link href="/" target="_blank">
                 <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaLinkedinIn />
                   </div>
                 </Link>
            
-                  <Link to="https://www.instagram.com/zeeworkco/" target="_blank">
+                  <Link href="https://www.instagram.com/zeeworkco/" target="_blank">
                   <div className="text-[#35AD41] bg-white p-4 rounded-full">
                     <FaInstagram />
                   </div>
@@ -360,10 +361,10 @@ export const Footer = () => {
                 </h1>
                 <div className="my-3 flex flex-col gap-2">
                  
-                  <Link to="/terms-conditions" className="text-[1.2rem]">
+                  <Link href="/terms-conditions" className="text-[1.2rem]">
                     Terms & Conditions
                   </Link>
-                  <Link to="/privacy-policy" className="text-[1.2rem] md:text-left">
+                  <Link href="/privacy-policy" className="text-[1.2rem] md:text-left">
                     Privacy Policy
                   </Link>
                 </div>

@@ -94,7 +94,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
   const [isModal, setIsModal] = useState(false);
   const [workHistoryLoading, setWorkHistoryLoading] = useState(false);
 
-  const profile = useSelector((state: RootState) => state.profile);
+  const profile : any = useSelector((state: RootState) => state.profile);
   const profileData = profile.profile || {};
 
   const getCurrentTimeAndLocation = async (): Promise<void> => {
@@ -104,7 +104,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
       const location = await getUserLocation();
       setLocalTime(currentTime);
       console.log(
-        `${location.latitude}, ${location.longitude} - ${currentTime} local time`
+        `${(location as any)?.latitude || 0}, ${(location as any)?.longitude || 0} - ${currentTime} local time`
       );
     } catch (error) {
       console.error(error);
@@ -140,7 +140,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
           <div className="space-y-8">
             {/* Profile Header */}
             <ProfileHeader
-              profile={profileData}
+              profile={profileData as any}
               localTime={localTime}
               isOwner={!viewAs}
               onEditProfile={() => openUpdatingModal("Update Profile Photo")}
@@ -160,7 +160,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
                 {/* Education Section - Desktop */}
                 <div className="hidden lg:block">
                   <EducationSection
-                    education={profileData.education || []}
+                    education={profileData?.education || []}
                     isOwner={!viewAs}
                     onAddEducation={() => openUpdatingModal("Add Education")}
                     onEditEducation={(edu) => openUpdatingModal("Update Education", edu)}
@@ -171,7 +171,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
                 {/* Experience Section - Desktop */}
                 <div className="hidden lg:block">
                   <ExperienceSection
-                    experiences={profileData.experience || []}
+                    experiences={profileData?.experience || []}
                     isOwner={!viewAs}
                     onAddExperience={() => openUpdatingModal("Add Experience")}
                     onEditExperience={(exp) => openUpdatingModal("Update Experience", exp)}
@@ -184,15 +184,15 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
               <div className="lg:col-span-4 xl:col-span-4 space-y-8">
                 {/* Skills Section */}
                 <SkillsSection
-                  skills={profileData.skills || []}
+                  skills={profileData?.skills || []}
                   isOwner={!viewAs}
                   onEditSkills={() => openUpdatingModal("Update Skills")}
                 />
 
                 {/* Portfolio Section */}
                 <PortfolioSection
-                  portfolio={profileData.portfolio || []}
-                  categories={profileData.categories}
+                  portfolio={profileData?.portfolio || []}
+                  categories={profileData?.categories}
                   isOwner={!viewAs}
                   onAddProject={() => openUpdatingModal("Add New Project")}
                   onViewProject={(project) => {
@@ -204,7 +204,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
                 {/* Education Section - Mobile */}
                 <div className="lg:hidden">
                   <EducationSection
-                    education={profileData.education || []}
+                    education={profileData?.education || []}
                     isOwner={!viewAs}
                     onAddEducation={() => openUpdatingModal("Add Education")}
                     onEditEducation={(edu) => openUpdatingModal("Update Education", edu)}
@@ -215,7 +215,7 @@ export const ModernFreelancerProfile: React.FC<FreelancerProfileProps> = ({
                 {/* Experience Section - Mobile */}
                 <div className="lg:hidden">
                   <ExperienceSection
-                    experiences={profileData.experience || []}
+                    experiences={profileData?.experience || []}
                     isOwner={!viewAs}
                     onAddExperience={() => openUpdatingModal("Add Experience")}
                     onEditExperience={(exp) => openUpdatingModal("Update Experience", exp)}

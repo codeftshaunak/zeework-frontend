@@ -22,7 +22,7 @@ import SingleGigSkeleton from "../Skeletons/SingleGigSkeleton";
 const GigStatus = () => {
   const [approvedGigs, setApprovedGigs] = useState([]);
   const [pendingGigs, setPendingGigs] = useState([]);
-  const [activeTab, setActiveTab] = useState(0);
+  const [active, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllGigs = async () => {
@@ -60,10 +60,7 @@ const GigStatus = () => {
         <Tabs.Trigger>Approve ({approvedGigs?.length || 0})</Tabs.Trigger>
         <Tabs.Trigger>Under Review ({pendingGigs?.length || 0})</Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Indicator
-        className="bg-fg-brand"
-      />
-      <SmoothMotion key={activeTab}>
+      <SmoothMotion key={active}>
         <Tabs.Content className="w-full">
           <Tabs.Content className="w-full">
             <div className="flex flex-col gap-3">

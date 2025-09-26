@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocation } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { getCategories } from "../../../helpers/APIs/freelancerApis";
 import MarketplaceHeader from "../MarketHeader/MarketHeader";
 import LatestGig from "../LatestGigs/LatestGig";
@@ -96,7 +96,7 @@ const MarketplaceBody = () => {
       <MarketplaceHeader
         category={categoryOptions}
         isLoading={isLoadingSearch}
-        refresh={getSearchingGigs}
+        routeCategory=""
         route="/marketplace?"
       />
       {isSearch && (

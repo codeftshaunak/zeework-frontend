@@ -98,7 +98,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
 
   // on form submit assign values to the context and go to next step
   const onSubmit = (v: FormData) => {
-    insertToFormState(v);
+    insertToFormState(v as any);
     setStep(2);
   };
 
@@ -146,13 +146,13 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
   // if there any values in form state context then push this to the form
   useEffect(() => {
     const values: Partial<FormData> = {};
-    if (formState?.title) values.title = formState.title;
-    if (formState?.description) values.description = formState.description;
-    if (formState?.categories) values.categories = formState.categories;
-    if (formState?.skills) values.skills = formState.skills;
-    if (formState?.job_type) values.job_type = `${formState.job_type}`;
-    if (formState?.amount) values.amount = formState.amount;
-    if (formState?.file) values.file = formState.file;
+    if ((formState as any)?.title) values.title = (formState as any).title;
+    if ((formState as any)?.description) values.description = (formState as any).description;
+    if ((formState as any)?.categories) values.categories = (formState as any).categories;
+    if ((formState as any)?.skills) values.skills = (formState as any).skills;
+    if ((formState as any)?.job_type) values.job_type = `${(formState as any).job_type}`;
+    if ((formState as any)?.amount) values.amount = (formState as any).amount;
+    if ((formState as any)?.file) values.file = (formState as any).file;
 
     reset(values);
   }, [formState]);
@@ -205,7 +205,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
           <ReactQuill
             theme="snow"
             value={description}
-            onChange={(value) => {
+            onChange={(value: any) => {
               const cleanedValue = removeTrailingEmptyTags(value);
               setValue("description", cleanedValue);
               setDescription(value);

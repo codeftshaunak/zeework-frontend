@@ -23,7 +23,7 @@ const Interview = () => {
   const currentUrl = window.location.href;
   const { job_id, invite_id } = queryString.parseUrl(currentUrl).query;
   const [openModal, setOpenModal] = useState(false);
-  const [jobDetails, setJobDetails] = useState({});
+  const [jobDetails, setJobDetails] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState({
     isLoading: false,
     statusValue: null,
@@ -79,17 +79,17 @@ const Interview = () => {
       socket.emit(
         "card_message",
         {
-          sender_id: jobDetails?.receiver_id,
-          receiver_id: jobDetails?.sender_id,
+          sender_id: (jobDetails as any)?.receiver_id,
+          receiver_id: (jobDetails as any)?.sender_id,
           message: message,
           // message_type: "invitation",
-          contract_ref: jobDetails._id,
+          contract_ref: (jobDetails as any)?._id,
         },
         {
-          title: jobDetails.job_details[0].title,
+          title: (jobDetails as any)?.job_details?.[0]?.title,
           type: "accepted_job_interview",
-          job_type: jobDetails.job_details[0].job_type,
-          amount: jobDetails.job_details[0].amount,
+          job_type: (jobDetails as any)?.job_details?.[0]?.job_type,
+          amount: (jobDetails as any)?.job_details?.[0]?.amount,
         }
       );
     }
@@ -98,7 +98,7 @@ const Interview = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("connect_user", { user_id: jobDetails?.receiver_id });
+      socket.emit("connect_user", { user_id: (jobDetails as any)?.receiver_id });
 
       // Example: Listening for a custom event
       socket.on("chat_message", (data) => {
@@ -116,7 +116,7 @@ const Interview = () => {
   const acceptInvite = (messages) =>
     performAction({ messages, statusValue: "1" });
 
-  const rejectInvite = () => performAction({ statusValue: "2" });
+  const rejectInvite = () => performAction({ messages: "", statusValue: "2" });
 
   return (
     <Box className="w-full">
@@ -135,7 +135,9 @@ const Interview = () => {
             status={jobDetails?.status}
             setOpenModal={setOpenModal}
             rejectInvite={rejectInvite}
-            isLoading={isLoading}
+            offer={false}
+            isLoading={false}
+            
           />
 
           {openModal && (
@@ -143,7 +145,8 @@ const Interview = () => {
               openModal={openModal}
               setOpenModal={setOpenModal}
               acceptInvite={acceptInvite}
-              isLoading={isLoading}
+              offer={false}
+              isLoading={false}
             />
           )}
         </div>

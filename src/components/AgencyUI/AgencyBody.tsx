@@ -4,7 +4,7 @@ import AgencyLeftbar from "./AgencyLeftbar";
 import AgencyMembers from "./AgencyMembers";
 import AgencyRightBar from "./AgencyRightBar";
 
-const AgencyBody = ({ agency, setAgency }) => {
+const AgencyBody = ({ agency, setAgency }: any) => {
   return (
     <AgencyBodyLayout>
       <div className="flex flex-col w-full">

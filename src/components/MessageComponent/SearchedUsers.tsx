@@ -63,7 +63,7 @@ const SearchedUsers: React.FC<SearchedUsersProps> = ({
                       ? user?.user_details?._id
                       : user?.user_details?.user_id
                   }?contract_ref=${user?.contract_details?.contract_ref}`,
-                  { replace: true }
+                  
                 );
                 setFilteredUser([]);
                 setQuery("");

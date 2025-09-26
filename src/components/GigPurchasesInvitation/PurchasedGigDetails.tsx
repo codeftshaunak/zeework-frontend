@@ -21,7 +21,7 @@ import BtnSpinner from "../Skeletons/BtnSpinner";
 import UniversalModal from "../Modals/UniversalModal";
 
 const PurchasedGigDetails = () => {
-  const [gigInfo, setGigInfo] = useState({});
+  const [gigInfo, setGigInfo] = useState<Record<string, any>>({});
   const { gig_id } = useParams();
   const [isModal, setIsModal] = useState(false);
   const [modalType, setModalType] = useState("");

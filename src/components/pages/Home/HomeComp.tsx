@@ -1,8 +1,8 @@
 "use client";
 
 import homesidbar from "../../assets/img/home-sidebar.png";
-import girl from "../../assets/img/girl.png";
-import StarIcon from "../../assets/icons/star";
+import girl from "../../../assets/img/girl.png";
+import StarIcon from "../../../assets/icons/star";
 import { useRouter } from "next/navigation";
 import { Fade } from "react-awesome-reveal";
 

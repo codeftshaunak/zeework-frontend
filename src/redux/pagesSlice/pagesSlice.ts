@@ -48,8 +48,8 @@ const pagesSlice = createSlice({
     clearPagesState: (state) => {
       // state.findWork = { jobsList: [] };
       state.myJobs = { userJobs: {} };
-      state.myStats = { reports: {}, timeSheet: [] };
-      state.dashboard = { jobs: [], latestOffer: [], hiredList: [] };
+      state.myStats = { reports: {}, timeSheet: [], activeContracts: [], activeJobs: [] };
+      state.dashboard = { jobs: [], latestOffer: [], hiredList: [], purchasedGigs: [] };
     },
   },
 });

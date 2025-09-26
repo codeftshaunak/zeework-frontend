@@ -399,7 +399,7 @@ export const FreelancerSignUp = () => {
             placeholder="Select your country"
             options={countries}
             onChange={(data: any) => {
-              setValue("country", data.name);
+              setValue("country", (data as any)?.name);
               trigger("country");
             }}
             error={errors.country?.message}
@@ -685,7 +685,7 @@ export const ClientSignUp = () => {
             placeholder="Select your country"
             options={countries}
             onChange={(data: any) => {
-              setValue("country", data.name);
+              setValue("country", (data as any)?.name);
               trigger("country");
             }}
             error={errors.country?.message}

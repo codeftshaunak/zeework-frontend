@@ -97,9 +97,9 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   }, [formValues]);
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...(methods as any)}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Gig Requirement & Steps" onBackward={onBack}>
+        <GigCreateLayout title="Gig Requirement & Steps" onBackward={onBack} isLoading={false}>
           <div className="flex flex-col items-start w-full">
             <label
               htmlFor="fileInput"
@@ -122,7 +122,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                       control={control}
                       render={({ field, fieldState }) => (
                         <>
-                          <spanarea
+                          <textarea
                             {...field}
                             placeholder="You will get a fantastic deliverable that drives impact"
                             className="mt-[5px]"
@@ -130,9 +130,8 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                           <div className="flex flex-row items-center w-full">
                             <Checkbox
                               colorScheme="green"
-                              size="lg"
                               {...field}
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 // Update the checkbox value using the index
                                 setValue(
                                   `requirements[${index}].required`,
@@ -212,7 +211,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     control={control}
                     render={({ field, fieldState }) => (
                       <>
-                        <spanarea
+                        <textarea
                           {...field}
                           placeholder="Enter step description"
                           className="mt-[5px]"

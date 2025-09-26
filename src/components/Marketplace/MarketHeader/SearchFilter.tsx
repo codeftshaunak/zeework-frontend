@@ -39,7 +39,7 @@ export const SearchFilter = ({
     try {
       const categoryIds = categories.map((category) => category.value);
 
-      const skillPromises = categoryIds.map((id) => getSkills(id));
+      const skillPromises = categoryIds.map((id) => getSkills(id, null));
 
       const skillResponses = await Promise.all(skillPromises);
 
@@ -100,7 +100,7 @@ export const SearchFilter = ({
 
     const queryString = queryParams.join("&");
 
-    router.push(`${route}${queryString}`, { replace: true });
+    router.push(`${route}${queryString}`, );
   }, [selectedCategories, selectedPrice, selectedSkills, router]);
 
   const resetSearching = () => {
@@ -109,11 +109,8 @@ export const SearchFilter = ({
     setSelectedPrice("");
     setText("");
 
-    router.push(
+    router.replace(
       `${route}${routeCategory && `category=${selectedCategories?.[0].value}`}`,
-      {
-        replace: true,
-      }
     );
   };
 
@@ -144,7 +141,7 @@ export const SearchFilter = ({
             closeMenuOnSelect={false}
             isMulti={true}
             options={categoryOptions}
-            onChange={(value) => setSelectedCategories(value)}
+            onChange={(value: any) => setSelectedCategories(value)}
             value={selectedCategories}
           />
         </div>
@@ -160,9 +157,9 @@ export const SearchFilter = ({
           isDisabled={!skillsOption?.length}
           closeMenuOnSelect={false}
           options={skillsOption}
-          onChange={(value) => setSelectedSkills(value)}
+          onChange={(value: any) => setSelectedSkills([...value])}
           value={selectedSkills}
-          isLoading={isLoading}
+          
         />
       </div>
       <div className="flex flex-col items-start justify-start mt-5"

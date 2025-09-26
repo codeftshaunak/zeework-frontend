@@ -348,7 +348,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter")
-                    searchWithFilters({ searchTerm: e.target.value });
+                    searchWithFilters({ searchTerm: e.target.value as string });
                 }}
                 value={searchTerm}
               />

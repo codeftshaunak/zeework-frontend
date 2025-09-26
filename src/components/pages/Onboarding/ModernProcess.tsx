@@ -303,7 +303,7 @@ const ModernProcess = () => {
       description="Select up to 3 categories that best represent your skills"
       onNext={handleSubmit(onSubmit)}
       onBack={() => setPage(1)}
-      isLoading={isLoading}
+      
       nextText="Continue"
     >
       <div className="space-y-6">
@@ -372,7 +372,7 @@ const ModernProcess = () => {
       description="Share your professional background and rates"
       onNext={handleSubmit(onSubmit)}
       onBack={() => setPage(2)}
-      isLoading={isLoading}
+      
       nextText="Continue"
     >
       <div className="space-y-6">
@@ -439,7 +439,7 @@ const ModernProcess = () => {
       description="Select the skills that showcase your expertise"
       onNext={handleSubmit(onSubmit)}
       onBack={() => setPage(3)}
-      isLoading={isLoading}
+      
       nextText="Complete Profile"
     >
       <div className="space-y-6">
@@ -499,7 +499,7 @@ const ModernProcess = () => {
       description="Help us understand your company and hiring needs"
       onNext={handleSubmit(onSubmit)}
       onBack={() => setPage(1)}
-      isLoading={isLoading}
+      
       nextText="Complete Setup"
     >
       <div className="space-y-6">

@@ -9,7 +9,7 @@ const Preview = () => {
       {formState.title ? (
         <div className="flex items-center w-full">
           <div className="text-gray-700 text-base font-semibold font-['SF Pro Text'] leading-normal">
-            {formState.title}
+            {(formState as any).title}
           </div>
           <div className="ml-auto">
             <div className="w-7 h-7 mr-3 justify-start items-start inline-flex">
@@ -106,14 +106,14 @@ const Preview = () => {
       ) : null}
       {formState?.amount ? (
         <div className="w-[310px] text-gray-700 text-sm font-normal font-['SF Pro Text'] leading-tight">
-          ${formState?.amount}
+          ${(formState as any)?.amount}
         </div>
       ) : null}
 
       {formState?.experience ? (
         <div className="flex items-center w-full mt-5">
           <div className="text-gray-700 text-base font-semibold font-['SF Pro Text'] leading-normal">
-            {formState?.experience}
+            {(formState as any)?.experience}
           </div>
           <div className="ml-auto">
             <div className="w-7 h-7 justify-start items-start inline-flex">
@@ -153,7 +153,7 @@ const Preview = () => {
       {formState.duration ? (
         <div className="flex items-center w-full mt-5">
           <div className="text-gray-700 text-base font-semibold font-['SF Pro Text'] leading-normal">
-            {formState?.duration}
+            {(formState as any)?.duration}
           </div>
           <div className="ml-auto">
             <div className="w-7 h-7 justify-start items-start inline-flex">

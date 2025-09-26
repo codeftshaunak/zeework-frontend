@@ -219,7 +219,11 @@ export const AgencyFreelancerCard: React.FC<AgencyFreelancerCardProps> = ({
             ? member_position.slice(0, 50) + "..."
             : member_position}
         </CustomBadge>
-        <MainButtonRounded onClick={() => handleClick(user_id)}>
+        <MainButtonRounded 
+          onClick={() => handleClick(user_id)}
+          noRounded={false}
+          className=""
+        >
           Visit Profile
         </MainButtonRounded>
         <div>
@@ -263,9 +267,9 @@ export const AgencyFreelancerCard: React.FC<AgencyFreelancerCardProps> = ({
       {isModal && (
         <UniversalModal
           isModal={isModal}
+          size={"3xl" as any}
           setIsModal={setIsModal}
           title="Freelancer Details"
-          size="3xl"
         >
           <div className="flex items-center gap-8">
             <div className="w-[150px] h-[150px]">
@@ -352,7 +356,7 @@ export const AgencyFreelancerCard: React.FC<AgencyFreelancerCardProps> = ({
 
               <div className="flex gap-5 pt-6">
                 <Button
-                  isLoading={isLoading}
+                  
                   loadingText="Removing"
                   onClick={handleRemoved}
                   className="px-10 py-2 text-white transition-colors bg-red-600 rounded-md hover:bg-red-700"

@@ -112,7 +112,7 @@ const Step4 = ({
   }, [formValues]);
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...(methods as any)}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GigCreateLayout
           title="Project description"
@@ -227,8 +227,6 @@ const Step4 = ({
 
             <div className="flex flex-row items-center w-full">
               <Checkbox
-                colorScheme="primary"
-                size="lg"
                 onChange={(e) => {
                   setValue("terms", e.target.checked);
                   trigger("terms");
@@ -253,8 +251,6 @@ const Step4 = ({
             </label>
             <div className="flex flex-row items-center w-full">
               <Checkbox
-                colorScheme="primary"
-                size="lg"
                 onChange={(e) => {
                   setValue("privacy_notice", e.target.checked);
                   trigger("privacy_notice");

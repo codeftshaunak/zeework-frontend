@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-const TimerDownloadCard = ({ msg }) => {
+const TimerDownloadCard = ({ msg } : { msg?: string}) => {
   const router = useRouter();
   return (
     <div

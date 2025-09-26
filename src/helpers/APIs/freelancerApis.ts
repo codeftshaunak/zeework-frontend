@@ -63,7 +63,7 @@ export const createGig = async (data) =>
 export const getSubCategory = async (_id) =>
   makeApiRequest("get", `/categories/subcategories?category_id=${_id}`);
 
-export const getSkills = async (category_id, sub_category_id) => {
+export const getSkills = async (category_id="", sub_category_id= "") => {
   let url = `/categories/skills?category_id=${category_id}`;
   if (sub_category_id) url += `&sub_category_id=${sub_category_id}`;
   return makeApiRequest("get", url);

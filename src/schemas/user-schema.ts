@@ -14,6 +14,6 @@ export const changePasswordSchema = yup.object().shape({
     ),
   confirm_password: yup
     .string()
-    .oneOf([yup.ref("new_password"), null], "Passwords must match")
+    .oneOf([yup.ref("new_password")], "Passwords must match")
     .required("Repeat Password is required"),
 });

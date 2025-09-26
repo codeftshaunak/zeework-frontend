@@ -45,9 +45,9 @@ const AgencyDetails = () => {
     agency_totalJob,
     agency_location,
     agency_overview,
-  } = invitationDetails?.agency_details || {};
+  } = (invitationDetails as any)?.agency_details || {};
 
-  const status = invitationDetails?.invitation_details?.status;
+  const status = (invitationDetails as any)?.invitation_details?.status;
 
   const getInvitationDetails = async () => {
     setIsLoading(true);
@@ -242,12 +242,12 @@ const AgencyDetails = () => {
             <div>
               <p className="sm:text-lg font-semibold">Contract Title:</p>
               <p className="capitalize">
-                {invitationDetails?.invitation_details?.position_assign}
+                {(invitationDetails as any)?.invitation_details?.position_assign}
               </p>
             </div>
             <div className="mt-4">
               <p className="sm:text-lg font-semibold">Message:</p>
-              <p>{invitationDetails?.invitation_details?.message}</p>
+              <p>{(invitationDetails as any)?.invitation_details?.message}</p>
             </div>
 
             <div className="flex flex-col"> <button

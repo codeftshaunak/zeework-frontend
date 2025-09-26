@@ -28,10 +28,10 @@ interface Job {
 }
 
 interface JobCardProps {
-  jobs: Job[] | undefined | null;
+  jobs: Job[] | Record<string, any>[] | undefined | null;
   searchTerm?: string;
   showHighlightedSearchTerm?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const JobCard: React.FC<JobCardProps> = ({

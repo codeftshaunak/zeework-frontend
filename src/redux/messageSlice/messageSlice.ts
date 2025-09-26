@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  users: [],
+  users: [] as any[],
 };
 
 const messageSlice = createSlice({
@@ -10,7 +10,7 @@ const messageSlice = createSlice({
   reducers: {
     markMessagesAsRead: (state, action) => {
       const { contract_ref, id } = action.payload;
-      state.users = state.users.map((item) => {
+      state.users = state.users.map((item: any) => {
         if (
           item.contract_details.contract_ref === contract_ref &&
           (item.contract_details.receiver_id === id ||
@@ -22,7 +22,7 @@ const messageSlice = createSlice({
       })
     },
     setMessageUsers: (state, action) => {
-      state.users = action.payload;
+      state.users = action.payload || [];
     },
     clearMessageState: (state) => {
       state.users = [];

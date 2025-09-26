@@ -11,7 +11,7 @@ import { MdRemoveModerator } from "react-icons/md";
 import { endContractOfFreelancer } from "../../helpers/APIs/agencyApis";
 import { VStack, Box, Avatar, Text } from "@/components/ui/migration-helpers";
 
-const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
+const AssignedMember = ({ member, contract_ref, setJobDetails }: any) => {
   const [isMenu, setIsMenu] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,17 +55,18 @@ const AssignedMember = ({ member, contract_ref, setJobDetails }) => {
             name={first_name + " " + first_name}
             size="lg"
           />
-          <Text mt={2} className="text-2xl font-semibold">
+          <Text className="text-2xl font-semibold mt-2">
             {first_name + " " + last_name}
           </Text>
           <Text
-            my={1}
-           className="text-center overflow-hidden w-full text-sm">
+           className="text-center overflow-hidden w-full text-sm my-1">
             {professional_role}
           </Text>
         </Box>
         <MainButtonRounded
           onClick={() => router.push(`/profile/f/${freelancer_id}`)}
+          noRounded
+          className=""
         >
           View Profile
         </MainButtonRounded>

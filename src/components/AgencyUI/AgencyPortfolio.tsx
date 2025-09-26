@@ -10,6 +10,9 @@ const AgencyPortfolio = () => {
       <div className="mt-[20px]">
         <Image
           src="./images/404not-added.png"
+          alt="No projects added"
+          width={200}
+          height={200}
           className="m-[auto]"
         />
         <span className="font-semibold text-center">

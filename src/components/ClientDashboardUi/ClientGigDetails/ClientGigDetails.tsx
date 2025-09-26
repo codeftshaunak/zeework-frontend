@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -23,17 +23,17 @@ import { sendGigPurchasesReq } from "../../../helpers/APIs/clientApis";
 import { getFreelancerById } from "../../../helpers/APIs/freelancerApis";
 import { getGigDetails } from "../../../helpers/APIs/gigApis";
 import { Avatar } from "@/components/ui/migration-helpers";
-import HomeLayout from "../../../Layouts/HomeLayout";
 import { clearMessageState } from "../../../redux/messageSlice/messageSlice";
 import UniversalModal from "../../Modals/UniversalModal";
 import BtnSpinner from "../../Skeletons/BtnSpinner";
 import GigDetailsSkeleton from "../../Skeletons/GigDetailsSkeleton";
 import { Button } from "@/components/ui/migration-helpers";
+import HomeLayout from "@/components/Layouts/HomeLayout";
 
 const ClientGigDetails = () => {
-  const [gigData, setGigData] = useState({ gigInfo: {}, freelancerInfo: {} });
+  const [gigData, setGigData] = useState<any>({ gigInfo: {}, freelancerInfo: {} });
   const profile = useSelector((state: any) => state.profile.profile);
-  const role = useSelector((state: any) => state.auth.role);
+  const role : string = useSelector((state: any) => state.auth.role);
   const [isFullImg, setIsFullImg] = useState("");
   const [isModal, setIsModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -42,7 +42,7 @@ const ClientGigDetails = () => {
   const { socket } = useContext(SocketContext);
   const videoRef = useRef(null);
   const router = useRouter();
-  const { state } = usePathname();
+  const { state } :any = usePathname();
   const status = state?.status || gigData?.gigInfo?.status;
   const { id } = useParams();
   const prevRef = useRef(null);
@@ -483,7 +483,7 @@ const ClientGigDetails = () => {
                 Cancel
               </Button>
               <Button
-                isLoading={isLoading}
+                
                 loadingText="Confirm"
                 type="submit"
                 spinner={<BtnSpinner />}

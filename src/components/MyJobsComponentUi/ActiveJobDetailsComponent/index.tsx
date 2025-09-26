@@ -56,7 +56,7 @@ const ActiveJobDetailsComponent = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const clientDetails = jobDetails?.client_details?.[0];
+  const clientDetails = (jobDetails as any)?.client_details?.[0];
   const { id } = useParams();
   const router = useRouter();
 
@@ -104,9 +104,9 @@ const ActiveJobDetailsComponent = () => {
       const formData = new FormData();
       formData.append("file", data.file[0]);
       formData.append("message", data.message);
-      formData.append("client_id", jobDetails.client_id);
-      formData.append("job_id", jobDetails.job_id);
-      formData.append("contract_ref", jobDetails._id);
+      formData.append("client_id", (jobDetails as any)?.client_id);
+      formData.append("job_id", (jobDetails as any)?.job_id);
+      formData.append("contract_ref", (jobDetails as any)?._id);
 
       const { code, msg } = await submitTask(formData);
       toast.default(msg);
@@ -115,22 +115,22 @@ const ActiveJobDetailsComponent = () => {
           socket.emit(
             "card_message",
             {
-              sender_id: jobDetails.freelancer_id,
-              receiver_id: jobDetails.client_id,
+              sender_id: (jobDetails as any)?.freelancer_id,
+              receiver_id: (jobDetails as any)?.client_id,
               message: data?.message,
               // message_type: "offer",
-              contract_ref: jobDetails._id,
+              contract_ref: (jobDetails as any)?._id,
             },
             {
-              job_id: jobDetails.job_id,
-              title: jobDetails.job_title,
-              job_offer_id: jobDetails._id,
+              job_id: (jobDetails as any)?.job_id,
+              title: (jobDetails as any)?.job_title,
+              job_offer_id: (jobDetails as any)?._id,
               type: "Job Task Submitted",
-              job_type: jobDetails.job_type,
-              amount: jobDetails.hourly_rate || jobDetails.budget,
+              job_type: (jobDetails as any)?.job_type,
+              amount: (jobDetails as any)?.hourly_rate || (jobDetails as any)?.budget,
               url: {
-                freelancer: `/active-job/submit/${jobDetails._id}`,
-                client: `/contract/${jobDetails._id}`,
+                freelancer: `/active-job/submit/${(jobDetails as any)?._id}`,
+                client: `/contract/${(jobDetails as any)?._id}`,
               },
             }
           );
@@ -236,16 +236,13 @@ const ActiveJobDetailsComponent = () => {
           >
             <Tabs.List>
               <Tabs.Trigger className="font-semibold text-[1.5rem]">Overview</Tabs.Trigger>
-              {jobDetails?.job_type === "hourly" && (
+              {(jobDetails as any)?.job_type === "hourly" && (
                 <Tabs.Trigger className="font-semibold text-[1.5rem] !hidden sm:!block">
                   Work Sheet
                 </Tabs.Trigger>
               )}
             </Tabs.List>
-            <Tabs.Indicator
-              mt="1.5px"
-            />
-            <SmoothMotion key={activeTab}>
+            <SmoothMotion key={active}>
               <Tabs.Content>
                 <Tabs.Content paddingX={0}>
                   {isLoading ? (
@@ -293,7 +290,7 @@ const ActiveJobDetailsComponent = () => {
                               Contract Title:
                             </p>
                             <p className="sm:text-lg capitalize">
-                              {jobDetails?.contract_title}
+                              {(jobDetails as any)?.contract_title}
                             </p>
                           </div>
                           <div className="flex items-center gap-2 mt-5">
@@ -301,7 +298,7 @@ const ActiveJobDetailsComponent = () => {
                               Job Status:
                             </p>
                             <p className="border border-green-500 px-3 capitalize rounded-full bg-green-50 w-fit font-semibold">
-                              {jobDetails?.status?.replace(/_/g, " ")}
+                              {(jobDetails as any)?.status?.replace(/_/g, " ")}
                             </p>
                           </div>
 
@@ -311,16 +308,16 @@ const ActiveJobDetailsComponent = () => {
                             leftIcon={<LuMessagesSquare />}
                             onClick={() =>
                               router.push(
-                                `/message/${jobDetails.client_id}?contract_ref=${jobDetails._id}`
+                                `/message/${(jobDetails as any)?.client_id}?contract_ref=${(jobDetails as any)?._id}`
                               )
                             }
                           >
                             Message
                           </button>
                           {/* for freelancer */}
-                          {jobDetails?.offer_to === "freelancer" && (
+                          {(jobDetails as any)?.offer_to === "freelancer" && (
                             <>
-                              {jobDetails?.status === "completed" ? (
+                              {(jobDetails as any)?.status === "completed" ? (
                                 <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                   borderColor="yellow.200"
                                 >
@@ -328,8 +325,8 @@ const ActiveJobDetailsComponent = () => {
                                 </button>
                               ) : (
                                 <>
-                                  {jobDetails?.job_type === "fixed" &&
-                                    (jobDetails?.status === "task_submitted" ? (
+                                  {(jobDetails as any)?.job_type === "fixed" &&
+                                    ((jobDetails as any)?.status === "task_submitted" ? (
                                       <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                         onClick={() =>
                                           setViewSubmittedTask(true)
@@ -341,7 +338,7 @@ const ActiveJobDetailsComponent = () => {
                                     ) : (
                                       <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                         isDisabled={
-                                          jobDetails?.status ===
+                                          (jobDetails as any)?.status ===
                                           "task_submitted"
                                         }
                                         onClick={() => {
@@ -358,8 +355,8 @@ const ActiveJobDetailsComponent = () => {
                           )}
 
                           {/* for agency */}
-                          {jobDetails?.offer_to === "agency" &&
-                            (jobDetails?.status === "completed" ? (
+                          {(jobDetails as any)?.offer_to === "agency" &&
+                            ((jobDetails as any)?.status === "completed" ? (
                               <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                                 borderColor="yellow.200"
                               >
@@ -371,7 +368,7 @@ const ActiveJobDetailsComponent = () => {
                                  
                                   onClick={() =>
                                     router.push(
-                                      `/contract-assign/${jobDetails._id}`
+                                      `/contract-assign/${(jobDetails as any)?._id}`
                                     )
                                   }
                                 >
@@ -386,13 +383,13 @@ const ActiveJobDetailsComponent = () => {
                     <DataNotAvailable onRefresh={getInvitationDetails} />
                   )}
                 </Tabs.Content>
-                {jobDetails?.job_type === "hourly" && (
+                {(jobDetails as any)?.job_type === "hourly" && (
                   <Tabs.Content paddingX={0}>
                     {timeSheetLoading ? (
                       <HorizontalCardSkeleton />
-                    ) : timeSheet?.details ? (
+                    ) : (timeSheet as any)?.details ? (
                       <div className="mt-3 sm:mt-5 lg:mt-10">
-                        <JobTimeSheet data={timeSheet} />
+                        <JobTimeSheet data={timeSheet} isLoading={false} />
                       </div>
                     ) : (
                       <DataNotAvailable
@@ -478,7 +475,7 @@ const ActiveJobDetailsComponent = () => {
           <div className="flex flex-col gap-2 items-start">
             <div className="text-md">
               <span className="font-semibold">Description:</span>{" "}
-              {taskDetails.message}
+              {(taskDetails as any)?.message}
             </div>
             <div className="text-md w-full">
               <span className="font-semibold">Attachment:</span>{" "}

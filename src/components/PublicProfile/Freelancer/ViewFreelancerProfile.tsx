@@ -30,7 +30,7 @@ import AddPaymentNotifyModal from "../../Modals/AddPaymentNotifyModal";
 const ViewFreelancerProfile = () => {
   const role = useSelector((state: any) => state.auth.role);
   const { profile } = useContext(CurrentUserContext);
-  const [freelancerDetails, setFreelancerDetails] = useState({});
+  const [freelancerDetails, setFreelancerDetails] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const [showDetails, setShowDetails] = useState(false);

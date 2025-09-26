@@ -23,7 +23,7 @@ const handleErrorResponse = (msg) => {
 export const handleApiError = (error) => {
   if (error?.response) {
     if (error.response?.data?.code == 401) {
-      return logoutAndRedirect(error.response?.data?.msg);
+      return logoutAndRedirect();
     } else if (error.response?.data?.code == 400) {
       return handleErrorResponse(error.response?.data?.msg);
     } else if (error.response?.data?.code == 404) {

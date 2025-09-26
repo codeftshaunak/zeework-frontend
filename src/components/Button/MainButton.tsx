@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export const MainButtonRounded = ({
   children,
   onClick,
-  noRounded,
+  noRounded = false,
   variant = "solid",
   isDisable = false,
   isLoading = false,
@@ -18,7 +18,7 @@ export const MainButtonRounded = ({
 
   return (
     <button
-      type={type}
+      type={type as any}
       disabled={disabled}
       className={`text-center font-semibold py-[6px] px-6 border transition duration-700 flex items-center justify-center ${
         disabled

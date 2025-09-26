@@ -53,7 +53,8 @@ const HireFreelancerPage = () => {
   });
 
   const validateForm = useCallback(() => {
-    const { job_type, hourly_rate, budget, accept_terms_condition } = formData;
+    const { job_type, hourly_rate, accept_terms_condition } = formData;
+    const budget = (formData as any).budget;
 
     if (!accept_terms_condition) {
       toast.warning("Please accept the terms and conditions");
@@ -216,7 +217,7 @@ const HireFreelancerPage = () => {
       const updatedFormData = { ...prev, job_type: jobInfo.job_type };
 
       if (jobInfo.job_type === "hourly") {
-        delete updatedFormData.budget;
+        delete (updatedFormData as any).budget;
         updatedFormData.weekly_limit = 40;
         updatedFormData.allow_freelancer_manually_timelog = false;
         const rate = agency_id
@@ -227,7 +228,7 @@ const HireFreelancerPage = () => {
         delete updatedFormData.hourly_rate;
         delete updatedFormData.weekly_limit;
         delete updatedFormData.allow_freelancer_manually_timelog;
-        updatedFormData.budget = jobInfo.amount || 0;
+        (updatedFormData as any).budget = jobInfo.amount || 0;
       }
 
       return updatedFormData;
@@ -300,7 +301,7 @@ const HireFreelancerPage = () => {
             <button
               type="button"
               className="text-green-500 cursor-pointer hover:text-green-600 transition-colors"
-              onClick={() => router.push(-1)}
+              onClick={() => router.back()}
             >
               Cancel
             </button>

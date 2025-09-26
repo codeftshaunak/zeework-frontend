@@ -41,9 +41,9 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
   // if there any values in form state context then push this to the form
   useEffect(() => {
     if (formState) {
-      const values = {};
+      const values: any = {};
       values.durations =
-        formState?.durations || defaultValues?.durations || "Less than 1 Month";
+        (formState as any)?.durations || (defaultValues as any)?.durations || "Less than 1 Month";
       reset(values);
     }
   }, [formState]);
@@ -51,7 +51,7 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
   // on form submit assign values to the context and call the callback
   const onSubmit = (v) => {
     const value = insertToFormState(v);
-    onCallback(value);
+    onCallback();
   };
 
   return (
@@ -102,7 +102,7 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
             </div>
           </div> */}
           <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-            isLoading={isLoading}
+            
             loadingText="Posting"
             type="submit"
             spinner={<BtnSpinner />}

@@ -22,9 +22,7 @@ const GigCards = ({ gigs, isLoading }) => {
               <div
                 className="rounded-lg h-[350px] shadow p-4 border bg-white flex flex-col justify-between w-full cursor-pointer"
                 onClick={() =>
-                  router.push(`/gig-details/${gig._id}`, {
-                    state: { status: gig.status },
-                  })
+                  router.push(`/gig-details/${gig._id}`)
                 }
               >
                 <img

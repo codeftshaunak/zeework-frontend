@@ -148,7 +148,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
           className="overflow-y-auto"
           style={{ maxHeight: `calc(100vh - 15vh)` }}
           sx={{
-            "&::WebkitScrollbar": {
+            "WebkitScrollbar": {
               width: "0px",
             },
           }}
@@ -301,7 +301,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                       placeholder="Select Country"
                       options={countries}
                       onChange={(data) => {
-                        setValue("country", data.value), trigger("country");
+                        setValue("country", (data as any)?.value), trigger("country");
                       }}
                       isLoading={!countries?.length}
                     />
@@ -372,7 +372,7 @@ const AddPaymentDetails = ({ setBank, setTab }) => {
                 Cancel
               </Button>
               <Button
-                isLoading={isLoading}
+                
                 loadingText="Submit"
                 type="submit"
                 paddingX={10}

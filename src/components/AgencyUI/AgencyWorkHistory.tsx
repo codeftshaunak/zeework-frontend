@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import AgencyTitle from "./AgencyTitle";
 
-const AgencyWorkHistory: React.FC = () => {
+const AgencyWorkHistory = ({setAgency}: any) => {
   return (
     <div className="w-full">
       <AgencyTitle noAdded={true}>Work History</AgencyTitle>

@@ -181,13 +181,13 @@ export const AuthHeader = ({ role }: { role: number }) => {
   const [openInfo, setOpenInfo] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [isActiveInput, setIsActiveInput] = useState(false);
-  const [cookie, setCookie] = useCookies(["activeagency"]);
+  const [cookie, setCookie] = useCookies<any>(["activeagency"]);
   const [isSelectModal, setIsSelectModal] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
   const pathname = usePathname();
   const isMessagePage = pathname.startsWith("/message");
   const activeAgency = cookie?.activeagency;
-  const selectModalRef = useRef<HTMLDivElement>(null);
+  const selectModalRef = useRef<any>(null);
   const profile = useSelector((state: any) => state.profile);
   const {
     profile_image,
@@ -215,7 +215,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   });
 
   const sortedNotifications = [...notifications].sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
   let hasUnreadNotifications = notifications?.some(
     (notification) => !notification.isRead
@@ -402,7 +402,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
     try {
       const { body, code } = activeAgency
         ? await getMessageUsers("agency")
-        : await getMessageUsers();
+        : await getMessageUsers("freelancer");
       if (code === 200) {
         dispatch(setMessageUsers(body));
       }

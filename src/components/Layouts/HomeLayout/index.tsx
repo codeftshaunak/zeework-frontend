@@ -11,7 +11,8 @@ interface HomeLayoutProps {
   width?: string;
   gap?: string | number;
   bg?: string;
-  children: React.ReactNode;
+  children: any;
+  displaydir?: string
 }
 
 const HomeLayout: React.FC<HomeLayoutProps> = (props) => {

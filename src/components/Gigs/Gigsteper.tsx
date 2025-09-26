@@ -28,11 +28,8 @@ const steps = [
 export const GigSteper = ({ activeStep }) => {
   return (
     <Stepper
-      size="lg"
       index={activeStep}
-      colorScheme="primary"
-      className="items-center"
-      marginTop={10}
+      className="items-center mt-10"
     >
       {steps.map((step, index) => (
         <Step key={index}>
@@ -78,7 +75,6 @@ export const CreateWithStepper = ({ setPage }) => {
         setActiveStep={setActiveStep}
         goBackward={goBackward}
         goForward={goForward}
-        setPage={setPage}
       />
     </>
   );
@@ -107,10 +103,8 @@ export const UpdateWithStepper = ({ setPage, setIsEdit }) => {
       <div className="mt-10">
         <GigUpdate
           activeStep={activeStep}
-          setActiveStep={setActiveStep}
           goBackward={goBackward}
           goForward={goForward}
-          setPage={setPage}
           setIsEdit={setIsEdit}
         />
       </div>

@@ -109,7 +109,7 @@ const JobDetails = ({
   const [isCropped, setIsCropped] = useState(false);
 
   // Client history tabs and view more state
-  const [activeTab, setActiveTab] = useState<"all" | "open" | "completed">("all");
+  const [active, setActiveTab] = useState<"all" | "open" | "completed">("all");
   const [showAllJobs, setShowAllJobs] = useState(false);
 
   // upload profile photo of freelancer and agency
@@ -148,7 +148,7 @@ const JobDetails = ({
           0.8,
           800
         );
-        formData.append("file", compressedImage);
+        formData.append("file", compressedImage as Blob);
 
         const { code, body } = await uploadImage(formData);
 
@@ -222,7 +222,7 @@ const JobDetails = ({
     total_hours,
     job_posted,
     payment_verified,
-  } = clientDetails;
+  } = clientDetails as any;
 
   const hiredPercentage =
     job_open > 0 ? (hired_freelancers / job_open) * 100 : 0;
@@ -230,9 +230,9 @@ const JobDetails = ({
 
   // Filter client history based on active tab
   const filteredHistory = clientHistory.filter((job) => {
-    if (activeTab === "all") return true;
-    if (activeTab === "open") return job.status === "open";
-    if (activeTab === "completed") return job.status === "completed" || job.status === "close" || job.status === "closed";
+    if (active === "all") return true;
+    if (active === "open") return job.status === "open";
+    if (active === "completed") return job.status === "completed" || job.status === "close" || job.status === "closed";
     return true;
   });
 
@@ -627,14 +627,14 @@ const JobDetails = ({
                         setShowAllJobs(false);
                       }}
                       className={`px-4 py-3 text-sm font-semibold transition-all duration-200 border-b-2 ${
-                        activeTab === "all"
+                        active === "all"
                           ? "text-green-600 border-green-600"
                           : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
                       }`}
                     >
                       All Jobs
                       <span className={`ml-2 px-2 py-1 rounded-full text-xs ${
-                        activeTab === "all"
+                        active === "all"
                           ? "bg-green-100 text-green-700"
                           : "bg-gray-100 text-gray-600"
                       }`}>
@@ -647,14 +647,14 @@ const JobDetails = ({
                         setShowAllJobs(false);
                       }}
                       className={`px-4 py-3 text-sm font-semibold transition-all duration-200 border-b-2 ${
-                        activeTab === "open"
+                        active === "open"
                           ? "text-green-600 border-green-600"
                           : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
                       }`}
                     >
                       In Progress
                       <span className={`ml-2 px-2 py-1 rounded-full text-xs ${
-                        activeTab === "open"
+                        active === "open"
                           ? "bg-green-100 text-green-700"
                           : "bg-gray-100 text-gray-600"
                       }`}>
@@ -667,14 +667,14 @@ const JobDetails = ({
                         setShowAllJobs(false);
                       }}
                       className={`px-4 py-3 text-sm font-semibold transition-all duration-200 border-b-2 ${
-                        activeTab === "completed"
+                        active === "completed"
                           ? "text-green-600 border-green-600"
                           : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
                       }`}
                     >
                       Completed
                       <span className={`ml-2 px-2 py-1 rounded-full text-xs ${
-                        activeTab === "completed"
+                        active === "completed"
                           ? "bg-green-100 text-green-700"
                           : "bg-gray-100 text-gray-600"
                       }`}>
@@ -770,12 +770,12 @@ const JobDetails = ({
                         </svg>
                       </div>
                       <h3 className="text-lg font-medium text-gray-900 mb-2">
-                        No {activeTab === "all" ? "" : activeTab} jobs found
+                        No {active === "all" ? "" : active} jobs found
                       </h3>
                       <p className="text-gray-500">
-                        {activeTab === "all"
+                        {active === "all"
                           ? "This client hasn't posted any jobs yet."
-                          : `This client has no ${activeTab} jobs.`
+                          : `This client has no ${active} jobs.`
                         }
                       </p>
                     </div>

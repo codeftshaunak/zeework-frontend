@@ -79,7 +79,7 @@ const SubmitModal = ({
                  className="font-bold text-left">
                   Your Message To Client
                 </span>
-                <spanarea
+                <textarea
                   placeholder="Enter your message..."
                   value={messages}
                   onChange={handleTextValue}

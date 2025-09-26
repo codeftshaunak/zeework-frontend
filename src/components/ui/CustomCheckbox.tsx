@@ -9,6 +9,7 @@ export const CustomCheckbox = ({
     colorScheme = "green",
     ...props
 }: {
+  children: React.ReactNode;
   size?: string;
   colorScheme?: string;
   [key: string]: unknown;

@@ -25,7 +25,7 @@ const options = [
   },
 ];
 
-function SecondStep({ setStep, defaultValues }) {
+function SecondStep({ setStep, defaultValues= {} }) {
   const { insertToFormState, formState } = useFormState();
   const {
     register,
@@ -48,9 +48,9 @@ function SecondStep({ setStep, defaultValues }) {
   // if there any values in form state context then push this to the form
   useEffect(() => {
     if (formState) {
-      const values = {};
+      const values: any = {};
       values.experience =
-        formState?.experience || defaultValues?.experience || "Expert";
+        (formState as any)?.experience || (defaultValues as any)?.experience || "Expert";
       reset(values);
     }
   }, [formState]);

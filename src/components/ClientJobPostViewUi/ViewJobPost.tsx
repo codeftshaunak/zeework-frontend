@@ -7,7 +7,7 @@ import { AiFillStar } from "react-icons/ai";
 import { FiEdit2, FiUser } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
 import { TbFileDollar } from "react-icons/tb";
-import { useLocation, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import UniversalModal from "../Modals/UniversalModal";
 import { deleteJob, getSingleJobDetails } from "../../helpers/APIs/jobApis";
 import BtnSpinner from "../Skeletons/BtnSpinner";

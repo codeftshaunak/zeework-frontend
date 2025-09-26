@@ -22,7 +22,7 @@ import {
   AgencyManagerCard,
 } from "./AgencyFreelancerCard";
 
-const AgencyMembers = () => {
+const AgencyMembers = ({ setAgency }: any) => {
   const router = useRouter();
   return (
     <div className="w-full mt-5" id="agencyMember">
@@ -79,23 +79,20 @@ export const AgencyAllInvitations = () => {
   return (
     <>
       {memburs?.pendingInvitations && (
-        <Tabs.Root className="mt-[1.5rem]" flexWrap="wrap" colorScheme="primary">
-          <Tabs.List flexWrap="wrap">
-            <Tabs.Trigger>
+        <div className="mt-[1.5rem]" style={{flexWrap: "wrap"}} data-colorscheme="primary">
+          <div style={{flexWrap: "wrap"}}>
+            <div>
               Active Members
-            </Tabs.Trigger>
-            <Tabs.Trigger>
+            </div>
+            <div>
               Pending Members
-            </Tabs.Trigger>
-            <Tabs.Trigger>
+            </div>
+            <div>
               Rejected Members
-            </Tabs.Trigger>
-          </Tabs.List>
-          {/* <Tabs.Indicator
-            className="bg-fg-brand"
-          /> */}
-          <Tabs.Content className="mt-[5]">
-            <Tabs.Content gap={12} flexWrap="wrap">
+            </div>
+          </div>
+          <div className="mt-[5]">
+            <div style={{gap: 12, flexWrap: "wrap"}}>
               {acceptInvitation && acceptInvitation?.length > 0 ? (
                 acceptInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -107,8 +104,8 @@ export const AgencyAllInvitations = () => {
               ) : (
                 <h2 className="text-center text-lg">No Active Members.</h2>
               )}
-            </Tabs.Content>
-            <Tabs.Content gap={5} flexWrap="wrap">
+            </div>
+            <div style={{gap: 5, flexWrap: "wrap"}}>
               {pandingInvitation && pandingInvitation?.length > 0 ? (
                 pandingInvitation?.map((invitation, index) => (
                   <AgencyFreelancerCard
@@ -122,18 +119,22 @@ export const AgencyAllInvitations = () => {
                   Pending Member Not Found
                 </h2>
               )}
-            </Tabs.Content>
-            <Tabs.Content gap={5} flexWrap="wrap">
+            </div>
+            <div style={{gap: 5, flexWrap: "wrap"}}>
               {rejectInvitation && rejectInvitation?.length > 0 ? (
                 rejectInvitation?.map((invitation, index) => (
-                  <AgencyFreelancerCard details={invitation} key={index} />
+                  <AgencyFreelancerCard 
+                    details={invitation} 
+                    key={index}
+                    setRemainingMembers={() => {}}
+                  />
                 ))
               ) : (
                 <h2 className="text-center text-lg">No Rejected Members.</h2>
               )}
-            </Tabs.Content>
-          </Tabs.Content>
-        </Tabs.Root>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

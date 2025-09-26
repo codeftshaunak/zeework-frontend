@@ -54,6 +54,7 @@ const CompletedJobs = ({ completedJobs, loading }) => {
                       >
                         <Image
                           src="./images/complete_job.png"
+                          alt="Completed job"
                         />
                         <div>
                           <span

@@ -4,7 +4,7 @@ import { toast } from "@/lib/toast";
 import React, { useContext, useEffect, useState } from "react";
 import { TbMessageCancel } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "next/navigation";
+import { useSearchParams, useParams } from "next/navigation";
 import { SocketContext } from "../../contexts/SocketContext";
 import { deleteSingleMessage } from "../../helpers/APIs/messageApis";
 import { setMessageUsers } from "../../redux/messageSlice/messageSlice";
@@ -25,7 +25,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const receiverDetails = data?.reciever_details;
   const { contract_details } = userDetails || {};
-  const { search } = usePathname();
+  const { search } : any = usePathname();
   const searchParams = new URLSearchParams(search);
   const contract_ref = searchParams.get("contract_ref");
   const { id } = useParams();
@@ -230,7 +230,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
             overflowY="auto"
             overflowX="hidden"
             flexDir="column"
-            marginBottom={{ md: "1.5rem" }}
+            marginBottom="1.5rem"
             id="chat-container"
             css={{
               "&::WebkitScrollbar": {
@@ -259,7 +259,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
           <MessageInput
             message={message}
             setMessage={setMessage}
-            isLoading={isLoading}
+            isLoading={false}
             handleSendMessage={handleSendMessage}
           />
         </VStack>

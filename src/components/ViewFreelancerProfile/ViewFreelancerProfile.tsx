@@ -6,7 +6,6 @@ import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
 import { getFreelancerInfo } from "../../helpers/APIs/clientApis";
 import { toast } from "@/lib/toast";
-import SkillCard from "../Profile/SkillCard";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -19,12 +18,13 @@ import { FaLocationDot } from "react-icons/fa6";
 import AgencyProfileSkeleton from "../Skeletons/AgencyProfileSkeleton";
 import { useRouter } from "next/navigation";
 import { VStack, Text } from "@/components/ui/migration-helpers";
-import PortfolioCard from "./PortfolioCard";
 import { useSelector } from "react-redux";
+import PortfolioCard from "../PublicProfile/Freelancer/PortfolioCard";
+import SkillCard from "../Profile/FreelancerProfile/FreelancerProfile/SkillCard";
 
 const ViewFreelancerProfile = () => {
   const role = useSelector((state: any) => state.auth.role);
-  const [freelancerDetails, setFreelancerDetails] = useState({});
+  const [freelancerDetails, setFreelancerDetails] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 

@@ -24,7 +24,7 @@ const Offer = () => {
   const currentUrl = window.location.href;
   const { offer_id } = queryString.parseUrl(currentUrl).query;
   const [openModal, setOpenModal] = useState(false);
-  const [jobDetails, setJobDetails] = useState();
+  const [jobDetails, setJobDetails] = useState<Record<string, any>>({});
   const [reject, setReject] = useState(false);
   const dispatch = useDispatch();
   const { socket } = useContext(SocketContext); // Use socket from context
@@ -110,10 +110,10 @@ const Offer = () => {
         "card_message",
         {
           sender_id: jobDetails?.freelancer_id,
-          receiver_id: jobDetails.client_id,
+          receiver_id: jobDetails?.client_id,
           message: message,
           // message_type: "offer",
-          contract_ref: jobDetails._id,
+          contract_ref: jobDetails?._id,
         },
         {
           title: jobDetails?.job_title,
@@ -121,8 +121,8 @@ const Offer = () => {
           job_type: jobDetails?.job_type,
           amount: jobDetails?.hourly_rate || jobDetails?.budget,
           url: {
-            client: `/contract/${jobDetails._id}`,
-            freelancer: `/active-job/submit/${jobDetails._id}`,
+            client: `/contract/${jobDetails?._id}`,
+            freelancer: `/active-job/submit/${jobDetails?._id}`,
           },
         }
       );
@@ -160,16 +160,17 @@ const Offer = () => {
       </h2>
       {loading ? (
         <InvitationSkeleton />
-      ) : jobDetails?.client_details ? (
+      ) : (jobDetails as any)?.client_details ? (
         <div className="grid grid-cols-3 gap-5 mt-5">
           {/* <JobDetailsSection jobDetails={jobDetails} /> */}
           <OfferDetails jobDetails={jobDetails} />
           <ClientDetailsSection
-            clientDetails={jobDetails?.client_details[0]}
-            status={jobDetails?.status}
+            clientDetails={(jobDetails as any)?.client_details?.[0]}
+            status={(jobDetails as any)?.status}
             setOpenModal={setOpenModal}
             rejectInvite={rejectInvite}
             offer={true}
+            isLoading={false}
           />
           {openModal && (
             <Modal
@@ -177,7 +178,8 @@ const Offer = () => {
               openModal={openModal}
               acceptInvite={acceptInvite}
               offer={true}
-              isLoading={isLoading}
+              isLoading={false}
+              
             />
           )}
           {reject && (
@@ -186,7 +188,7 @@ const Offer = () => {
               openModal={reject}
               title="Reject The Offer"
               handleSubmit={handleRejectOffer}
-              isLoading={isLoading}
+              
             />
           )}
         </div>

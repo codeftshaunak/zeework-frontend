@@ -104,7 +104,7 @@ const CreateForm = () => {
         toast.success("Agency Profile Created Successfully.");
         getUserDetails();
 
-        router.push(-1);
+        router.back();
       } else {
         toast.warning(msg);
       }
@@ -138,7 +138,7 @@ const CreateForm = () => {
           </div>
           <div>
             <span>Agency Overview</span>
-            <spanarea
+            <textarea
               {...register("agency_overview", {
                 required: "Agency Overview is required",
               })}
@@ -189,7 +189,7 @@ const CreateForm = () => {
               closeMenuOnSelect={false}
               placeholder="Select Your Category"
               options={category}
-              onChange={(data) => {
+              onChange={(data: any) => {
                 const newData = data?.map((d) => ({
                   _id: d._id,
                   category_name: d.category_name,

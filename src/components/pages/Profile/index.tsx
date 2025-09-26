@@ -1,8 +1,9 @@
 "use client";
 
-import { UserProfile } from "../../Profile";
+
 import UserProfileSetting from "../../Profile/UserProfileSetting";
 import HomeLayout from "../../Layouts/HomeLayout";
+import UserProfile from "@/components/Profile";
 
 // Initial Profile Page
 export const Profile = () => {

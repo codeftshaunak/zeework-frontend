@@ -61,7 +61,7 @@ const ConfirmModal = ({
           Cancel
         </Button>
         <Button
-          isLoading={isLoading}
+          
           loadingText="End Contract"
           spinner={<BtnSpinner />}
           onClick={handleEndContract}

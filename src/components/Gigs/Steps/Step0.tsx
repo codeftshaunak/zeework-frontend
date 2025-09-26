@@ -55,8 +55,9 @@ const defaultValues = {
   category: {},
   sub_category: {},
   skills: [],
+
 };
-const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
+const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit = false }) => {
   const [categoryId, setCategoryId] = useState(null);
   const [subCategoryId, setSubCategoryId] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState(null);
@@ -166,9 +167,9 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
   }, [categoryId, subCategoryId]);
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...(methods as any)}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Gig Overview" onBackward={onBack}>
+        <GigCreateLayout title="Gig Overview" onBackward={onBack} isLoading={false}>
           <div className="flex flex-col items-start">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Title
@@ -248,9 +249,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
 
                     {fieldState.error && (
                       <p style={{ color: "red", marginTop: "5px" }}>
-                        {fieldState.error?.message ||
-                          fieldState.error?.label?.message ||
-                          fieldState.error?.value?.message}
+                        {fieldState.error?.message}
                       </p>
                     )}
                   </>
@@ -291,9 +290,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
 
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error?.message ||
-                        fieldState.error?.label?.message ||
-                        fieldState.error?.value?.message}
+                      {fieldState.error?.message}
                     </p>
                   )}
                 </>
@@ -329,9 +326,7 @@ const Step0 = ({ submitCallback, onBack, afterSubmit, formValues, isEdit }) => {
 
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
-                      {fieldState.error?.message ||
-                        fieldState.error?.label?.message ||
-                        fieldState.error?.value?.message}
+                      {fieldState.error?.message}
                     </p>
                   )}
                 </>

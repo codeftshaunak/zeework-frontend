@@ -23,10 +23,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <CurrentUserProvider>
           <SocketProvider>
             <FormStateProvider>
-
               {children}
               <Toaster />
-
             </FormStateProvider>
           </SocketProvider>
         </CurrentUserProvider>

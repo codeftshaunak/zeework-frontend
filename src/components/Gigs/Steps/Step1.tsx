@@ -6,10 +6,6 @@ import {
   Checkbox,
   HStack,
   Input,
-  InputGroup,
-  InputLeftElement,
-  Textarea,
-  VStack,
 } from "@/components/ui/migration-helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
@@ -100,9 +96,9 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
   }, [formValues]);
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...(methods as any)}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GigCreateLayout title="Gig Price & Scope" onBackward={onBack}>
+        <GigCreateLayout title="Gig Price & Scope" onBackward={onBack} isLoading={false}>
           <div className="flex flex-col items-start">
             {/* <label htmlFor="" className="text-2xl font-[600] pb-0 capitalize">
               Create pricing tiers
@@ -115,7 +111,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <>
-                  <spanarea
+                  <textarea
                     {...field}
                     placeholder="Web Application"
                   / className="mt-[5px] bg-white">
@@ -139,7 +135,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <>
-                  <spanarea
+                  <textarea
                     {...field}
                     placeholder="Web Application"
                   / className="mt-[5px] bg-white">
@@ -154,8 +150,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             {/* <p className="text-right w-full">0/80 characters</p> */}
           </div>
 
-          <div className="flex flex-row items-center"
-          >
+          <div className="flex flex-row items-center">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Gig Price
             </label>
@@ -164,24 +159,22 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <div className="relative w-full md:w-1/2">
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                    >
-                      $
-                    </InputLeftElement>
-                    <input
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      type="number"
-                      {...field}
-                      value={field.value === null ? "" : field.value}
-                      onChange={(e) => {
-                        e.target.value === ""
-                          ? field.onChange(null)
-                          : field.onChange(e.target.value);
-                      }}
-                    />
-                  </InputGroup>
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                    $
+                  </div>
+                  <Input
+                    type="number"
+                    className="pl-6"
+                    {...field}
+                    value={field.value === null ? "" : field.value}
+                    onChange={(e) => {
+                      if (e.target.value === "") {
+                        field.onChange(null);
+                      } else {
+                        field.onChange(e.target.value);
+                      }
+                    }}
+                  />
 
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
@@ -193,8 +186,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
           </div>
 
-          <div className="flex flex-row items-center"
-          >
+          <div className="flex flex-row items-center">
             <label htmlFor="" className="text-xl font-[600] pb-0">
               Days Until Delivery
             </label>
@@ -203,23 +195,22 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
               control={control}
               render={({ field, fieldState }) => (
                 <div className="relative w-full md:w-1/2">
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                    >
-                      <PiHourglassMediumFill />
-                    </InputLeftElement>
-                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      type="number"
-                      {...field}
-                      value={field.value === null ? "" : field.value}
-                      onChange={(e) => {
-                        e.target.value === ""
-                          ? field.onChange(null)
-                          : field.onChange(e.target.value);
-                      }}
-                    />
-                  </InputGroup>
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                    <PiHourglassMediumFill />
+                  </div>
+                  <Input
+                    type="number"
+                    className="pl-10"
+                    {...field}
+                    value={field.value === null ? "" : field.value}
+                    onChange={(e) => {
+                      if (e.target.value === "") {
+                        field.onChange(null);
+                      } else {
+                        field.onChange(e.target.value);
+                      }
+                    }}
+                  />
 
                   {fieldState.error && (
                     <p style={{ color: "red", marginTop: "5px" }}>
@@ -257,7 +248,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
             />
           </div>
 
-          {/* <div className="flex flex-col className="items-start w-full">
+          {/* <div className="flex flex-col items-start w-full">
             <label htmlFor="" className="text-2xl font-[600] pb-0 mb-4">
               Services Options
             </label>
