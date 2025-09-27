@@ -20,7 +20,6 @@ const UpdateJob = () => {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 

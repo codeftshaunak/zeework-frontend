@@ -56,7 +56,6 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const [active, setActiveTab] = useState(0);
   const { socket } = useContext(SocketContext);
   const router = useRouter();
-  const pathname = usePathname();
   const jobDetails = location.state && location?.state?.jobDetails;
   const dispatch = useDispatch();
 

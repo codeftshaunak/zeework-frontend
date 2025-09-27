@@ -16,7 +16,6 @@ const MarketplaceBody = () => {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [page, setPage] = useState(1);
-  const pathname = usePathname();
 
   const totalPages = searchingGigs?.totalPages || 0;
 
@@ -36,9 +35,10 @@ const MarketplaceBody = () => {
     getCategory();
   }, []);
 
-  // Parse URL parameters from the location object
+  // Parse URL parameters from the searchParams
+  const searchParams = useSearchParams();
+  
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
     const categories = searchParams.get("category")
       ? searchParams.get("category").split(",")
       : [];
@@ -67,7 +67,7 @@ const MarketplaceBody = () => {
       setIsSearch(true);
     }
     getSearchingGigs(query);
-  }, [location.search, page]);
+  }, [searchParams, page]);
 
   // find searching gigs
   const getSearchingGigs = async (query) => {

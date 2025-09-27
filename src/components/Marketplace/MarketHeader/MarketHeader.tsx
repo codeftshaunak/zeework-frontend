@@ -9,24 +9,26 @@ import { CiFilter } from "react-icons/ci";
 
 import { SearchFilter } from "./SearchFilter";
 import { Image } from "@/components/ui/migration-helpers";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const handleSearch = () => {
-    const queryParams = new URLSearchParams(location.search);
+    const queryParams = new URLSearchParams(searchParams);
     if (searchText.trim() !== "") {
       queryParams.set("searchText", searchText);
     } else {
       queryParams.delete("searchText");
     }
-    const newUrl = `${window.pathname}?${queryParams.toString()}`;
+    const newUrl = `${pathname}?${queryParams.toString()}`;
     router.push(newUrl);
   };
 

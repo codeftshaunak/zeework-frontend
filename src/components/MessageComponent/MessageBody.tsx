@@ -25,8 +25,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const receiverDetails = data?.reciever_details;
   const { contract_details } = userDetails || {};
-  const { search } : any = usePathname();
-  const searchParams = new URLSearchParams(search);
+  const searchParams = useSearchParams();
   const contract_ref = searchParams.get("contract_ref");
   const { id } = useParams();
   const [message, setMessage] = useState("");

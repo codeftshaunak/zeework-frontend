@@ -36,7 +36,7 @@ const ClientDashboardComponent = () => {
   const jobsx = jobs.slice().reverse();
   const [visibleJobs, setVisibleJobs] = useState([]);
   const [page, setPage] = useState(1);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
 
   const pageSize = 5;
   const totalPages = Math.ceil(jobs.length / pageSize);
@@ -49,6 +49,9 @@ const ClientDashboardComponent = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
+    // Set initial value on client side
+    setIsMobile(window.innerWidth < 768);
+    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { useSearchParams, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams, usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { getSearchGigs } from "../../../helpers/APIs/gigApis";
 import { getCategories } from "../../../helpers/APIs/freelancerApis";
 import MarketplaceHeader from "../MarketHeader/MarketHeader";
@@ -17,8 +17,9 @@ const SearchedMarketplace = () => {
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [page, setPage] = useState(1);
   const pathname = usePathname();
-  const queryParams = new URLSearchParams(location.search);
-  const newUrl = `${window.pathname}`;
+  const searchParams = useSearchParams();
+  const queryParams = new URLSearchParams(searchParams);
+  const newUrl = `${pathname}`;
   const type = queryParams.get("type");
   const category =
     type === "client_choice" || type === "random"
@@ -44,9 +45,8 @@ const SearchedMarketplace = () => {
     getCategory();
   }, []);
 
-  // Parse URL parameters from the location object
+  // Parse URL parameters from the searchParams
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
     const categories = searchParams.get("category")
       ? searchParams.get("category").split(",")
       : [];
@@ -69,7 +69,7 @@ const SearchedMarketplace = () => {
     };
 
     getSearchingGigs(query);
-  }, [location.search, page]);
+  }, [searchParams, page]);
 
   // find searching gigs
   const getSearchingGigs = async (query) => {

@@ -9,7 +9,6 @@ import HomeLayout from "../../Layouts/HomeLayout";
 
 export const VerifySuccess = () => {
   const [loading, setLoading] = useState(false);
-  const pathname = usePathname();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const token = searchParams.get("token");

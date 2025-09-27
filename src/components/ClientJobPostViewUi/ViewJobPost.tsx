@@ -19,7 +19,6 @@ import JobDetailsSkeleton from "../Skeletons/JobDetailsSkeleton";
 import InvitationSkeleton from "../Skeletons/InvitationSkeleton";
 
 const ViewJobPost = () => {
-  const pathname = usePathname();
   const router = useRouter();
   const { id } = useParams();
   const [jobDetails, setJobDetails] = useState(
