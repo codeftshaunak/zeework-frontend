@@ -142,7 +142,8 @@ export function AgencyUpdatedModal({
   useEffect(() => {
     getService();
     if (title === "Skills" || title === "Projects") getAllSkills();
-  }, [categoriesInfo]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoriesInfo, title]);
 
   // manage agency location
   useEffect(() => {

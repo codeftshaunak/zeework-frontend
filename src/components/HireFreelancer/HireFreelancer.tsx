@@ -248,6 +248,7 @@ const HireFreelancerPage = () => {
     if (!hasValidProfile) {
       router.push("/client-dashboard");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, profile, freelancerInfo, agencyInfo, navigate]);
 
   if (loading) {

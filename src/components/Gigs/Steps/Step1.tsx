@@ -93,6 +93,7 @@ const Step1 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
       changes[key] = value === undefined ? defaultValues[key] : value;
     });
     reset(changes);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues]);
 
   return (

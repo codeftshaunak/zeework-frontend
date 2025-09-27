@@ -41,6 +41,9 @@ const ConfirmModal = ({
       <Image
         src="/images/zeework_end_contract.png"
         className="m-[auto]"
+        alt="end contract"
+        width={200}
+        height={200}
       />
       <Text
         className="m-[1rem 0] text-center text-2xl font-semibold"

@@ -51,6 +51,7 @@ export const ClientJobPostViewComponent = () => {
 
   useEffect(() => {
     proposalsDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

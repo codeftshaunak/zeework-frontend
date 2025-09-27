@@ -43,6 +43,7 @@ const SingleText = ({
     setTimeDifference(getTimeDifference());
 
     return () => clearInterval(timerId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getProfileImage = () => {

@@ -141,6 +141,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
 
   useEffect(() => {
     getCategorySkills();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories]);
 
   // if there any values in form state context then push this to the form
@@ -155,6 +156,7 @@ function FirstStep({ setStep, defaultValues }: FirstStepProps) {
     if ((formState as any)?.file) values.file = (formState as any).file;
 
     reset(values);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState]);
 
   const removeTrailingEmptyTags = (html: string) => {

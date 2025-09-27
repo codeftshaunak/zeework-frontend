@@ -82,6 +82,7 @@ const AssignedContractDetails = () => {
 
   useEffect(() => {
     getInvitationDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmitTask = async (data) => {

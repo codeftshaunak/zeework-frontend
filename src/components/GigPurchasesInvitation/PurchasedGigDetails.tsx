@@ -77,6 +77,7 @@ const PurchasedGigDetails = () => {
 
   useEffect(() => {
     gigDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gig_id]);
 
   return (

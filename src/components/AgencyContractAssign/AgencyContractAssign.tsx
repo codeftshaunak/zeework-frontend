@@ -41,6 +41,7 @@ const AgencyContractAssign = () => {
 
   useEffect(() => {
     getInvitationDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

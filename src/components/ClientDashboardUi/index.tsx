@@ -71,6 +71,7 @@ const ClientDashboardComponent = () => {
 
   useEffect(() => {
     handleJobsPagination();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, jobs]);
 
   const filteredHiredList = Array.isArray(hiredList)
@@ -124,7 +125,8 @@ const ClientDashboardComponent = () => {
   useEffect(() => {
     if (!jobs.length) getClientPostedJob();
     if (!hiredList.length) getHiredFreelancer();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jobs?.length, hiredList?.length]);
 
   const isVisibleSliderButton =
     (filteredHiredList?.length > 3 && !isMobile) ||

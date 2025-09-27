@@ -38,6 +38,7 @@ const ModernAllJobs = () => {
 
   useEffect(() => {
     if (!jobs?.length) getAllJobList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

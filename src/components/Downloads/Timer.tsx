@@ -81,6 +81,9 @@ const Timer = () => {
       <div className="col-span-1 bg-gray-300 w-full flex justify-center items-end p-5 pb-0 sm:pt-10 md:pt-14">
         <Image
           src="/images/timer_preview.png"
+          alt="timer"
+          width={400}
+          height={400}
         />
       </div>
     </div>

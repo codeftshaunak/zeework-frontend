@@ -16,6 +16,7 @@ function Complete({ setStep }) {
 
   useEffect(() => {
     clearFormState();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -41,6 +41,7 @@ const MyJobsComponentUi = () => {
     if (Object.keys(userJobs).length === 0) {
       getUserJobs();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

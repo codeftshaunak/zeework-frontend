@@ -167,6 +167,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
       contractType,
       paymentType,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, experience, contractType, paymentType]);
 
   const handleSearch = () => {

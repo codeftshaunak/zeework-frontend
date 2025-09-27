@@ -193,6 +193,7 @@ const JobDetails = ({
 
   useEffect(() => {
     getDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const dateObject = new Date(jobDetails[0]?.created_at);

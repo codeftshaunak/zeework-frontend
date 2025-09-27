@@ -111,6 +111,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
     if (existProfile?.categories) {
       getCategorySkills(existProfile.categories);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

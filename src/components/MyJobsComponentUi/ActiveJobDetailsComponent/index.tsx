@@ -97,6 +97,7 @@ const ActiveJobDetailsComponent = () => {
   useEffect(() => {
     getInvitationDetails();
     getTaskDetail();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmitTask = async (data) => {

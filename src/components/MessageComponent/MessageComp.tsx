@@ -189,6 +189,7 @@ const MessageComp = () => {
 
   useEffect(() => {
     if (userId) getMessageUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   // const sortedUsers = [...messageUsers].sort((a, b) => {

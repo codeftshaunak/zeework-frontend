@@ -53,6 +53,7 @@ function SecondStep({ setStep, defaultValues= {} }) {
         (formState as any)?.experience || (defaultValues as any)?.experience || "Expert";
       reset(values);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState]);
 
   return (

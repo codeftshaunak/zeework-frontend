@@ -45,6 +45,7 @@ const Interview = () => {
 
   useEffect(() => {
     getInvitationDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invite_id]);
 
   const performAction = async ({ messages, statusValue }) => {

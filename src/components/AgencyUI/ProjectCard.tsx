@@ -228,6 +228,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
 
   useEffect(() => {
     if (!skillList?.length) getAllSkills();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

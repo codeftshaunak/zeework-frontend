@@ -184,6 +184,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
 
   useEffect(() => {
     if (isModal) getCategorySkills();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModal]);
 
   const uploadImages = async () => {

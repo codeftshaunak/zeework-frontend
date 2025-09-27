@@ -32,7 +32,10 @@ const Task = () => {
 
   useEffect(() => {
     getTask();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  
   return (
     <div className="w-full mt-5 sm:mt-10 md:mt-14">
       <h2 className="mb-4 text-[25px] font-semibold">

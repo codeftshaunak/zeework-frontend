@@ -94,6 +94,7 @@ const Step3 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
     });
 
     reset(changes);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues]);
 
   return (

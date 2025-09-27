@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
 import { useContext, useEffect, useState } from "react";
 import OnboardingLayout from "../../onboarding/OnboardingLayout";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MultiSelect, MultiSelectOption } from "@/components/ui/multi-select";
-import { Select } from "@/components/ui/select";
 import { toast } from "@/lib/toast";
 import {
   getAllDetailsOfUser,

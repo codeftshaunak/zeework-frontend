@@ -52,6 +52,9 @@ const MarketplaceHeader = ({ category, isLoading, route, routeCategory }) => {
           <Image
             src="/images/marketplace.png"
             className="w-[100%] object-cover h-[360px]"
+            alt="marketplace"
+            width={400}
+            height={160}
           />
         </div>
 

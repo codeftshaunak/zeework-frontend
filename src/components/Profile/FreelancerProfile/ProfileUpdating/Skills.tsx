@@ -117,6 +117,7 @@ const Skills: React.FC<SkillsProps> = ({ setIsModal }) => {
 
       setValue("skills", formattedSkills);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfileInfo]);
 
   const onSubmit = async (data: FormData) => {

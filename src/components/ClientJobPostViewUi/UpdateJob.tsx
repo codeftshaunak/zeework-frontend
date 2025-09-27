@@ -58,6 +58,7 @@ const UpdateJob = () => {
   // check job details
   useEffect(() => {
     if (!jobDetails) return router.push("/");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

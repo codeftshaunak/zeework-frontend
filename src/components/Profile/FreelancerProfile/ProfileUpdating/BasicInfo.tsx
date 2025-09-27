@@ -78,6 +78,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ setIsModal }) => {
       setValue("hourly_rate", Number(hourly_rate) || 0);
       setValue("description", description);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [existProfile, setValue]);
 
   const onSubmit = async (data: FormData) => {

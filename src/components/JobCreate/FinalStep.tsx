@@ -46,6 +46,7 @@ function FinalStep({ onCallback = () => {}, isLoading, defaultValues }) {
         (formState as any)?.durations || (defaultValues as any)?.durations || "Less than 1 Month";
       reset(values);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState]);
 
   // on form submit assign values to the context and call the callback

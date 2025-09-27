@@ -49,6 +49,7 @@ const ViewAgencyProfile: React.FC = () => {
 
   useEffect(() => {
     getAgencyDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]); // Added id as dependency
 
   return (

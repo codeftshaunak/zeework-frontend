@@ -101,6 +101,7 @@ export const SearchFilter = ({
     const queryString = queryParams.join("&");
 
     router.push(`${route}${queryString}`, );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategories, selectedPrice, selectedSkills, router]);
 
   const resetSearching = () => {

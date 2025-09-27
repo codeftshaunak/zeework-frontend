@@ -109,6 +109,7 @@ const Step4 = ({
     // Reset terms and privacy_notice if they are not in formValues
     setValue("terms", defaultValues.terms);
     setValue("privacy_notice", defaultValues.privacy_notice);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues]);
 
   return (

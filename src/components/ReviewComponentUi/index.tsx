@@ -1,4 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
+
 import React from "react";
 import { toast } from "@/lib/toast";
 

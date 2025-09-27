@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
 import { toast } from "@/lib/toast";
@@ -168,7 +170,7 @@ const MessageBody = ({ data, selectedUser, userDetails, isAgencyId }) => {
     return () => {
       socket?.off("receive_message");
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [socket, contract_ref, id, socketUser, users, dispatch]);
 
   const handleDelete = async (id) => {

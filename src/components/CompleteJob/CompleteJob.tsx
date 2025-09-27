@@ -63,6 +63,7 @@ const CompleteJob = () => {
 
   useEffect(() => {
     getInvitationDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const dataAvailable = jobDetails && client_details;

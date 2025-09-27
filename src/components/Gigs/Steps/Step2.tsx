@@ -68,6 +68,7 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
         insertImages(files);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedImages]
   );
 

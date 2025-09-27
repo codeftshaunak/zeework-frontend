@@ -221,6 +221,7 @@ const Experience: React.FC<ExperienceProps> = ({ type, defaultValue, setIsModal,
 
   useEffect(() => {
     if (!countries?.length) getVerifiedCountries();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

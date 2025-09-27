@@ -21,6 +21,7 @@ const Home = () => {
         router.push("/client-dashboard", );
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, role, navigate]);
 
   if (token) {

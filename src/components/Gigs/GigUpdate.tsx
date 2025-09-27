@@ -154,6 +154,7 @@ export const GigUpdate = ({ activeStep, goForward, goBackward, setIsEdit }) => {
 
       return uploadResponse;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [(formData as any).images, (formData as any).video]
   );
 

@@ -47,6 +47,7 @@ const Offer = () => {
 
   useEffect(() => {
     getInvitationDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offer_id]);
 
   const performAction = async ({ messages, statusValue }) => {

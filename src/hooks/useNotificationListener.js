@@ -20,6 +20,7 @@ const useNotificationListener = (
         });
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, ...dependencies, condition]);
 };
 

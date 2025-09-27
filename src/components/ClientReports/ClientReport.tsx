@@ -58,6 +58,7 @@ const ClientReport = () => {
   useEffect(() => {
     getClientReports();
     getActiveContract();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderSkeleton = (isLoading, children) => (

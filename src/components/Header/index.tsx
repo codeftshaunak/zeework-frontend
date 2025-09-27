@@ -465,6 +465,7 @@ export const AuthHeader = ({ role }: { role: number }) => {
   useEffect(() => {
     if (!notifications?.length) fetchNotifications();
     if (!messageUsers?.length) fetchUsersOfMessage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeAgency]);
 
   return (
