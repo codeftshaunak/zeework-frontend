@@ -59,7 +59,7 @@ const ViewAgencyProfile: React.FC = () => {
         <div className="flex flex-col w-full">
           <TopSide details={agencyDetails} />
           <div className="lg:flex w-full py-[20px] relative shadow-sm border p-4 bg-white mt-2 lg:px-10">
-            <LeftSide details={agencyDetails} />
+            <LeftSide details={agencyDetails as any} />
             <RightSide details={agencyDetails} />
           </div>
         </div>

@@ -295,7 +295,7 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
                       render={({ field: { onChange, ref } }) => (
                         <Select
                           className="w-full"
-                          inputRef={ref}
+                          ref={ref}
                           onChange={(val: any, action: any) => {
                             if (action.action === "create-option") {
                               onChange(action.option.value);
@@ -324,7 +324,7 @@ const AgencyRightBar: React.FC<AgencyRightBarProps> = ({
                       render={({ field: { onChange, ref } }) => (
                         <Select
                           className="w-full"
-                          inputRef={ref}
+                          ref={ref}
                           onChange={(val: any, action: any) => {
                             if (action.action === "create-option") {
                               onChange(action.option.value);

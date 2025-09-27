@@ -79,15 +79,7 @@ export const authApi = apiSlice.injectEndpoints({
     // Get current user profile (for SSR/CSR hydration)
     getCurrentUser: builder.query<any, void>({
       query: () => '/user/profile',
-      providesTags: ['User'],
-      // Skip this query if no auth token is available
-      skip: () => {
-        if (typeof window !== 'undefined') {
-          const user = JSON.parse(localStorage.getItem('user') || '{}');
-          return !user.authtoken;
-        }
-        return true;
-      },
+      providesTags: ['User']
     }),
 
     // Logout mutation (clear server session if needed)

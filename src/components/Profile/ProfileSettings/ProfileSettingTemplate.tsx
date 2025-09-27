@@ -64,18 +64,21 @@ const ProfileSettingTemplate = () => {
               active={step === "password"}
               step="password"
               setStep={setStep}
+              noBorder={false}
             />
             <SettingsNav
               title="Billing and Payment"
               active={step === "billing-payments"}
               step="billing-payments"
               setStep={setStep}
+              noBorder={false}
             />
             <SettingsNav
               title="Contact Info"
               active={step === "contact-info"}
               step="contact-info"
               setStep={setStep}
+              noBorder={true}
             />
           </div>
           <div className="md:col-span-3 min-h-fit">

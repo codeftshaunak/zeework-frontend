@@ -49,7 +49,7 @@ const customStyles_hr = {
 const Workdairy = () => {
   const [value, setValue] = useState({
     startDate: new Date(),
-    endDate: new Date().setMonth(11),
+    endDate: new Date(new Date().setMonth(11)),
   });
 
   const handleValueChange = (newValue) => {

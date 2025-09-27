@@ -135,7 +135,7 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
     // Compress and append images to FormData
     for (const file of selectedImages) {
       if (file.file) {
-        const compressedImage = await compressImageToWebP(file.file, 0.5, "portfolio", 0.5, "profile");
+        const compressedImage = await compressImageToWebP(file.file, 0.5, "portfolio");
         formData.append(`file`, compressedImage as Blob, file.file.name);
       }
     }

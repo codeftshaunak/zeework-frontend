@@ -192,7 +192,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
       for (const image of selectedImages) {
         if (!image.file) continue;
 
-        const compressedImage = await compressImageToWebP(image.file, 0.5, "profile", 0.5, "profile");
+        const compressedImage = await compressImageToWebP(image.file, 0.5, "profile");
 
         const formData = new FormData();
         formData.append("imageFile", compressedImage as Blob);

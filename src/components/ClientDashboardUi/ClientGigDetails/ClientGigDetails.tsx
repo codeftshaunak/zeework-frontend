@@ -104,7 +104,11 @@ const ClientGigDetails = () => {
   // };
 
   const handleBackward = () => {
-    router.push(role == 2 ? "/client-dashboard" : -1, { state: null });
+    if (role == "2") {
+      router.push("/client-dashboard");
+    } else {
+      router.back();
+    }
   };
 
   useEffect(() => {
@@ -314,7 +318,7 @@ const ClientGigDetails = () => {
                           </div>
 
                           <div className="mt-4 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-4 sm:gap-10 lg:gap-4 xl:gap-10">
-                            {role == 2 &&
+                            {role == "2" &&
                               (profile?.payment_verified ? (
                                 <Button
                                   paddingX={10}
@@ -465,7 +469,7 @@ const ClientGigDetails = () => {
               <textarea
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                 placeholder="Enter your message..."
-                rows="4"
+                rows={4}
                 onChange={(e) => setMessage(e.target.value)}
               />
             </div>

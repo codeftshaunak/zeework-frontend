@@ -617,7 +617,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter")
-                    searchWithFilters({ searchTerm: e.target.value as string });
+                    searchWithFilters({ searchTerm: (e.target as HTMLInputElement).value });
                 }}
                 value={searchTerm}
               />

@@ -253,12 +253,10 @@ const MessageComp = () => {
         >
           <DrawerContent className="mt-[4.5rem] shadow-none">
             <DrawerBody
-              className="relative border mx-auto"
-              pt={5}
-             
+              className="relative border mx-auto pt-5"
             >
               <div className="w-full md:w-[250px]">
-                <div className="flex flex-row items-center"> <MessageSearchBar query={query} handleSearchingUser={handleSearchingUser} /> <DrawerCloseButton size="25px"
+                <div className="flex flex-row items-center"> <MessageSearchBar query={query} handleSearchingUser={handleSearchingUser} /> <DrawerCloseButton className="text-xl" onClick={() => {}}
                   />
                 </div>
                 {query.length > 0 ? (
@@ -371,7 +369,7 @@ const MessageComp = () => {
             </Card>
           )}
           <div className="w-[70%]">
-            <TimerDownloadCard msg={true} />
+            <TimerDownloadCard msg="true" />
           </div>
         </div>
       </div>

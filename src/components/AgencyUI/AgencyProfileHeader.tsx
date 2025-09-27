@@ -346,7 +346,7 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                           onCropChange={isCropped ? undefined : setCrop}
                           onZoomChange={isCropped ? undefined : setZoom}
                           onCropComplete={onCropComplete}
-                          cropShape={modalType === "Profile Photo" && "round"}
+                          cropShape={modalType === "Profile Photo" ? "round" : "rect"}
                         />
                       </div>
                       <div className="flex flex-col items-center justify-center">
@@ -354,12 +354,12 @@ const AgencyProfileHeader = ({ agency, setAgency }) => {
                           <TiMinus />
                           <Slider
                             aria-label="zoom-slider"
-                            value={zoom as any}
+                            value={[zoom]}
                             min={1}
                             max={3}
                             step={0.1}
-                            onChange={(val) => {
-                              !isCropped && setZoom(val);
+                            onValueChange={(val) => {
+                              !isCropped && setZoom(val[0]);
                             }}
                           >
                             <SliderTrack className="bg-slate-300">

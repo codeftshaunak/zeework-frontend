@@ -124,7 +124,7 @@ const LeftSide: React.FC<LeftSideProps> = ({ details }) => {
                 .reverse()
                 .map((item) => (
                   <SwiperSlide key={item._id}>
-                    <ProjectCard info={item} isPrivate={true} />
+                    <ProjectCard info={item as any} isPrivate={true} setIsDeleteAgencyId={() => {}} skills={[]} />
                   </SwiperSlide>
                 ))}
             </Swiper>

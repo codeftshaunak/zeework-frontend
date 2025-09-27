@@ -190,7 +190,7 @@ const CreateForm = () => {
               placeholder="Select Your Category"
               options={category}
               onChange={(data: any) => {
-                const newData = data?.map((d) => ({
+                const newData = (data as any[])?.map((d: any) => ({
                   _id: d._id,
                   category_name: d.category_name,
                 }));
@@ -219,7 +219,7 @@ const CreateForm = () => {
               isDisabled={!selectedCategory?.length}
               isLoading={subCLoading}
               onChange={(data) => {
-                const newData = data?.map((d) => ({
+                const newData = (data as any[])?.map((d: any) => ({
                   category_id: d.category_id,
                   sub_category_name: d.sub_category_name,
                 }));

@@ -1,7 +1,7 @@
 "use client";
 
-import homesidbar from "../../assets/img/home-sidebar.png";
-import girl from "../../../assets/img/girl.png";
+// import homesidbar from "../../assets/img/home-sidebar.png";
+// import girl from "../../../assets/img/girl.png";
 import StarIcon from "../../../assets/icons/star";
 import { useRouter } from "next/navigation";
 import { Fade } from "react-awesome-reveal";
@@ -192,7 +192,7 @@ function HomeComp() {
             </div>
             <img
               className="w-[620.98px] h-[695px] absolute -top-8 right-0"
-              src={homesidbar}
+              src="/placeholder-sidebar.png"
             />
           </div>
         </Fade>
@@ -451,7 +451,7 @@ function HomeComp() {
         <Fade>
           <div className="w-[1279.50px] h-[702px] justify-start items-center gap-[67px] inline-flex mt-20">
             <div className="w-[574.50px] h-[549px] relative">
-              <img className="w-100 left-[1px] top-0 absolute " src={girl} />
+              <img className="w-100 left-[1px] top-0 absolute " src="/placeholder-girl.png" />
             </div>
             <div className="flex-col justify-start items-start gap-9 inline-flex">
               <div className="flex-col justify-start items-start gap-3 flex">

@@ -347,7 +347,7 @@ const Process = () => {
                           trigger("categories");
                         }}
                         value={selectedOptions}
-                        isOptionSelected={selectedOptions?.length <= 3}
+                        isOptionSelected={(option, selectValue) => selectedOptions?.length <= 3}
                         className="w-full"
                         isMulti
                         isLoading={!options?.length}
@@ -427,8 +427,6 @@ const Process = () => {
                       </span>
                       <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm w-full"
                         placeholder="$ Your Hourly Rate"
-                        borderColor={"var(--bordersecondary)"}
-                        placeholder="Business Name"
                        
                         type="number"
                         onChange={(e) => {

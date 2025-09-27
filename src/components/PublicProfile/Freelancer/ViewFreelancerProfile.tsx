@@ -14,7 +14,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 // import required modules
-import HomeLayout from "../../../Layouts/HomeLayout";
+import HomeLayout from "@/components/Layouts/HomeLayout";
 import { FaLocationDot } from "react-icons/fa6";
 import AgencyProfileSkeleton from "../../Skeletons/AgencyProfileSkeleton";
 import { useRouter } from "next/navigation";
@@ -226,7 +226,7 @@ const ViewFreelancerProfile = () => {
                     Linked Accounts
                   </p>
                   <VStack
-                    divider={<StackDivider borderColor="gray.200" />}
+                    divider={<StackDivider className="border-gray-200" />}
                     spacing={4}
                     
                     className="bg-slate-50 rounded-md p-3"

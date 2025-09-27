@@ -26,7 +26,7 @@ import {
 } from "../../helpers/APIs/freelancerApis";
 import Select from "react-select";
 import TimerDownloadCard from "../Common/TimerDownloadCard";
-import talentBanner from "../../assets/banner/search-talent-banner.jpg";
+// import talentBanner from "../../assets/banner/search-talent-banner.jpg";
 import { CiFilter } from "react-icons/ci";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { IoMdRefreshCircle } from "react-icons/io";
@@ -403,7 +403,6 @@ export const SearchTalents = () => {
                       >
                         <RadioGroup.Item
                           value={category._id}
-                          onClick={() => handleCategoryChange(category._id)}
                         >
                           <RadioGroup.ItemHiddenInput />
                           <RadioGroup.ItemIndicator />
@@ -479,7 +478,7 @@ export const SearchTalents = () => {
         {/* Right content */}
         <div className="w-full mt-4">
           <div className="border border-[var(--bordersecondary)] rounded-2xl mb-4 overflow-hidden">
-            <img src={talentBanner.src || talentBanner} alt="Talent Banner" />
+            <img src="/placeholder-banner.jpg" alt="Talent Banner" />
           </div>
 
           <div className="text-2xl font-semibold mb-4">
@@ -545,7 +544,6 @@ export const SearchTalents = () => {
                       >
                         <RadioGroup.Item
                           value={category._id}
-                          onClick={() => handleCategoryChange(category._id)}
                         >
                           <RadioGroup.ItemHiddenInput />
                           <RadioGroup.ItemIndicator />

@@ -142,15 +142,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
       { file: files[0], preview: URL.createObjectURL(files[0]) },
     ].slice(0, 3);
 
-    setValue("project_images", newImages, { shouldValidate: true });
+    setValue("project_images", newImages);
   };
 
   const handleImageDelete = (index: number) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
-    setValue("project_images", updatedImages, {
-      shouldValidate: true,
-    });
+    setValue("project_images", updatedImages);
   };
 
   const uploadImages = async () => {
@@ -163,7 +161,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
         const compressedImage = await compressImageToWebP(image.file, 0.5, "profile");
 
         const formData = new FormData();
-        formData.append("imageFile", compressedImage);
+        formData.append("imageFile", compressedImage as File);
 
         const response = await uploadSingleImage(formData);
         if (response.code === 200) {
@@ -309,14 +307,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
             onScroll={(e: React.UIEvent<HTMLDivElement>) => {
               setIsScrolled((e.target as HTMLDivElement).scrollTop !== 0);
             }}
-            className={`overflow-y-scroll h-[600px] bg-white}`}
+            className={`overflow-y-scroll h-[600px] bg-white scrollbar-none`}
             style={{
               WebkitOverflowScrolling: "touch",
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              "&::WebkitScrollbar": {
-                display: "none",
-              },
             }}
           >
             <div className="rounded-lg overflow-hidden relative">

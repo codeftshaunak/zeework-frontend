@@ -146,7 +146,7 @@ const JobDetails = ({
         const compressedImage = await compressImageToWebP(
           isCropped && croppedImage ? croppedImage[0] : fullImage[0],
           0.8,
-          800
+          "800"
         );
         formData.append("file", compressedImage as Blob);
 

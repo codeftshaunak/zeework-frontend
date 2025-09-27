@@ -64,7 +64,7 @@ const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
     <CurrentUserContext.Provider
       value={{
         profile,
-        agency: agency || null,
+        agency: (agency as any) || null,
         hasAgency,
         activeAgency,
         getUserDetails,

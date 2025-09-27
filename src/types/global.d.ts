@@ -193,9 +193,9 @@ declare module "../../utils/validationSchema" {
   export const createGigValidationSchema: any;
 }
 
-declare module "@/components/ui/sonner" {
-  export const Toaster: any;
-}
+// declare module "@/components/ui/sonner" {
+//   export const Toaster: any;
+// }
 
 declare module "../../../components/AgencyUI/AgencyBody" {
   const AgencyBody: React.FC<AgencyProps>;
@@ -208,30 +208,19 @@ declare module "../../../components/AgencyUI/AgencyLeftbar" {
 }
 
 declare module "@/components/ui/migration-helpers" {
-  export const Box: any;
-  export const Button: any;
-  export const VStack: any;
-  export const HStack: any;
-  export const Text: any;
-  export const Input: any;
+  // Basic components that don't conflict
   export const Textarea: any;
   export const Divider: any;
-  export const Image: any;
   export const Spinner: any;
-  export const Avatar: any;
   export const Badge: any;
   export const Card: any;
-  export const Stack: any;
-  export const Flex: any;
   export const Grid: any;
   export const SimpleGrid: any;
   export const Container: any;
-  export const Center: any;
   export const Spacer: any;
   export const Wrap: any;
   export const WrapItem: any;
   export const AspectRatio: any;
-  export const Tabs: TabsComponent;
   
   // Table components
   export const Table: any;
@@ -249,10 +238,6 @@ declare module "@/components/ui/migration-helpers" {
   
   // Card components
   export const CardBody: any;
-  export interface SliderProps {
-    [key: string]: any;
-    defaultValue?: any;
-  }
   
   // Custom component props
   export interface CustomProps {

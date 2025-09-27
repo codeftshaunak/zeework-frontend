@@ -38,7 +38,7 @@ export const SearchPage = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col p-0 w-full">
-        <SearchJobPage isFreelancer={!!role === 1} />
+        <SearchJobPage isFreelancer={role === "1"} />
       </div>
     </HomeLayout>
   );

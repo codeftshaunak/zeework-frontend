@@ -264,9 +264,7 @@ const ClientDashboardComponent = () => {
                             <div
                               className="flex flex-col items-start justify-center cursor-pointer w-full"
                               onClick={() => {
-                                router.push(`/client-jobDetails/${job?._id}`, {
-                                  state: { jobDetails: job },
-                                });
+                                router.push(`/client-jobDetails/${job?._id}`);
                               }}
                             >
                               <h5 className="text-lg text-[#374151] font-medium capitalize">
@@ -299,9 +297,7 @@ const ClientDashboardComponent = () => {
                                   color: "#fff",
                                 }}
                                 onClick={() => {
-                                  router.push(`/client-jobDetails/${job._id}`, {
-                                    state: { jobDetails: job },
-                                  });
+                                  router.push(`/client-jobDetails/${job._id}`);
                                 }}
                               >
                                 Go to job post
@@ -313,9 +309,7 @@ const ClientDashboardComponent = () => {
                                   color: "#fff",
                                 }}
                                 onClick={() => {
-                                  router.push(`/client-jobDetails/${job._id}`, {
-                                    state: { jobDetails: job },
-                                  });
+                                  router.push(`/client-jobDetails/${job._id}`);
                                 }}
                               >
                                 Find Applicants
@@ -475,9 +469,7 @@ const ClientDashboardComponent = () => {
                         <div
                           className="flex flex-col items-start justify-center cursor-pointer w-full"
                           onClick={() => {
-                            router.push(`/client-jobDetails/${job?._id}`, {
-                              state: { jobDetails: job },
-                            });
+                            router.push(`/client-jobDetails/${job?._id}`);
                           }}
                         >
                           <h5 className="text-lg text-[#374151] font-medium capitalize">
@@ -508,9 +500,7 @@ const ClientDashboardComponent = () => {
                               color: "#fff",
                             }}
                             onClick={() => {
-                              router.push(`/client-jobDetails/${job._id}`, {
-                                state: { jobDetails: job },
-                              });
+                              router.push(`/client-jobDetails/${job._id}`);
                             }}
                           >
                             Go to job post
@@ -522,9 +512,7 @@ const ClientDashboardComponent = () => {
                               color: "#fff",
                             }}
                             onClick={() => {
-                              router.push(`/client-jobDetails/${job._id}`, {
-                                state: { jobDetails: job },
-                              });
+                              router.push(`/client-jobDetails/${job._id}`);
                             }}
                           >
                             Find Applicants

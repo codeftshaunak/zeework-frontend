@@ -4,7 +4,7 @@ export const compressImageToWebP = (file, quality = 0.5, identifier="") => {
     reader.readAsDataURL(file);
     reader.onload = (event) => {
       const img = new Image();
-      img.src = event.target.result;
+      img.src = event.target?.result as string;
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const maxWidth = 1200;

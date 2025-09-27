@@ -4,7 +4,8 @@ import ProfileSettingTemplate from "./ProfileSettings/ProfileSettingTemplate";
 
 const UserProfileSetting = () => {
   return (
-    <ProfileSettingTemplate>
+    <div>
+      <ProfileSettingTemplate />
       <div className="flex flex-col gap-[16px]">
         <div className="flex flex-col gap-[8px] py-[20px] px-[24px] ">
           <p className="text-[#374151] text-[16px] font-[600]">
@@ -247,7 +248,7 @@ const UserProfileSetting = () => {
           </div>
         </div>
       </div>
-    </ProfileSettingTemplate>
+    </div>
   );
 };
 

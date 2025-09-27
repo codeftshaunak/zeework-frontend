@@ -84,7 +84,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const { body, code } = await getFreelancers(page, null, searchText);
+      const { body, code } = await getFreelancers(page, null, searchText, null, null, null, null);
       if (code === 200) {
         setSearchResults(body);
       } else {
@@ -363,9 +363,7 @@ const InviteFreelancer = ({ appliedUsers }) => {
                                         </button>
                                         <Tooltip
                                           hasArrow
-                                          // label={
-                                          //   "Freelancer already applied for this job"
-                                          // }
+                                          label="Freelancer already applied for this job"
                                           placement="top"
                                           isDisabled={!alreadyApplied}
                                         >

@@ -236,7 +236,7 @@ export const CardDetailsForm = ({ setCard, setTab }) => {
             placeholder="Select Country"
             options={countries}
             onChange={(data) => {
-              setValue("address_country", data?.name || data?.value),
+              setValue("address_country", (data as any)?.name || (data as any)?.value),
                 trigger("address_country");
             }}
           />

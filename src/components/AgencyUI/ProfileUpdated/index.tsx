@@ -83,7 +83,7 @@ export function AgencyUpdatedModal({
     try {
       if (title === "Profile Photo" || title === "Cover Photo") {
         const formData = new FormData();
-        formData.append("imageFile", selectedImage);
+        formData.append("imageFile", selectedImage as File);
         const { body: imgBody, code } = await uploadSingleImage(formData);
         if (code === 200) {
           const { body } = await updateAgencyProfile(
@@ -155,7 +155,7 @@ export function AgencyUpdatedModal({
         }))
       );
       setCityData(
-        City.getCitiesOfState(countryCode, stateCode || "").map((city) => ({
+        City.getCitiesOfState(countryCode, (stateCode as string) || "").map((city) => ({
           value: city.name,
           label: city.name,
         }))
@@ -298,7 +298,7 @@ export function AgencyUpdatedModal({
               name="agency_skills"
               render={({ field: { onChange, ref } }) => (
                 <Select
-                  inputRef={ref}
+                  ref={ref}
                   closeMenuOnSelect={false}
                   onChange={(val) => onChange(val.map((c) => c.value))}
                   options={skills}
@@ -340,7 +340,7 @@ export function AgencyUpdatedModal({
                     render={({ field: { onChange, ref } }) => (
                       <Select
                         className="w-full"
-                        inputRef={ref}
+                        ref={ref}
                         onChange={(val, action) => {
                           if (action.action === "create-option") {
                             onChange(action.option.value),
@@ -369,7 +369,7 @@ export function AgencyUpdatedModal({
                     render={({ field: { onChange, ref } }) => (
                       <Select
                         className="w-full"
-                        inputRef={ref}
+                        ref={ref}
                         onChange={(val, action) => {
                           if (action.action === "create-option") {
                             onChange(action.option.value);

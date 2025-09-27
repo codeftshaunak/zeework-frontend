@@ -97,7 +97,6 @@ const CompleteJob = () => {
                     <div className="col-span-2">
                       <JobDetailsSection
                         jobDetails={jobDetails}
-                        jobStatus="closed"
                       />
                     </div>
                     <div className="col-span-1 w-full h-fit bg-white p-8 rounded-xl border border-[var(--bordersecondary)]">
@@ -152,12 +151,7 @@ const CompleteJob = () => {
                         isDisabled={freelancer_review}
                         onClick={() =>
                           !freelancer_review &&
-                          router.push(`/submit-review/${_id}`, {
-                            state: {
-                              jobDetails: jobDetails,
-                              receiverDetails: client_details?.[0],
-                            },
-                          })
+                          router.push(`/submit-review/${_id}`)
                         }
                       >
                         {freelancer_review

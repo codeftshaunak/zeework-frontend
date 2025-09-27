@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Avatar from "@/components/ui/Avatar";
 import { BsLink45Deg } from "react-icons/bs";
 import { useParams } from "next/navigation";
-import { getFreelancerInfo } from "../../helpers/APIs/clientApis";
+// import { getFreelancerInfo } from "../../helpers/APIs/clientApis";
 import { toast } from "@/lib/toast";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -46,8 +46,8 @@ const ViewFreelancerProfile = () => {
 
   const getDetails = async () => {
     try {
-      const { body, code } = await getFreelancerInfo(id);
-      if (code === 200) setFreelancerDetails(body);
+      // const { body, code } = await getFreelancerInfo(id);
+      // if (code === 200) setFreelancerDetails(body);
     } catch (error) {
       console.error(error);
     }

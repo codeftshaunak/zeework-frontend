@@ -35,7 +35,7 @@ function SecondStep({ setStep, defaultValues= {} }) {
   } = useForm({
     resolver: yupResolver(secondStepSchema),
     defaultValues: {
-      experience: defaultValues?.experience || "Expert",
+      experience: (defaultValues as any)?.experience || "Expert",
     },
   });
 

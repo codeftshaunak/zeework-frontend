@@ -66,9 +66,9 @@ const JobPost = () => {
             {step === 2 && <SecondStep setStep={setStep} />}
             {step === 3 && (
               <FinalStep
-                setStep={setStep}
-                onCallback={onSubmit}
-                
+                onCallback={() => onSubmit({})}
+                isLoading={false}
+                defaultValues={{}}
               />
             )}
             <Preview />

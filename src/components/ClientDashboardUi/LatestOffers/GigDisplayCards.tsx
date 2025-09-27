@@ -25,9 +25,7 @@ export const GigCard = ({ data, isPurchaseReq, tabIndex }) => {
     <div
       className="w-full rounded-lg shadow p-4 border bg-white flex flex-col justify-between cursor-pointer"
       onClick={() =>
-        router.push(`/gig-details/${_id}`, {
-          state: { status: isPurchaseReq ? "pending" : status },
-        })
+        router.push(`/gig-details/${_id}`)
       }
     >
       <div>

@@ -55,14 +55,14 @@ const BillingAndPayments = () => {
           onChange={(index) => setTab(index + 1)}
         >
           <Tabs.List>
-            {bankDetails?.card_details && (
+            {(bankDetails as any)?.card_details && (
               <Tabs.Trigger>Current Card Details</Tabs.Trigger>
             )}
             <Tabs.Trigger>Add Billing Method</Tabs.Trigger>
           </Tabs.List>
           <SmoothMotion key={tab}>
             <Tabs.Content>
-              {bankDetails?.card_details && (
+              {(bankDetails as any)?.card_details && (
                 <Tabs.Content padding={0}>
                   <div>
                     <CurrentCard

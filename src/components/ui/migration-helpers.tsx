@@ -864,7 +864,7 @@ interface TooltipProps {
   isDisabled?: boolean;
 }
 
-export const Checkbox: React.FC = ({
+export const Checkbox: React.FC<any> = ({
   children,
   size = "md",
   colorScheme = "green",
@@ -1356,7 +1356,7 @@ export const Accordion = {
 };
 
 // Slider Components
-interface SliderProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
   value?: number[];
   defaultValue?: number[];
   min?: number;

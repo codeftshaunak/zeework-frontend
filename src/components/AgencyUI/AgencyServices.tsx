@@ -300,8 +300,8 @@ const AgencyServices = ({ agency, setAgency }) => {
                     isDisabled={!categoryList?.length}
                     isLoading={subCLoading}
                     onChange={(data) => {
-                      setSubCategoryList(data);
-                      const newData = data?.map((d) => ({
+                      setSubCategoryList(data as any[]);
+                      const newData = (data as any[])?.map((d: any) => ({
                         category_id: d.category_id,
                         sub_category_name: d.sub_category_name,
                       }));
@@ -327,7 +327,7 @@ const AgencyServices = ({ agency, setAgency }) => {
                   rules={{ required: "Skills are required" }}
                   render={({ field: { onChange, ref } }) => (
                     <Select
-                      inputRef={ref}
+                      ref={ref}
                       closeMenuOnSelect={false}
                       onChange={(val : any) => {
                         setSkillList(val);

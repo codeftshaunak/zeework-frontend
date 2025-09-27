@@ -258,7 +258,7 @@ const SingleContractDetails = () => {
     }
     setIsApiLoading(false);
     setReviewModal(false);
-    setModalType(false);
+    setModalType("");
   };
 
   // handle end contract
@@ -434,12 +434,7 @@ const SingleContractDetails = () => {
                           {jobDetails?.status === "completed" && (
                             <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
                               onClick={() =>
-                                router.push(`/submit-review/${jobDetails._id}`, {
-                                  state: {
-                                    jobDetails: jobDetails,
-                                    receiverDetails: freelancerDetails,
-                                  },
-                                })
+                                router.push(`/submit-review/${jobDetails._id}`)
                               }
                               isDisabled={jobDetails?.client_review}
                             >
@@ -700,13 +695,7 @@ const SingleContractDetails = () => {
             </button>
             <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground w-full"
               onClick={() =>
-                router.push(`/submit-review/${jobDetails._id}`, {
-                  state: {
-                    jobDetails: jobDetails,
-                    receiverDetails: freelancerDetails,
-                  },
-                  replace: true,
-                })
+                router.push(`/submit-review/${jobDetails._id}`)
               }
             >
               Provide Feedback

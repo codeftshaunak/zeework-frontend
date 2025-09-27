@@ -5,7 +5,7 @@ import { CreateWithStepper } from "../Gigsteper";
 const GigCreate = () => {
   return (
     <HomeLayout>
-      <CreateWithStepper />
+      <CreateWithStepper setPage={() => {}} />
     </HomeLayout>
   );
 };

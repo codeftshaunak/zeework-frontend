@@ -27,12 +27,7 @@ const ConfirmModal = ({
       });
       toast.default(msg);
       if (code === 200)
-        router.push(`/submit-review/${job_id}`, {
-          state: {
-            jobDetails: jobDetails,
-            receiverDetails: receiverDetails,
-          },
-        });
+        router.push(`/submit-review/${job_id}`);
     } catch (error) {
       console.error(error);
     }

@@ -47,9 +47,7 @@ const UpdateJob = () => {
         })
       );
 
-      router.push(`/client-jobDetails/${jobDetails?._id}`, {
-        state: { jobDetails: body },
-      });
+      router.push(`/client-jobDetails/${jobDetails?._id}`);
     } else {
       toast.warning(msg);
 
@@ -81,9 +79,8 @@ const UpdateJob = () => {
               )}
               {step === 3 && (
                 <FinalStep
-                  setStep={setStep}
-                  onCallback={onSubmit}
-                  
+                  onCallback={() => onSubmit({})}
+                  isLoading={isLoading}
                   defaultValues={jobDetails}
                 />
               )}
