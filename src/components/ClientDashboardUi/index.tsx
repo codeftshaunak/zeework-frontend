@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 
 import {
   Button,
@@ -359,10 +360,12 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
-                    <img
-                      src="images/dashboard/zeework_proposals.png"
+                    <Image
+                      src="/images/dashboard/zeework_proposals.png"
                       alt="proposals"
                       className="w-[42px]"
+                      width={42}
+                      height={42}
                     />
                   </div>
                   <p
@@ -376,9 +379,11 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
-                    <img
-                      src="images/dashboard/zeework_proposals.png"
+                    <Image
+                      src="/images/dashboard/zeework_proposals.png"
                       alt="proposals"
+                      width={42}
+                      height={42}
                     />
                   </div>
                   <p
@@ -392,9 +397,11 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
-                    <img
-                      src="images/dashboard/zeework_proposals.png"
+                    <Image
+                      src="/images/dashboard/zeework_proposals.png"
                       alt="proposals"
+                      width={42}
+                      height={42}
                     />
                   </div>
                   <p
@@ -408,18 +415,22 @@ const ClientDashboardComponent = () => {
                 </div>
                 <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
-                    <img
-                      src="images/dashboard/zeework_proposals.png"
+                    <Image
+                      src="/images/dashboard/zeework_proposals.png"
                       alt="proposals"
+                      width={42}
+                      height={42}
                     />
                   </div>
                   <p className="ml-3">Review Proposals</p>
                 </div>
                 <div className="flex items-center border border-[var(--bordersecondary)] rounded-md py-2 px-4 mb-4">
                   <div className="w-[42px] h-[42px] bg-[#F0FDF4] rounded-lg">
-                    <img
-                      src="images/dashboard/zeework_proposals.png"
+                    <Image
+                      src="/images/dashboard/zeework_proposals.png"
                       alt="proposals"
+                      width={42}
+                      height={42}
                     />
                   </div>
                   <p className="ml-3">Hire Your Perfect Freelancer</p>

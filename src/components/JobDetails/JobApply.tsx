@@ -11,6 +11,7 @@ import {
   Stack,
 } from "@/components/ui/migration-helpers";
 import { toast } from "@/lib/toast";
+import Image from "next/image";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -261,12 +262,12 @@ const JobApply = ({ setPage, details }) => {
     <div pt={2} pb={6} className="w-full">
       {/* Breadcrumb */}
       <div className="flex gap-2 py-6">
-        <img src="/icons/home.svg" alt="home" />
-        <img src="/icons/chevron-right.svg" alt="arrow right" />
+        <Image src="/icons/home.svg" alt="home" width={16} height={16} />
+        <Image src="/icons/chevron-right.svg" alt="arrow right" width={16} height={16} />
         <div className="cursor-pointer" onClick={() => setPage(1)}>
           {details_new?.title}
         </div>
-        <img src="/icons/chevron-right.svg" alt="arrow right" />
+        <Image src="/icons/chevron-right.svg" alt="arrow right" width={16} height={16} />
         <div>Submit Proposal</div>
       </div>
 

@@ -1,15 +1,17 @@
 import React from 'react';
-
+import Image from 'next/image';
 import { AiOutlineStar } from "react-icons/ai";
 import { BsBriefcase, BsSend } from "react-icons/bs";
 
 const UserCard: React.FC = () => {
   return (
     <div className="flex flex-col gap-5 p-5">
-      <img
-        src="./images/user.jpeg"
+      <Image
+        src="/images/user.jpeg"
         alt="user"
         className="w-20 h-20 rounded-full object-cover"
+        width={80}
+        height={80}
       />
 
       <div className="flex flex-col">

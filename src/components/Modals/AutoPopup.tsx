@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import CTAButton from "../CTAButton";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const AutoPopup = () => {
   const [isModal, setIsModal] = useState(false); // Initially set to false
@@ -44,10 +45,12 @@ const AutoPopup = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="flex w-full flex-col">
-              <img
-                src="./images/zeework_popup_banner.jpg"
+              <Image
+                src="/images/zeework_popup_banner.jpg"
                 alt="zeework"
-                className="max-h-[350px] object-cover"
+                className="max-h-[350px] object-cover w-full"
+                width={900}
+                height={350}
               />
               <div className="sm:px-0 px-2">
                 <h4 className="text-lg font-semibold capitalize text-center">

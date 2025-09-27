@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 import { toast } from "@/lib/toast";
 
 import {
@@ -175,7 +176,7 @@ const ActiveJobDetailsComponent = () => {
 
     switch (fileType) {
       case "image":
-        return <img src={fileDetails.file} alt="Image" />;
+        return <Image src={fileDetails.file} alt="Image" width={400} height={300} className="max-w-full h-auto" />;
       case "pdf":
         return (
           <iframe

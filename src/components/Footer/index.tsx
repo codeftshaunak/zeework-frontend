@@ -5,6 +5,7 @@ import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const HomeFooter = () => {
   const router = useRouter();
@@ -231,7 +232,7 @@ export const MVPFooter = () => {
         <div className="max-w-[1300px] mx-auto">
           <div className="w-[1300px] h-[23px] flex-col justify-start items-start gap-9 inline-flex">
             <div className="flex justify-between w-full items-center">
-              <img src="/images/zeework_logo.png" className="w-[150px]" alt="ZeeWork Logo" />
+              <Image src="/images/zeework_logo.png" className="w-[150px]" alt="ZeeWork Logo" width={150} height={40} />
 
               <div className="w-3/4 flex items-center justify-between">
                 <div className="justify-between items-center inline-flex">
@@ -314,10 +315,12 @@ export const Footer = () => {
         <div className="md:w-[85%] max-w-[1400px] mb-16 mx-[auto] p-6">
           <div className="grid lg:grid-cols-[1fr,1.5fr,1fr] md:grid-cols-2 grid-cols-1 gap-8">
             <div className="md:w-full">
-              <img
-                src="./images/zeework_logo.png"
+              <Image
+                src="/images/zeework_logo.png"
                 alt="ZeeWork"
                 className="w-[250px] md:mx-left mx-auto"
+                width={250}
+                height={67}
               />
               <div className="my-4">
                 <p className="w-fit text-[1.2rem] py-2 md:text-left">

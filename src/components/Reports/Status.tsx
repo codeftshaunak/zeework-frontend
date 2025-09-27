@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 
 import {
   Box,
@@ -8,7 +9,7 @@ import {
   Card,
   CardBody,
   HStack,
-  Image,
+  Image as ChakraImage,
   Table,
   TableContainer,
   Tbody,
@@ -263,7 +264,7 @@ export const OthersPayment = () => {
          
          className="absolute">
           <div className="flex flex-col gap-4 w-[700px]">
-            <img src="./images/zeework_logo.png" />
+            <Image src="/images/zeework_logo.png" alt="ZeeWork Logo" width={200} height={53} />
             <span>
               Welcome to ZeeWork!
             </span>

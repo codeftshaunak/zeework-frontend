@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa6";
 import { Card, CardContent } from "../../ui/card";
 import { ArrowRight, DollarSign, Users, Zap } from "lucide-react";
+import Image from "next/image";
 
 interface WorkteamsCardProps {
   image: string;
@@ -41,7 +42,7 @@ const WorkteamsCard = ({ image, title, subTitle, color = "primary", icon }: Work
             <CardContent className="p-8 relative z-10 h-full flex flex-col">
                 {/* Icon */}
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradientColors[color]} text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    {iconMap[title] || <img src={image} className="w-8 h-8" alt={title} />}
+                    {iconMap[title] || <Image src={image} className="w-8 h-8" alt={title} width={32} height={32} />}
                 </div>
 
                 {/* Content */}

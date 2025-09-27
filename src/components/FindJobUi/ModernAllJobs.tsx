@@ -3,6 +3,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { getAllJobs } from "../../helpers/APIs/jobApis";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { useDispatch, useSelector } from "react-redux";
 import { setFindWorkData } from "../../redux/pagesSlice/pagesSlice";
@@ -49,9 +50,11 @@ const ModernAllJobs = () => {
           {/* Desktop Quick Actions */}
           <div className="hidden gap-5 mt-4 md:grid md:grid-cols-3">
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img
+              <Image
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
+                width={40}
+                height={40}
               />
               <div
                 onClick={() => {
@@ -65,7 +68,7 @@ const ModernAllJobs = () => {
               </div>
             </div>
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-stats");
@@ -78,7 +81,7 @@ const ModernAllJobs = () => {
               </div>
             </div>
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-jobs");
@@ -95,9 +98,11 @@ const ModernAllJobs = () => {
           {/* Mobile Quick Actions */}
           <div className="flex flex-col gap-2 md:hidden">
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
-              <img
+              <Image
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
+                width={40}
+                height={40}
               />
               <div
                 onClick={() => {
@@ -111,7 +116,7 @@ const ModernAllJobs = () => {
               </div>
             </div>
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
-              <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-stats");
@@ -124,7 +129,7 @@ const ModernAllJobs = () => {
               </div>
             </div>
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
-              <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-jobs");
@@ -161,10 +166,12 @@ const ModernAllJobs = () => {
                 onClick={() => router.push("/search-job")}
               >
                 See More{" "}
-                <img
+                <Image
                   src="/images/dashboard/zeework_button-drop.png"
                   className="pt-1"
                   alt="dropdown"
+                  width={16}
+                  height={16}
                 />
               </button>
             </div>

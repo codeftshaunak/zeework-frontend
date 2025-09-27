@@ -1,12 +1,13 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 
 import { useContext, useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import {
   Avatar,
-  Image,
+  Image as ChakraImage,
   Tabs,
 } from "@/components/ui/migration-helpers";
 import { useRouter, useParams } from "next/navigation";
@@ -100,7 +101,7 @@ const SingleContractDetails = () => {
 
     switch (fileType) {
       case "image":
-        return <img src={fileDetails.file} alt="Image" />;
+        return <Image src={fileDetails.file} alt="Image" width={400} height={300} className="max-w-full h-auto" />;
       case "pdf":
         return (
           <iframe
@@ -503,6 +504,9 @@ const SingleContractDetails = () => {
                 <Image
                   src="/images/zeework_end_contract.png"
                   className="m-[auto]"
+                  alt="End contract"
+                  width={200}
+                  height={150}
                 />
                 <span
                  className="m-[1rem 0] text-2xl font-semibold text-center">

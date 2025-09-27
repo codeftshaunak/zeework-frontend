@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
@@ -52,9 +53,11 @@ export const Talents = () => {
                 borderColor: "#22c55e",
               }}
             >
-              <img
+              <Image
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
+                width={40}
+                height={40}
               />
               <div
                 onClick={() => {
@@ -75,7 +78,7 @@ export const Talents = () => {
               }}
             >
               {" "}
-              <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
               <div>
                 <div className="text-sm font-semibold">My Stats</div>
                 <div className="text-sm text-gray-300">
@@ -91,7 +94,7 @@ export const Talents = () => {
               }}
             >
               {" "}
-              <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
               <div>
                 <div className="text-sm font-semibold">My Jobs</div>
                 <div className="text-sm text-gray-300">
@@ -125,10 +128,12 @@ export const Talents = () => {
               {profile_image == null ? (
                 <Avatar name={name} />
               ) : (
-                <img
+                <Image
                   src={profile_image}
                   alt="avatar"
                   className="h-[90px] w-[90px] rounded-full border-4 border-tertiary"
+                  width={90}
+                  height={90}
                 />
               )}
               <div className="text-2xl font-medium cursor-pointer capitalize">
@@ -478,7 +483,7 @@ export const SearchTalents = () => {
         {/* Right content */}
         <div className="w-full mt-4">
           <div className="border border-[var(--bordersecondary)] rounded-2xl mb-4 overflow-hidden">
-            <img src="/placeholder-banner.jpg" alt="Talent Banner" />
+            <Image src="/placeholder-banner.jpg" alt="Talent Banner" width={800} height={200} className="w-full h-auto" />
           </div>
 
           <div className="text-2xl font-semibold mb-4">

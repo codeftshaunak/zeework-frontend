@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
@@ -34,10 +35,12 @@ export const Avatar: React.FC<AvatarProps> = ({
       {...props}
     >
       {src ? (
-        <img
+        <Image
           src={src}
           alt={name || 'Avatar'}
           className="w-full h-full object-cover rounded-full"
+          width={48}
+          height={48}
         />
       ) : (
         <span>{initials}</span>

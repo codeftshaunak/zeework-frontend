@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 interface OnboardingLayoutProps {
   currentStep: number
@@ -50,10 +51,12 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
             className="flex items-center cursor-pointer group w-fit"
             onClick={() => router.push("/")}
           >
-            <img
+            <Image
               src="/images/zeework_logo.png"
               alt="ZeeWork"
               className="h-6 w-auto transition-transform group-hover:scale-105"
+              width={120}
+              height={24}
             />
           </div>
         </div>

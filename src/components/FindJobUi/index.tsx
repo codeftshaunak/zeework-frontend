@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import {
   Box,
   Checkbox,
   HStack,
-  Image,
+  Image as ChakraImage,
   Input,
   Text,
   VStack,
@@ -114,9 +115,11 @@ export const AllJobs = () => {
           <Greetings />
           <div className="hidden gap-5 mt-4 md:grid md:grid-cols-3">
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img
+              <Image
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
+                width={40}
+                height={40}
               />
               <div
                 onClick={() => {
@@ -130,7 +133,7 @@ export const AllJobs = () => {
               </div>
             </div>
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-stats");
@@ -143,7 +146,7 @@ export const AllJobs = () => {
               </div>
             </div>
             <div className="flex items-center justify-start col-span-1 gap-2 px-5 py-4 transition bg-white border cursor-pointer max-xl:flex-wrap rounded-xl hover:border-green-500">
-              <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-jobs");
@@ -158,9 +161,11 @@ export const AllJobs = () => {
           </div>
           <div className="flex flex-col gap-2 md:hidden">
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
-              <img
+              <Image
                 src="/images/dashboard/zeework_proposals.png"
                 alt="proposals"
+                width={40}
+                height={40}
               />
               <div
                 onClick={() => {
@@ -175,7 +180,7 @@ export const AllJobs = () => {
             </div>
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
               {" "}
-              <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-stats");
@@ -189,7 +194,7 @@ export const AllJobs = () => {
             </div>
             <div className="flex flex-row items-center justify-start w-full p-4 transition-all duration-300 bg-white border rounded cursor-pointer hover:border-green-500">
               {" "}
-              <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+              <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
               <div
                 onClick={() => {
                   router.push("/my-jobs");
@@ -224,10 +229,12 @@ export const AllJobs = () => {
                 onClick={() => router.push("/search-job")}
               >
                 See More{" "}
-                <img
+                <Image
                   src="/images/dashboard/zeework_button-drop.png"
                   className="pt-1"
                   alt="dropdown"
+                  width={16}
+                  height={16}
                 />
               </button>
             </div>
@@ -601,7 +608,7 @@ export const SearchJobPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
         </div>
         <div className="w-full">
           <div className="flex flex-row items-center w-full justify-space-evenly mb-[0.9rem] rounded border border-tertiary overflow-hidden">
-            <img src="/images/zeework_banner_bizzzy.jpg" alt="banner" />
+            <Image src="/images/zeework_banner_bizzzy.jpg" alt="banner" width={800} height={200} className="w-full h-auto" />
           </div>
           <div className="mb-4 text-xl font-semibold">
             Search For Your Next Job

@@ -3,6 +3,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
@@ -332,7 +333,7 @@ const ModernSearchPage = ({ isFreelancer }: { isFreelancer: boolean }) => {
 
         <div className="w-full">
           <div className="flex flex-row items-center w-full justify-space-evenly mb-[0.9rem] rounded border border-tertiary overflow-hidden">
-            <img src="/images/zeework_banner_bizzzy.jpg" alt="banner" />
+            <Image src="/images/zeework_banner_bizzzy.jpg" alt="banner" width={800} height={200} className="w-full h-auto" />
           </div>
           <div className="mb-4 text-xl font-semibold">
             Search For Your Next Job

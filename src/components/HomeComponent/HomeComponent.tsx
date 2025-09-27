@@ -8,6 +8,7 @@ import { Header } from "../Header";
 import HeroSection from "./HeroSection/HeroSection";
 import MoreCategories from "./MoreCategories/MoreCategories";
 import ReviewSection from "./ReviewSection/ReviewSection";
+import Image from "next/image";
 import WorkteamsSection from "./WorkteamsSection/WorkteamsSection";
 import { useEffect, useState, useRef } from "react";
 
@@ -73,15 +74,19 @@ const HomeComponent = () => {
       >
         {/* Subtle background decorations */}
         <div className="absolute inset-0 opacity-30">
-          <img
+          <Image
             className="absolute left-[calc(50%-362px)] -z-10 max-sm:hidden opacity-50"
-            src="./images/Illustration.svg"
+            src="/images/Illustration.svg"
             alt="Decoration"
+            width={362}
+            height={200}
           />
-          <img
+          <Image
             className="absolute left-12 lg:left-[calc(50%-520px)] 2xl:top-[calc(50%-280px)] top-20 -z-10 max-sm:hidden opacity-40"
-            src="./images/TeamsSectionImg1.svg"
+            src="/images/TeamsSectionImg1.svg"
             alt="Teams decoration"
+            width={100}
+            height={100}
           />
         </div>
         <WorkteamsSection />

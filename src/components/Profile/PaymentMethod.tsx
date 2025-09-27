@@ -1,4 +1,5 @@
 import { GoPlus } from "react-icons/go";
+import Image from "next/image";
 
 const PaymentMethod = () => {
   return (
@@ -48,7 +49,7 @@ export const PaymentCard = ({
       <div className="flex items-center gap-[8px] ">
         <div className="flex items-center justify-center w-[42px]  h-[42px] rounded-[10px] bg-[#F0FDF4] text-2xl">
           {!icon && (
-            <img src="/images/freelancer_dashboard/payoneer.ico" alt="" />
+            <Image src="/images/freelancer_dashboard/payoneer.ico" alt="Payoneer" width={24} height={24} />
           )}
           {icon}
         </div>

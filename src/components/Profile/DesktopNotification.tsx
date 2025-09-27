@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 // import select from "../../assets/select.png";
 const DesktopNotification = () => {
   return (
@@ -10,19 +11,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
@@ -38,19 +39,19 @@ const DesktopNotification = () => {
           </p>
           <div className="flex flex-col gap-[8px]">
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>
             </div>
             <div className="flex gap-[8px]">
-              <img src="" />
+              <Image src="/images/placeholder-checkbox.png" alt="checkbox" width={16} height={16} />
               <p className="text-[14px] text-[#374151] font-[400]">
                 Send me emails with on how find talent my feeds{" "}
               </p>

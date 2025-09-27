@@ -3,6 +3,7 @@
 import { Box, HStack, VStack } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Image from "next/image";
 import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper/modules";
 import { useRef, useState } from "react";
@@ -55,9 +56,12 @@ const PortfolioCard = ({ portfolio }) => {
                     key={item}
                     className="flex items-center justify-center"
                   >
-                    <img
-                      src={item}
+                    <Image
+                      src={item || '/images/placeholder-portfolio.png'}
                       className="h-48 object-cover rounded-t w-full"
+                      width={400}
+                      height={192}
+                      alt="Portfolio image"
                     />
                   </SwiperSlide>
                 ))}
@@ -125,7 +129,7 @@ const PortfolioCard = ({ portfolio }) => {
                 {attachements?.length &&
                   attachements?.map((img, idx) => (
                     <SwiperSlide key={idx}>
-                      <img src={img} className="w-full h-fit" />
+                      <Image src={img} className="w-full h-auto" alt="Portfolio image" width={600} height={400} />
                     </SwiperSlide>
                   ))}
               </Swiper>

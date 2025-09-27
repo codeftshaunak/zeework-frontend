@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { GoHomeFill } from "react-icons/go";
 import { TiRefresh } from "react-icons/ti";
+import Image from "next/image";
 
 interface DataNotAvailableProps {
   onRefresh?: () => void;
@@ -24,10 +25,12 @@ const DataNotAvailable: React.FC<DataNotAvailableProps> = ({ onRefresh }) => {
 
   return (
     <div className="grid justify-center mt-10 sm:w-fit mx-auto rounded-md">
-      <img
+      <Image
         src="/icons/cloud.png"
         className="w-20 h-auto mx-auto opacity-60"
         alt="Cloud icon"
+        width={80}
+        height={80}
       />
       <p className="text-lg font-semibold text-gray-700 mb-4">
         Sorry, the data you are looking for is currently not available!

@@ -2,6 +2,7 @@
 
 import { addDays, format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   FaCheck,
   FaPauseCircle,
@@ -135,10 +136,12 @@ const GigDetails = () => {
                     >
                       <IoMdClose className="text-2xl" />
                     </span>
-                    <img
+                    <Image
                       src={isFullImg}
                       alt=""
-                      className="w-full h-fit rounded-md cursor-pointer"
+                      className="w-full h-auto rounded-md cursor-pointer"
+                      width={800}
+                      height={600}
                       onClick={() => setIsFullImg("")}
                     />
                   </div>
@@ -160,10 +163,12 @@ const GigDetails = () => {
                             {images?.length &&
                               images?.map((url) => (
                                 <SwiperSlide key={url}>
-                                  <img
+                                  <Image
                                     src={url}
                                     className="w-full h-[600px] object-cover rounded-xl cursor-pointer"
                                     alt=""
+                                    width={600}
+                                    height={600}
                                     onClick={() => setIsFullImg(url)}
                                   />
 

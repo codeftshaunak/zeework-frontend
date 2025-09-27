@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import React, { useEffect, useState } from "react";
 
@@ -35,9 +36,11 @@ const AgencyTopbar = () => {
               borderColor: "#22c55e",
             }}
           >
-            <img
+            <Image
               src="/images/dashboard/zeework_proposals.png"
               alt="proposals"
+              width={40}
+              height={40}
             />
             <div
               onClick={() => {
@@ -58,7 +61,7 @@ const AgencyTopbar = () => {
             }}
           >
             {" "}
-            <img src="/images/dashboard/zeework_stats.png" alt="proposals" />
+            <Image src="/images/dashboard/zeework_stats.png" alt="proposals" width={40} height={40} />
             <div
               onClick={() => {
                 router.push("/my-stats");
@@ -78,7 +81,7 @@ const AgencyTopbar = () => {
             }}
           >
             {" "}
-            <img src="/images/dashboard/zeework_jobs.png" alt="proposals" />
+            <Image src="/images/dashboard/zeework_jobs.png" alt="proposals" width={40} height={40} />
             <div
               onClick={() => {
                 router.push("/my-jobs");

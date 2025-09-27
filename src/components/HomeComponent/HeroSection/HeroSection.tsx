@@ -1,4 +1,5 @@
  
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "../../ui/button";
 import { Badge } from "../../ui/badge";
@@ -99,10 +100,12 @@ const HeroSection = () => {
           {/* Right Content - Hero Image */}
           <div className="relative">
             <div className="relative z-10">
-              <img
-                src="images/hero_right.svg"
+              <Image
+                src="/images/hero_right.svg"
                 alt="Freelance Platform"
                 className="w-full h-auto max-w-lg mx-auto"
+                width={512}
+                height={400}
               />
             </div>
 

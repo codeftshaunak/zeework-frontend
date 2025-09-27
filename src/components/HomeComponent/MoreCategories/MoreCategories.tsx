@@ -1,8 +1,13 @@
+import Image from 'next/image';
+
 const MoreCategoriesCard = ({ image, title }) => (
   <div className="rounded-[20px] h-[124px] w-[250px] flex justify-center items-center border max-md:rounded-[40px] max-md:w-full relative overflow-hidden hover:scale-110 transition-all duration-500">
-    <img
+    <Image
       className="absolute w-full h-full object-fill z-10 brightness-50"
-      src={image}
+      src={image.replace('./images/', '/images/')}
+      alt={title}
+      width={250}
+      height={124}
     />
     <h5 className="font-poppins font-semibold text-xl text-white z-20 hover:animate-bounce cursor-pointer">
       {title}

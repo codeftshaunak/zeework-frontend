@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 
 import { useEffect, useRef, useState } from "react";
@@ -190,7 +191,7 @@ const AgencyProjects = ({ agency, setAgency }) => {
           </div>
         ) : (
           <div className="mt-[20px]">
-            <img src="/images/404not-added.png" className="m-[auto]"></img>
+            <Image src="/images/404not-added.png" className="m-[auto]" alt="No projects added" width={200} height={200} />
             <span className="mt-[1.5rem] font-semibold text-center">
               You haven&apos;t added any projects yet!
             </span>
@@ -272,9 +273,11 @@ const AgencyProjects = ({ agency, setAgency }) => {
                         key={index}
                         className="relative mr-2 border border-green-300 rounded"
                       >
-                        <img
+                        <Image
                           src={URL.createObjectURL(image)}
                           alt={`Selected ${index + 1}`}
+                          width={112}
+                          height={80}
                           className="object-cover h-20 rounded w-28"
                         />
                         <span

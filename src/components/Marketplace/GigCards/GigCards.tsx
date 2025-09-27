@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import GigCardSkeleton from "../../Skeletons/GigCardSkeleton";
 import { Tooltip } from "@/components/ui/migration-helpers";
@@ -25,17 +25,21 @@ const GigCards = ({ gigs, isLoading }) => {
                   router.push(`/gig-details/${gig._id}`)
                 }
               >
-                <img
+                <Image
                   className="w-full h-40 object-cover rounded"
-                  src={gig?.images?.[0]}
+                  src={gig?.images?.[0] || '/images/placeholder.png'}
                   alt="gig img"
+                  width={400}
+                  height={160}
                 />
                 <div className="pt-4 border-t">
                   <div className="flex items-center">
-                    <img
-                      src={gig?.user_details?.profile_image}
+                    <Image
+                      src={gig?.user_details?.profile_image || '/images/default-avatar.png'}
                       alt="user"
                       className="inline-block w-8 h-8 border border-gray-200 rounded-full shadow-md object-cover cursor-pointer mb-3 border-solid"
+                      width={32}
+                      height={32}
                     />
                     <p className="font-semibold text-md ml-2 mb-2">
                       {gig?.user_details?.firstName +

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BsLink45Deg, BsPlus } from "react-icons/bs";
 import { toast } from "@/lib/toast";
+import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -187,10 +188,12 @@ export const FreelancerProfile: React.FC<FreelancerProfileProps> = ({
               profile_image === null ? (
                 <Avatar name={`${firstName} ${lastName}`} />
               ) : (
-                <img
+                <Image
                   src={profile_image}
                   alt={`${firstName} ${lastName}`}
                   className="w-[60px] object-cover h-[60px] rounded-full shadow-md"
+                  width={60}
+                  height={60}
                 />
               )}
             </div>

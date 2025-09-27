@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarBadge } from "@/components/ui/migration-helpers";
 import { IoLocation } from "react-icons/io5";
+import Image from "next/image";
 
 const InvitedFreelancerCard = ({ profile }) => {
   const router = useRouter();
@@ -11,9 +12,11 @@ const InvitedFreelancerCard = ({ profile }) => {
     <div className="shadow rounded-lg px-5">
       <div className="flex gap-8 py-8">
         {/* <div className="w-[200px] h-[150px]">
-          <img
+          <Image
             src="https://c.animaapp.com/LZ3BWujk/img/rectangle-26-1@2x.png"
             alt=""
+            width={200}
+            height={150}
           />
         </div> */}
         <div className="w-full space-y-2">

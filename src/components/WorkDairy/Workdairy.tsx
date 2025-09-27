@@ -1,10 +1,11 @@
 "use client";
+import Image from "next/image";
 
 import {
   Box,
   Divider,
   HStack,
-  Image,
+  Image as ChakraImage,
   Input,
   Text,
   VStack,
@@ -116,7 +117,7 @@ const Workdairy = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => {
             return (
               <div className="flex flex-col items-start" key={item}>
-                <img
+                <Image
                   src="https://i.ibb.co/tmNpfvL/Screenshot-2023-10-30-at-11-16-14-PM.png"
                   style={customStyles_img}
                   alt="screenshot"

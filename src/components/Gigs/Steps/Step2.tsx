@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 
 
 import { useCallback, useEffect, useState } from "react";
@@ -131,10 +132,12 @@ const Step2 = ({ submitCallback, onBack, afterSubmit, formValues }) => {
                     key={index}
                     className="rounded border border-green-300 mr-2 relative"
                   >
-                    <img
+                    <Image
                       src={image.preview}
                       alt={`Selected ${index + 1}`}
                       className="w-28 h-20 object-cover rounded"
+                      width={112}
+                      height={80}
                     />
                     <span
                       className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"

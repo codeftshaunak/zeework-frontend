@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const TimerDownloadCard = ({ msg } : { msg?: string}) => {
   const router = useRouter();
@@ -10,15 +11,19 @@ const TimerDownloadCard = ({ msg } : { msg?: string}) => {
       } mt-6 mx-auto rounded-2xl w-full  h-[500px] relative bg-gradient-to-br from-[#F2FDF0] to-[#A4B8A1]`}
     >
       <div>
-        <img
+        <Image
           className="absolute bottom-0 right-0 rounded-2xl"
           src="/images/dashboard/zeework_card-bg.png"
           alt="banner"
+          width={350}
+          height={500}
         />
-        <img
+        <Image
           className="absolute bottom-0 right-0 rounded-2xl"
           src="/images/dashboard/zeework_banner.png"
           alt="banner"
+          width={350}
+          height={500}
         />
       </div>
       <div className="flex flex-col gap-3 absolute top-0 left-0 p-6">

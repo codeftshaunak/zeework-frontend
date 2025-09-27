@@ -1,4 +1,5 @@
 /* eslint-disable react/no-children-prop */
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GreenButton } from "../../utils/Buttons/Buttons";
 
@@ -9,29 +10,41 @@ const Findtalent = () => {
       <div className="w-full">
         <div className="flex lg:gap-8 justify-between max-[440px]:h-[480px] max-[1439px]:items-center flex-col xl:flex-row w-full h-full max-md:overflow-hidden items-center">
           <div className=" max-lg:w-full max-2xl:flex-1 h-full 2xl:basis-[540px] max-md:relative max-md:overflow-hidden max-md:border max-md:rounded-[60px]">
-            <img
+            <Image
               className="absolute min-[440px]:hidden w-full h-full brightness-75"
-              src="images/TalentSectionImg3.png"
-              alt=""
+              src="/images/TalentSectionImg3.png"
+              alt="talent image"
+              width={540}
+              height={400}
             />
-            <img
+            <Image
               className="absolute max-[440px]:hidden md:hidden w-full h-full brightness-[.3]"
-              src="images/TalentSectionImg1.png"
-              alt=""
+              src="/images/TalentSectionImg1.png"
+              alt="talent image"
+              width={540}
+              height={400}
             />
             <div className="w-full max-xl:items-center flex flex-col gap-8 py-8 px-4 relative h-full justify-center">
-              <img
+              <Image
                 className="absolute z-10 top-[74px] max-xl:left-[calc(50%-140px)] left-[100px] max-md:hidden"
-                src="./images/Underline.svg"
-                alt=""
+                src="/images/Underline.svg"
+                alt="talent image"
+                width={140}
+                height={20}
               />
-              <img
+              <Image
                 className="absolute z-10 left-[2%] -bottom-[7%] max-[1439px]:hidden"
-                src="./images/TalentEllipse.svg"
+                src="/images/TalentEllipse.svg"
+                alt="decoration"
+                width={50}
+                height={50}
               />
-              <img
+              <Image
                 className="absolute z-10 left-[25%] bottom-0 max-[1439px]:hidden"
-                src="./images/TalentCircle3.svg"
+                src="/images/TalentCircle3.svg"
+                alt="decoration"
+                width={30}
+                height={30}
               />
               <h1 className=" font-cabinet-normal md:text-[40px] text-[1.9rem] md:leading-[70px] md:text-left sm:text-center max-md:text-white max-[425px]:text-[1.2rem]  max-[425px]:font-geist-extra  max-[425px]:text-center">
                 Find{" "}
@@ -53,40 +66,58 @@ const Findtalent = () => {
             </div>
           </div>
           <div className="w-full max-2xl:flex-1 xl:w-[755px] flex justify-center max-md:hidden relative">
-            <img
+            <Image
               className="absolute z-10 -left-[5%] -bottom-[10%]"
-              src="./images/TalentCircle1.svg"
+              src="/images/TalentCircle1.svg"
+              alt="decoration"
+              width={40}
+              height={40}
             />
-            <img
+            <Image
               className="absolute z-10 right-[calc(40.5%)] -bottom-[10%]"
-              src="./images/TalentCircle2.svg"
+              src="/images/TalentCircle2.svg"
+              alt="decoration"
+              width={30}
+              height={30}
             />
-            <img
+            <Image
               className="absolute z-10 right-0 -bottom-[27.5%]"
-              src="./images/TalentEllipse2.svg"
+              src="/images/TalentEllipse2.svg"
+              alt="decoration"
+              width={60}
+              height={60}
             />
             <div className="flex gap-8 h-full">
               <div className="flex gap-8 flex-col justify-between basis-[50%]">
                 <div className="basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                   <div className="bg-gradient-to-br from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                  <img
+                  <Image
                     className="h-full w-full z-0"
-                    src="images/TalentSectionImg1.png"
+                    src="/images/TalentSectionImg1.png"
+                    alt="talent image"
+                    width={300}
+                    height={200}
                   />
                 </div>
                 <div className="basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                   <div className="bg-gradient-to-l from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                  <img
+                  <Image
                     className="h-full w-full z-0"
-                    src="images/TalentSectionImg2.png"
+                    src="/images/TalentSectionImg2.png"
+                    alt="talent image"
+                    width={300}
+                    height={200}
                   />
                 </div>
               </div>
               <div className="h-full basis-[50%] rounded-[24px] border overflow-hidden relative z-50">
                 <div className="bg-gradient-to-bl from-[#055020]/20 to-[#0A5D29] absolute top-0 left-0 right-0 bottom-0 opacity-40"></div>
-                <img
+                <Image
                   className="h-full w-full z-0"
-                  src="images/TalentSectionImg3.png"
+                  src="/images/TalentSectionImg3.png"
+                  alt="talent image"
+                  width={300}
+                  height={400}
                 />
               </div>
             </div>

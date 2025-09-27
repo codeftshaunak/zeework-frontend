@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { toast } from "@/lib/toast";
+import Image from "next/image";
 import {
   RiDeleteBin2Fill,
   RiEdit2Fill,
@@ -237,10 +238,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          <img
-            src={project_images?.[0]}
+          <Image
+            src={project_images?.[0] || '/images/placeholder-project.png'}
             alt=""
             className="h-40 sm:h-48 w-full bg-cover object-cover rounded-md"
+            width={400}
+            height={192}
           />
           {isHover && (
             <div className="h-40 sm:h-48 w-full absolute top-0 left-0 bg-black/30 transition duration-300">
@@ -327,7 +330,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
                 {project_images?.length &&
                   project_images?.map((img, idx) => (
                     <SwiperSlide key={idx}>
-                      <img src={img} className="w-full h-fit" />
+                      <Image src={img} className="w-full h-auto" alt="Project image" width={600} height={400} />
                     </SwiperSlide>
                   ))}
               </Swiper>
@@ -474,10 +477,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ info, setIsDeleteAgencyId, is
                             key={image.preview}
                             className="rounded border border-green-300 mr-2 relative"
                           >
-                            <img
+                            <Image
                               src={image.preview}
                               alt={`Selected ${index + 1}`}
                               className="w-28 h-20 object-cover rounded"
+                              width={112}
+                              height={80}
                             />
                             <span
                               className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"

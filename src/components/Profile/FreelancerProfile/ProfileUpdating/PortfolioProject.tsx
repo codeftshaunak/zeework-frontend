@@ -4,6 +4,7 @@ import { toast } from "@/lib/toast";
 import { FaCloudUploadAlt, FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { getSkills } from "../../../../helpers/APIs/freelancerApis";
 import Select from "react-select";
@@ -240,10 +241,12 @@ const PortfolioProject: React.FC<PortfolioProjectProps> = ({ type, setIsModal })
                           key={index}
                           className="rounded border border-green-300 mr-2 relative"
                         >
-                          <img
+                          <Image
                             src={image.preview}
                             alt={`Selected ${index + 1}`}
                             className="w-28 h-20 object-cover rounded"
+                            width={112}
+                            height={80}
                           />
                           <span
                             className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"

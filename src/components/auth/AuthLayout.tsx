@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
@@ -29,9 +30,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
             className="flex items-center cursor-pointer group w-fit"
             onClick={() => router.push("/")}
           >
-            <img
+            <Image
               src="/images/zeework_logo.png"
               alt="ZeeWork"
+              width={120}
+              height={24}
               className="h-6 w-auto transition-transform group-hover:scale-105"
             />
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   HStack,
   Card,
@@ -6,7 +7,7 @@ import {
   Box,
   Button,
   VStack,
-  Image,
+  Image as ChakraImage,
 } from "@/components/ui/migration-helpers";
 import { useRouter } from "next/navigation";
 const data = [
@@ -67,7 +68,7 @@ const Adjustment = () => {
           backdropFilter="blur(10px)"
          className="h-[max-content] p-[2rem 0] rounded border absolute">
           <div className="flex flex-col gap-4 w-[60%] max-md:!w-[80%]">
-            <img src="./images/zeework_logo.png" />
+            <Image src="/images/zeework_logo.png" alt="ZeeWork Logo" width={200} height={53} />
             <span>
               Welcome to ZeeWork!
             </span>

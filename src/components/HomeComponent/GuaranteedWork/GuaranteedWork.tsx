@@ -1,4 +1,5 @@
 import { FaCheckCircle } from "react-icons/fa";
+import Image from "next/image";
 
 function GuaranteedWorkCard({ title, text }) {
   return (
@@ -51,9 +52,12 @@ const GuaranteedWork = () => {
         </div>
 
         <div className="hidden xl:flex items-baseline">
-          <img
+          <Image
             className="object-contain w-[800px]"
-            src="./images/gurentee_image.webp"
+            src="/images/gurentee_image.webp"
+            alt="Guaranteed work"
+            width={800}
+            height={600}
           />
         </div>
       </div>

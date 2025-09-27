@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 
 import { Avatar } from "@/components/ui/migration-helpers";
@@ -63,9 +64,11 @@ export const Header = () => {
               className="flex items-center space-x-3 cursor-pointer group"
               onClick={() => router.push("/")}
             >
-              <img
+              <Image
                 src="/images/zeework_logo.png"
                 alt="ZeeWork"
+                width={120}
+                height={24}
                 className="h-6 w-auto transition-transform group-hover:scale-105"
               />
             </div>
@@ -494,9 +497,11 @@ export const AuthHeader = ({ role }: { role: number }) => {
                 className="cursor-pointer group"
                 onClick={() => router.push("/")}
               >
-                <img
+                <Image
                   src="/images/zeework_logo.png"
                   alt="ZeeWork"
+                  width={120}
+                  height={24}
                   className="h-6 w-auto transition-transform group-hover:scale-105"
                 />
               </div>

@@ -8,6 +8,7 @@ import { toast } from "@/lib/toast";
 import StarRatings from "react-star-ratings";
 import { Avatar } from "@/components/ui/migration-helpers";
 import { RiCloseCircleFill, RiVerifiedBadgeFill } from "react-icons/ri";
+import Image from "next/image";
 import {
   MdCheckCircleOutline,
   MdLocationOn,
@@ -86,10 +87,12 @@ const PurchasedGigDetails = () => {
         <div className="grid grid-cols-3 gap-5">
           <div className="col-span-2 w-full h-fit flex gap-10 bg-white p-8 rounded-xl border border-[var(--bordersecondary)]">
             <div>
-              <img
-                src={images?.[0]}
+              <Image
+                src={images?.[0] || '/images/placeholder-gig.png'}
                 alt="gig"
                 className="w-80 h-56 object-cover rounded"
+                width={320}
+                height={224}
               />
             </div>
             <div className="text-lg">

@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Tooltip } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoArrowBack, IoArrowForwardSharp } from "react-icons/io5";
@@ -29,17 +30,21 @@ export const GigCard = ({ data, isPurchaseReq, tabIndex }) => {
       }
     >
       <div>
-        <img
+        <Image
           className="w-full h-40 object-cover rounded"
-          src={images?.[0]}
+          src={images?.[0] || '/images/placeholder-gig.png'}
           alt="gig img"
+          width={400}
+          height={160}
         />
         <div className=" pt-4 border-t">
           <div className="flex items-center">
-            <img
-              src={profile_image}
+            <Image
+              src={profile_image || '/images/default-avatar.png'}
               alt="user"
               className="inline-block w-[30px] h-[30px] border border-gray-200 rounded-full shadow-md object-cover cursor-pointer mb-3 border-solid"
+              width={30}
+              height={30}
             />
             <p className="font-semibold text-xs ml-2 mb-2">
               {firstName + " " + lastName?.slice(0, 1) + "."}

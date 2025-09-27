@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { useSelector } from "react-redux";
+import Image from 'next/image';
 
 const Greetings = () => {
     const profile = useSelector((state: any) => state.profile.profile);
@@ -31,15 +32,19 @@ const Greetings = () => {
                     </div>
                 </div>
                 <div className="relative flex-1 hidden sm:block">
-                    <img
+                    <Image
                         src="/images/dashboard/zeework_banner-bg.png"
                         alt=""
                         className="absolute h-full z-[0] bottom-0 top-0 sm:right-6 lg:right-12"
+                        width={200}
+                        height={150}
                     />
-                    <img
+                    <Image
                         src="/images/dashboard/banner-cards.png"
                         alt=""
                         className="absolute h-full z-1 bottom-0 right-2"
+                        width={150}
+                        height={150}
                     />
                 </div>
             </div>

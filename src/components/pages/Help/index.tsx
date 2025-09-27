@@ -132,11 +132,13 @@ const Help = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col gap-10 sm:mt-10 pb-12 w-full">
-        <img
-          src="./images/help_banner.png"
+        <Image
+          src="/images/help_banner.png"
           alt="cover image"
           className="shadow bg-cover w-full rounded mt-[2rem]"
           style={{objectFit: "cover", filter: "brightness(100%)"}}
+          width={800}
+          height={400}
         />
         <div className="flex gap-10 w-full flex-wrap">
           <div className="w-full">

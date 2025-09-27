@@ -5,6 +5,7 @@
 import StarIcon from "../../../assets/icons/star";
 import { useRouter } from "next/navigation";
 import { Fade } from "react-awesome-reveal";
+import Image from "next/image";
 
 function WorkTeamCard({ title, description, icon }) {
   return (
@@ -190,9 +191,12 @@ function HomeComp() {
                 </div>
               </div>
             </div>
-            <img
+            <Image
               className="w-[620.98px] h-[695px] absolute -top-8 right-0"
               src="/placeholder-sidebar.png"
+              alt="sidebar"
+              width={621}
+              height={695}
             />
           </div>
         </Fade>
@@ -451,7 +455,7 @@ function HomeComp() {
         <Fade>
           <div className="w-[1279.50px] h-[702px] justify-start items-center gap-[67px] inline-flex mt-20">
             <div className="w-[574.50px] h-[549px] relative">
-              <img className="w-100 left-[1px] top-0 absolute " src="/placeholder-girl.png" />
+              <Image className="w-100 left-[1px] top-0 absolute" src="/placeholder-girl.png" alt="girl" width={400} height={500} />
             </div>
             <div className="flex-col justify-start items-start gap-9 inline-flex">
               <div className="flex-col justify-start items-start gap-3 flex">

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const ActiveJobCard = ({ job }) => {
@@ -29,7 +30,7 @@ const ActiveJobCard = ({ job }) => {
         {status === "task_submitted" ? "Task Submited" : "Active"}
       </span>
       <div className="flex flex-col">
-        <img src="./images/active_job.png" />
+        <Image src="/images/active_job.png" alt="Active Job" width={200} height={120} className="mx-auto" />
       </div>
       <div>
         <Link

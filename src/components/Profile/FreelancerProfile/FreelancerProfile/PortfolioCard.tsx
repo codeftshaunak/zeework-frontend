@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, HStack, VStack } from "@/components/ui/migration-helpers";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
 
 // Import Swiper styles
 import "swiper/css";
@@ -246,9 +247,12 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
         onMouseLeave={() => setIsHover(false)}
       >
         <div className="overflow-hidden">
-          <img
-            src={attachements?.[0]}
+          <Image
+            src={attachements?.[0] || '/images/placeholder-portfolio.png'}
             className="h-48 object-cover rounded-t w-full"
+            width={400}
+            height={192}
+            alt="Portfolio image"
           />
         </div>
         <p className="text-[14px] text-[var(--primarycolor)] cursor-pointer font-[600] border px-3 py-2 rounded-b">
@@ -399,10 +403,12 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
                         key={image.preview}
                         className="rounded border border-green-300 mr-2 relative"
                       >
-                        <img
+                        <Image
                           src={image.preview}
                           alt={`Selected ${index + 1}`}
                           className="w-28 h-20 object-cover rounded"
+                          width={112}
+                          height={80}
                         />
                         <span
                           className="h-5 w-5 bg-red-50/10 rounded-full absolute top-0 right-0 flex items-center justify-center cursor-pointer backdrop-blur backdrop-filter hover:bg-red-100 hover:text-red-500"
@@ -541,7 +547,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ portfolio, categories, vi
               {attachements?.length &&
                 attachements?.map((img, idx) => (
                   <SwiperSlide key={idx}>
-                    <img src={img} className="w-full h-fit" />
+                    <Image src={img} className="w-full h-auto" alt="Portfolio image" width={600} height={400} />
                   </SwiperSlide>
                 ))}
             </Swiper>
