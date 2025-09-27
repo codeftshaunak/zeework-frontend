@@ -28,7 +28,6 @@ declare global {
 
   // Globals that might be missing
   const navigate: any;
-  const usePathname: () => string;
 
   // Flexible state typing for Redux
   type RootState = {
