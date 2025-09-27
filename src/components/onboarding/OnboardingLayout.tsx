@@ -111,7 +111,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                 variant="outline"
                 onClick={onBack}
                 disabled={!canGoBack || isLoading}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 cursor-pointer"
               >
                 <ArrowLeft className="h-4 w-4" />
                 {backText}
@@ -122,7 +122,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                 variant="gradient"
                 onClick={onNext}
                 disabled={!canGoNext || isLoading}
-                className="flex items-center gap-2 min-w-[120px]"
+                className="flex items-center gap-2 min-w-[120px] cursor-pointer"
               >
                 {isLoading ? (
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

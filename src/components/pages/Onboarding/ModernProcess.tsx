@@ -41,8 +41,9 @@ const getSchema = (page: number, role: number) => {
     if (page == 3) return onboardingFreelancerSchema.info;
     if (page == 4) return onboardingFreelancerSchema.skills;
   } else if (role == 2) {
-    return onboardingClientSchema;
+    if (page == 2) return onboardingClientSchema;
   }
+  return undefined;
 };
 
 const ModernProcess = () => {
@@ -63,6 +64,7 @@ const ModernProcess = () => {
   const { getUserDetails } = useContext(CurrentUserContext);
   const userName = sessionStorage.getItem("userName");
 
+  const schema = getSchema(page, role);
   const {
     handleSubmit,
     setValue,
@@ -71,7 +73,7 @@ const ModernProcess = () => {
     trigger,
     reset,
   } = useForm({
-    resolver: yupResolver(getSchema(page, role)),
+    resolver: schema ? yupResolver(schema) : undefined,
   });
 
   const onSubmit = async (body: any) => {
@@ -99,7 +101,7 @@ const ModernProcess = () => {
         setSelectedSubCategory([]);
         // Don't clear selectedSkills here - they should persist for the current step
       } else if (code === 200 && role == 2) {
-        await getUserDetails();
+       const result = await getUserDetails();
         const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
         await delay(1500);
         router.push("/client-dashboard");
@@ -508,12 +510,12 @@ const ModernProcess = () => {
             Business Name
           </label>
           <Input
-            {...register("businessName")}
+            {...register("business_name")}
             placeholder="Your company name"
             className="h-12 text-base"
           />
-          {errors.businessName && (
-            <p className="text-sm text-red-500 font-medium">{errors.businessName.message}</p>
+          {errors.business_name && (
+            <p className="text-sm text-red-500 font-medium">{errors.business_name.message}</p>
           )}
         </div>
 
@@ -522,12 +524,12 @@ const ModernProcess = () => {
             Business Description
           </label>
           <Textarea
-            {...register("briefDescription")}
+            {...register("brief_description")}
             placeholder="Describe your business and what kind of talent you're looking to hire..."
             className="min-h-[120px] text-base resize-none"
           />
-          {errors.briefDescription && (
-            <p className="text-sm text-red-500 font-medium">{errors.briefDescription.message}</p>
+          {errors.brief_description && (
+            <p className="text-sm text-red-500 font-medium">{errors.brief_description.message}</p>
           )}
         </div>
       </div>
@@ -545,7 +547,7 @@ const ModernProcess = () => {
       {role === 1 && page === 4 && renderSkillsStep()}
 
       {/* Client Flow */}
-      {role === 2 && page === 2 && renderClientStep()}
+      {role == 2 && page === 2 && renderClientStep()}
     </>
   );
 };
