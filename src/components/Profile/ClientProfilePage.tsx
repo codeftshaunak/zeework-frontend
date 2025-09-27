@@ -390,12 +390,21 @@ export const ClientProfilePage: React.FC = () => {
                             {...getInputProps()}
                             className="w-full py-1.5 outline-none text-[14px] text-[#000] font-[400] border-[var(--bordersecondary)]"
                             placeholder="Select an image"
-                            onChange={() => {
-                              const file = getInputProps().files[0];
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                              const file = e.target.files?.[0];
+                              
                               if (file) {
                                 setFileName(file.name);
+                                setFullImage([file]);
+                                setErrorMessage("");
+                                
+                                // Create image preview
+                                const reader = new FileReader();
+                                reader.readAsDataURL(file);
+                                reader.onload = () => {
+                                  setImageSrc(reader.result as string);
+                                };
                               }
-                              setErrorMessage("");
                             }}
                           />
 
@@ -468,7 +477,7 @@ export const ClientProfilePage: React.FC = () => {
                                 : "bg-slate-500"
                             } rounded py-1 px-3 text-white w-fit mt-2`}
                             onClick={() => {
-                              document.getElementById("file-input").click();
+                              document.getElementById("file-input")?.click();
                             }}
                           >
                             <BiImages /> Changed File
@@ -476,7 +485,7 @@ export const ClientProfilePage: React.FC = () => {
                           <input
                             id="file-input"
                             type="file"
-                            {...getInputProps()}
+                            accept="image/*"
                             style={{ display: "none" }}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                               const file = e.target.files?.[0];
@@ -484,6 +493,7 @@ export const ClientProfilePage: React.FC = () => {
                                 setFileName(file.name);
                                 setFullImage([file]);
                                 setErrorMessage("");
+                                setIsCropped(false); // Reset crop state
                                 const reader = new FileReader();
                                 reader.readAsDataURL(file);
                                 reader.onload = () => {
