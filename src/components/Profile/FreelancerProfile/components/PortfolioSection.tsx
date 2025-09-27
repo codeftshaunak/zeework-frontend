@@ -123,7 +123,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                         <Badge
                           key={techIndex}
                           variant="outline"
-                          className="text-xs px-2 py-0.5"
+                          className="text-xs text-center px-2 py-0.5"
                         >
                           {tech}
                         </Badge>

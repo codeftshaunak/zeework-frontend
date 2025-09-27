@@ -53,7 +53,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                 <Badge
                   key={keyValue}
                   variant="secondary"
-                  className="px-3 py-1 text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200"
+                  className="px-3 py-1 text-sm text-center mx-auto font-medium bg-green-50 text-green-700 hover:bg-green-100 border border-green-200"
                 >
                   {skillText}
                 </Badge>
