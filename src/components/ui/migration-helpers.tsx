@@ -538,6 +538,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   return (
     <div className={avatarClasses} {...props}>
       {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
           alt={name}
@@ -1004,6 +1005,7 @@ export const Image: React.FC<ImageProps> = ({
   );
 
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={imgSrc}
       alt={alt}
